@@ -57,7 +57,7 @@ function notify(msg, details, transient) {
     let source = new MessageTray.Source("BingWallpaper", ICON);
     // force expanded notification
     source.policy = new MessageTray.NotificationPolicy({ enable: true,
-                                        enableSound: true,
+                                        enableSound: false,
                                         showBanners: true,
                                         forceExpanded: true,
                                         showInLockScreen: true,
@@ -156,7 +156,7 @@ const BingWallpaperIndicator = new Lang.Class({
         } else {
             let message = this.explanation;
             if (this.copyright != "")
-                message += "\n**" + this.copyright + "**"
+                message += "\n" + this.copyright + ""
             notify(this.title, message, this._settings.get_boolean('transient'));
         }
     },
@@ -197,13 +197,13 @@ const BingWallpaperIndicator = new Lang.Class({
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = "Bing Wallpaper of the Day for ("+imagejson['fullstartdate']+")";
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
-            //let url = ('hdurl' in parsed) ? parsed['hdurl'] : parsed['url'];
             let resolution = this._settings.get_string('resolution');
 
-            if (validresolutions.indexOf(resolution) == -1)
+            if (validresolutions.indexOf(resolution) == -1) {
                 resolution = "1920x1200";
+            }
 
-            let url = BingURL+imagejson['url'].replace('1920x1080','1920x1200');
+            let url = BingURL+imagejson['url'].replace('1920x1080',resolution);
 
             log("Bing new wallpaper: "+url);
             log("Bing new wallpaper description: "+this.title);
