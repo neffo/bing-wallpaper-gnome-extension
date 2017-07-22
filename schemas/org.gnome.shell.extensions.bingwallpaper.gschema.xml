@@ -1,0 +1,56 @@
+<schemalist gettext-domain="gnome-shell-extensions">
+
+  <schema id="org.gnome.shell.extensions.bingwallpaper"
+      path="/org/gnome/shell/extensions/bingwallpaper/">
+
+    <key name="hide" type="b">
+      <default>false</default>
+        <summary>Hide indicator</summary>
+        <description>Hide indicator icon from status area</description>
+    </key>
+
+    <key name="notify" type="b">
+      <default>true</default>
+        <summary>Send a notifications</summary>
+        <description>Send a notification with explanation when the picture of the day is downloaded</description>
+    </key>
+
+    <key name="transient" type="b">
+      <default>true</default>
+        <summary>Use transient notifications (auto dismiss)</summary>
+        <description></description>
+    </key>
+
+    <key name="set-background" type="b">
+      <default>true</default>
+        <summary>Set background</summary>
+        <description>Set background to Bing's background</description>
+    </key>
+
+    <key name="set-lock-screen" type="b">
+      <default>true</default>
+        <summary>Set lock screen</summary>
+        <description>Set lock screen to Bing's background</description>
+    </key>
+
+    <key name="download-folder" type="s">
+      <default>"Pictures/BingWallpaper"</default>
+      <summary>Where to download pictures.</summary>
+      <description></description>
+    </key>
+
+    <key name="market" type="s">
+      <default>"en-US"</default>
+      <summary>Default Market for Bing</summary>
+      <description></description>
+    </key>
+
+    <key name="resolution" type="s">
+      <default>"1920x1200"</default>
+      <summary>Screen Size</summary>
+      <description>Valid sizes are '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', and '1920x1200' </description>
+    </key>
+    
+
+  </schema>
+</schemalist>
