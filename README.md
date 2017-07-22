@@ -24,3 +24,6 @@ or create a zip file by doing this
 `cd bing-wallpaper-gnome-extension`
 `zip -r ../BingWallpaper@ineffable-gmail.com.zip *`
 
+## Screenshot
+
+![Screenshot](/screenshot/notification.png)
