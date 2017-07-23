@@ -16,10 +16,10 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"; //+ "&mkt="; // optional Bing market (currently ignored)
+const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"+"&mkt="; // optional Bing market (currently ignored)
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
-const TIMEOUT_SECONDS = 6 * 3600;
+const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const ICON = "bing"
 
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
@@ -172,18 +172,21 @@ const BingWallpaperIndicator = new Lang.Class({
         log("market: " + market);
 
         // create an http message
-        let request = Soup.Message.new('GET', BingImageURL); // + market
+        let request = Soup.Message.new('GET', BingImageURL+market); // + market
+        log("fetching: " + BingImageURL+market);
 
         // queue the http request
         httpSession.queue_message(request, Lang.bind(this, function(httpSession, message) {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
+                log("Recieved "+data.length+" bytes");
                 this._parseData(data);
             } else if (message.status_code == 403) {
                 notifyError("Error 403: No access");
                 this._updatePending = false;
             } else {
                 notifyError("Network error");
+                og("Network error occured: "+message.status_code);
                 this._updatePending = false;
             }
         }));
@@ -213,10 +216,14 @@ const BingWallpaperIndicator = new Lang.Class({
                 BingWallpaperDir = GLib.get_home_dir() + "/Pictures/BingWallpaper/";
             else if (!BingWallpaperDir.endsWith('/'))
                 BingWallpaperDir += '/';
-            this.filename = BingWallpaperDir + imagejson['startdate'] + '-BingWallpaper-'+ resolution + '.jpg';
+            
+            this.filename = BingWallpaperDir+imagejson['startdate']+'-'+url.replace(/^.*[\\\/]/, '');
 
             let file = Gio.file_new_for_path(this.filename);
-            if (!file.query_exists(null)) {
+            let file_exists = file.query_exists(null);
+            let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
+
+            if (!file_exists || file_info.get_size () == 0) { // file doesn't exist or is empty (probably due to a network error)
                 let dir = Gio.file_new_for_path(BingWallpaperDir);
                 if (!dir.query_exists(null)) {
                     dir.make_directory_with_parents(null);

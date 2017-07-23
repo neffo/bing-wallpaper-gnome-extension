@@ -26,7 +26,8 @@ function buildPrefsWidget(){
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooser = buildable.get_object('download_folder');
-    let apiEntry = buildable.get_object('market');
+    let marketEntry = buildable.get_object('market');
+    let resolutionEntry = buildable.get_object('resolution');
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -51,10 +52,17 @@ function buildPrefsWidget(){
     });
 
     // Bing Market (locale/country)
-    settings.bind('market', apiEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('market', marketEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::market', function() {
         if (settings.get_string('market') == "")
             settings.reset('market');
+    });
+
+    // Resolution
+    settings.bind('resolution', resolutionEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+    settings.connect('changed::resolution', function() {
+        if (settings.get_string('resolution') == "")
+            settings.reset('resolution');
     });
 
     box.show_all();
