@@ -266,12 +266,6 @@ const BingWallpaperIndicator = new Lang.Class({
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
             bytes_so_far += chunk.length;
-
-            if(total_size) {
-                let fraction = bytes_so_far / total_size;
-                let percent = Math.floor(fraction * 100);
-                log("Download "+percent+"% done ("+bytes_so_far+" / "+total_size+" bytes)");
-            }
             fstream.write(chunk.get_data(), null, chunk.length);
         }));
 
