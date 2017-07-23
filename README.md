@@ -9,8 +9,8 @@ Microsoft in any way. Images are protected by copyright. And are licensed only
 for use as wallpapers.
 
 This extension is based extensively on the NASA APOD extension by Elinvention 
-(see https://github.com/Elinvention) and Bing Desktop Wallpaper Changer by
-Utkarsh Gupta (see https://github.com/UtkarshGpta).
+(see https://github.com/Elinvention) and inspired by Bing Desktop Wallpaper
+Changer by Utkarsh Gupta (see https://github.com/UtkarshGpta).
 
 This is my first attempt at a Gnome extension, so it may have some issues.
 
