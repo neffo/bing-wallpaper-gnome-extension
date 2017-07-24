@@ -24,6 +24,8 @@ or create a zip file by doing this
 `cd bing-wallpaper-gnome-extension`
 `zip -r ../BingWallpaper@ineffable-gmail.com.zip *`
 
+You can then install this file using the Gnome Tweak Tool. Please note to install an extension the zip have the metadata.json file in the base directory (not in a sub-directory), so you can't use the Git zip file to do this.
+
 ## Screenshot
 
 ![Screenshot](/screenshot/notification.png)
