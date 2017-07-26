@@ -4,5 +4,5 @@ glib-compile-schemas schemas/
 
 zip -r BingWallpaper@ineffable-gmail.com.zip *
 
-zip -d BingWallpaper@ineffable-gmail.com.zip screenshot/* screenshot
+zip -d BingWallpaper@ineffable-gmail.com.zip screenshot/* screenshot buildzip.sh
 

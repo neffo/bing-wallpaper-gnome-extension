@@ -117,6 +117,8 @@ const BingWallpaperIndicator = new Lang.Class({
             this.actor.visible = !this._settings.get_boolean('hide');
         }));
 
+        this.actor.visible = !this._settings.get_boolean('hide');
+
         this.showItem = new PopupMenu.PopupMenuItem("Show description");
         this.wallpaperItem = new PopupMenu.PopupMenuItem("Set wallpaper");
         this.refreshItem = new PopupMenu.PopupMenuItem("Refresh");
