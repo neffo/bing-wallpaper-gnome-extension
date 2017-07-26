@@ -12,6 +12,7 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 
 
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
@@ -20,9 +21,15 @@ const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
+const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in on-hour if there is a http error
 const ICON = "bing"
 
+let monitors;
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
+let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6]; // width / height (ignore the lower res equivalents)
+let monitorW; // largest (in pixels) monitor width
+let monitorH; // largest (in pixels) monitor height
+let autores; // automatically selected resolution
 
 let bingWallpaperIndicator;
 
@@ -144,10 +151,12 @@ const BingWallpaperIndicator = new Lang.Class({
             doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
     },
 
-    _restartTimeout: function() {
+    _restartTimeout: function(seconds = null) {
         if (this._timeout)
             Mainloop.source_remove(this._timeout);
-        this._timeout = Mainloop.timeout_add_seconds(TIMEOUT_SECONDS, Lang.bind(this, this._refresh));
+        if (seconds == null)
+            seconds = TIMEOUT_SECONDS;
+        this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
     },
 
     _showDescription: function() {
@@ -182,12 +191,13 @@ const BingWallpaperIndicator = new Lang.Class({
                 log("Recieved "+data.length+" bytes");
                 this._parseData(data);
             } else if (message.status_code == 403) {
-                notifyError("Error 403: No access");
+                log("Access denied: "+message.status_code);
                 this._updatePending = false;
+                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             } else {
-                notifyError("Network error");
-                og("Network error occured: "+message.status_code);
+                log("Network error occured: "+message.status_code);
                 this._updatePending = false;
+                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             }
         }));
     },
@@ -198,12 +208,17 @@ const BingWallpaperIndicator = new Lang.Class({
 
         if (imagejson['wp'] == true) {
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
-            this.explanation = "Bing Wallpaper of the Day for ("+imagejson['fullstartdate']+")";
+            this.explanation = "Bing Wallpaper of the Day for "+imagejson['startdate']+"";
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
             let resolution = this._settings.get_string('resolution');
 
+            if (resolution == "auto") {
+                log("auto resolution selected ("+autores+")");
+                resolution = autores;
+            }
+            
             if (validresolutions.indexOf(resolution) == -1) {
-                resolution = "1920x1200";
+                resolution = "1920x1080"; // changed to this resolution by default to avoid the Bing logo
             }
 
             let url = BingURL+imagejson['url'].replace('1920x1080',resolution);
@@ -302,6 +317,29 @@ function init(extensionMeta) {
 function enable() {
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
+    monitors = Main.layoutManager.monitors; // get list of connected monitors (and sizes)
+    let largest = 0;
+    for (let monitorIdx in monitors) {
+        let monitor = monitors[monitorIdx];
+        log("monitor "+monitorIdx+" -> "+monitor.width+" x "+monitor.height);
+        if ((monitor.width * monitor.height) > largest) {
+            monitorW = monitor.width;
+            monitorH = monitor.height;
+            largest = monitorW * monitorH;
+        }
+    }
+
+    log("highest res: "+monitorW+" x "+monitorH);
+
+    autores = monitorW+"x"+monitorH
+
+    if (validresolutions.indexOf(autores) == -1) {
+        autores = "1920x1080"; // default to this, as people don't like the Bing logo
+        log("unknown resolution, defaulted to "+autores);
+    }
+    else {
+        log("auto set resolution "+autores);
+    }
 }
 
 function disable() {

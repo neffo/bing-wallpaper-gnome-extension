@@ -467,7 +467,7 @@ Author: Elia Argentieri
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
-                            <property name="label" translatable="yes">Default is "1920x1200"</property>
+                            <property name="label" translatable="yes">Default is "auto", note 1920x1200 includes the Bing logo</property>
                             <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
