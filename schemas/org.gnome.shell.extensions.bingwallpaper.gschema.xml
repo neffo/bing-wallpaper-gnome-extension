@@ -50,6 +50,12 @@
       <summary>Screen Size</summary>
       <description>Valid sizes are '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', and '1920x1200' </description>
     </key>
+
+    <key name="debug-logging" type="b">
+      <default>false</default>
+        <summary>Log messages to systemd journal</summary>
+        <description>Unlikely to be useful for ordinary users, but helpful for debugging</description>
+    </key>
     
 
   </schema>

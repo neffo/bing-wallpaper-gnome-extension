@@ -11,8 +11,6 @@ const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 
-
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
@@ -31,11 +29,12 @@ let monitorW; // largest (in pixels) monitor width
 let monitorH; // largest (in pixels) monitor height
 let autores; // automatically selected resolution
 
-let bingWallpaperIndicator;
+let bingWallpaperIndicator=null;
 
 
 function log(msg) {
-    print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+    if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
+        print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
 // Utility function
@@ -160,7 +159,7 @@ const BingWallpaperIndicator = new Lang.Class({
         if (seconds == null)
             seconds = TIMEOUT_SECONDS;
         this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
-        log('next check in '+seconds+'seconds');
+        log('next check in '+seconds+' seconds');
     },
 
     _showDescription: function() {
@@ -332,7 +331,7 @@ function enable() {
         log("unknown resolution, defaulted to "+autores);
     }
     else {
-        log("auto set resolution "+autores);
+        log("detected best resolution "+autores);
     }
 }
 
