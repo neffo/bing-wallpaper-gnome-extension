@@ -19,12 +19,13 @@ You should have received a copy of the GNU Lesser General Public License
 along with this extension.  If not, see <http://www.gnu.org/licenses/>.
 
 Author: Elia Argentieri
+Modified by: Michael Carroll
 
 -->
 <interface domain="BingWallpaper">
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.18"/>
   <!-- interface-license-type lgplv3 -->
-  <!-- interface-name NASA APOD preferences -->
+  <!-- interface-name BingWallpaperChanger preferences -->
   <!-- interface-copyright 2017 -->
   <!-- interface-authors Elia Argentieri -->
   <object class="GtkNotebook" id="prefs_widget">

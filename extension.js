@@ -17,7 +17,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"+"&mkt="; // optional Bing market (currently ignored)
+const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"+"&mkt=";
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
@@ -35,7 +35,7 @@ let bingWallpaperIndicator;
 
 
 function log(msg) {
-    print("BingWallpaper extension: " + msg);
+    print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
 // Utility function
@@ -141,7 +141,8 @@ const BingWallpaperIndicator = new Lang.Class({
             this.wallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         }));
 
-        this._refresh();
+        //this._refresh(); // this may hang on start up?
+        this._restartTimeout(60); // wait 60 seconds before performing refresh
     },
 
     _setBackground: function() {
@@ -159,6 +160,7 @@ const BingWallpaperIndicator = new Lang.Class({
         if (seconds == null)
             seconds = TIMEOUT_SECONDS;
         this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
+        log('next check in '+seconds+'seconds');
     },
 
     _showDescription: function() {
@@ -219,14 +221,11 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
             
-            if (validresolutions.indexOf(resolution) == -1) {
+            if (validresolutions.indexOf(resolution) == -1) { // is resolution valid
                 resolution = "1920x1080"; // changed to this resolution by default to avoid the Bing logo
             }
 
-            let url = BingURL+imagejson['url'].replace('1920x1080',resolution);
-
-            log("Bing new wallpaper: "+url);
-            log("Bing new wallpaper description: "+this.title);
+            let url = BingURL+imagejson['url'].replace('1920x1080',resolution); // mangle url to user's resolution
 
             let BingWallpaperDir = this._settings.get_string('download-folder');
             if (BingWallpaperDir == "")
@@ -235,7 +234,6 @@ const BingWallpaperIndicator = new Lang.Class({
                 BingWallpaperDir += '/';
             
             this.filename = BingWallpaperDir+imagejson['startdate']+'-'+url.replace(/^.*[\\\/]/, '');
-
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
             let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
@@ -267,22 +265,16 @@ const BingWallpaperIndicator = new Lang.Class({
         // open the Gfile
         let fstream = file.replace(null, false, Gio.FileCreateFlags.NONE, null);
 
-        // variables for the progress bar
-        let total_size;
-        let bytes_so_far = 0;
-
         // create an http message
         let request = Soup.Message.new('GET', url);
 
         // got_headers event
         request.connect('got_headers', Lang.bind(this, function(message){
-            log("got_headers")
-            total_size = message.response_headers.get_content_length()
+            log("got_headers");
         }));
 
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
-            bytes_so_far += chunk.length;
             fstream.write(chunk.get_data(), null, chunk.length);
         }));
 
@@ -297,7 +289,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 if (this._settings.get_boolean('notify'))
                     this._showDescription();
             } else {
-                notifyError("Couldn't fetch image from " + url);
+                log("Couldn't fetch image from " + url);
                 file.delete(null);
             }
         }));
@@ -345,6 +337,7 @@ function enable() {
 }
 
 function disable() {
-    BingWallpaperIndicator.stop();
-    BingWallpaperIndicator.destroy();
+    bingWallpaperIndicator.stop();
+    bingWallpaperIndicator.destroy();
+    bingWallpaperIndicator = null;
 }

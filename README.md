@@ -8,11 +8,14 @@ also show a notification containing the title and the explanation of the image.
 Microsoft in any way. Images are protected by copyright. And are licensed only
 for use as wallpapers.
 
-This extension is based extensively on the NASA APOD extension by Elinvention 
-(see https://github.com/Elinvention) and inspired by Bing Desktop Wallpaper
-Changer by Utkarsh Gupta (see https://github.com/UtkarshGpta).
+This extension is based extensively on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
+and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta).
 
-This is my first attempt at a Gnome extension, so it may have some issues.
+This is my first attempt at a GNOME extension, so it may have some issues.
+
+## Requirements
+
+Gnome 3.18+ (Ubuntu Gnome 16.04+)
 
 ## Install
 
