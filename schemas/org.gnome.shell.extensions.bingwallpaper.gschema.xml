@@ -57,6 +57,23 @@
         <description>Unlikely to be useful for ordinary users, but helpful for debugging</description>
     </key>
     
+    <key name="delete-previous" type="b">
+      <default>false</default>
+        <summary>Delete previous wallpapers</summary>
+        <description>Save disk space</description>
+    </key>
+
+    <key name="previous" type="s">
+      <default>""</default>
+      <summary>Previous wallpapers</summary>
+      <description>Used to delete wallpapers after a set number of days</description>
+    </key>
+
+    <key name="previous-days" type="i">
+      <default>7</default>
+      <summary>Number of days to keep wallpapers</summary>
+      <description>Delete wallpapers after this number of days</description>
+    </key>
 
   </schema>
 </schemalist>

@@ -28,6 +28,11 @@ Modified by: Michael Carroll
   <!-- interface-name BingWallpaperChanger preferences -->
   <!-- interface-copyright 2017 -->
   <!-- interface-authors Elia Argentieri -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">7</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkNotebook" id="prefs_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -38,7 +43,7 @@ Modified by: Michael Carroll
         <property name="margin_left">12</property>
         <property name="margin_right">12</property>
         <property name="margin_top">12</property>
-        <property name="margin_bottom">12</property>
+        <property name="margin_bottom">102</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
@@ -315,6 +320,88 @@ Modified by: Michael Carroll
                     </child>
                   </object>
                 </child>
+                <child>
+                  <object class="GtkListBoxRow" id="delete_previous_switch_listboxrow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkGrid" id="delete_previous_switch_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="delete_previous_switch_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Delete previously downloaded wallpapers:</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSwitch" id="delete_previous">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="days_delete_after_listboxrow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="days_delete_after_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="days_delete_after_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Days to store wallpapers before deleting:</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="days_after_spinbutton">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="adjustment">adjustment1</property>
+                            <property name="numeric">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
             <child type="label_item">
@@ -355,9 +442,9 @@ Modified by: Michael Carroll
                           <object class="GtkLabel" id="market_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">end</property>
+                            <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Bing market (locale):</property>
+                            <property name="label" translatable="yes">Bing locale:</property>
                             <property name="wrap">True</property>
                           </object>
                           <packing>
@@ -367,7 +454,7 @@ Modified by: Michael Carroll
                         </child>
                         <child>
                           <object class="GtkEntry" id="market">
-                            <property name="width_request">350</property>
+                            <property name="width_request">150</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="valign">center</property>
@@ -383,8 +470,9 @@ Modified by: Michael Carroll
                           <object class="GtkLabel" id="market_description">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">end</property>
-                            <property name="label" translatable="yes">Leave empty to use default locale key</property>
+                            <property name="halign">center</property>
+                            <property name="hexpand">False</property>
+                            <property name="label" translatable="yes">Default is en-US</property>
                             <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
@@ -439,7 +527,7 @@ Modified by: Michael Carroll
                           <object class="GtkLabel" id="resolution_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">end</property>
+                            <property name="halign">start</property>
                             <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Screen resolution:</property>
                             <property name="wrap">True</property>
@@ -450,8 +538,24 @@ Modified by: Michael Carroll
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkLabel" id="resolution_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">center</property>
+                            <property name="label" translatable="yes">Default is "auto"</property>
+                            <property name="wrap">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkEntry" id="resolution">
-                            <property name="width_request">350</property>
+                            <property name="width_request">200</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="valign">center</property>
@@ -461,22 +565,6 @@ Modified by: Michael Carroll
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
                             <property name="height">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="resolution_description">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">end</property>
-                            <property name="label" translatable="yes">Default is "auto", note 1920x1200 includes the Bing logo</property>
-                            <property name="wrap">True</property>
-                            <style>
-                              <class name="dim-label"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
                           </packing>
                         </child>
                       </object>
@@ -521,7 +609,7 @@ Modified by: Michael Carroll
           <object class="GtkImage" id="logo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixbuf">./icons/bing.svg</property>
+            <property name="pixbuf">icons/bing.svg</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -534,7 +622,7 @@ Modified by: Michael Carroll
           <object class="GtkLabel" id="extension_name">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">&lt;b&gt;Bing Wallpaper extension&lt;/b&gt;</property>
+            <property name="label">&lt;b&gt;Bing Wallpaper Changer&lt;/b&gt;</property>
             <property name="use_markup">True</property>
           </object>
           <packing>
@@ -548,11 +636,12 @@ Modified by: Michael Carroll
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
+            <property name="margin_bottom">12</property>
             <child>
               <object class="GtkLabel" id="extension_version_label">
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">version: </property>
+                <property name="label" translatable="yes">Gnome shell extension version: </property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -583,7 +672,7 @@ Modified by: Michael Carroll
           <object class="GtkLabel" id="extension_description">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Change your wallpaper daily to the Bing picture of the day</property>
+            <property name="label" translatable="yes">Changes your wallpaper daily to the Bing picture of the day for your region. Creates a notification for the picture description and copyright information.</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
           </object>
@@ -630,8 +719,35 @@ Modified by: Michael Carroll
           </packing>
         </child>
         <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLinkButton" id="homepage_link">
-            <property name="label" translatable="yes">Webpage</property>
+            <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">True</property>
@@ -643,7 +759,7 @@ Modified by: Michael Carroll
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
         <child>
@@ -660,7 +776,7 @@ See the &lt;a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"&gt;G
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
       </object>

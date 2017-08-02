@@ -19,6 +19,7 @@ function buildPrefsWidget(){
     let box = buildable.get_object('prefs_widget');
 
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
+    buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
 
     let hideSwitch = buildable.get_object('hide');
     let notifySwitch = buildable.get_object('notifications');
@@ -28,6 +29,14 @@ function buildPrefsWidget(){
     let fileChooser = buildable.get_object('download_folder');
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
+    let deleteSwitch = buildable.get_object('delete_previous');
+    let daysSpin = buildable.get_object('days_after_spinbutton');
+
+    // previous wallpaper images
+    let images=[];
+    for(let i = 1; i <= 7; i++) {
+        images.push(buildable.get_object('image'+i));
+    }
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -64,6 +73,9 @@ function buildPrefsWidget(){
         if (settings.get_string('resolution') == "")
             settings.reset('resolution');
     });
+
+    settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     box.show_all();
 

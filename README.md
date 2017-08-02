@@ -13,6 +13,13 @@ and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.
 
 This is my first attempt at a GNOME extension, so it may have some issues.
 
+## Features
+
+* Fetches the Bing wallpaper of the day and sets as both lock screen and desktop wallpaper (these are both user selectable)
+* Optionally force a specific region (i.e. locale)
+* Automatically selects the highest resolution (and most appropriate wallpaper) in multiple monitor setups
+* Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)
+
 ## Requirements
 
 Gnome 3.18+ (Ubuntu Gnome 16.04+)

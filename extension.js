@@ -139,8 +139,6 @@ const BingWallpaperIndicator = new Lang.Class({
             this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.wallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         }));
-
-        //this._refresh(); // this may hang on start up?
         this._restartTimeout(60); // wait 60 seconds before performing refresh
     },
 
@@ -285,6 +283,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (message.status_code == 200) {
                 log('Download successful');
                 this._setBackground();
+                this._add_to_previous_queue(this.filename);
                 if (this._settings.get_boolean('notify'))
                     this._showDescription();
             } else {
@@ -292,6 +291,35 @@ const BingWallpaperIndicator = new Lang.Class({
                 file.delete(null);
             }
         }));
+    },
+
+    _add_to_previous_queue: function (filename) {
+        let rawimagelist = this._settings.get_string('previous');
+        let imagelist = rawimagelist.split(',');
+        let maxpictures = this._settings.get_int('previous-days');
+        let deletepictures = this._settings.get_boolean('delete-previous');
+
+        log("Raw: "+ rawimagelist+" count: "+imagelist.length);
+        log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
+
+        imagelist.push(filename); // add current to end of list
+
+        while(imagelist.length > maxpictures+1) {
+            var to_delete = imagelist.shift(); // get the first (oldest item from the list)
+            log("image: "+to_delete);
+            if (deletepictures) {
+                var file = Gio.file_new_for_path(to_delete);
+                if (file.query_exists(null)) {
+                    file.delete(null);
+                    log("deleted file: "+ to_delete);
+                }
+            }
+        }
+
+        // put it back together and send back to settings
+        rawimagelist = imagelist.join();
+        this._settings.set_string('previous', rawimagelist);
+        log("wrote back this: "+rawimagelist);
     },
 
     stop: function () {
@@ -339,4 +367,32 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
+}
+
+function add_to_previous_queue (filename) {
+    let rawimagelist = bingWallpaperIndicator._settings.get_string('previous');
+    let imagelist = rawimagelist.split(',');
+    let maxpictures = bingWallpaperIndicator._settings.get_int('previous-days');
+    let deletepictures = bingWallpaperIndicator._settings.get_boolean('delete-previous');
+
+    log("Raw: "+ rawimagelist+" count: "+imagelist.length);
+    log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
+
+    imagelist.push(filename);
+
+    while(imagelist.length > maxpictures+1) {
+        var to_delete = imagelist.shift(); // get the first (oldest item from the list)
+        log("image: "+to_delete);
+        if (deletepictures) {
+            var file = Gio.file.file_new_for_path(to_delete);
+            if (file.query_exists(null))
+                file.delete();
+            log("deleted file: "+ to_delete);
+        }
+    }
+
+    // put it back together and send back to settings
+    rawimagelist = imagelist.join();
+    bingWallpaperIndicator._settings.set_string('previous', rawimagelist);
+    log("wrote back this: "+rawimagelist);
 }
