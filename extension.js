@@ -368,31 +368,3 @@ function disable() {
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
 }
-
-function add_to_previous_queue (filename) {
-    let rawimagelist = bingWallpaperIndicator._settings.get_string('previous');
-    let imagelist = rawimagelist.split(',');
-    let maxpictures = bingWallpaperIndicator._settings.get_int('previous-days');
-    let deletepictures = bingWallpaperIndicator._settings.get_boolean('delete-previous');
-
-    log("Raw: "+ rawimagelist+" count: "+imagelist.length);
-    log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
-
-    imagelist.push(filename);
-
-    while(imagelist.length > maxpictures+1) {
-        var to_delete = imagelist.shift(); // get the first (oldest item from the list)
-        log("image: "+to_delete);
-        if (deletepictures) {
-            var file = Gio.file.file_new_for_path(to_delete);
-            if (file.query_exists(null))
-                file.delete();
-            log("deleted file: "+ to_delete);
-        }
-    }
-
-    // put it back together and send back to settings
-    rawimagelist = imagelist.join();
-    bingWallpaperIndicator._settings.set_string('previous', rawimagelist);
-    log("wrote back this: "+rawimagelist);
-}

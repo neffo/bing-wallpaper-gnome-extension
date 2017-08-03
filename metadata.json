@@ -2,7 +2,7 @@
     "uuid": "BingWallpaper@ineffable-gmail.com", 
     "shell-version": ["3.18", "3.20", "3.22", "3.24", "3.24.2"], 
     "name": "Bing Wallpaper Changer", 
-    "description": "Set wallpaper to Bing background image (changes daily)", 
-    "version": "6",
+    "description": "Automatically set your desktop wallpaper and/or lockscreen to Microsoft Bing's picture of the day (the image you see when you visit Bing.com). Wallpaper changes daily. \n\n Optionally creates a notification with the description and copyright information of the image.", 
+    "version": "7",
     "url": "https://github.com/neffo/bing-wallpaper-gnome-extension"
 }
