@@ -75,5 +75,11 @@
       <description>Delete wallpapers after this number of days</description>
     </key>
 
+    <key name="replace-watermark" type="s">
+      <default>""</default>
+      <summary>Replace or remove Bing watermark on high-res images</summary>
+      <description>Set to "none", "Gnome" or "Ubuntu"</description>
+    </key>
+
   </schema>
 </schemalist>

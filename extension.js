@@ -110,6 +110,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.version = "0.1";
         this._updatePending = false;
         this._timeout = null;
+        this.longstartdate = null;
 
         this._settings = Utils.getSettings();
         this._settings.connect('changed::hide', Lang.bind(this, function() {
@@ -118,14 +119,17 @@ const BingWallpaperIndicator = new Lang.Class({
 
         this.actor.visible = !this._settings.get_boolean('hide');
 
+        this.refreshDueItem = new PopupMenu.PopupMenuItem("<No refresh scheduled>");
         this.showItem = new PopupMenu.PopupMenuItem("Show description");
         this.wallpaperItem = new PopupMenu.PopupMenuItem("Set wallpaper");
-        this.refreshItem = new PopupMenu.PopupMenuItem("Refresh");
+        this.refreshItem = new PopupMenu.PopupMenuItem("Refresh Now");
         this.settingsItem = new PopupMenu.PopupMenuItem("Settings");
+        this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.wallpaperItem);
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.settingsItem);
+        this.refreshDueItem.setSensitive(false);
         this.showItem.connect('activate', Lang.bind(this, this._showDescription));
         this.wallpaperItem.connect('activate', Lang.bind(this, this._setBackground));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
@@ -157,7 +161,35 @@ const BingWallpaperIndicator = new Lang.Class({
         if (seconds == null)
             seconds = TIMEOUT_SECONDS;
         this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
-        log('next check in '+seconds+' seconds');
+        let timezone = GLib.TimeZone.new_local();
+        let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds).format('%F %R');
+        this.refreshDueItem.label.set_text('Next refresh: '+localTime);
+        log('next check in '+seconds+' seconds @ local time '+localTime);
+    },
+
+    _restartTimeoutFromLongDate: function (longdate) {
+        // longdate is UTC, in the following format
+        // 201708041400 YYYYMMDDHHMM
+        // 012345678901
+        let timezone = GLib.TimeZone.new_utc();
+        let refreshDue = GLib.DateTime.new(timezone, 
+            parseInt(longdate.substr(0,4)), // year
+            parseInt(longdate.substr(4,2)), // month
+            parseInt(longdate.substr(6,2)), // day
+            parseInt(longdate.substr(8,2)), // hour
+            parseInt(longdate.substr(10,2)), // mins
+            0 ).add_seconds(86400); // seconds 
+
+        let now = GLib.DateTime.new_now(timezone);
+        let difference = refreshDue.difference(now)/1000000;
+
+        log("Next refresh due @ "+refreshDue.format('%F %R %z')+" = "+difference+" seconds from now ("+now.format('%F %R %z')+")");
+
+        if (difference < 60 || difference > 86400) // something wierd happened
+            difference = 3600;
+
+        difference=difference+300; // 5 minute fudge offset in case of inaccurate local clock
+        this._restartTimeout(difference);
     },
 
     _showDescription: function() {
@@ -211,6 +243,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = "Bing Wallpaper of the Day for "+imagejson['startdate']+"";
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
+            this.longstartdate = imagejson['fullstartdate'];
             let resolution = this._settings.get_string('resolution');
 
             if (resolution == "auto") {
@@ -254,6 +287,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (this._settings.get_boolean('notify'))
                 this._showDescription();
         }
+        this._restartTimeoutFromLongDate(this.longstartdate);
     },
 
     _download_image: function(url, file) {

@@ -1,6 +1,6 @@
 # GNOME Shell extension - Bing Wallpaper Changer
 
-Let this simple GNOME shell extension change your wallpaper every day to
+Lightweight GNOME shell extension to change your wallpaper every day to
 Microsoft Bing's wallpaper (the image you see when you visit Bing.com). It will
 also show a notification containing the title and the explanation of the image.
 
@@ -19,6 +19,8 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 * Optionally force a specific region (i.e. locale)
 * Automatically selects the highest resolution (and most appropriate wallpaper) in multiple monitor setups
 * Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)
+* Only attempts to download wallpapers when they have been updated
+* Doesn't poll continuously - only once per day and on startup (schedules a refresh when Bing is due to update)
 
 ## Requirements
 
