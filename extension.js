@@ -83,11 +83,21 @@ function notifyError(msg) {
     Main.notifyError("BingWallpaper extension error", msg);
 }
 
-function doSetBackground(uri, schema) {
+function doSetBackground(uri, schema, setDrawBackground) {
     let gsettings = new Gio.Settings({schema: schema});
     gsettings.set_string('picture-uri', uri);
+    gsettings.set_string('picture-options', 'zoom');
+    if (setDrawBackground)
+        gsettings.set_boolean('draw-background', true);
     Gio.Settings.sync();
     gsettings.apply();
+}
+
+function doSetBackgroundLightDM(uri, schema) {
+    let gsettings = new Gio.Settings({schema: schema});
+    gsettings.set_string('background', uri);
+    Gio.Settings.sync();
+    gsettings.apply();    
 }
 
 let httpSession = new Soup.SessionAsync();
@@ -149,10 +159,13 @@ const BingWallpaperIndicator = new Lang.Class({
     _setBackground: function() {
         if (this.filename == "")
             return;
-        if (this._settings.get_boolean('set-background'))
-            doSetBackground(this.filename, 'org.gnome.desktop.background');
-        if (this._settings.get_boolean('set-lock-screen'))
-            doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
+        if (this._settings.get_boolean('set-background')) {
+            doSetBackground(this.filename, 'org.gnome.desktop.background', true);
+        }
+        if (this._settings.get_boolean('set-lock-screen')) {
+            doSetBackground(this.filename, 'org.gnome.desktop.screensaver', false);
+            doSetBackgroundLightDM(this.filename, 'com.canonical.unity-greeter');
+        }
     },
 
     _restartTimeout: function(seconds = null) {
@@ -239,7 +252,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let parsed = JSON.parse(data);
         let imagejson = parsed['images'][0];
 
-        if (imagejson['wp'] == true) {
+        if (imagejson['url'] != '') {
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = "Bing Wallpaper of the Day for "+imagejson['startdate']+"";
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
@@ -251,8 +264,8 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
             
-            if (validresolutions.indexOf(resolution) == -1) { // is resolution valid
-                resolution = "1920x1080"; // changed to this resolution by default to avoid the Bing logo
+            if (validresolutions.indexOf(resolution) == -1 || imagejson['wp'] == false) { // resolution invalid or animated background
+                resolution = "1920x1080"; 
             }
 
             let url = BingURL+imagejson['url'].replace('1920x1080',resolution); // mangle url to user's resolution
