@@ -85,7 +85,7 @@ function notifyError(msg) {
 
 function doSetBackground(uri, schema, setDrawBackground) {
     let gsettings = new Gio.Settings({schema: schema});
-    gsettings.set_string('picture-uri', uri);
+    gsettings.set_string('picture-uri', 'file://' + uri);
     gsettings.set_string('picture-options', 'zoom');
     if (setDrawBackground)
         gsettings.set_boolean('draw-background', true);
