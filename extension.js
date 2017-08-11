@@ -93,13 +93,6 @@ function doSetBackground(uri, schema, setDrawBackground) {
     gsettings.apply();
 }
 
-function doSetBackgroundLightDM(uri, schema) {
-    let gsettings = new Gio.Settings({schema: schema});
-    gsettings.set_string('background', uri);
-    Gio.Settings.sync();
-    gsettings.apply();    
-}
-
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
@@ -164,7 +157,6 @@ const BingWallpaperIndicator = new Lang.Class({
         }
         if (this._settings.get_boolean('set-lock-screen')) {
             doSetBackground(this.filename, 'org.gnome.desktop.screensaver', false);
-            doSetBackgroundLightDM(this.filename, 'com.canonical.unity-greeter');
         }
     },
 
