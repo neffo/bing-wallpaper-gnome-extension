@@ -265,9 +265,8 @@ const BingWallpaperIndicator = new Lang.Class({
             if (userHomeDir == '') {
                 userHomeDir = '/tmp';
                 log("Unable to get user home directory, defaulting to "+userHomeDir);
-                notify('Bing Wallpaper Changer', 'Download location not set. Please select a location to save wallpapers in extension settings.', false);
             }
-            if (BingWallpaperDir == "")
+            if (BingWallpaperDir == '')
                 BingWallpaperDir = userHomeDir + "/Pictures/BingWallpaper/";
             else if (!BingWallpaperDir.endsWith('/'))
                 BingWallpaperDir += '/';

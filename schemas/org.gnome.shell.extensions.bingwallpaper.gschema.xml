@@ -34,7 +34,7 @@
     </key>
 
     <key name="download-folder" type="s">
-      <default>"Pictures/BingWallpaper"</default>
+      <default>""</default>
       <summary>Where to download pictures.</summary>
       <description></description>
     </key>
