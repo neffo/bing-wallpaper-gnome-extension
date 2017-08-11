@@ -83,12 +83,10 @@ function notifyError(msg) {
     Main.notifyError("BingWallpaper extension error", msg);
 }
 
-function doSetBackground(uri, schema, setDrawBackground) {
+function doSetBackground(uri, schema) {
     let gsettings = new Gio.Settings({schema: schema});
     gsettings.set_string('picture-uri', 'file://' + uri);
     gsettings.set_string('picture-options', 'zoom');
-    if (setDrawBackground)
-        gsettings.set_boolean('draw-background', true);
     Gio.Settings.sync();
     gsettings.apply();
 }
@@ -153,10 +151,10 @@ const BingWallpaperIndicator = new Lang.Class({
         if (this.filename == "")
             return;
         if (this._settings.get_boolean('set-background')) {
-            doSetBackground(this.filename, 'org.gnome.desktop.background', true);
+            doSetBackground(this.filename, 'org.gnome.desktop.background');
         }
         if (this._settings.get_boolean('set-lock-screen')) {
-            doSetBackground(this.filename, 'org.gnome.desktop.screensaver', false);
+            doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
         }
     },
 
@@ -263,8 +261,14 @@ const BingWallpaperIndicator = new Lang.Class({
             let url = BingURL+imagejson['url'].replace('1920x1080',resolution); // mangle url to user's resolution
 
             let BingWallpaperDir = this._settings.get_string('download-folder');
+            let userHomeDir = GLib.get_home_dir();
+            if (userHomeDir == '') {
+                userHomeDir = '/tmp';
+                log("Unable to get user home directory, defaulting to "+userHomeDir);
+                notify('Bing Wallpaper Changer', 'Download location not set. Please select a location to save wallpapers in extension settings.', false);
+            }
             if (BingWallpaperDir == "")
-                BingWallpaperDir = GLib.get_home_dir() + "/Pictures/BingWallpaper/";
+                BingWallpaperDir = userHomeDir + "/Pictures/BingWallpaper/";
             else if (!BingWallpaperDir.endsWith('/'))
                 BingWallpaperDir += '/';
             
