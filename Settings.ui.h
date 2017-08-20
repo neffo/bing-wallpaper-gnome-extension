@@ -1,0 +1,23 @@
+char *s = N_("Hide the indicator");
+char *s = N_("Send a notification with explanation when a new image is downloaded.");
+char *s = N_("Notifications");
+char *s = N_("Use transient notifications (auto dismiss)");
+char *s = N_("Set background image");
+char *s = N_("Set lock screen image");
+char *s = N_("Download folder:");
+char *s = N_("Bing Wallpaper pictures folder");
+char *s = N_("Delete previously downloaded wallpapers:");
+char *s = N_("Days to store wallpapers before deleting:");
+char *s = N_("Bing locale:");
+char *s = N_("Default is en-US");
+char *s = N_("Screen resolution:");
+char *s = N_("Default is \"auto\"");
+char *s = N_("Settings");
+char *s = N_("Gnome shell extension version: ");
+char *s = N_("Changes your wallpaper daily to the Bing picture of the day for your region. Creates a notification for the picture description and copyright information.");
+char *s = N_("Maintained by Michael Carroll");
+char *s = N_("Based on NASA APOD Gnome shell extension by Elia Argentieri");
+char *s = N_("https://github.com/neffo/bing-wallpaper-gnome-extension");
+char *s = N_("<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+             "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 3 or later</a> for details.</span>");
+char *s = N_("About");

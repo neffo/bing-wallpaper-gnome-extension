@@ -5,10 +5,15 @@ const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
+const Convenience = Me.imports.convenience;
+const Gettext = imports.gettext.domain('BingWallpaper');
+const _ = Gettext.gettext;
+
 let settings;
 
 function init() {
     settings = Utils.getSettings(Me);
+    Convenience.initTranslations("BingWallpaper");
 }
 
 function buildPrefsWidget(){
