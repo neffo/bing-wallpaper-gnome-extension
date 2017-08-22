@@ -15,6 +15,10 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
+const Convenience = Me.imports.convenience;
+const Gettext = imports.gettext.domain('BingWallpaper');
+const _ = Gettext.gettext;
+
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"+"&mkt=";
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
@@ -73,7 +77,7 @@ function notify(msg, details, transient) {
     let notification = new LongNotification(source, msg, details);
     notification.setTransient(transient);
     // Add action to open Bing website with default browser
-    notification.addAction("Bing website", Lang.bind(this, function() {
+    notification.addAction(_("Bing website"), Lang.bind(this, function() {
         Util.spawn(["xdg-open", BingURL]);
     }));
     source.notify(notification);
@@ -120,11 +124,11 @@ const BingWallpaperIndicator = new Lang.Class({
 
         this.actor.visible = !this._settings.get_boolean('hide');
 
-        this.refreshDueItem = new PopupMenu.PopupMenuItem("<No refresh scheduled>");
-        this.showItem = new PopupMenu.PopupMenuItem("Show description");
-        this.wallpaperItem = new PopupMenu.PopupMenuItem("Set wallpaper");
-        this.refreshItem = new PopupMenu.PopupMenuItem("Refresh Now");
-        this.settingsItem = new PopupMenu.PopupMenuItem("Settings");
+        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
+        this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
+        this.wallpaperItem = new PopupMenu.PopupMenuItem(_("Set wallpaper"));
+        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
+        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.wallpaperItem);
@@ -166,7 +170,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
         let timezone = GLib.TimeZone.new_local();
         let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds).format('%F %R');
-        this.refreshDueItem.label.set_text('Next refresh: '+localTime);
+        this.refreshDueItem.label.set_text(_('Next refresh')+': '+localTime);
         log('next check in '+seconds+' seconds @ local time '+localTime);
     },
 
@@ -244,7 +248,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
         if (imagejson['url'] != '') {
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
-            this.explanation = "Bing Wallpaper of the Day for "+imagejson['startdate']+"";
+            this.explanation = _("Bing Wallpaper of the Day for")+" "+imagejson['startdate']+"";
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
             this.longstartdate = imagejson['fullstartdate'];
             let resolution = this._settings.get_string('resolution');
@@ -288,8 +292,8 @@ const BingWallpaperIndicator = new Lang.Class({
                 this._updatePending = false;
             }
         } else {
-            this.title = "No wallpaper available";
-            this.explanation = "No picture for today 😞.";
+            this.title = _("No wallpaper available");
+            this.explanation = _("No picture for today 😞.");
             this.filename = "";
             this._updatePending = false;
             if (this._settings.get_boolean('notify'))
@@ -375,6 +379,7 @@ const BingWallpaperIndicator = new Lang.Class({
 function init(extensionMeta) {
     let theme = imports.gi.Gtk.IconTheme.get_default();
     theme.append_search_path(extensionMeta.path + "/icons");
+    Convenience.initTranslations("BingWallpaper");
 }
 
 function enable() {
