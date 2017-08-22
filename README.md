@@ -21,6 +21,7 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 * Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)
 * Only attempts to download wallpapers when they have been updated
 * Doesn't poll continuously - only once per day and on startup (schedules a refresh when Bing is due to update)
+* NEW: locale support and German language translation thanks to [Jonnius](https://github.com/jonnius)
 
 ## Requirements
 
