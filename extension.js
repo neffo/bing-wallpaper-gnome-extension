@@ -19,7 +19,7 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"+"&mkt=";
+const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=";
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
@@ -29,6 +29,7 @@ const ICON = "bing"
 let monitors;
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
 let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6]; // width / height (ignore the lower res equivalents)
+
 let monitorW; // largest (in pixels) monitor width
 let monitorH; // largest (in pixels) monitor height
 let autores; // automatically selected resolution
@@ -169,7 +170,7 @@ const BingWallpaperIndicator = new Lang.Class({
             seconds = TIMEOUT_SECONDS;
         this._timeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._refresh));
         let timezone = GLib.TimeZone.new_local();
-        let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds).format('%F %R');
+        let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds).format('%F %X');
         this.refreshDueItem.label.set_text(_('Next refresh')+': '+localTime);
         log('next check in '+seconds+' seconds @ local time '+localTime);
     },
@@ -258,7 +259,9 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
             
-            if (validresolutions.indexOf(resolution) == -1 || imagejson['wp'] == false) { // resolution invalid or animated background
+            if (validresolutions.indexOf(resolution) == -1 || imagejson['wp'] == false || 
+                (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
+                // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
                 resolution = "1920x1080"; 
             }
 

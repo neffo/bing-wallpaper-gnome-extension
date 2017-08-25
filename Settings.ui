@@ -43,7 +43,6 @@ Modified by: Michael Carroll
         <property name="margin_left">12</property>
         <property name="margin_right">12</property>
         <property name="margin_top">12</property>
-        <property name="margin_bottom">102</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
@@ -116,7 +115,6 @@ Modified by: Michael Carroll
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="hexpand">True</property>
                             <property name="label" translatable="yes">Send a notification with explanation when a new image is downloaded.</property>
                             <property name="wrap">True</property>
                             <style>
@@ -453,26 +451,12 @@ Modified by: Michael Carroll
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="market">
-                            <property name="width_request">150</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="valign">center</property>
-                            <property name="hexpand">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                            <property name="height">2</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkLabel" id="market_description">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">center</property>
+                            <property name="halign">start</property>
                             <property name="hexpand">False</property>
-                            <property name="label" translatable="yes">Default is en-US</property>
+                            <property name="label" translatable="yes">Default is English - United States</property>
                             <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
@@ -481,6 +465,17 @@ Modified by: Michael Carroll
                           <packing>
                             <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="market">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                            <property name="height">2</property>
                           </packing>
                         </child>
                       </object>
@@ -541,8 +536,8 @@ Modified by: Michael Carroll
                           <object class="GtkLabel" id="resolution_description">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="label" translatable="yes">Default is "auto"</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Override automatic resolution selection</property>
                             <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
@@ -554,12 +549,9 @@ Modified by: Michael Carroll
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="resolution">
-                            <property name="width_request">200</property>
+                          <object class="GtkComboBoxText" id="resolution">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="valign">center</property>
-                            <property name="hexpand">True</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -719,6 +711,23 @@ Modified by: Michael Carroll
           </packing>
         </child>
         <child>
+          <object class="GtkLinkButton" id="homepage_link">
+            <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">True</property>
+            <property name="events"/>
+            <property name="halign">center</property>
+            <property name="relief">none</property>
+            <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -728,6 +737,8 @@ Modified by: Michael Carroll
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
+                <property name="justify">center</property>
+                <property name="wrap">True</property>
                 <attributes>
                   <attribute name="style" value="italic"/>
                 </attributes>
@@ -743,23 +754,6 @@ Modified by: Michael Carroll
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">6</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLinkButton" id="homepage_link">
-            <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="events"/>
-            <property name="halign">center</property>
-            <property name="relief">none</property>
-            <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
           </packing>
         </child>
         <child>
