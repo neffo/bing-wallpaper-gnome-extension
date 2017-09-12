@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-11 14:41+0200\n"
-"PO-Revision-Date: 2017-09-11 14:57+0200\n"
+"PO-Revision-Date: 2017-09-12 09:46+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgstr "Instellingen"
 
 #: Settings.ui.h:16
 msgid "Gnome shell extension version: "
-msgstr "Gnome shell extentie versie:"
+msgstr "Gnome shell extensie versie:"
 
 #: Settings.ui.h:17
 msgid ""
@@ -98,7 +98,7 @@ msgstr "Onderhouden door Michael Carroll"
 
 #: Settings.ui.h:19
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Gebasseerd op de NASA APOD Gnome Shell extentie door Elia Argentieri"
+msgstr "Gebaseerd op de NASA APOD Gnome Shell extentie door Elia Argentieri"
 
 #: Settings.ui.h:20
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -112,7 +112,7 @@ msgid ""
 msgstr ""
 "<span size=\"small\">Dit programma heeft ABSOLUUT GEEN GARANTIE.\n"
 "Zie de <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, versie 3 or nieuwer</a> voor details.</span>"
+"\">GNU General Public License, versie 3 of nieuwer</a> voor details.</span>"
 
 #: Settings.ui.h:23
 msgid "About"
@@ -152,4 +152,4 @@ msgstr "Geen achtergrond beschikbaar"
 
 #: extension.js:296
 msgid "No picture for today 😞."
-msgstr "No afbeelding voor vandaag 😞."
+msgstr "Geen afbeelding voor vandaag 😞."
