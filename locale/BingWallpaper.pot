@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-20 17:05+0200\n"
+"POT-Creation-Date: 2017-09-12 20:35+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgid "Bing locale:"
 msgstr ""
 
 #: Settings.ui.h:12
-msgid "Default is en-US"
+msgid "Default is English - United States"
 msgstr ""
 
 #: Settings.ui.h:13
@@ -70,10 +70,10 @@ msgid "Screen resolution:"
 msgstr ""
 
 #: Settings.ui.h:14
-msgid "Default is \"auto\""
+msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:15 extension.js:131
+#: Settings.ui.h:15 extension.js:132
 msgid "Settings"
 msgstr ""
 
@@ -92,11 +92,11 @@ msgid "Maintained by Michael Carroll"
 msgstr ""
 
 #: Settings.ui.h:19
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr ""
 
 #: Settings.ui.h:20
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr ""
 
 #: Settings.ui.h:21
@@ -110,38 +110,38 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:80
+#: extension.js:81
 msgid "Bing website"
 msgstr ""
 
-#: extension.js:127
+#: extension.js:128
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:128
+#: extension.js:129
 msgid "Show description"
 msgstr ""
 
-#: extension.js:129
+#: extension.js:130
 msgid "Set wallpaper"
 msgstr ""
 
-#: extension.js:130
+#: extension.js:131
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:173
+#: extension.js:174
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:251
+#: extension.js:252
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:295
+#: extension.js:298
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:296
+#: extension.js:299
 msgid "No picture for today 😞."
 msgstr ""

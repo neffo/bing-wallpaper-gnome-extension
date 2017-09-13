@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-11 14:41+0200\n"
-"PO-Revision-Date: 2017-09-12 09:49+0200\n"
+"POT-Creation-Date: 2017-09-12 20:35+1000\n"
+"PO-Revision-Date: 2017-09-12 20:38+1000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.1\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl_NL\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
@@ -64,7 +64,9 @@ msgid "Bing locale:"
 msgstr "Bing landinstelling:"
 
 #: Settings.ui.h:12
-msgid "Default is en-US"
+#, fuzzy
+#| msgid "Default is en-US"
+msgid "Default is English - United States"
 msgstr "Standaard is en-US"
 
 #: Settings.ui.h:13
@@ -72,10 +74,10 @@ msgid "Screen resolution:"
 msgstr "Schermresolutie:"
 
 #: Settings.ui.h:14
-msgid "Default is \"auto\""
-msgstr "Standaard is \"auto\""
+msgid "Override automatic resolution selection"
+msgstr "Kracht optie voor schermresolutie"
 
-#: Settings.ui.h:15 extension.js:131
+#: Settings.ui.h:15 extension.js:132
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -97,12 +99,12 @@ msgid "Maintained by Michael Carroll"
 msgstr "Onderhouden door Michael Carroll"
 
 #: Settings.ui.h:19
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Gebaseerd op de NASA APOD Gnome Shell extensie door Elia Argentieri"
-
-#: Settings.ui.h:20
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:20
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Gebaseerd op de NASA APOD Gnome Shell extensie door Elia Argentieri"
 
 #: Settings.ui.h:21
 msgid ""
@@ -118,38 +120,41 @@ msgstr ""
 msgid "About"
 msgstr "Over"
 
-#: extension.js:80
+#: extension.js:81
 msgid "Bing website"
 msgstr "Bing website"
 
-#: extension.js:127
+#: extension.js:128
 msgid "<No refresh scheduled>"
 msgstr "<Geen vernieuwing gepland>"
 
-#: extension.js:128
+#: extension.js:129
 msgid "Show description"
 msgstr "Toon beschrijving"
 
-#: extension.js:129
+#: extension.js:130
 msgid "Set wallpaper"
 msgstr "Stel achtergrond in"
 
-#: extension.js:130
+#: extension.js:131
 msgid "Refresh Now"
 msgstr "Vernieuw nu"
 
-#: extension.js:173
+#: extension.js:174
 msgid "Next refresh"
 msgstr "Volgende vernieuwing"
 
-#: extension.js:251
+#: extension.js:252
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing achtergrond van de dag voor"
 
-#: extension.js:295
+#: extension.js:298
 msgid "No wallpaper available"
 msgstr "Geen achtergrond beschikbaar"
 
-#: extension.js:296
+#: extension.js:299
 msgid "No picture for today 😞."
 msgstr "Geen afbeelding voor vandaag 😞."
+
+#~ msgid "Default is \"auto\""
+#~ msgstr "Standaard is \"auto\""

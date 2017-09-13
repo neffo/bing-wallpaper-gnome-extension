@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-20 17:05+0200\n"
-"PO-Revision-Date: 2017-08-20 17:37+0200\n"
+"POT-Creation-Date: 2017-09-12 20:39+1000\n"
+"PO-Revision-Date: 2017-09-12 20:40+1000\n"
+"Last-Translator: Jonatan Hatakeyama Zeidler <jonatan_zeidler@gmx.de>\n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Jonatan Hatakeyama Zeidler <jonatan_zeidler@gmx.de>\n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.0.1\n"
 
 #: Settings.ui.h:1
@@ -64,7 +64,9 @@ msgid "Bing locale:"
 msgstr "Bing-Region:"
 
 #: Settings.ui.h:12
-msgid "Default is en-US"
+#, fuzzy
+#| msgid "Default is en-US"
+msgid "Default is English - United States"
 msgstr "Vorgabe ist en-US"
 
 #: Settings.ui.h:13
@@ -72,10 +74,10 @@ msgid "Screen resolution:"
 msgstr "Bildschirmauflösung:"
 
 #: Settings.ui.h:14
-msgid "Default is \"auto\""
-msgstr "Vorgabe ist auto"
+msgid "Override automatic resolution selection"
+msgstr "Kraft-Option für Bildschirmauflösung"
 
-#: Settings.ui.h:15 extension.js:131
+#: Settings.ui.h:15 extension.js:132
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -97,12 +99,12 @@ msgid "Maintained by Michael Carroll"
 msgstr "Gewartet durch Michael Carroll"
 
 #: Settings.ui.h:19
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basiert auf der NASA APOD Gnome Shell-Erweiterung von Elia Argentieri"
-
-#: Settings.ui.h:20
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:20
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Basiert auf der NASA APOD Gnome Shell-Erweiterung von Elia Argentieri"
 
 #: Settings.ui.h:21
 msgid ""
@@ -118,38 +120,41 @@ msgstr ""
 msgid "About"
 msgstr "Info"
 
-#: extension.js:80
+#: extension.js:81
 msgid "Bing website"
 msgstr "Bing-Webseite"
 
-#: extension.js:127
+#: extension.js:128
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
-#: extension.js:128
+#: extension.js:129
 msgid "Show description"
 msgstr "Beschreibung anzeigen"
 
-#: extension.js:129
+#: extension.js:130
 msgid "Set wallpaper"
 msgstr "Hintergrundbild festlegen"
 
-#: extension.js:130
+#: extension.js:131
 msgid "Refresh Now"
 msgstr "Aktualisieren"
 
-#: extension.js:173
+#: extension.js:174
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
-#: extension.js:251
+#: extension.js:252
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing Bild des Tages für"
 
-#: extension.js:295
+#: extension.js:298
 msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
-#: extension.js:296
+#: extension.js:299
 msgid "No picture for today 😞."
 msgstr "Kein Bild heute 😞."
+
+#~ msgid "Default is \"auto\""
+#~ msgstr "Vorgabe ist auto"
