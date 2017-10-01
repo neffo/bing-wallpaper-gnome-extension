@@ -1,4 +1,3 @@
-
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
@@ -19,7 +18,8 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=";
+const BingImageURLPre= "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";//get the full data include mkt of the market
+const BingBaseImageURL= "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-ww";//set the property of international edition request url
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
@@ -27,6 +27,7 @@ const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in on-hour if there is 
 const ICON = "bing"
 
 let monitors;
+let BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=0&mkt=";//add the notify value of file url
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
 let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6]; // width / height (ignore the lower res equivalents)
 
@@ -78,7 +79,7 @@ function notify(msg, details, transient) {
     let notification = new LongNotification(source, msg, details);
     notification.setTransient(transient);
     // Add action to open Bing website with default browser
-    notification.addAction(_("Bing website"), Lang.bind(this, function() {
+    notification.addAction(_("Wallpaper Message"), Lang.bind(this, function() {
         Util.spawn(["xdg-open", BingURL]);
     }));
     source.notify(notification);
@@ -180,13 +181,13 @@ const BingWallpaperIndicator = new Lang.Class({
         // 201708041400 YYYYMMDDHHMM
         // 012345678901
         let timezone = GLib.TimeZone.new_utc();
-        let refreshDue = GLib.DateTime.new(timezone, 
+        let refreshDue = GLib.DateTime.new(timezone,
             parseInt(longdate.substr(0,4)), // year
             parseInt(longdate.substr(4,2)), // month
             parseInt(longdate.substr(6,2)), // day
             parseInt(longdate.substr(8,2)), // hour
             parseInt(longdate.substr(10,2)), // mins
-            0 ).add_seconds(86400); // seconds 
+            0 ).add_seconds(86400); // seconds
 
         let now = GLib.DateTime.new_now(timezone);
         let difference = refreshDue.difference(now)/1000000;
@@ -206,7 +207,7 @@ const BingWallpaperIndicator = new Lang.Class({
         } else {
             let message = this.explanation;
             if (this.copyright != "")
-                message += "\n" + this.copyright + ""
+                message += "\n"+""+ this.copyright+ "\n"+BingImageURL+""
             notify(this.title, message, this._settings.get_boolean('transient'));
         }
     },
@@ -215,22 +216,44 @@ const BingWallpaperIndicator = new Lang.Class({
         if (this._updatePending)
             return;
         this._updatePending = true;
-
         this._restartTimeout();
-
         let market = this._settings.get_string('market');
-        log("market: " + market);
-
         // create an http message
-        let request = Soup.Message.new('GET', BingImageURL+market); // + market
-        log("fetching: " + BingImageURL+market);
-
+        let request = Soup.Message.new('GET', BingImageURLPre+market); // + market
+        //notify("Check Bing.com. For "+BingImageURLPre, BingImageURLPre+market,true);
         // queue the http request
         httpSession.queue_message(request, Lang.bind(this, function(httpSession, message) {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 log("Recieved "+data.length+" bytes");
-                this._parseData(data);
+                //notify("Get Json Data. "+message.status_code, data,true);
+                let checkData=JSON.parse(data);
+                let checkStatus=checkData['market']['mkt'];
+                BingImageURL=BingURL+checkData['images'][0]['url'];
+                if(checkStatus == market){
+                   this._parseData(checkData);
+                }else {
+                  market="en-ww";//if request value of mkl is not the user wants. Used en-ww instead.
+                  // create an http message by market with en-ww.
+                  httpSession.queue_message(Soup.Message.new('GET', BingBaseImageURL), Lang.bind(this, function(httpSession, message) {
+                      if (message.status_code == 200) {
+                          data = message.response_body.data;
+                          checkData=JSON.parse(data);
+                          BingImageURL=BingURL+checkData['images'][0]['url'];
+                          this._parseData(checkData);
+                      } else if (message.status_code == 403) {
+                          log("Access denied: "+message.status_code);
+                          this._updatePending = false;
+                          this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+                      } else {
+                          log("Network error occured: "+message.status_code);
+                          this._updatePending = false;
+                          this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+                      }
+
+                  }));
+                }
+
             } else if (message.status_code == 403) {
                 log("Access denied: "+message.status_code);
                 this._updatePending = false;
@@ -243,8 +266,9 @@ const BingWallpaperIndicator = new Lang.Class({
         }));
     },
 
-    _parseData: function(data) {
-        let parsed = JSON.parse(data);
+    _parseData: function(parsed) {
+         //changed the target type to json.
+        //let parsed = JSON.parse(data);
         let imagejson = parsed['images'][0];
 
         if (imagejson['url'] != '') {
@@ -258,11 +282,10 @@ const BingWallpaperIndicator = new Lang.Class({
                 log("auto resolution selected ("+autores+")");
                 resolution = autores;
             }
-            
-            if (validresolutions.indexOf(resolution) == -1 || imagejson['wp'] == false || 
+            if (validresolutions.indexOf(resolution) == -1 || imagejson['wp'] == false ||
                 (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
                 // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
-                resolution = "1920x1080"; 
+                resolution = "1920x1080";
             }
 
             let url = BingURL+imagejson['url'].replace('1920x1080',resolution); // mangle url to user's resolution
@@ -277,7 +300,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 BingWallpaperDir = userHomeDir + "/Pictures/BingWallpaper/";
             else if (!BingWallpaperDir.endsWith('/'))
                 BingWallpaperDir += '/';
-            
+
             this.filename = BingWallpaperDir+imagejson['startdate']+'-'+url.replace(/^.*[\\\/]/, '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
@@ -296,7 +319,7 @@ const BingWallpaperIndicator = new Lang.Class({
             }
         } else {
             this.title = _("No wallpaper available");
-            this.explanation = _("No picture for today 😞.");
+            this.explanation = _("No picture for today ðŸ˜ž.");
             this.filename = "";
             this._updatePending = false;
             if (this._settings.get_boolean('notify'))
