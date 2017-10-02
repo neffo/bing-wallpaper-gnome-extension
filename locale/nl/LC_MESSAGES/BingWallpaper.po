@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-12 20:35+1000\n"
-"PO-Revision-Date: 2017-09-12 20:38+1000\n"
+"POT-Creation-Date: 2017-10-02 14:40+1000\n"
+"PO-Revision-Date: 2017-10-02 15:00+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1
@@ -77,7 +77,7 @@ msgstr "Schermresolutie:"
 msgid "Override automatic resolution selection"
 msgstr "Kracht optie voor schermresolutie"
 
-#: Settings.ui.h:15 extension.js:132
+#: Settings.ui.h:15 extension.js:118
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -120,41 +120,79 @@ msgstr ""
 msgid "About"
 msgstr "Over"
 
-#: extension.js:81
-msgid "Bing website"
-msgstr "Bing website"
-
-#: extension.js:128
+#: extension.js:113
 msgid "<No refresh scheduled>"
 msgstr "<Geen vernieuwing gepland>"
 
-#: extension.js:129
+#: extension.js:114
 msgid "Show description"
 msgstr "Toon beschrijving"
 
-#: extension.js:130
+#: extension.js:115
+#, fuzzy
+msgid "Copy image URL to clipboard"
+msgstr "Kopieer afbeelding URL naar klembord"
+
+#: extension.js:116
 msgid "Set wallpaper"
 msgstr "Stel achtergrond in"
 
-#: extension.js:131
+#: extension.js:117
 msgid "Refresh Now"
 msgstr "Vernieuw nu"
 
-#: extension.js:174
+#: extension.js:160
+#, fuzzy
+msgid "Open extension settings"
+msgstr "Open extensie instellingen"
+
+#: extension.js:165
+msgid "Bing website"
+msgstr "Bing website"
+
+#: extension.js:197
 msgid "Next refresh"
 msgstr "Volgende vernieuwing"
 
-#: extension.js:252
+#: extension.js:288
+#, fuzzy
+msgid "Market not available in your region"
+msgstr "Landinstelling niet beschikbaar in uw regio"
+
+#: extension.js:288
+#, fuzzy
+msgid ""
+"The selected market is not available in your country or geographic region.\n"
+msgstr ""
+"De geselecteerde landinstelling is niet beschikbaar in uw land of "
+"geografische regio.\n"
+
+#: extension.js:297
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing achtergrond van de dag voor"
 
-#: extension.js:298
+#: extension.js:346
 msgid "No wallpaper available"
 msgstr "Geen achtergrond beschikbaar"
 
-#: extension.js:299
+#: extension.js:347
 msgid "No picture for today 😞."
 msgstr "Geen afbeelding voor vandaag 😞."
+
+#: prefs.js:151
+#, fuzzy
+msgid "Fetching data..."
+msgstr "Data ophalen..."
+
+#: prefs.js:163
+#, fuzzy
+msgid "This market is not available in your region"
+msgstr "Landinstelling niet beschikbaar in uw regio"
+
+#: prefs.js:167
+#, fuzzy
+msgid "A network error occured"
+msgstr "Er is een netwerkfout opgetreden"
 
 #~ msgid "Default is \"auto\""
 #~ msgstr "Standaard is \"auto\""

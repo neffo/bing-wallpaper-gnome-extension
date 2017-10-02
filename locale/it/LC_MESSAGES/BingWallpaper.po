@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-12 20:35+1000\n"
-"PO-Revision-Date: 2017-09-30 20:15+0000\n"
+"POT-Creation-Date: 2017-10-02 14:40+1000\n"
+"PO-Revision-Date: 2017-10-02 14:56+1000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.4\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: it\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
@@ -76,7 +76,7 @@ msgstr "Risoluzione dello schermo:"
 msgid "Override automatic resolution selection"
 msgstr "Escludi la selezione automatica della risoluzione"
 
-#: Settings.ui.h:15 extension.js:132
+#: Settings.ui.h:15 extension.js:118
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -121,38 +121,76 @@ msgstr ""
 msgid "About"
 msgstr "Informazioni"
 
-#: extension.js:81
-msgid "Bing website"
-msgstr "Sito web Bing"
-
-#: extension.js:128
+#: extension.js:113
 msgid "<No refresh scheduled>"
 msgstr "<Nessun aggiornamento pianificato>"
 
-#: extension.js:129
+#: extension.js:114
 msgid "Show description"
 msgstr "Mostra la descrizione"
 
-#: extension.js:130
+#: extension.js:115
+#, fuzzy
+msgid "Copy image URL to clipboard"
+msgstr "Copia URL immagine negli appunti"
+
+#: extension.js:116
 msgid "Set wallpaper"
 msgstr "Imposta lo sfondo"
 
-#: extension.js:131
+#: extension.js:117
 msgid "Refresh Now"
 msgstr "Aggiorna ora"
 
-#: extension.js:174
+#: extension.js:160
+#, fuzzy
+msgid "Open extension settings"
+msgstr "Aprire le impostazioni di estensione"
+
+#: extension.js:165
+msgid "Bing website"
+msgstr "Sito web Bing"
+
+#: extension.js:197
 msgid "Next refresh"
 msgstr "Prossimo aggiornamento"
 
-#: extension.js:252
+#: extension.js:288
+#, fuzzy
+msgid "Market not available in your region"
+msgstr "Localizzazione non disponibile nella tua regione"
+
+#: extension.js:288
+#, fuzzy
+msgid ""
+"The selected market is not available in your country or geographic region.\n"
+msgstr ""
+"La Localizzazione selezionata non è disponibile nel tuo paese o in una "
+"regione geografica\n"
+
+#: extension.js:297
 msgid "Bing Wallpaper of the Day for"
 msgstr "Sfondo Bing del giorno per"
 
-#: extension.js:298
+#: extension.js:346
 msgid "No wallpaper available"
 msgstr "Nessuno sfondo disponibile"
 
-#: extension.js:299
+#: extension.js:347
 msgid "No picture for today 😞."
 msgstr "Nessuna immagine per oggi 😞."
+
+#: prefs.js:151
+#, fuzzy
+msgid "Fetching data..."
+msgstr "Recuperando i dati..."
+
+#: prefs.js:163
+#, fuzzy
+msgid "This market is not available in your region"
+msgstr "Localizzazione non disponibile nella tua regione"
+
+#: prefs.js:167
+#, fuzzy
+msgid "A network error occured"
+msgstr "Si è verificato un errore di rete"

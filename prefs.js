@@ -160,7 +160,7 @@ function validate_market() {
             if (checkStatus == market) {
                 marketDescription.set_label('Data OK, '+data.length+' bytes recieved');
             } else {
-                marketDescription.set_label(_("This market is not available in your region"));
+                marketDescription.set_label(_("Market not available in your region"));
             }
         } else {
             log("Network error occured: "+message.status_code);
