@@ -3,101 +3,107 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 14:40+1000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-09-12 20:35+1000\n"
+"PO-Revision-Date: 2017-09-30 20:15+0000\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: it\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
-msgstr ""
+msgstr "Nascondi l'indicatore"
 
 #: Settings.ui.h:2
 msgid "Send a notification with explanation when a new image is downloaded."
 msgstr ""
+"Invia una notifica con la descrizione quando una nuova immagine viene "
+"scaricata."
 
 #: Settings.ui.h:3
 msgid "Notifications"
-msgstr ""
+msgstr "Notifiche"
 
 #: Settings.ui.h:4
 msgid "Use transient notifications (auto dismiss)"
-msgstr ""
+msgstr "Usa notifiche transitorie (rimozione automatica)"
 
 #: Settings.ui.h:5
 msgid "Set background image"
-msgstr ""
+msgstr "Imposta l'immagine dello sfondo"
 
 #: Settings.ui.h:6
 msgid "Set lock screen image"
-msgstr ""
+msgstr "Imposta l'immagine della schermata di blocco"
 
 #: Settings.ui.h:7
 msgid "Download folder:"
-msgstr ""
+msgstr "Cartella di scaricamento:"
 
 #: Settings.ui.h:8
 msgid "Bing Wallpaper pictures folder"
-msgstr ""
+msgstr "Cartella degli sfondi Bing"
 
 #: Settings.ui.h:9
 msgid "Delete previously downloaded wallpapers:"
-msgstr ""
+msgstr "Cancella gli sfondi scaricati in precedenza:"
 
 #: Settings.ui.h:10
 msgid "Days to store wallpapers before deleting:"
-msgstr ""
+msgstr "Giorni per cui mantenere gli sfondi prima di cancellarli:"
 
 #: Settings.ui.h:11
 msgid "Bing locale:"
-msgstr ""
+msgstr "Localizzazione di Bing:"
 
 #: Settings.ui.h:12
 msgid "Default is English - United States"
-msgstr ""
+msgstr "Predefinito è Inglese - Stati Uniti"
 
 #: Settings.ui.h:13
 msgid "Screen resolution:"
-msgstr ""
+msgstr "Risoluzione dello schermo:"
 
 #: Settings.ui.h:14
 msgid "Override automatic resolution selection"
-msgstr ""
+msgstr "Escludi la selezione automatica della risoluzione"
 
-#: Settings.ui.h:15 extension.js:118
+#: Settings.ui.h:15 extension.js:132
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: Settings.ui.h:16
 msgid "Gnome shell extension version: "
-msgstr ""
+msgstr "Versione dell'estensione per Gnome shell: "
 
 #: Settings.ui.h:17
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Creates a notification for the picture description and copyright information."
 msgstr ""
+"Cambia il tuo sfondo giornalmente con l'immagine del giorno di Bing per la "
+"tua regione. Crea una notifica con la descrizione dell'immagine e le "
+"informazioni sui diritti d'autore."
 
 #: Settings.ui.h:18
 msgid "Maintained by Michael Carroll"
-msgstr ""
+msgstr "Mantenuto da Michael Carroll"
 
 #: Settings.ui.h:19
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr ""
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:20
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr ""
+msgstr "Basato sull'estensione per Gnome shell NASA APOD di Elia Argentieri"
 
 #: Settings.ui.h:21
 msgid ""
@@ -105,72 +111,48 @@ msgid ""
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgstr ""
+"<span size=\"small\">Questo programma viene fornito ASSOLUTAMENTE SENZA "
+"GARANZIA.\n"
+"Vedi la <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">Licenza Pubblica Generale GNU, versione 3 o successiva</a> per i dettagli."
+"</span>"
 
 #: Settings.ui.h:23
 msgid "About"
-msgstr ""
+msgstr "Informazioni"
 
-#: extension.js:113
-msgid "<No refresh scheduled>"
-msgstr ""
-
-#: extension.js:114
-msgid "Show description"
-msgstr ""
-
-#: extension.js:115
-msgid "Copy image URL to clipboard"
-msgstr ""
-
-#: extension.js:116
-msgid "Set wallpaper"
-msgstr ""
-
-#: extension.js:117
-msgid "Refresh Now"
-msgstr ""
-
-#: extension.js:160
-msgid "Open extension settings"
-msgstr ""
-
-#: extension.js:165
+#: extension.js:81
 msgid "Bing website"
-msgstr ""
+msgstr "Sito web Bing"
 
-#: extension.js:197
+#: extension.js:128
+msgid "<No refresh scheduled>"
+msgstr "<Nessun aggiornamento pianificato>"
+
+#: extension.js:129
+msgid "Show description"
+msgstr "Mostra la descrizione"
+
+#: extension.js:130
+msgid "Set wallpaper"
+msgstr "Imposta lo sfondo"
+
+#: extension.js:131
+msgid "Refresh Now"
+msgstr "Aggiorna ora"
+
+#: extension.js:174
 msgid "Next refresh"
-msgstr ""
+msgstr "Prossimo aggiornamento"
 
-#: extension.js:288
-msgid "Market not available in your region"
-msgstr ""
-
-#: extension.js:288
-msgid ""
-"The selected market is not available in your country or geographic region.\n"
-msgstr ""
-
-#: extension.js:297
+#: extension.js:252
 msgid "Bing Wallpaper of the Day for"
-msgstr ""
+msgstr "Sfondo Bing del giorno per"
 
-#: extension.js:346
+#: extension.js:298
 msgid "No wallpaper available"
-msgstr ""
+msgstr "Nessuno sfondo disponibile"
 
-#: extension.js:347
+#: extension.js:299
 msgid "No picture for today 😞."
-msgstr ""
-
-#: prefs.js:151
-msgid "Fetching data..."
-msgstr ""
-
-#: prefs.js:163
-msgid "This market is not available in your region"
-msgstr ""
-
-#: prefs.js:167
-msgid "A network error occured"
-msgstr ""
+msgstr "Nessuna immagine per oggi 😞."

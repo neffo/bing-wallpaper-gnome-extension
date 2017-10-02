@@ -4,6 +4,11 @@ const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
+const Soup = imports.gi.Soup;
+const Lang = imports.lang;
+
+let httpSession = new Soup.SessionAsync();
+Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -12,28 +17,31 @@ const _ = Gettext.gettext;
 let settings;
 
 let markets = ['ar-XA', 'bg-BG','cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AU', 'en-CA', 'en-GB',
-'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-XA', 'en-ZA', 'es-AR',
+'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
 'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
 'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
 'zh-CN', 'zh-HK', 'zh-TW'];
-let marketName = ['Arabic – Arabia', 'Bulgarian – Bulgaria', 'Czech – Czech Republic', 'Danish – Denmark', 
-                    'German – Austria', 'German – Switzerland', 'German – Germany', 'Greek – Greece', 
-                    'English – Australia', 'English – Canada', 'English – United Kingdom', 'English – Indonesia', 
-                    'English – Ireland', 'English – India', 'English – Malaysia', 'English – New Zealand', 
-                    'English – Philippines', 'English – Singapore', 'English – United States', 
-                    'English – Arabia', 'English – South Africa', 'Spanish – Argentina', 'Spanish – Chile', 
-                    'Spanish – Spain', 'Spanish – Mexico', 'Spanish – United States', 'Spanish – Latin America', 
-                    'Estonian – Estonia', 'Finnish – Finland', 'French – Belgium', 'French – Canada', 
-                    'French – Switzerland', 'French – France', 'Hebrew – Israel', 'Croatian – Croatia', 
-                    'Hungarian – Hungary', 'Italian – Italy', 'Japanese – Japan', 'Korean – Korea', 
-                    'Lithuanian – Lithuania', 'Latvian – Latvia', 'Norwegian – Norway', 'Dutch – Belgium', 
-                    'Dutch – Netherlands', 'Polish – Poland', 'Portuguese – Brazil', 'Portuguese – Portugal', 
-                    'Romanian – Romania', 'Russian – Russia', 'Slovak – Slovak Republic', 'Slovenian – Slovenia', 
-                    'Swedish – Sweden', 'Thai – Thailand', 'Turkish – Turkey', 'Ukrainian – Ukraine', 
+let marketName = ['Arabic – Arabia', 'Bulgarian – Bulgaria', 'Czech – Czech Republic', 'Danish – Denmark',
+                    'German – Austria', 'German – Switzerland', 'German – Germany', 'Greek – Greece',
+                    'English – Australia', 'English – Canada', 'English – United Kingdom', 'English – Indonesia',
+                    'English – Ireland', 'English – India', 'English – Malaysia', 'English – New Zealand',
+                    'English – Philippines', 'English – Singapore', 'English – United States', 'English - International',
+                    'English – Arabia', 'English – South Africa', 'Spanish – Argentina', 'Spanish – Chile',
+                    'Spanish – Spain', 'Spanish – Mexico', 'Spanish – United States', 'Spanish – Latin America',
+                    'Estonian – Estonia', 'Finnish – Finland', 'French – Belgium', 'French – Canada',
+                    'French – Switzerland', 'French – France', 'Hebrew – Israel', 'Croatian – Croatia',
+                    'Hungarian – Hungary', 'Italian – Italy', 'Japanese – Japan', 'Korean – Korea',
+                    'Lithuanian – Lithuania', 'Latvian – Latvia', 'Norwegian – Norway', 'Dutch – Belgium',
+                    'Dutch – Netherlands', 'Polish – Poland', 'Portuguese – Brazil', 'Portuguese – Portugal',
+                    'Romanian – Romania', 'Russian – Russia', 'Slovak – Slovak Republic', 'Slovenian – Slovenia',
+                    'Swedish – Sweden', 'Thai – Thailand', 'Turkish – Turkey', 'Ukrainian – Ukraine',
                     'Chinese – China', 'Chinese – Hong Kong SAR', 'Chinese – Taiwan'];
 
 let resolutions = [ 'auto', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
+let marketDescription = null;
+
+const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
 
 function init() {
     settings = Utils.getSettings(Me);
@@ -60,7 +68,7 @@ function buildPrefsWidget(){
     let resolutionEntry = buildable.get_object('resolution');
     let deleteSwitch = buildable.get_object('delete_previous');
     let daysSpin = buildable.get_object('days_after_spinbutton');
-    let marketDescription = buildable.get_object('market_description');
+    marketDescription = buildable.get_object('market_description');
 
     // previous wallpaper images
     let images=[];
@@ -135,4 +143,28 @@ function validate_market() {
     let market = settings.get_string('market');
     if (market == "" || markets.indexOf(market) == -1 ) // if not a valid market
         settings.reset('market');
+
+    log('Testing : '+BingImageURL);
+
+    let request = Soup.Message.new('GET', BingImageURL+market); // + market
+    log("fetching: " + BingImageURL+market);
+    marketDescription.set_label(_("Fetching data..."));
+
+    // queue the http request
+    httpSession.queue_message(request, Lang.bind(this, function(httpSession, message) {
+        if (message.status_code == 200) {
+            let data = message.response_body.data;
+            log("Recieved "+data.length+" bytes");
+            let checkData = JSON.parse(data);
+            let checkStatus = checkData['market']['mkt'];
+            if (checkStatus == market) {
+                marketDescription.set_label('Data OK, '+data.length+' bytes recieved');
+            } else {
+                marketDescription.set_label(_("This market is not available in your region"));
+            }
+        } else {
+            log("Network error occured: "+message.status_code);
+            marketDescription.set_label(_("A network error occured")+": "+message.status_code);
+        }
+    }));
 }

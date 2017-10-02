@@ -9,12 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="302.14868"
-   height="431.53552"
+   width="128"
+   height="128"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.1 r15371"
-   sodipodi:docname="File-Bing_logo2016.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="bing.svg"
+   inkscape:export-filename="/home/giulio/Scaricati/bing.svg.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,21 +27,21 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.14287109"
-     inkscape:cx="2213.6357"
-     inkscape:cy="270.67033"
+     inkscape:zoom="0.28574218"
+     inkscape:cx="360.85355"
+     inkscape:cy="487.41923"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     fit-margin-left="0.5"
-     fit-margin-bottom="0.5"
-     fit-margin-top="0.5"
-     fit-margin-right="0.5"
-     inkscape:window-width="1062"
-     inkscape:window-height="1033"
-     inkscape:window-x="855"
+     fit-margin-left="0"
+     fit-margin-bottom="0"
+     fit-margin-top="0"
+     fit-margin-right="0"
+     inkscape:window-width="1307"
+     inkscape:window-height="704"
+     inkscape:window-x="59"
      inkscape:window-y="27"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid2996"
@@ -46,8 +49,8 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="332.76667"
-       originy="157.76285"
+       originx="226.45871"
+       originy="5.9950575"
        spacingx="1.0666667"
        spacingy="1.0666667" />
   </sodipodi:namedview>
@@ -67,10 +70,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(332.76667,-848.74697)">
+     transform="translate(226.45871,-1000.5147)">
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.06666672"
-       d="m -332.26667,849.24697 86.00246,30.25494 v 302.72889 l 121.13844,-69.9305 -59.3916,-27.8663 -37.46921,-93.25935 190.868582,67.05545 v 97.4882 l -215.097172,124.0642 -86.0515,-47.8667 z"
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       d="m -207.22508,1000.5147 25.56889,8.995 0,90.0025 36.01496,-20.7906 -17.65737,-8.2848 -11.13975,-27.7264 56.74602,19.9359 0,28.9836 -63.94928,36.8848 -25.58347,-14.2309 z"
        id="path2998"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc" />
