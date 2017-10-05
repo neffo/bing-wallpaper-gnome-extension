@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-02 14:40+1000\n"
-"PO-Revision-Date: 2017-10-02 14:56+1000\n"
+"PO-Revision-Date: 2017-10-02 13:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -130,9 +130,8 @@ msgid "Show description"
 msgstr "Mostra la descrizione"
 
 #: extension.js:115
-#, fuzzy
 msgid "Copy image URL to clipboard"
-msgstr "Copia URL immagine negli appunti"
+msgstr "Copia l'URL dell'immagine negli appunti"
 
 #: extension.js:116
 msgid "Set wallpaper"
@@ -143,9 +142,8 @@ msgid "Refresh Now"
 msgstr "Aggiorna ora"
 
 #: extension.js:160
-#, fuzzy
 msgid "Open extension settings"
-msgstr "Aprire le impostazioni di estensione"
+msgstr "Apri le impostazioni dell'estensione"
 
 #: extension.js:165
 msgid "Bing website"
@@ -156,16 +154,14 @@ msgid "Next refresh"
 msgstr "Prossimo aggiornamento"
 
 #: extension.js:288
-#, fuzzy
 msgid "Market not available in your region"
 msgstr "Localizzazione non disponibile nella tua regione"
 
 #: extension.js:288
-#, fuzzy
 msgid ""
 "The selected market is not available in your country or geographic region.\n"
 msgstr ""
-"La Localizzazione selezionata non è disponibile nel tuo paese o in una "
+"La localizzazione selezionata non è disponibile nel tuo paese o nella tua "
 "regione geografica\n"
 
 #: extension.js:297
@@ -181,16 +177,13 @@ msgid "No picture for today 😞."
 msgstr "Nessuna immagine per oggi 😞."
 
 #: prefs.js:151
-#, fuzzy
 msgid "Fetching data..."
-msgstr "Recuperando i dati..."
+msgstr "Recupero dati..."
 
 #: prefs.js:163
-#, fuzzy
 msgid "This market is not available in your region"
-msgstr "Localizzazione non disponibile nella tua regione"
+msgstr "Questa localizzazione non è disponibile nella tua regione"
 
 #: prefs.js:167
-#, fuzzy
 msgid "A network error occured"
 msgstr "Si è verificato un errore di rete"
