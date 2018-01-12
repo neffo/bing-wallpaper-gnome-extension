@@ -37,6 +37,7 @@ let monitorH; // largest (in pixels) monitor height
 let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
+let init_called=false;
 
 function log(msg) {
     if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
@@ -369,7 +370,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
-            fstream.write(chunk.get_data(), null, chunk.length);
+            fstream.write(chunk.get_data(), null);
         }));
 
         // queue the http request
@@ -428,12 +429,26 @@ const BingWallpaperIndicator = new Lang.Class({
 });
 
 function init(extensionMeta) {
-    let theme = imports.gi.Gtk.IconTheme.get_default();
-    theme.append_search_path(extensionMeta.path + "/icons");
-    Convenience.initTranslations("BingWallpaper");
+    if (init_called === false) {
+        let theme = imports.gi.Gtk.IconTheme.get_default();
+        theme.append_search_path(extensionMeta.path + "/icons");
+        Convenience.initTranslations("BingWallpaper");
+        init_called = true;
+	log("init() called");
+    }
+    else {
+        log("WARNING: init() called more than once, ignoring");
+   }
 }
 
 function enable() {
+    if (bingWallpaperIndicator != null) {
+        log("WARNING: enable() function was called when extension appears to be already active, ignoring");
+        return;
+    }
+
+    log("enable() called");
+
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
     monitors = Main.layoutManager.monitors; // get list of connected monitors (and sizes)
