@@ -25,7 +25,7 @@ const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n
 const BingURL = "https://bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
-const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in on-hour if there is a http error
+const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
 const ICON = "bing";
 
 let monitors;

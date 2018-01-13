@@ -23,6 +23,12 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 * Doesn't poll continuously - only once per day and on startup (a refresh is scheduled when Bing is due to update)
 * Locale support and German, Dutch and Italian language translations (huge thanks to the translators)
 
+## TODO
+
+* add more languages (#14
+* fix/test HTTP(S) proxy support (#22)
+* implement localisation for directory names (XDG_*) (#25)
+
 ## Requirements
 
 Gnome 3.18+ (Ubuntu Gnome 16.04+, Fedora 23+)
