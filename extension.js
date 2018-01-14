@@ -315,16 +315,16 @@ const BingWallpaperIndicator = new Lang.Class({
             this.imageURL = BingURL+imagejson['url'].replace('1920x1080',resolution); // mangle url to user's resolution
 
             let BingWallpaperDir = this._settings.get_string('download-folder');
-            let userHomeDir = GLib.get_home_dir();
-            if (userHomeDir == '') {
-                userHomeDir = '/tmp';
-                log("Unable to get user home directory, defaulting to "+userHomeDir);
+            let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
+            if (BingWallpaperDir == '') {
+                BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
+		this._settings.set_string('download-folder', BingWallpaperDir);
             }
-            if (BingWallpaperDir == '')
-                BingWallpaperDir = userHomeDir + "/Pictures/BingWallpaper/";
-            else if (!BingWallpaperDir.endsWith('/'))
+            else if (!BingWallpaperDir.endsWith('/')) {
                 BingWallpaperDir += '/';
+            }
 
+            log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
             this.filename = BingWallpaperDir+imagejson['startdate']+'-'+this.imageURL.replace(/^.*[\\\/]/, '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);

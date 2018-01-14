@@ -97,7 +97,8 @@ function buildPrefsWidget(){
 
     //download folder
     fileChooser.set_filename(settings.get_string('download-folder'));
-    fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_cache_dir() + "/bing");
+    log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+    fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
     fileChooser.connect('file-set', function(widget) {
         settings.set_string('download-folder', widget.get_filename());
     });
