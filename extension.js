@@ -479,8 +479,11 @@ function enable() {
 }
 
 function disable() {
+    log("disable() called");
+    if (this._timeout)
+            Mainloop.source_remove(this._timeout);
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
-    ext_enabled = true;
+    ext_enabled = false;
 }

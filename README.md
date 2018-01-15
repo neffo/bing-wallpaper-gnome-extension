@@ -29,6 +29,10 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 * fix/test HTTP(S) proxy support (#22)
 * implement localisation for directory names (XDG_*) (#25)
 
+## Known Issues
+
+* In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry)
+
 ## Requirements
 
 Gnome 3.18+ (Ubuntu Gnome 16.04+, Fedora 23+)
