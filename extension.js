@@ -38,6 +38,7 @@ let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
 let init_called=false;
+let ext_enabled=false;
 
 function log(msg) {
     if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
@@ -442,12 +443,13 @@ function init(extensionMeta) {
 }
 
 function enable() {
-    if (bingWallpaperIndicator != null) {
+    if (ext_enabled === true) {
         log("WARNING: enable() function was called when extension appears to be already active, ignoring");
         return;
     }
 
     log("enable() called");
+    ext_enabled = true;
 
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
@@ -480,4 +482,5 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
+    ext_enabled = true;
 }
