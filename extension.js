@@ -22,7 +22,7 @@ const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
-const BingURL = "https://bing.com";
+const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
