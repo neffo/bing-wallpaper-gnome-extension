@@ -366,12 +366,18 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // got_headers event
         request.connect('got_headers', Lang.bind(this, function(message){
-            log("got_headers");
+            log("got_headers, status: "+message.status_code);
         }));
 
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
-            fstream.write(chunk.get_data(), null);
+	    //log("got_chuck, status: "+message.status_code);
+	    if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
+	    	fstream.write(chunk.get_data(), null);
+	    }
+	    else {
+		log("got_chuck, status: "+message.status_code);
+	    }
         }));
 
         // queue the http request
