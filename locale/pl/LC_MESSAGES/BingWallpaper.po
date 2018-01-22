@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-02 14:40+1000\n"
+"PO-Revision-Date: 2018-01-21 14:53+0100\n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 2.0.4\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "Ukryj powiadomienia"
+
+#: Settings.ui.h:2
+msgid "Send a notification with explanation when a new image is downloaded."
+msgstr "Pokaż powiadomienie kiedy zostanie pobrany nowy obrazek."
+
+#: Settings.ui.h:3
+msgid "Notifications"
+msgstr "Powiadomienia"
+
+#: Settings.ui.h:4
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Użyj powiadomień przemijających (samo wyłączające się)"
+
+#: Settings.ui.h:5
+msgid "Set background image"
+msgstr "Ustaw tło pulpitu"
+
+#: Settings.ui.h:6
+msgid "Set lock screen image"
+msgstr "Ustaw obraz blokady"
+
+#: Settings.ui.h:7
+msgid "Download folder:"
+msgstr "Miejsce pobierania:"
+
+#: Settings.ui.h:8
+msgid "Bing Wallpaper pictures folder"
+msgstr "Folder obrazów tapet Bing"
+
+#: Settings.ui.h:9
+msgid "Delete previously downloaded wallpapers:"
+msgstr "Usuń poprzednio pobrane tapety:"
+
+#: Settings.ui.h:10
+msgid "Days to store wallpapers before deleting:"
+msgstr "Ilość dni przechowywania pobranych obrazów:"
+
+#: Settings.ui.h:11
+msgid "Bing locale:"
+msgstr "Lokalizacja Bing:"
+
+#: Settings.ui.h:12
+msgid "Default is English - United States"
+msgstr "Domyślny Angielski - Stany Zjednoczone"
+
+#: Settings.ui.h:13
+msgid "Screen resolution:"
+msgstr "Rozdzielczość ekranu:"
+
+#: Settings.ui.h:14
+msgid "Override automatic resolution selection"
+msgstr "Zastąp wybór automatycznej rozdzielczości"
+
+#: Settings.ui.h:15 extension.js:118
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: Settings.ui.h:16
+msgid "Gnome shell extension version: "
+msgstr "Wersja rozszerzenia dla Gnome:"
+
+#: Settings.ui.h:17
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Creates a notification for the picture description and copyright information."
+msgstr ""
+"Zmienia tapetę codziennie na obraz dnia Bing dla twojego regionuTworzy "
+"powiadomienie o opisie zdjęcia oraz informacji o prawach autorskich."
+
+#: Settings.ui.h:18
+msgid "Maintained by Michael Carroll"
+msgstr "Prowadzone przez Michael'a Carroll'a"
+
+#: Settings.ui.h:19
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:20
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Na podstawie rozszerzenia powłoki NASA APOD Gnome autorstwa Elia Argentieri"
+
+#: Settings.ui.h:21
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Ten program jest BEZWZGLĘDNIE BEZ GWARANCJI.\n"
+"Zobacz <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">Licencja GNU General Public License, wersja 3 lub nowsza</a> - szczegóły</span>"
+
+#: Settings.ui.h:23
+msgid "About"
+msgstr "O programie"
+
+#: extension.js:113
+msgid "<No refresh scheduled>"
+msgstr "<Brak zaplanowanego odnowienia>"
+
+#: extension.js:114
+msgid "Show description"
+msgstr "Pokaż opis"
+
+#: extension.js:115
+msgid "Copy image URL to clipboard"
+msgstr "Skopiuj odnośnik obrazka do schowka"
+
+#: extension.js:116
+msgid "Set wallpaper"
+msgstr "Ustaw tapetę"
+
+#: extension.js:117
+msgid "Refresh Now"
+msgstr "Odśwież"
+
+#: extension.js:160
+msgid "Open extension settings"
+msgstr "Otwórz ustawienia rozszerzenia"
+
+#: extension.js:165
+msgid "Bing website"
+msgstr "Strona Bing"
+
+#: extension.js:197
+msgid "Next refresh"
+msgstr "Następne odświeżenie"
+
+#: extension.js:288
+msgid "Market not available in your region"
+msgstr "Rynek nie jest dostępny w twoim regionie"
+
+#: extension.js:288
+msgid "The selected market is not available in your country or geographic region.\n"
+msgstr "Wybrany rynek nie jest dostępny w Twoim kraju lub regionie geograficznym.\n"
+
+#: extension.js:297
+msgid "Bing Wallpaper of the Day for"
+msgstr "Tapeta dnia Bing"
+
+#: extension.js:346
+msgid "No wallpaper available"
+msgstr "Żadna tapeta nie jest dostępna"
+
+#: extension.js:347
+msgid "No picture for today 😞."
+msgstr "Brak obrazka na dziś 😞."
+
+#: prefs.js:151
+msgid "Fetching data..."
+msgstr "Pobieranie danych..."
+
+#: prefs.js:163
+msgid "This market is not available in your region"
+msgstr "Ten rynek nie jest dostępny w twoim regionie"
+
+#: prefs.js:167
+msgid "A network error occured"
+msgstr "Wystąpił błąd sieci"
