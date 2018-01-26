@@ -21,17 +21,19 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 * Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)
 * Only attempts to download wallpapers when they have been updated
 * Doesn't poll continuously - only once per day and on startup (a refresh is scheduled when Bing is due to update)
-* Locale support and German, Dutch and Italian language translations (huge thanks to the translators)
+* Locale support and German, Dutch, Italian, Polish and Chinese (zh_CN) language translations (huge thanks to the translators)
 
 ## TODO
 
-* add more languages (#14
+* add more languages (#14) - [please help if you can](https://github.com/neffo/bing-wallpaper-gnome-extension/issues/14)
 * fix/test HTTP(S) proxy support (#22)
-* implement localisation for directory names (XDG_*) (#25)
 
 ## Known Issues
 
 * In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry)
+* Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
+* some users see a GNOME shell crash which seems to be related to the extension 
+being initialised and/or enabled twice (this could be a GNOME bug) (#17)
 
 ## Requirements
 

@@ -1,0 +1,180 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-02 14:40+1000\n"
+"PO-Revision-Date: 2018-01-26 00:01+0800\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+"Last-Translator: 金立龙 <trampover@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_CN\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "隐藏指示器图标"
+
+#: Settings.ui.h:2
+msgid "Send a notification with explanation when a new image is downloaded."
+msgstr "下载新的壁纸图片时显示详细说明."
+
+#: Settings.ui.h:3
+msgid "Notifications"
+msgstr "通知"
+
+#: Settings.ui.h:4
+msgid "Use transient notifications (auto dismiss)"
+msgstr "更换壁纸时显示通知(自动消失)"
+
+#: Settings.ui.h:5
+msgid "Set background image"
+msgstr "设置桌面壁纸"
+
+#: Settings.ui.h:6
+msgid "Set lock screen image"
+msgstr "设置锁屏壁纸"
+
+#: Settings.ui.h:7
+msgid "Download folder:"
+msgstr "保存下载壁纸的文件夹:"
+
+#: Settings.ui.h:8
+msgid "Bing Wallpaper pictures folder"
+msgstr "必应壁纸图片文件夹"
+
+#: Settings.ui.h:9
+msgid "Delete previously downloaded wallpapers:"
+msgstr "删除以前下载的壁纸："
+
+#: Settings.ui.h:10
+msgid "Days to store wallpapers before deleting:"
+msgstr "删除已使用的壁纸的时间(天):"
+
+#: Settings.ui.h:11
+msgid "Bing locale:"
+msgstr ""
+"显示哪个国家的必应壁纸\n"
+"及介绍壁纸详情的语言:"
+
+#: Settings.ui.h:12
+msgid "Default is English - United States"
+msgstr "默认英语- 美国"
+
+#: Settings.ui.h:13
+msgid "Screen resolution:"
+msgstr "屏幕分辨率:"
+
+#: Settings.ui.h:14
+msgid "Override automatic resolution selection"
+msgstr "自适应屏幕分辨率"
+
+#: Settings.ui.h:15 extension.js:118
+msgid "Settings"
+msgstr "偏好设置"
+
+#: Settings.ui.h:16
+msgid "Gnome shell extension version: "
+msgstr "GnomeShell版本 "
+
+#: Settings.ui.h:17
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Creates a notification for the picture description and copyright information."
+msgstr ""
+"将您的壁纸每天更改为适合您所在地区的必应壁纸图片。 并显示壁纸图片描述和版权信"
+"息的通知。"
+
+#: Settings.ui.h:18
+msgid "Maintained by Michael Carroll"
+msgstr "由Michael Carroll维护"
+
+#: Settings.ui.h:19
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:20
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "基于美国航空航天局APOD墙纸扩展由Elia Argentieri提供"
+
+#: Settings.ui.h:21
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"本程序不担保任何法律责任.\n"
+"参考这个链接给出的详情 <a href=\"https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\">GNU通用公共许可证，版本3或更高版本</a>"
+
+#: Settings.ui.h:23
+msgid "About"
+msgstr "关于"
+
+#: extension.js:113
+msgid "<No refresh scheduled>"
+msgstr "<没有刷新计划>"
+
+#: extension.js:114
+msgid "Show description"
+msgstr "显示详情"
+
+#: extension.js:115
+msgid "Copy image URL to clipboard"
+msgstr "复制壁纸图片链接到剪贴板"
+
+#: extension.js:116
+msgid "Set wallpaper"
+msgstr "设置壁纸"
+
+#: extension.js:117
+msgid "Refresh Now"
+msgstr "现在刷新"
+
+#: extension.js:160
+msgid "Open extension settings"
+msgstr "打开扩展设置"
+
+#: extension.js:165
+msgid "Bing website"
+msgstr "必应主页"
+
+#: extension.js:197
+msgid "Next refresh"
+msgstr "下一次刷新"
+
+#: extension.js:288
+msgid "Market not available in your region"
+msgstr "对不起，在你所在地区不可用"
+
+#: extension.js:288
+msgid ""
+"The selected market is not available in your country or geographic region.\n"
+msgstr "对不起，所选的在您的国家或地区不可用。\n"
+
+#: extension.js:297
+msgid "Bing Wallpaper of the Day for"
+msgstr "必应每日壁纸图片"
+
+#: extension.js:346
+msgid "No wallpaper available"
+msgstr "没有壁纸可用"
+
+#: extension.js:347
+msgid "No picture for today 😞."
+msgstr "今天没有壁纸图片 😞."
+
+#: prefs.js:151
+msgid "Fetching data..."
+msgstr "壁纸获取时间..."
+
+#: prefs.js:163
+msgid "This market is not available in your region"
+msgstr "在您的地区不可用"
+
+#: prefs.js:167
+msgid "A network error occured"
+msgstr "网络错误"
