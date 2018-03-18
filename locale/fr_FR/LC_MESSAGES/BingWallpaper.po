@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-18 15:29+0100\n"
-"PO-Revision-Date: 2018-03-18 18:01+0100\n"
+"PO-Revision-Date: 2018-03-18 20:46+0100\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "Copier l'URL de l'image dans le presse-papiers"
 
 #: extension.js:116
 msgid "Set wallpaper"
-msgstr "Définit le fond d'écran"
+msgstr "Définir le fond d'écran"
 
 #: extension.js:117
 msgid "Refresh Now"
