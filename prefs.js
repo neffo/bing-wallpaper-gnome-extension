@@ -59,8 +59,6 @@ function buildPrefsWidget(){
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
 
     let hideSwitch = buildable.get_object('hide');
-    let notifySwitch = buildable.get_object('notifications');
-    let transientSwitch = buildable.get_object('transient_notifications');
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooser = buildable.get_object('download_folder');
@@ -82,15 +80,6 @@ function buildPrefsWidget(){
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-
-    // Notifications
-    settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    settings.bind('transient', transientSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-
-    transientSwitch.set_sensitive(settings.get_boolean('notify'));
-    settings.connect('changed::notify', function() {
-        transientSwitch.set_sensitive(settings.get_boolean('notify'));
-    });
 
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
