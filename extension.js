@@ -115,6 +115,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.imageURL= ""; // link to image itself
         this.imageinfolink = ""; // link to Bing photo info page
         this.refreshdue = 0;
+        this.refreshduetext = "";
 
         this._settings = Utils.getSettings();
         this._settings.connect('changed::hide', Lang.bind(this, function() {
@@ -159,8 +160,8 @@ const BingWallpaperIndicator = new Lang.Class({
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.wallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-
-            this.refreshDueItem.label.set_text(_('Next refresh')+': '+this.refreshdue.format('%X')+' ('+friendly_time_diff(this.refreshdue)+')'); //
+            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + friendly_time_diff(this.refreshdue) + ")";
+            this.refreshDueItem.label.set_text(this.refreshduetext); //
         }));
         this._restartTimeout(60); // wait 60 seconds before performing refresh
     },
@@ -191,7 +192,6 @@ const BingWallpaperIndicator = new Lang.Class({
         let timezone = GLib.TimeZone.new_local();
         let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds);
         this.refreshdue = localTime;
-        //this.refreshDueItem.label.set_text(_('Next refresh')+': '+localTime.format('%F %X'););
         log('next check in '+seconds+' seconds @ local time '+localTime);
     },
 
