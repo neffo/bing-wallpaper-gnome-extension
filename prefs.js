@@ -22,21 +22,20 @@ let markets = ['ar-XA', 'bg-BG','cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el
 'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
 'zh-CN', 'zh-HK', 'zh-TW'];
-let marketName = ['Arabic – Arabia', 'Bulgarian – Bulgaria', 'Czech – Czech Republic', 'Danish – Denmark',
-                    'German – Austria', 'German – Switzerland', 'German – Germany', 'Greek – Greece',
-                    'English – Australia', 'English – Canada', 'English – United Kingdom', 'English – Indonesia',
-                    'English – Ireland', 'English – India', 'English – Malaysia', 'English – New Zealand',
-                    'English – Philippines', 'English – Singapore', 'English – United States', 'English - International',
-                    'English – Arabia', 'English – South Africa', 'Spanish – Argentina', 'Spanish – Chile',
-                    'Spanish – Spain', 'Spanish – Mexico', 'Spanish – United States', 'Spanish – Latin America',
-                    'Estonian – Estonia', 'Finnish – Finland', 'French – Belgium', 'French – Canada',
-                    'French – Switzerland', 'French – France', 'Hebrew – Israel', 'Croatian – Croatia',
-                    'Hungarian – Hungary', 'Italian – Italy', 'Japanese – Japan', 'Korean – Korea',
-                    'Lithuanian – Lithuania', 'Latvian – Latvia', 'Norwegian – Norway', 'Dutch – Belgium',
-                    'Dutch – Netherlands', 'Polish – Poland', 'Portuguese – Brazil', 'Portuguese – Portugal',
-                    'Romanian – Romania', 'Russian – Russia', 'Slovak – Slovak Republic', 'Slovenian – Slovenia',
-                    'Swedish – Sweden', 'Thai – Thailand', 'Turkish – Turkey', 'Ukrainian – Ukraine',
-                    'Chinese – China', 'Chinese – Hong Kong SAR', 'Chinese – Taiwan'];
+let marketName = [
+  "(شبه الجزيرة العربية‎) العربية", "български (България)", "čeština (Česko)", "dansk (Danmark)", "Deutsch (Österreich)",
+  "Deutsch (Schweiz)", "Deutsch (Deutschland)", "Ελληνικά (Ελλάδα)", "English (Australia)", "English (Canada)",
+  "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
+  "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
+  "English (International)", "English (Arabia)", "English (South Africa)", "español (Argentina)", "español (Chile)",
+  "español (España)", "español (México)", "español (Estados Unidos)", "español (Latinoamérica)", "eesti (Eesti)",
+  "suomi (Suomi)", "français (Belgique)", "français (Canada)", "français (Suisse)", "français (France)",
+  "(עברית (ישראל", "hrvatski (Hrvatska)", "magyar (Magyarország)", "italiano (Italia)", "日本語 (日本)", "한국어(대한민국)",
+  "lietuvių (Lietuva)", "latviešu (Latvija)", "norsk bokmål (Norge)", "Nederlands (België)", "Nederlands (Nederland)",
+  "polski (Polska)", "português (Brasil)", "português (Portugal)", "română (România)", "русский (Россия)",
+  "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
+  "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
+];
 
 let resolutions = [ 'auto', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
 let marketDescription = null;
@@ -95,7 +94,7 @@ function buildPrefsWidget(){
     // Bing Market (locale/country)
 
     markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
-        marketEntry.append(bingmarket, marketName[index]);
+        marketEntry.append(bingmarket, bingmarket+": "+marketName[index]);
     })
     //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
