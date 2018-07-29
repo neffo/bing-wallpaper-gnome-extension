@@ -8,82 +8,83 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-28 15:27+1000\n"
-"PO-Revision-Date: 2018-07-28 15:58+1000\n"
-"Last-Translator: Christophe Jean <chrisophe@cjean.fr>\n"
+"PO-Revision-Date: 2018-07-28 15:50+1000\n"
+"Last-Translator: Mario Rubio\n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
-msgstr "Cacher l'indicateur"
+msgstr "Ocultar indicador"
 
 #: Settings.ui.h:2
 msgid "Set background image"
-msgstr "Définir l'arrière-plan"
+msgstr "Cambio automático de fondo de pantalla"
 
 #: Settings.ui.h:3
 msgid "Set lock screen image"
-msgstr "Définir l'écran de verouillage"
+msgstr "Cambio automático de imagen en la pantalla de bloqueo"
 
 #: Settings.ui.h:4
 msgid "Download folder:"
-msgstr "Dossier de téléchargement :"
+msgstr "Carpeta de descarga:"
 
 #: Settings.ui.h:5
 msgid "Bing Wallpaper pictures folder"
-msgstr "Dossier d'image de Bing Wallpaper"
+msgstr "Carpeta de almacenamiento de los fondos de pantalla Bing"
 
 #: Settings.ui.h:6
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Supprimer les images précédemment téléchargées :"
+msgstr "Borrar fondos anteriormente descargados:"
 
 #: Settings.ui.h:7
 msgid "Days to store wallpapers before deleting:"
-msgstr ""
-"Nombres de jours pendant lesquels les arrière-plans sont conservés avant "
-"suppression :"
+msgstr "Días a almacenar fondos antes de su borrado:"
 
 #: Settings.ui.h:8
 msgid "Bing locale:"
-msgstr "Localisation de Bing :"
+msgstr "Localización de Bing:"
 
+# Locale names are automatically translated/fetched??
+# Yes > Por defecto se usa "Inglés - EEUU"
+# No > Por defecto se usa "English - United States"
 #: Settings.ui.h:9
 msgid "Default is English - United States"
-msgstr "Anglais - États-Unis par défaut"
+msgstr "Por defecto se usa \"English - United States\""
 
 #: Settings.ui.h:10
 msgid "Screen resolution:"
-msgstr "Résolution :"
+msgstr "Resolución de pantalla:"
 
 #: Settings.ui.h:11
 msgid "Override automatic resolution selection"
-msgstr "Ignorer la sélection de résolution automatique"
+msgstr "Desactivar selección automática de resolución"
 
 #: Settings.ui.h:12 extension.js:134
 msgid "Settings"
-msgstr "Paramétres"
+msgstr "Ajustes"
 
 #: Settings.ui.h:13
 msgid "Gnome shell extension version: "
-msgstr "Version de l'extension Gnome shell :"
+msgstr "Versión de la extensión: "
 
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Creates a notification for the picture description and copyright information."
 msgstr ""
-"Change votre arrière-plan tous les jours pour l'image Bing du jour de votre "
-"région. Crée une notification décrivant l'image et les informations de "
-"copyright."
+"Cambio diario del fondo de pantalla utilizando la foto del día regional de "
+"Bing. Notificaciones automáticas con la descripción e información de "
+"copyright de la imagen."
 
 #: Settings.ui.h:15
 msgid "Maintained by Michael Carroll"
-msgstr "Maintenu par Michael Carroll"
+msgstr "Mantenido por Michael Carroll"
 
 #: Settings.ui.h:16
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -91,7 +92,7 @@ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:17
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basé sur l'extension Gnome shell NASA APNN de Elia Argentieri"
+msgstr "Basada en la extensión NASA APOD de Elia Argentieri"
 
 #: Settings.ui.h:18
 msgid ""
@@ -99,106 +100,106 @@ msgid ""
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Ce programme est livré avec ABSOLUMENT AUCUNE "
-"GARANTIE.\n"
-"Consultez la <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 ou supérieure </a> pour les détails."
-"</span>"
+"<span size=\"small\">Este programa se distribuye con la esperanza de que sea "
+"útil pero SIN NINGUNA GARANTÍA\n"
+"Para más detalles, vea <a href=\"https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\">GNU General Public License, versión 3 o superior</a>.</span>"
 
 #: Settings.ui.h:20
 msgid "About"
-msgstr "A propos"
+msgstr "Sobre"
 
 #: extension.js:81 extension.js:84
 #, fuzzy
 msgid "minutes"
-msgstr "minutes"
+msgstr "minutos"
 
 #: extension.js:87
 #, fuzzy
 msgid "days"
-msgstr "jours"
+msgstr "dias"
 
 #: extension.js:90
 #, fuzzy
 msgid "hours"
-msgstr "heures"
+msgstr "horas"
 
 #: extension.js:127
 msgid "<No refresh scheduled>"
-msgstr "<Aucune actualisation planifiée>"
+msgstr "<No hay actualizaciones programadas>"
 
 #: extension.js:129 extension.js:130
 #, fuzzy
 msgid "Awaiting refresh..."
-msgstr "En attente de actualisation..."
+msgstr "Esperando la actualización..."
 
 #: extension.js:131
 msgid "Copy image URL to clipboard"
-msgstr "Copier l'URL de l'image dans le presse-papiers"
+msgstr "Copiar URL de la imagen al portapapeles"
 
 #: extension.js:132
 msgid "Set wallpaper"
-msgstr "Définir le fond d'écran"
+msgstr "Establecer fondo de pantalla"
 
 #: extension.js:133
 msgid "Refresh Now"
-msgstr "Actualiser maintenant"
+msgstr "Actualizar ahora"
 
 #: extension.js:163
 msgid "Next refresh"
-msgstr "Prochaine actualisation"
+msgstr "Próxima actualización"
 
 #: extension.js:279 prefs.js:152
 msgid "Market not available in your region"
-msgstr "Marché non disponible dans votre région"
+msgstr "Servicio no disponible en su región"
 
 #: extension.js:289
 msgid "Bing Wallpaper of the Day for"
-msgstr "Le fond d'écran Bing du jour pour"
+msgstr "Fondo de pantalla de Bing del día para"
 
 #: extension.js:337
 msgid "No wallpaper available"
-msgstr "Aucun fond d'écran disponnible"
+msgstr "No hay ningún fondo de pantalla disponible"
 
 #: extension.js:338
 msgid "No picture for today 😞."
-msgstr "Pas d'image pour aujourd'hui 😞."
+msgstr "Hoy no hay ninguna imagen 😞."
 
 #: prefs.js:140
 msgid "Fetching data..."
-msgstr "Récupération des données..."
+msgstr "Obteniendo datos..."
 
+# Error de conexión?
+# o
+# Error de red?
 #: prefs.js:156
 msgid "A network error occured"
-msgstr "Une erreur de réseau est survenue"
+msgstr "A ocurrido un error de conexión"
 
 #~ msgid "Send a notification with explanation when a new image is downloaded."
 #~ msgstr ""
-#~ "Envoyer une notification avec explication lorsqu'une nouvelle image est "
-#~ "téléchargée."
+#~ "Mostrar una notificación explicatoria cada vez que se descargue una nueva "
+#~ "imagen."
 
 #~ msgid "Notifications"
-#~ msgstr "Notifications"
+#~ msgstr "Notificaciones"
 
 #~ msgid "Use transient notifications (auto dismiss)"
-#~ msgstr "Utiliser des notifications transitoires (rejet automatique)"
+#~ msgstr "Usar notificaciones temporales"
 
 #~ msgid "Show description"
-#~ msgstr "Afficher la description"
+#~ msgstr "Mostrar descripción"
 
 #~ msgid "Open extension settings"
-#~ msgstr "Ouvrir les préférences de l'extension"
+#~ msgstr "Abrir el menú de ajustes de la extensión"
 
 #~ msgid "Bing website"
-#~ msgstr "Site de Bing"
+#~ msgstr "Página de Bing"
 
 #~ msgid ""
 #~ "The selected market is not available in your country or geographic "
 #~ "region.\n"
-#~ msgstr ""
-#~ "Le marché sélectionné n'est pas disponible dans votre pays ou région "
-#~ "géographique.\n"
+#~ msgstr "El Servicio no está disponible en su país o región geográfica.\n"
 
 #~ msgid "This market is not available in your region"
-#~ msgstr "Ce marché n'est pas disponible dans votre région"
+#~ msgstr "Este servicio no esta disponible en su región"

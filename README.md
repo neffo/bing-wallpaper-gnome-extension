@@ -16,12 +16,12 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 ## Features
 
 * Fetches the Bing wallpaper of the day and sets as both lock screen and desktop wallpaper (these are both user selectable)
-* Optionally force a specific region (i.e. locale)
+* Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
 * Automatically selects the highest resolution (and most appropriate wallpaper) in multiple monitor setups
-* Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)
+* Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first), or keep them forever
 * Only attempts to download wallpapers when they have been updated
 * Doesn't poll continuously - only once per day and on startup (a refresh is scheduled when Bing is due to update)
-* Locale support: English, German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portugeuse (pt, pt_BR) and Russian (ru_RU) language translations (a huge thanks to the translators)
+* Language support: English, German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portugeuse (pt, pt_BR), Russian (ru_RU), Spanish (es) language translations (a HUGE thanks to the translators)
 
 ## TODO
 
@@ -32,7 +32,8 @@ This is my first attempt at a GNOME extension, so it may have some issues.
 
 * In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry)
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
-* some users see a GNOME shell crash (this seems to be a GNOME bug though...) (#17)
+* Some users see a GNOME shell crash (this seems to be a GNOME bug though...) (#17) - this may be fixed on current Gnome release however
+* We are limited by the resolution of Bing's wallpapers, so no 4K options yet
 
 ## Requirements
 

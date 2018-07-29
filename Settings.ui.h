@@ -1,7 +1,4 @@
 char *s = N_("Hide the indicator");
-char *s = N_("Send a notification with explanation when a new image is downloaded.");
-char *s = N_("Notifications");
-char *s = N_("Use transient notifications (auto dismiss)");
 char *s = N_("Set background image");
 char *s = N_("Set lock screen image");
 char *s = N_("Download folder:");
