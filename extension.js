@@ -330,17 +330,16 @@ const BingWallpaperIndicator = new Lang.Class({
             } else {
                 log("Image already downloaded");
                 let changed = this._setBackground();
-                this._setMenuText();
                 this._updatePending = false;
             }
+            
         } else {
             this.title = _("No wallpaper available");
             this.explanation = _("No picture for today 😞.");
             this.filename = "";
             this._updatePending = false;
-            this._setMenuText();
         }
-
+        this._setMenuText();
         this._restartTimeoutFromLongDate(this.longstartdate);
     },
 
