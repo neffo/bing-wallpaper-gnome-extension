@@ -303,7 +303,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = "1920x1080";
             }
 
-            this.imageURL = BingURL+imagejson['urlbase']+"_"+resolution+".jpg"; // mangle url to user's resolution
+            this.imageURL = BingURL+imagejson['urlbase']+"_"+resolution+".jpg"; // generate image url for user's resolution
 
             let BingWallpaperDir = this._settings.get_string('download-folder');
             let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
