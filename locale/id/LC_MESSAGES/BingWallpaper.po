@@ -32,7 +32,7 @@ msgstr "Set gambar layar penguncian"
 
 #: Settings.ui.h:4
 msgid "Download folder:"
-msgstr "Folder unduhan"
+msgstr "Folder unduhan:"
 
 #: Settings.ui.h:5
 msgid "Bing Wallpaper pictures folder"
@@ -40,7 +40,7 @@ msgstr "Folder gambar wallpaper Bing"
 
 #: Settings.ui.h:6
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Hapus wallpaper yang sebelumnya terunduh"
+msgstr "Hapus wallpaper yang sebelumnya terunduh:"
 
 #: Settings.ui.h:7
 msgid "Days to store wallpapers before deleting:"
@@ -48,7 +48,7 @@ msgstr "Durasi penyimpanan gambar di komputer (dalam hari):"
 
 #: Settings.ui.h:8
 msgid "Bing locale:"
-msgstr "Bing lokal"
+msgstr "Bing lokal:"
 
 #: Settings.ui.h:9
 msgid "Default is English - United States"
@@ -56,7 +56,7 @@ msgstr "Default bahasa Inggris - Amerika Serikat"
 
 #: Settings.ui.h:10
 msgid "Screen resolution:"
-msgstr "Ukuran layar"
+msgstr "Ukuran layar:"
 
 #: Settings.ui.h:11
 msgid "Override automatic resolution selection"
@@ -68,7 +68,7 @@ msgstr "Pengaturan"
 
 #: Settings.ui.h:13
 msgid "Gnome shell extension version: "
-msgstr "Versi ekstensi Gnome shell"
+msgstr "Versi ekstensi Gnome shell: "
 
 #: Settings.ui.h:14
 msgid ""
@@ -80,7 +80,7 @@ msgstr ""
 
 #: Settings.ui.h:15
 msgid "Maintained by Michael Carroll"
-msgstr "Dikelola oleh Michael Caroll"
+msgstr "Dikelola oleh Michael Carroll"
 
 #: Settings.ui.h:16
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
