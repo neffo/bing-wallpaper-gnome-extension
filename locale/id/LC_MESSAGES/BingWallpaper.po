@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-28 15:27+1000\n"
+"PO-Revision-Date: 2018-08-30 17:42+0700\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: id\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "Sembunyikan indikator"
+
+#: Settings.ui.h:2
+msgid "Set background image"
+msgstr "Set gambar latar belakang"
+
+#: Settings.ui.h:3
+msgid "Set lock screen image"
+msgstr "Set gambar layar penguncian"
+
+#: Settings.ui.h:4
+msgid "Download folder:"
+msgstr "Folder unduhan"
+
+#: Settings.ui.h:5
+msgid "Bing Wallpaper pictures folder"
+msgstr "Folder gambar wallpaper Bing"
+
+#: Settings.ui.h:6
+msgid "Delete previously downloaded wallpapers:"
+msgstr "Hapus wallpaper yang sebelumnya terunduh"
+
+#: Settings.ui.h:7
+msgid "Days to store wallpapers before deleting:"
+msgstr "Durasi penyimpanan gambar di komputer (dalam hari):"
+
+#: Settings.ui.h:8
+msgid "Bing locale:"
+msgstr "Bing lokal"
+
+#: Settings.ui.h:9
+msgid "Default is English - United States"
+msgstr "Default bahasa Inggris - Amerika Serikat"
+
+#: Settings.ui.h:10
+msgid "Screen resolution:"
+msgstr "Ukuran layar"
+
+#: Settings.ui.h:11
+msgid "Override automatic resolution selection"
+msgstr "Menimpa aturan pemilihan ukuran otomatis"
+
+#: Settings.ui.h:12 extension.js:134
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: Settings.ui.h:13
+msgid "Gnome shell extension version: "
+msgstr "Versi ekstensi Gnome shell"
+
+#: Settings.ui.h:14
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Creates a notification for the picture description and copyright information."
+msgstr ""
+"Atur wallpaper harian berdasarkan gambar harian Bing sesuai wilayah anda. "
+"Memuat pemberitahuan tentang deskripsi dan informasi hak cipta dari gambar."
+
+#: Settings.ui.h:15
+msgid "Maintained by Michael Carroll"
+msgstr "Dikelola oleh Michael Caroll"
+
+#: Settings.ui.h:16
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:17
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Berdasarkan ekstensi Gnome NASA APOD oleh Elia Argentieri"
+
+#: Settings.ui.h:18
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+
+#: Settings.ui.h:20
+msgid "About"
+msgstr "Tentang"
+
+#: extension.js:81 extension.js:84
+msgid "minutes"
+msgstr "menit"
+
+#: extension.js:87
+msgid "days"
+msgstr "hari"
+
+#: extension.js:90
+msgid "hours"
+msgstr "jam"
+
+#: extension.js:127
+msgid "<No refresh scheduled>"
+msgstr "<Muat ulang tidak terjadwal>"
+
+#: extension.js:129 extension.js:130
+msgid "Awaiting refresh..."
+msgstr "Menunggu pemuatan ulang"
+
+#: extension.js:131
+msgid "Copy image URL to clipboard"
+msgstr "Salin URL gambar ke papan baki"
+
+#: extension.js:132
+msgid "Set wallpaper"
+msgstr "Atur wallpapers"
+
+#: extension.js:133
+msgid "Refresh Now"
+msgstr "Muat ulang sekarang"
+
+#: extension.js:163
+msgid "Next refresh"
+msgstr "Pemuatan ulang selanjutnya"
+
+#: extension.js:279 prefs.js:152
+msgid "Market not available in your region"
+msgstr "Market tidak tersedia di daerah anda"
+
+#: extension.js:289
+msgid "Bing Wallpaper of the Day for"
+msgstr "Wallpaper Bing hari ini untuk"
+
+#: extension.js:337
+msgid "No wallpaper available"
+msgstr "Wallpaper tidak tersedia"
+
+#: extension.js:338
+msgid "No picture for today 😞."
+msgstr "Tidak ada gambar baru hari ini"
+
+#: prefs.js:140
+msgid "Fetching data..."
+msgstr "Mengambil data..."
+
+#: prefs.js:156
+msgid "A network error occured"
+msgstr "Terjadi kesalahan jaringan"
