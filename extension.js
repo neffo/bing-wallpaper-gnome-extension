@@ -274,6 +274,8 @@ const BingWallpaperIndicator = new Lang.Class({
         let datamarket = parsed['market']['mkt'];
         let prefmarket = this._settings.get_string('market');
 
+        log('JSON returned (raw):\n' + data);
+
         if (datamarket != prefmarket) {
           log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
           this.title = _("Market not available in your region");
