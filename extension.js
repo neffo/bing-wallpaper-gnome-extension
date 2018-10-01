@@ -21,6 +21,9 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
+// required to set lock screen dialog background
+const UnlockBackground = Me.imports.unlockdialogbackground;
+
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
 const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
@@ -122,11 +125,18 @@ const BingWallpaperIndicator = new Lang.Class({
             this.actor.visible = !this._settings.get_boolean('hide');
         }));
 
+        // enable or disable lockscreen *dialog* background (this is handled separately to the lockscreen background!)
+        this._settings.connect('changed::set-lock-screen', Lang.bind(this, function() {
+            UnlockBackground.set_active(this._settings.get_boolean('set-lock-screen'));
+        }));
+
         this.actor.visible = !this._settings.get_boolean('hide');
+        UnlockBackground.set_active(this._settings.get_boolean('set-lock-screen'));
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.clipboardItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
         this.wallpaperItem = new PopupMenu.PopupMenuItem(_("Set wallpaper"));
@@ -135,11 +145,13 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.titleItem);
+        this.menu.addMenuItem(this.explainItem);
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.clipboardItem);
         this.menu.addMenuItem(this.wallpaperItem);
         this.menu.addMenuItem(this.settingsItem);
+        this.explainItem.setSensitive(false);
         this.copyrightItem.setSensitive(false);
         this.refreshDueItem.setSensitive(false);
         this.titleItem.connect('activate', Lang.bind(this, function() {
@@ -233,6 +245,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _setMenuText: function() {
         this.titleItem.label.set_text(this.title);
+        this.explainItem.label.set_text(this.explanation);
         this.copyrightItem.label.set_text(this.copyright);
     },
 
@@ -287,7 +300,7 @@ const BingWallpaperIndicator = new Lang.Class({
         }
 
         if (imagejson['url'] != '') {
-            this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "") + ' ' + this._localeDate(imagejson['startdate']) + ' (' + datamarket + ')';;
+            this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson['startdate'])+' ('+datamarket+')';
             this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
             this.longstartdate = imagejson['fullstartdate'];
@@ -429,6 +442,7 @@ function init(extensionMeta) {
         theme.append_search_path(extensionMeta.path + "/icons");
         Convenience.initTranslations("BingWallpaper");
         init_called = true;
+        UnlockBackground.init(); // initialise lockscreen dialog class
         log("init() called");
     }
     else {
@@ -463,6 +477,10 @@ function enable() {
     else {
         log("detected best resolution "+autores);
     }
+
+    // enable lockscreen dialog code
+    //UnlockBackground.lsbg_enable(); // activate lockscreen dialog code
+
 }
 
 function disable() {
@@ -472,4 +490,5 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
+    //UnlockBackground.lsbg_disable(); // activate lockscreen dialog code
 }

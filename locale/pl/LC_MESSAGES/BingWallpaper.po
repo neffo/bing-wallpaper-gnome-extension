@@ -72,7 +72,7 @@ msgstr "Wersja rozszerzenia dla Gnome:"
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 "Zmienia tapetę codziennie na obraz dnia Bing dla twojego regionuTworzy "
 "powiadomienie o opisie zdjęcia oraz informacji o prawach autorskich."

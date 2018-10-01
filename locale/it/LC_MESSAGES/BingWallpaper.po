@@ -73,7 +73,7 @@ msgstr "Versione dell'estensione per Gnome shell: "
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 "Cambia il tuo sfondo giornalmente con l'immagine del giorno di Bing per la "
 "tua regione. Crea una notifica con la descrizione dell'immagine e le "

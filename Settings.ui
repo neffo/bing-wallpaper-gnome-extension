@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 
+<!-- Generated with glade 3.22.1 
 
 Copyright (C) 2017
 
@@ -43,6 +43,7 @@ Modified by: Michael Carroll
         <property name="margin_left">12</property>
         <property name="margin_right">12</property>
         <property name="margin_top">12</property>
+        <property name="margin_bottom">12</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
@@ -380,7 +381,6 @@ Modified by: Michael Carroll
                             <property name="halign">start</property>
                             <property name="hexpand">False</property>
                             <property name="label" translatable="yes">Default is English - United States</property>
-                            <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -461,7 +461,6 @@ Modified by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">Override automatic resolution selection</property>
-                            <property name="wrap">True</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -587,7 +586,7 @@ Modified by: Michael Carroll
           <object class="GtkLabel" id="extension_description">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Changes your wallpaper daily to the Bing picture of the day for your region. Creates a notification for the picture description and copyright information.</property>
+            <property name="label" translatable="yes">Changes your wallpaper daily to the Bing picture of the day for your region. Displays the picture description and copyright information.</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
           </object>

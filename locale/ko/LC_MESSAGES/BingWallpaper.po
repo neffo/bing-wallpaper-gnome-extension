@@ -73,7 +73,7 @@ msgstr "그놈 쉘 확장 버전:"
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 "귀하의 지역에 맞는 그날의 Bing 그림으로 매일 배경화면을 변경해 줍니다. 또한 "
 "해당 그림에 대한 설명과 저작권 정보에 대한 알림을 보여줍니다."

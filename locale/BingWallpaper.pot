@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-28 15:27+1000\n"
+"POT-Creation-Date: 2018-10-01 17:36+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:12 extension.js:134
+#: Settings.ui.h:12 extension.js:144
 msgid "Settings"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 
 #: Settings.ui.h:15
@@ -98,55 +98,55 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:81 extension.js:84
+#: extension.js:84 extension.js:87
 msgid "minutes"
 msgstr ""
 
-#: extension.js:87
+#: extension.js:90
 msgid "days"
 msgstr ""
 
-#: extension.js:90
+#: extension.js:93
 msgid "hours"
 msgstr ""
 
-#: extension.js:127
+#: extension.js:136
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:129 extension.js:130
+#: extension.js:138 extension.js:139 extension.js:140
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:131
+#: extension.js:141
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:132
+#: extension.js:142
 msgid "Set wallpaper"
 msgstr ""
 
-#: extension.js:133
+#: extension.js:143
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:163
+#: extension.js:175
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:279 prefs.js:152
+#: extension.js:294 prefs.js:152
 msgid "Market not available in your region"
 msgstr ""
 
-#: extension.js:289
+#: extension.js:304
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:337
+#: extension.js:352
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:338
+#: extension.js:353
 msgid "No picture for today 😞."
 msgstr ""
 

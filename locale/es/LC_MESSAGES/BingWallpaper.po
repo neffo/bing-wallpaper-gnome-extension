@@ -76,7 +76,7 @@ msgstr "Versión de la extensión: "
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 "Cambio diario del fondo de pantalla utilizando la foto del día regional de "
 "Bing. Notificaciones automáticas con la descripción e información de "

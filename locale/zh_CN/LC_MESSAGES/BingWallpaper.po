@@ -71,7 +71,7 @@ msgstr "GnomeShell版本 "
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Creates a notification for the picture description and copyright information."
+"Displays the picture description and copyright information."
 msgstr ""
 "将您的壁纸每天更改为适合您所在地区的必应壁纸图片。 并显示壁纸图片描述和版权信"
 "息的通知。"
