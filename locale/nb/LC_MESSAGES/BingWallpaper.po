@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-01 17:36+1000\n"
+"PO-Revision-Date: 2019-02-13 20:41+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: Jon Harald Søby <jhsoby@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nb\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "Skjul indikatoren"
+
+#: Settings.ui.h:2
+msgid "Set background image"
+msgstr "Sett bakgrunnsbilde"
+
+#: Settings.ui.h:3
+msgid "Set lock screen image"
+msgstr "Sett låseskjermbilde"
+
+#: Settings.ui.h:4
+msgid "Download folder:"
+msgstr "Nedlastingsmappe:"
+
+#: Settings.ui.h:5
+msgid "Bing Wallpaper pictures folder"
+msgstr "Mappe for Bing-bakgrunnsbilder"
+
+#: Settings.ui.h:6
+msgid "Delete previously downloaded wallpapers:"
+msgstr "Slett tidligere nedlastede bakgrunner:"
+
+#: Settings.ui.h:7
+msgid "Days to store wallpapers before deleting:"
+msgstr "Antall dager bakgrunnene skal lagres før de slettes:"
+
+#: Settings.ui.h:8
+msgid "Bing locale:"
+msgstr "Bing-lokale:"
+
+#: Settings.ui.h:9
+msgid "Default is English - United States"
+msgstr "Standard er engelsk (USA)"
+
+#: Settings.ui.h:10
+msgid "Screen resolution:"
+msgstr "Skjermoppløsning:"
+
+#: Settings.ui.h:11
+msgid "Override automatic resolution selection"
+msgstr "Overstyr automatisk valg av skjermoppløsning"
+
+#: Settings.ui.h:12 extension.js:144
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: Settings.ui.h:13
+msgid "Gnome shell extension version: "
+msgstr "Gnome shell-utvidelsesversjon: "
+
+#: Settings.ui.h:14
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Displays the picture description and copyright information."
+msgstr ""
+"Endrer bakgrunnsbildet daglig til dagens Bing-bilde for din region. Viser "
+"bildebeskrivelse og opphavsrettsinformasjon."
+
+#: Settings.ui.h:15
+msgid "Maintained by Michael Carroll"
+msgstr "Vedlikeholdes av Michael Carroll"
+
+#: Settings.ui.h:16
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:17
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Basert på Gnome-utvidelsen NASA APOD av Elia Argentieri"
+
+#: Settings.ui.h:18
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Dette programmet kommer HELT UTEN GARANTI.\n"
+"Se <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, versjon 3 eller senere</a> for detaljer.</span>"
+
+#: Settings.ui.h:20
+msgid "About"
+msgstr "Om"
+
+#: extension.js:84 extension.js:87
+msgid "minutes"
+msgstr "minutter"
+
+#: extension.js:90
+msgid "days"
+msgstr "dager"
+
+#: extension.js:93
+msgid "hours"
+msgstr "timer"
+
+#: extension.js:136
+msgid "<No refresh scheduled>"
+msgstr "<Ingen oppdatering planlagt>"
+
+#: extension.js:138 extension.js:139 extension.js:140
+msgid "Awaiting refresh..."
+msgstr "Venter på oppdatering …"
+
+#: extension.js:141
+msgid "Copy image URL to clipboard"
+msgstr "Kopier bildets URL til utklippstavlen"
+
+#: extension.js:142
+msgid "Set wallpaper"
+msgstr "Sett bakgrunn"
+
+#: extension.js:143
+msgid "Refresh Now"
+msgstr "Oppdater nå"
+
+#: extension.js:175
+msgid "Next refresh"
+msgstr "Neste oppdatering"
+
+#: extension.js:294 prefs.js:152
+msgid "Market not available in your region"
+msgstr "Markedet er ikke tilgjengelig i din region"
+
+#: extension.js:304
+msgid "Bing Wallpaper of the Day for"
+msgstr "Dagens Bing-bakgrunn for"
+
+#: extension.js:352
+msgid "No wallpaper available"
+msgstr "Ingen bakgrunn tilgjengelig"
+
+#: extension.js:353
+msgid "No picture for today 😞."
+msgstr "Ikke noe bilde for i dag 😞."
+
+#: prefs.js:140
+msgid "Fetching data..."
+msgstr "Henter data …"
+
+#: prefs.js:156
+msgid "A network error occured"
+msgstr "En nettverksfeil oppsto"
