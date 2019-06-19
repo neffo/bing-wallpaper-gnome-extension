@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-28 15:27+1000\n"
-"PO-Revision-Date: 2018-10-01 16:50+1000\n"
-"Last-Translator: Jonatan Hatakeyama Zeidler <jonatan_zeidler@gmx.de>\n"
+"PO-Revision-Date: 2019-06-19 17:30+0200\n"
+"Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
@@ -23,15 +23,15 @@ msgstr "Indikator ausblenden"
 
 #: Settings.ui.h:2
 msgid "Set background image"
-msgstr "Hintergrundbild setzen"
+msgstr "Hintergrundbild einstellen"
 
 #: Settings.ui.h:3
 msgid "Set lock screen image"
-msgstr "Hintergrundbild des Sperrbildschirms ändern"
+msgstr "Hintergrundbild des Sperrbildschirms einstellen"
 
 #: Settings.ui.h:4
 msgid "Download folder:"
-msgstr "Speicherverzeichnis:"
+msgstr "Downloadordner:"
 
 #: Settings.ui.h:5
 msgid "Bing Wallpaper pictures folder"
@@ -39,7 +39,7 @@ msgstr "Bilderordner für Bing-Hintergrundbilder"
 
 #: Settings.ui.h:6
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Alte Hintergrundbilder löschen:"
+msgstr "Zuvor heruntergeladene Hintergrundbilder löschen"
 
 #: Settings.ui.h:7
 msgid "Days to store wallpapers before deleting:"
@@ -50,10 +50,8 @@ msgid "Bing locale:"
 msgstr "Bing-Region:"
 
 #: Settings.ui.h:9
-#, fuzzy
-#| msgid "Default is en-US"
 msgid "Default is English - United States"
-msgstr "Vorgabe ist en-US"
+msgstr "Vorgabe ist English - United States"
 
 #: Settings.ui.h:10
 msgid "Screen resolution:"
@@ -61,7 +59,7 @@ msgstr "Bildschirmauflösung:"
 
 #: Settings.ui.h:11
 msgid "Override automatic resolution selection"
-msgstr "Kraft-Option für Bildschirmauflösung"
+msgstr "Überschreibt die automatische Auswahl der Auflösung"
 
 #: Settings.ui.h:12 extension.js:134
 msgid "Settings"
@@ -69,20 +67,20 @@ msgstr "Einstellungen"
 
 #: Settings.ui.h:13
 msgid "Gnome shell extension version: "
-msgstr "Version dieser GNOME Shell-Erweiterung: "
+msgstr "Version dieser Gnome-Shell-Erweiterung: "
 
 #: Settings.ui.h:14
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Displays the picture description and copyright information."
 msgstr ""
-"Wechselt das Hintergrundbild täglich zum aktuellen Bild des Tages von Bing "
-"für die angegebene Region. Zeigt eine Benachrichtigung mit Bildbeschreibung "
-"und Urheberrechtsinformation."
+"Wechselt täglich Ihr Hintergrundbild zum aktuellen Bild des Tages von Bing "
+"für Ihre Region. Zeigt eine Benachrichtigung mit Bildbeschreibung und "
+"Urheberrechtsinformation an."
 
 #: Settings.ui.h:15
 msgid "Maintained by Michael Carroll"
-msgstr "Gewartet durch Michael Carroll"
+msgstr "Betreut von Michael Carroll"
 
 #: Settings.ui.h:16
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -90,7 +88,7 @@ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:17
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basiert auf der NASA APOD Gnome Shell-Erweiterung von Elia Argentieri"
+msgstr "Basiert auf der NASA APOD Gnome-Shell-Erweiterung von Elia Argentieri"
 
 #: Settings.ui.h:18
 msgid ""
@@ -98,63 +96,58 @@ msgid ""
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Für dieses Programm besteht KEINERLEI GARANTIE.\n"
-"Details unter <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0."
-"html\">GNU General Public License, version 3 or later</a></span>"
+"<span size=\"small\">Für dieses Programm kommt ohne JEDWEDE GARANTIE.\n"
+"Siehe auch <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, Version 3 oder neuer</a> für weitere "
+"Informationen</span>"
 
 #: Settings.ui.h:20
 msgid "About"
-msgstr "Info"
+msgstr "Über"
 
 #: extension.js:81 extension.js:84
-#, fuzzy
 msgid "minutes"
-msgstr "minuten"
+msgstr "Minuten"
 
 #: extension.js:87
-#, fuzzy
 msgid "days"
-msgstr "tag"
+msgstr "Tage"
 
 #: extension.js:90
-#, fuzzy
 msgid "hours"
-msgstr "stunden"
+msgstr "Stunden"
 
 #: extension.js:127
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
 #: extension.js:129 extension.js:130
-#, fuzzy
 msgid "Awaiting refresh..."
-msgstr "Warten auf aktualisierung..."
+msgstr "Warten auf Aktualisierung..."
 
 #: extension.js:131
-#, fuzzy
 msgid "Copy image URL to clipboard"
-msgstr "Kopiere die Bild-URL in die Zwischenablage"
+msgstr "Bildadresse in die Zwischenablage kopieren"
 
 #: extension.js:132
 msgid "Set wallpaper"
-msgstr "Hintergrundbild festlegen"
+msgstr "Hintergrundbild einstellen"
 
 #: extension.js:133
 msgid "Refresh Now"
-msgstr "Aktualisieren"
+msgstr "Jetzt aktualisieren"
 
 #: extension.js:163
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
 #: extension.js:279 prefs.js:152
-#, fuzzy
 msgid "Market not available in your region"
-msgstr "Bing-Region nicht in Ihrer Region verfügbar"
+msgstr "Bing-Bild in Ihrer Region nicht verfügbar"
 
 #: extension.js:289
 msgid "Bing Wallpaper of the Day for"
-msgstr "Bing Bild des Tages für"
+msgstr "Bing-Hintergrundbild des Tages für"
 
 #: extension.js:337
 msgid "No wallpaper available"
@@ -162,15 +155,13 @@ msgstr "Kein Hintergrundbild verfügbar"
 
 #: extension.js:338
 msgid "No picture for today 😞."
-msgstr "Kein Bild heute 😞."
+msgstr "Heute kein Bild 😞."
 
 #: prefs.js:140
-#, fuzzy
 msgid "Fetching data..."
 msgstr "Daten abrufen..."
 
 #: prefs.js:156
-#, fuzzy
 msgid "A network error occured"
 msgstr "Ein Netzwerkfehler ist aufgetreten"
 
