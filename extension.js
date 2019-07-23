@@ -323,7 +323,7 @@ const BingWallpaperIndicator = new Lang.Class({
             }
 
             log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
-            this.filename = BingWallpaperDir+imagejson['startdate']+'-'+this.imageURL.replace(/^.*[\\\/]/, '');
+            this.filename = BingWallpaperDir+imagejson['startdate']+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
             let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
