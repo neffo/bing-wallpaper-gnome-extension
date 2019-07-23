@@ -21,9 +21,6 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-// required to set lock screen dialog background
-const UnlockBackground = Me.imports.unlockdialogbackground;
-
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
 const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
@@ -125,13 +122,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this.actor.visible = !this._settings.get_boolean('hide');
         }));
 
-        // enable or disable lockscreen *dialog* background (this is handled separately to the lockscreen background!)
-        this._settings.connect('changed::set-lock-screen', Lang.bind(this, function() {
-            UnlockBackground.set_active(this._settings.get_boolean('set-lock-screen'));
-        }));
-
         this.actor.visible = !this._settings.get_boolean('hide');
-        UnlockBackground.set_active(this._settings.get_boolean('set-lock-screen'));
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
@@ -442,7 +433,6 @@ function init(extensionMeta) {
         theme.append_search_path(extensionMeta.path + "/icons");
         Convenience.initTranslations("BingWallpaper");
         init_called = true;
-        UnlockBackground.init(); // initialise lockscreen dialog class
         log("init() called");
     }
     else {
@@ -477,10 +467,6 @@ function enable() {
     else {
         log("detected best resolution "+autores);
     }
-
-    // enable lockscreen dialog code
-    //UnlockBackground.lsbg_enable(); // activate lockscreen dialog code
-
 }
 
 function disable() {
@@ -490,5 +476,4 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
-    //UnlockBackground.lsbg_disable(); // activate lockscreen dialog code
 }
