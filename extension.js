@@ -101,7 +101,8 @@ const BingWallpaperIndicator = new Lang.Class({
     _init: function() {
         this.parent(0.0, IndicatorName);
 
-        this.icon = new St.Icon({icon_name: ICON, style_class: 'system-status-icon'});
+        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON + ".svg");
+        this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         this.actor.add_child(this.icon);
 
         this.title = "";
@@ -429,8 +430,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
 function init(extensionMeta) {
     if (init_called === false) {
-        let theme = imports.gi.Gtk.IconTheme.get_default();
-        theme.append_search_path(extensionMeta.path + "/icons");
         Convenience.initTranslations("BingWallpaper");
         init_called = true;
         log("init() called");
