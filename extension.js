@@ -171,16 +171,14 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _setBackground: function() {
-        let changed = false;
         if (this.filename == "")
             return;
-        if (this._settings.get_boolean('set-background')) {
-            changed = doSetBackground(this.filename, 'org.gnome.desktop.background');
-        }
-        if (this._settings.get_boolean('set-lock-screen')) {
-            changed = changed || doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
-        }
-        return changed;
+
+        if (this._settings.get_boolean('set-background'))
+            doSetBackground(this.filename, 'org.gnome.desktop.background');
+
+        if (this._settings.get_boolean('set-lock-screen'))
+            doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
     },
 
     _copyURLToClipboard: function() {
