@@ -171,16 +171,14 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _setBackground: function() {
-        let changed = false;
         if (this.filename == "")
             return;
-        if (this._settings.get_boolean('set-background')) {
-            changed = doSetBackground(this.filename, 'org.gnome.desktop.background');
-        }
-        if (this._settings.get_boolean('set-lock-screen')) {
-            changed = changed || doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
-        }
-        return changed;
+
+        if (this._settings.get_boolean('set-background'))
+            doSetBackground(this.filename, 'org.gnome.desktop.background');
+
+        if (this._settings.get_boolean('set-lock-screen'))
+            doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
     },
 
     _copyURLToClipboard: function() {
@@ -281,22 +279,17 @@ const BingWallpaperIndicator = new Lang.Class({
 
         log('JSON returned (raw):\n' + data);
 
-        if (datamarket != prefmarket) {
-          log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
-          this.title = _("Market not available in your region");
-          this.copyright = 'Request: '+prefmarket +' Recv: ' + datamarket;
-          this.imageinfolink = '';
-          this._setMenuText();
-          this._updatePending = false;
-          return;
-        }
-
         if (imagejson['url'] != '') {
             this.title = imagejson['copyright'].replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson['startdate'])+' ('+datamarket+')';
-            this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');;
+            this.copyright = imagejson['copyright'].match(/\(([^)]+)\)/)[1].replace('\*\*','');
+            if (datamarket != prefmarket) {
+                // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
+                log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
+                this.copyright = this.copyright + '\n\n WARNING: ' + _("Market not available in your region") + '\n Req: '+prefmarket +' -> Recv: ' + datamarket;
+            }
             this.longstartdate = imagejson['fullstartdate'];
-            this.imageinfolink = imagejson['copyrightlink'].replace(/^http:\/\//i, 'https://');;
+            this.imageinfolink = imagejson['copyrightlink'].replace(/^http:\/\//i, 'https://');
             let resolution = this._settings.get_string('resolution');
 
             if (resolution == "auto") {
