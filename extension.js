@@ -103,7 +103,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
-        this.actor.add_child(this.icon);
+        ((this instanceof Clutter.Actor) ? this : this.actor).add_child(this.icon);
 
         this.title = "";
         this.explanation = "";
@@ -120,10 +120,10 @@ const BingWallpaperIndicator = new Lang.Class({
 
         this._settings = Utils.getSettings();
         this._settings.connect('changed::hide', Lang.bind(this, function() {
-            this.actor.visible = !this._settings.get_boolean('hide');
+            ((this instanceof Clutter.Actor) ? this : this.actor).visible = !this._settings.get_boolean('hide');
         }));
 
-        this.actor.visible = !this._settings.get_boolean('hide');
+        ((this instanceof Clutter.Actor) ? this : this.actor).visible = !this._settings.get_boolean('hide');
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
@@ -157,7 +157,7 @@ const BingWallpaperIndicator = new Lang.Class({
             Util.spawn(["gnome-shell-extension-prefs", Me.metadata.uuid]);
         });
 
-        this.actor.connect('button-press-event', Lang.bind(this, function () {
+        ((this instanceof Clutter.Actor) ? this : this.actor).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
             this.clipboardItem.setSensitive(!this._updatePending && this.imageURL != "");
