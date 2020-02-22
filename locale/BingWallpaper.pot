@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 11:36+1000\n"
+"POT-Creation-Date: 2020-02-22 14:57+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,79 +22,83 @@ msgid "Hide the indicator"
 msgstr ""
 
 #: Settings.ui.h:2
-msgid "Set background image"
+msgid "Indicator icon"
 msgstr ""
 
 #: Settings.ui.h:3
-msgid "Set lock screen image"
+msgid "Set background image"
 msgstr ""
 
 #: Settings.ui.h:4
-msgid "Download folder:"
+msgid "Set lock screen image"
 msgstr ""
 
 #: Settings.ui.h:5
-msgid "Bing Wallpaper pictures folder"
+msgid "Download folder:"
 msgstr ""
 
 #: Settings.ui.h:6
-msgid "Delete previously downloaded wallpapers:"
+msgid "Bing Wallpaper pictures folder"
 msgstr ""
 
 #: Settings.ui.h:7
-msgid "Days to store wallpapers before deleting:"
+msgid "Delete previously downloaded wallpapers:"
 msgstr ""
 
 #: Settings.ui.h:8
-msgid "Bing locale:"
+msgid "Days to store wallpapers before deleting:"
 msgstr ""
 
 #: Settings.ui.h:9
-msgid "Default is English - United States"
+msgid "Bing locale:"
 msgstr ""
 
 #: Settings.ui.h:10
-msgid "Screen resolution:"
+msgid "Default is English - United States"
 msgstr ""
 
 #: Settings.ui.h:11
+msgid "Screen resolution:"
+msgstr ""
+
+#: Settings.ui.h:12
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:12 extension.js:146
+#: Settings.ui.h:13 extension.js:153
 msgid "Settings"
 msgstr ""
 
-#: Settings.ui.h:13
+#: Settings.ui.h:14
 msgid "Gnome shell extension version: "
 msgstr ""
 
-#: Settings.ui.h:14
+#: Settings.ui.h:15
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Displays the picture description and copyright information."
 msgstr ""
 
-#: Settings.ui.h:15
+#: Settings.ui.h:16
 msgid "Maintained by Michael Carroll"
 msgstr ""
 
-#: Settings.ui.h:16
+#: Settings.ui.h:17
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr ""
 
-#: Settings.ui.h:17
+#: Settings.ui.h:18
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr ""
 
-#: Settings.ui.h:18
+#: Settings.ui.h:19
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgstr ""
 
-#: Settings.ui.h:20
+#: Settings.ui.h:21
 msgid "About"
 msgstr ""
 
@@ -110,58 +114,58 @@ msgstr ""
 msgid "hours"
 msgstr ""
 
-#: extension.js:136
+#: extension.js:143
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:138 extension.js:139 extension.js:140
+#: extension.js:145 extension.js:146 extension.js:147
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:141
+#: extension.js:148
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:142
+#: extension.js:149
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:150
 msgid "Set desktop wallpaper"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:151
 msgid "Set screensaver wallpaper"
 msgstr ""
 
-#: extension.js:145
+#: extension.js:152
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:187
+#: extension.js:194
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:341
+#: extension.js:365
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:346 prefs.js:152
+#: extension.js:370 prefs.js:181
 msgid "Market not available in your region"
 msgstr ""
 
-#: extension.js:394
+#: extension.js:418
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:395
+#: extension.js:419
 msgid "No picture for today 😞."
 msgstr ""
 
-#: prefs.js:140
+#: prefs.js:169
 msgid "Fetching data..."
 msgstr ""
 
-#: prefs.js:156
+#: prefs.js:185
 msgid "A network error occured"
 msgstr ""
