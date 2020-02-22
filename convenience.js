@@ -30,6 +30,7 @@ const Gio = imports.gi.Gio;
 
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
+const Local = ExtensionUtils.getCurrentExtension();
 
 /**
  * initTranslations:
@@ -90,4 +91,71 @@ function getSettings(schema) {
 
     return new Gio.Settings({ settings_schema: schemaObj });
 }
-								  
+
+const versionArray = (v) => v.split(".").map(Number);
+
+const zip = function(a, b, defaultValue) {
+    if (a.length === 0 && b.length === 0) {
+        return [];
+    }
+    const headA = (a.length > 0) ? a.shift() : defaultValue;
+    const headB = (b.length > 0) ? b.shift() : defaultValue;
+    return [[headA, headB]].concat(zip(a, b, defaultValue));
+};
+
+function versionEqual(a, b) {
+  return zip(versionArray(a), versionArray(b), 0).reduce(
+      (prev, [a, b]) => prev && (a === b)
+  , true);
+}
+
+function versionGreater(a, b) {
+  const diff = zip(versionArray(a), versionArray(b), 0).find(([a, b]) => a !== b);
+  if (!diff) {
+      return false;
+  }
+  const [x, y] = diff;
+  return x > y;
+}
+
+function versionSmaller(a, b) {
+  return (!versionEqual(a, b)) && (!versionGreater(a, b));
+}
+
+function currentVersion() {
+  return Config.PACKAGE_VERSION;
+}
+
+function currentVersionEqual(v) {
+  return versionEqual(currentVersion(), v);
+}
+
+function currentVersionGreater(v) {
+  return versionGreater(currentVersion(), v);
+}
+
+function currentVersionGreaterEqual(v) {
+  return versionEqual(currentVersion(), v)
+      || versionGreater(currentVersion(), v);
+}
+
+function currentVersionSmaller(v) {
+  return versionSmaller(currentVersion(), v);
+}
+
+function currentVersionSmallerEqual(v) {
+  return versionEqual(currentVersion(), v)
+      && (!versionGreater(currentVersion(), v));
+}
+
+var exports = {
+initTranslations,
+getSettings,
+currentVersion,
+currentVersionEqual,
+currentVersionGreater,
+currentVersionGreaterEqual,
+currentVersionSmaller,
+currentVersionSmallerEqual
+};
+

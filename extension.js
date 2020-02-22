@@ -7,9 +7,12 @@ const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
+const Gtk = imports.gi.Gtk;
 const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const Clutter = imports.gi.Clutter;
+const Cogl = imports.gi.Cogl;
 const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
@@ -26,7 +29,7 @@ const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
-const ICON = "bing";
+const ICON_DEFAULT = "simple-frame";
 
 let monitors;
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
@@ -38,6 +41,10 @@ let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
 let init_called=false;
+
+// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
+const getActorCompat = (obj) =>
+  Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
 
 function log(msg) {
     if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
@@ -101,9 +108,11 @@ const BingWallpaperIndicator = new Lang.Class({
     _init: function() {
         this.parent(0.0, IndicatorName);
 
-        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON + ".svg");
+        /*
+        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON_DEFAULT + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         this.actor.add_child(this.icon);
+        */
 
         this.title = "";
         this.explanation = "";
@@ -117,52 +126,70 @@ const BingWallpaperIndicator = new Lang.Class({
         this.imageinfolink = ""; // link to Bing photo info page
         this.refreshdue = 0;
         this.refreshduetext = "";
+        this.thumbnail = null;
 
         this._settings = Utils.getSettings();
         this._settings.connect('changed::hide', Lang.bind(this, function() {
-            this.actor.visible = !this._settings.get_boolean('hide');
+            getActorCompat(this).visible = !this._settings.get_boolean('hide');
         }));
+        this._setIcon(this._settings.get_string('icon-name'));
+        this._settings.connect('changed::icon-name', Lang.bind(this, function() {
+            this._setIcon(this._settings.get_string('icon-name'));
+        }));
+        
 
-        this.actor.visible = !this._settings.get_boolean('hide');
+        getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this.clipboardItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
-        this.wallpaperItem = new PopupMenu.PopupMenuItem(_("Set wallpaper"));
+        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
+        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
+        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set desktop wallpaper"));
+        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set screensaver wallpaper"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem();
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.titleItem);
+        this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.explainItem);
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
-        this.menu.addMenuItem(this.clipboardItem);
-        this.menu.addMenuItem(this.wallpaperItem);
+        this.menu.addMenuItem(this.clipboardImageItem);
+        this.menu.addMenuItem(this.clipboardURLItem);
+        this.menu.addMenuItem(this.dwallpaperItem);
+        this.menu.addMenuItem(this.swallpaperItem);
         this.menu.addMenuItem(this.settingsItem);
         this.explainItem.setSensitive(false);
         this.copyrightItem.setSensitive(false);
         this.refreshDueItem.setSensitive(false);
+        this.thumbnailItem.setSensitive(false);
         this.titleItem.connect('activate', Lang.bind(this, function() {
             if (this.imageinfolink)
               Util.spawn(["xdg-open", this.imageinfolink]);
         }));
-        this.clipboardItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
-        this.wallpaperItem.connect('activate', Lang.bind(this, this._setBackground));
+        this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
+        this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+        this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
+        this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
+        this.thumbnailItem.connect('activate', Lang.bind(this, this._open_in_system_viewer));
         this.settingsItem.connect('activate', function() {
             Util.spawn(["gnome-shell-extension-prefs", Me.metadata.uuid]);
         });
 
-        this.actor.connect('button-press-event', Lang.bind(this, function () {
+        ((this instanceof Clutter.Actor) ? this : this.actor).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
-            this.clipboardItem.setSensitive(!this._updatePending && this.imageURL != "");
+            this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+            this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
-            this.wallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
             this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + friendly_time_diff(this.refreshdue) + ")";
             this.refreshDueItem.label.set_text(this.refreshduetext); //
@@ -170,19 +197,47 @@ const BingWallpaperIndicator = new Lang.Class({
         this._restartTimeout(60); // wait 60 seconds before performing refresh
     },
 
+    _setIcon: function(icon_name) {
+        //log('Icon set to : '+icon_name)
+        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
+        this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
+        if (!this.icon.get_parent() && 0) {
+            log('New icon set to : '+icon_name);
+            getActorCompat(this).add_child(this.icon);
+        }
+        else {
+            log('Replace icon set to : '+icon_name);
+            getActorCompat(this).remove_all_children();
+            getActorCompat(this).add_child(this.icon, this.icon);
+        }
+            
+    },
+
     _setBackground: function() {
         if (this.filename == "")
             return;
 
         if (this._settings.get_boolean('set-background'))
-            doSetBackground(this.filename, 'org.gnome.desktop.background');
+            this._setBackgroundDesktop();
 
         if (this._settings.get_boolean('set-lock-screen'))
-            doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
+            this._setBackgroundScreensaver();
+    },
+
+    _setBackgroundDesktop: function() {
+        doSetBackground(this.filename, 'org.gnome.desktop.background');
+    },
+    
+    _setBackgroundScreensaver: function() {
+        doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
     },
 
     _copyURLToClipboard: function() {
         Clipboard.set_text(CLIPBOARD_TYPE, this.imageURL);
+    },
+
+    _copyImageToClipboard: function() {
+        Clipboard.setImage(this.thumbnailImage.gtkImage);
     },
 
     _restartTimeout: function(seconds = null) {
@@ -238,6 +293,32 @@ const BingWallpaperIndicator = new Lang.Class({
         this.explainItem.label.set_text(this.explanation);
         this.copyrightItem.label.set_text(this.copyright);
     },
+
+    _setImage: function () {
+        let pixbuf =  this.thumbnail.gtkImage.get_pixbuf();
+        const {width, height} = pixbuf;
+        if (height == 0) {
+          return;
+        }
+        const image = new Clutter.Image();
+        const success = image.set_data(
+          pixbuf.get_pixels(),
+          pixbuf.get_has_alpha()
+            ? Cogl.PixelFormat.RGBA_8888
+            : Cogl.PixelFormat.RGB_888,
+          width,
+          height,
+          pixbuf.get_rowstride()
+        );
+        if (!success) {
+          throw Error("error creating Clutter.Image()");
+        }
+    
+        getActorCompat(this.thumbnailItem).content = image;
+        //getActorCompat(this.thumbnailItem).width = 375;
+        getActorCompat(this.thumbnailItem).height = 250;
+        this.thumbnailItem.setSensitive(true);
+      },
 
     _refresh: function() {
         if (this._updatePending)
@@ -340,6 +421,8 @@ const BingWallpaperIndicator = new Lang.Class({
             this._updatePending = false;
         }
         this._setMenuText();
+        this.thumbnail = new Thumbnail(this.filename);
+        this._setImage();
         this._restartTimeoutFromLongDate(this.longstartdate);
     },
 
@@ -413,6 +496,11 @@ const BingWallpaperIndicator = new Lang.Class({
         log("wrote back this: "+rawimagelist);
     },
 
+    _open_in_system_viewer: function launchOpen() {
+        const context = global.create_app_launch_context(0, -1);
+        Gio.AppInfo.launch_default_for_uri(this.filename.get_uri(), context);
+    },
+
     stop: function () {
         if (this._timeout)
             Mainloop.source_remove(this._timeout);
@@ -425,7 +513,6 @@ function init(extensionMeta) {
     if (init_called === false) {
         Convenience.initTranslations("BingWallpaper");
         init_called = true;
-        log("init() called");
     }
     else {
         log("WARNING: init() called more than once, ignoring");
@@ -433,8 +520,6 @@ function init(extensionMeta) {
 }
 
 function enable() {
-    log("enable() called");
-
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
     monitors = Main.layoutManager.monitors; // get list of connected monitors (and sizes)
@@ -462,10 +547,21 @@ function enable() {
 }
 
 function disable() {
-    log("disable() called");
     if (this._timeout)
             Mainloop.source_remove(this._timeout);
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
 }
+
+// props to Otto Allmendinger 
+// see https://github.com/OttoAllmendinger/gnome-shell-screenshot
+class Thumbnail {
+    constructor(filePath) {
+      if (!filePath) {
+        throw new Error(`need argument ${filePath}`);
+      }
+      this.gtkImage = new Gtk.Image({file: filePath});
+      this.srcFile = Gio.File.new_for_path(filePath);
+    }
+  }

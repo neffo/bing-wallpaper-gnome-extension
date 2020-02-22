@@ -81,6 +81,12 @@
       <description>Set to "none", "Gnome" or "Ubuntu"</description>
     </key>
 
+     <key name="icon-name" type="s">
+      <default>"bing-light"</default>
+      <summary>Icon Name</summary>
+      <description>Icon filename to use for extension applet</description>
+    </key>
+
     <key name="override-wp-flag" type="b">
       <default>false</default>
       <summary>Ignore Bing permitted for use as wallpaper flag</summary>

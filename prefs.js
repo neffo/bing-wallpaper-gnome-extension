@@ -39,6 +39,9 @@ let marketName = [
 
 let resolutions = [ 'auto', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
 let marketDescription = null;
+let icon_image = null;
+
+let icon_list = ['bing-light', 'bing-dark', 'brick', 'high-frame', 'mid-frame', 'low-frame'];
 
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
 
@@ -58,6 +61,7 @@ function buildPrefsWidget(){
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
 
     let hideSwitch = buildable.get_object('hide');
+    let iconEntry = buildable.get_object('icon');
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooser = buildable.get_object('download_folder');
@@ -66,6 +70,7 @@ function buildPrefsWidget(){
     let deleteSwitch = buildable.get_object('delete_previous');
     let daysSpin = buildable.get_object('days_after_spinbutton');
     marketDescription = buildable.get_object('market_description');
+    icon_image = buildable.get_object('icon_image');
 
     // previous wallpaper images
     let images=[];
@@ -80,6 +85,16 @@ function buildPrefsWidget(){
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
+    icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
+        iconEntry.append(iconname, iconname);
+    });
+    settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+
+    settings.connect('changed::icon-name', function() {
+        validate_icon();
+    });
+    iconEntry.set_active_id(settings.get_string('icon-name'));
+
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
@@ -90,12 +105,13 @@ function buildPrefsWidget(){
     fileChooser.connect('file-set', function(widget) {
         settings.set_string('download-folder', widget.get_filename());
     });
+    
 
     // Bing Market (locale/country)
 
     markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
         marketEntry.append(bingmarket, bingmarket+": "+marketName[index]);
-    })
+    });
     //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
     settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
@@ -121,6 +137,19 @@ function buildPrefsWidget(){
 
     return box;
 };
+
+function validate_icon() {
+    log('validate_icon()')
+    let icon_name  = settings.get_string('icon-name');
+    if (icon_name == "" || icon_list.indexOf(icon_name) == -1) {
+        settings.reset('icon-name');
+        icon_name = settings.get_string('icon-name');
+    }
+    log('set icon to: '+Me.dir.get_path() + '/icons/' + icon_name + '.svg');
+    icon_image.set_from_file(Me.dir.get_path() + '/icons/' + icon_name + '.svg');
+    icon_image.height = 128;
+    //icon_image.set_size_request(64,64);
+}
 
 function validate_resolution() {
     let resolution = settings.get_string('resolution');

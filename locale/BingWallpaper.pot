@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-23 15:25+1000\n"
+"POT-Creation-Date: 2020-02-22 11:36+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:12 extension.js:136
+#: Settings.ui.h:12 extension.js:146
 msgid "Settings"
 msgstr ""
 
@@ -98,55 +98,63 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:81 extension.js:84
+#: extension.js:88 extension.js:91
 msgid "minutes"
 msgstr ""
 
-#: extension.js:87
+#: extension.js:94
 msgid "days"
 msgstr ""
 
-#: extension.js:90
+#: extension.js:97
 msgid "hours"
 msgstr ""
 
-#: extension.js:128
+#: extension.js:136
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:130 extension.js:131 extension.js:132
+#: extension.js:138 extension.js:139 extension.js:140
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:133
+#: extension.js:141
+msgid "Copy image to clipboard"
+msgstr ""
+
+#: extension.js:142
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:134
-msgid "Set wallpaper"
+#: extension.js:143
+msgid "Set desktop wallpaper"
 msgstr ""
 
-#: extension.js:135
+#: extension.js:144
+msgid "Set screensaver wallpaper"
+msgstr ""
+
+#: extension.js:145
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:167
+#: extension.js:187
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:286 prefs.js:152
-msgid "Market not available in your region"
-msgstr ""
-
-#: extension.js:296
+#: extension.js:341
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:344
+#: extension.js:346 prefs.js:152
+msgid "Market not available in your region"
+msgstr ""
+
+#: extension.js:394
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:345
+#: extension.js:395
 msgid "No picture for today 😞."
 msgstr ""
 
