@@ -122,7 +122,7 @@ function buildPrefsWidget(){
 
     resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);
-    })
+    });
 
     // Resolution
     settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
@@ -136,10 +136,10 @@ function buildPrefsWidget(){
     box.show_all();
 
     return box;
-};
+}
 
 function validate_icon() {
-    log('validate_icon()')
+    log('validate_icon()');
     let icon_name  = settings.get_string('icon-name');
     if (icon_name == "" || icon_list.indexOf(icon_name) == -1) {
         settings.reset('icon-name');
@@ -174,7 +174,7 @@ function validate_market() {
             let data = message.response_body.data;
             log("Recieved "+data.length+" bytes");
             let checkData = JSON.parse(data);
-            let checkStatus = checkData['market']['mkt'];
+            let checkStatus = checkData.market.mkt;
             if (checkStatus == market) {
                 marketDescription.set_label('Data OK, '+data.length+' bytes recieved');
             } else {
