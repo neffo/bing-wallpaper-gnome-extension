@@ -28,7 +28,7 @@ msgstr "Définir l'arrière-plan"
 
 #: Settings.ui.h:3
 msgid "Set lock screen image"
-msgstr "Définir l'écran de verouillage"
+msgstr "Définir l'écran de verrouillage"
 
 #: Settings.ui.h:4
 msgid "Download folder:"
