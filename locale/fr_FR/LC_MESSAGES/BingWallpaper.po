@@ -70,7 +70,7 @@ msgstr "Ignorer la sélection de résolution automatique"
 
 #: Settings.ui.h:13 extension.js:153
 msgid "Settings"
-msgstr "Paramétres"
+msgstr "Paramètres"
 
 #: Settings.ui.h:14
 msgid "Gnome shell extension version: "
@@ -111,7 +111,7 @@ msgstr ""
 
 #: Settings.ui.h:21
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 #: extension.js:88 extension.js:91
 #, fuzzy
@@ -135,7 +135,7 @@ msgstr "<Aucune actualisation planifiée>"
 #: extension.js:145 extension.js:146 extension.js:147
 #, fuzzy
 msgid "Awaiting refresh..."
-msgstr "En attente de actualisation..."
+msgstr "En attente d'actualisation..."
 
 #: extension.js:148
 #, fuzzy
@@ -177,7 +177,7 @@ msgstr "Marché non disponible dans votre région"
 
 #: extension.js:418
 msgid "No wallpaper available"
-msgstr "Aucun fond d'écran disponnible"
+msgstr "Aucun fond d'écran disponible"
 
 #: extension.js:419
 msgid "No picture for today 😞."
