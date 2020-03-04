@@ -7,71 +7,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-28 15:27+1000\n"
-"PO-Revision-Date: 2018-10-01 16:49+1000\n"
+"POT-Creation-Date: 2020-03-04 18:11+1000\n"
+"PO-Revision-Date: 2020-03-04 18:39+1000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: ca\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
 msgstr "Amaga l'icona de la barra de tasques"
 
 #: Settings.ui.h:2
+msgid "Indicator icon"
+msgstr ""
+
+#: Settings.ui.h:3 extension.js:159
 msgid "Set background image"
 msgstr "Canvia la imatge de fons de pantalla"
 
-#: Settings.ui.h:3
+#: Settings.ui.h:4 extension.js:160
 msgid "Set lock screen image"
 msgstr "Modifica la imatge de la pantalla de bloqueig"
 
-#: Settings.ui.h:4
+#: Settings.ui.h:5
 msgid "Download folder:"
 msgstr "Carpeta de descàrregues:"
 
-#: Settings.ui.h:5
+#: Settings.ui.h:6
 msgid "Bing Wallpaper pictures folder"
 msgstr "Carpeta d'imatges de Bing Wallpaper"
 
-#: Settings.ui.h:6
+#: Settings.ui.h:7
 msgid "Delete previously downloaded wallpapers:"
 msgstr "Eliminar les imatges descarregades anteriorment:"
 
-#: Settings.ui.h:7
+#: Settings.ui.h:8
 msgid "Days to store wallpapers before deleting:"
 msgstr "Dies que es guardaran les imatges abans que s'eliminin:"
 
-#: Settings.ui.h:8
+#: Settings.ui.h:9
 msgid "Bing locale:"
 msgstr "Indicar a Bing la teva regió/idioma:"
 
-#: Settings.ui.h:9
+#: Settings.ui.h:10
 msgid "Default is English - United States"
 msgstr "Per defecte és English - Unitetd States"
 
-#: Settings.ui.h:10
+#: Settings.ui.h:11
 msgid "Screen resolution:"
 msgstr "Resolució de la pantalla:"
 
-#: Settings.ui.h:11
+#: Settings.ui.h:12
 msgid "Override automatic resolution selection"
 msgstr ""
 "Escull \"Auto\" per detectar automàticament la resolució de la pantalla"
 
-#: Settings.ui.h:12 extension.js:134
+#: Settings.ui.h:13 extension.js:162
 msgid "Settings"
 msgstr "Configuració"
 
-#: Settings.ui.h:13
+#: Settings.ui.h:14
 msgid "Gnome shell extension version: "
 msgstr "Versió de 'Gnome shell extension': "
 
-#: Settings.ui.h:14
+#: Settings.ui.h:15
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Displays the picture description and copyright information."
@@ -80,19 +84,19 @@ msgstr ""
 "day' per la teva regió. Crea una notificació per la descripció de la imatge "
 "i el seu copyright."
 
-#: Settings.ui.h:15
+#: Settings.ui.h:16
 msgid "Maintained by Michael Carroll"
 msgstr "Mantingut per Michael Carroll"
 
-#: Settings.ui.h:16
+#: Settings.ui.h:17
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:17
+#: Settings.ui.h:18
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Basada en 'NASA APOD Gnome shell extension' per Elia Argenteri"
 
-#: Settings.ui.h:18
+#: Settings.ui.h:19
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
@@ -103,66 +107,70 @@ msgstr ""
 "\">GNU General Public License, version 3 o superior</a> per més detalls.</"
 "span>"
 
-#: Settings.ui.h:20
+#: Settings.ui.h:21
 msgid "About"
 msgstr "Sobre"
 
-#: extension.js:81 extension.js:84
+#: extension.js:88 extension.js:91
 msgid "minutes"
 msgstr "minuts"
 
-#: extension.js:87
+#: extension.js:94
 msgid "days"
 msgstr "dies"
 
-#: extension.js:90
+#: extension.js:97
 msgid "hours"
 msgstr "hores"
 
-#: extension.js:127
+#: extension.js:152
 msgid "<No refresh scheduled>"
 msgstr "<Cap actualització programada>"
 
-#: extension.js:129 extension.js:130
+#: extension.js:154 extension.js:155 extension.js:156
 msgid "Awaiting refresh..."
 msgstr "Esperant l'actualització..."
 
-#: extension.js:131
+#: extension.js:157
+#, fuzzy
+msgid "Copy image to clipboard"
+msgstr "Copia la imatge al porta-retalls"
+
+#: extension.js:158
 msgid "Copy image URL to clipboard"
 msgstr "Copia la URL de la imatge al porta-retalls"
 
-#: extension.js:132
-msgid "Set wallpaper"
-msgstr "Modifica el fons de pantalla"
-
-#: extension.js:133
+#: extension.js:161
 msgid "Refresh Now"
 msgstr "Actualitza ara"
 
-#: extension.js:163
+#: extension.js:203
 msgid "Next refresh"
 msgstr "Següent actualització"
 
-#: extension.js:279 prefs.js:152
-msgid "Market not available in your region"
-msgstr "El 'Market' no està habilitat per la teva regió"
-
-#: extension.js:289
+#: extension.js:388
 msgid "Bing Wallpaper of the Day for"
 msgstr "'Bing Wallpaper of the Day' per"
 
-#: extension.js:337
+#: extension.js:393 prefs.js:181
+msgid "Market not available in your region"
+msgstr "El 'Market' no està habilitat per la teva regió"
+
+#: extension.js:441
 msgid "No wallpaper available"
 msgstr "Cap fons de pantalla disponible"
 
-#: extension.js:338
+#: extension.js:442
 msgid "No picture for today 😞."
 msgstr "Cap imatge per avui 😞."
 
-#: prefs.js:140
+#: prefs.js:169
 msgid "Fetching data..."
 msgstr "Obtenint les dades..."
 
-#: prefs.js:156
+#: prefs.js:185
 msgid "A network error occured"
 msgstr "Hi ha hagut un problema amb la xarxa"
+
+#~ msgid "Set wallpaper"
+#~ msgstr "Modifica el fons de pantalla"
