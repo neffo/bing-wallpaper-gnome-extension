@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 14:57+1000\n"
-"PO-Revision-Date: 2020-02-29 23:02+0100\n"
+"POT-Creation-Date: 2020-03-04 18:11+1000\n"
+"PO-Revision-Date: 2020-03-04 18:40+1000\n"
 "Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -25,11 +25,11 @@ msgstr "Indikator ausblenden"
 msgid "Indicator icon"
 msgstr "Indikator-Symbol"
 
-#: Settings.ui.h:3
+#: Settings.ui.h:3 extension.js:159
 msgid "Set background image"
 msgstr "Verwenden für Hintergrund"
 
-#: Settings.ui.h:4
+#: Settings.ui.h:4 extension.js:160
 msgid "Set lock screen image"
 msgstr "Verwenden für Sperrbildschirm"
 
@@ -65,7 +65,7 @@ msgstr "Bildschirmauflösung:"
 msgid "Override automatic resolution selection"
 msgstr "Überschreibt die automatische Auswahl der Auflösung"
 
-#: Settings.ui.h:13 extension.js:153
+#: Settings.ui.h:13 extension.js:162
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -121,51 +121,43 @@ msgstr "Tage"
 msgid "hours"
 msgstr "Stunden"
 
-#: extension.js:143
+#: extension.js:152
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
-#: extension.js:145 extension.js:146 extension.js:147
+#: extension.js:154 extension.js:155 extension.js:156
 msgid "Awaiting refresh..."
 msgstr "Warten auf Aktualisierung..."
 
-#: extension.js:148
+#: extension.js:157
 msgid "Copy image to clipboard"
 msgstr "Bild in Zwischenablage kopieren"
 
-#: extension.js:149
+#: extension.js:158
 msgid "Copy image URL to clipboard"
 msgstr "Bildadresse in Zwischenablage kopieren"
 
-#: extension.js:150
-msgid "Set desktop wallpaper"
-msgstr "Schreibtisch-Hintergrund einstellen"
-
-#: extension.js:151
-msgid "Set screensaver wallpaper"
-msgstr "Sperrbildschirm-Hintergrund einstellen"
-
-#: extension.js:152
+#: extension.js:161
 msgid "Refresh Now"
 msgstr "Jetzt aktualisieren"
 
-#: extension.js:194
+#: extension.js:203
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
-#: extension.js:365
+#: extension.js:388
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing-Hintergrundbild des Tages für"
 
-#: extension.js:370 prefs.js:181
+#: extension.js:393 prefs.js:181
 msgid "Market not available in your region"
 msgstr "Bing Bild in Ihrer Region nicht verfügbar"
 
-#: extension.js:418
+#: extension.js:441
 msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
-#: extension.js:419
+#: extension.js:442
 msgid "No picture for today 😞."
 msgstr "Heute kein Bild 😞."
 
@@ -176,6 +168,12 @@ msgstr "Daten werden abgerufen..."
 #: prefs.js:185
 msgid "A network error occured"
 msgstr "Ein Netzwerkfehler ist aufgetreten"
+
+#~ msgid "Set desktop wallpaper"
+#~ msgstr "Schreibtisch-Hintergrund einstellen"
+
+#~ msgid "Set screensaver wallpaper"
+#~ msgstr "Sperrbildschirm-Hintergrund einstellen"
 
 #~ msgid "Send a notification with explanation when a new image is downloaded."
 #~ msgstr ""

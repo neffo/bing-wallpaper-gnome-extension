@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 14:57+1000\n"
-"PO-Revision-Date: 2020-02-28 00:11+1000\n"
+"POT-Creation-Date: 2020-03-04 18:11+1000\n"
+"PO-Revision-Date: 2020-03-04 18:40+1000\n"
 "Last-Translator: Christophe Jean <chrisophe@cjean.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -26,11 +26,11 @@ msgstr "Cacher l'indicateur"
 msgid "Indicator icon"
 msgstr "Icône d'indicateur"
 
-#: Settings.ui.h:3
+#: Settings.ui.h:3 extension.js:159
 msgid "Set background image"
 msgstr "Définir l'arrière-plan"
 
-#: Settings.ui.h:4
+#: Settings.ui.h:4 extension.js:160
 msgid "Set lock screen image"
 msgstr "Définir l'écran de verrouillage"
 
@@ -68,9 +68,9 @@ msgstr "Résolution :"
 msgid "Override automatic resolution selection"
 msgstr "Ignorer la sélection de résolution automatique"
 
-#: Settings.ui.h:13 extension.js:153
+#: Settings.ui.h:13 extension.js:162
 msgid "Settings"
-msgstr "Paramétres"
+msgstr "Paramètres"
 
 #: Settings.ui.h:14
 msgid "Gnome shell extension version: "
@@ -111,7 +111,7 @@ msgstr ""
 
 #: Settings.ui.h:21
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 #: extension.js:88 extension.js:91
 #, fuzzy
@@ -128,58 +128,45 @@ msgstr "jours"
 msgid "hours"
 msgstr "heures"
 
-#: extension.js:143
+#: extension.js:152
 msgid "<No refresh scheduled>"
 msgstr "<Aucune actualisation planifiée>"
 
-#: extension.js:145 extension.js:146 extension.js:147
+#: extension.js:154 extension.js:155 extension.js:156
 #, fuzzy
 msgid "Awaiting refresh..."
-msgstr "En attente de actualisation..."
+msgstr "En attente d'actualisation..."
 
-#: extension.js:148
+#: extension.js:157
 #, fuzzy
-#| msgid "Copy image URL to clipboard"
 msgid "Copy image to clipboard"
-msgstr "Copier l'URL de l'image dans le presse-papiers"
+msgstr "Copier l'image dans le presse-papiers"
 
-#: extension.js:149
+#: extension.js:158
 msgid "Copy image URL to clipboard"
 msgstr "Copier l'URL de l'image dans le presse-papiers"
 
-#: extension.js:150
-#, fuzzy
-#| msgid "Set wallpaper"
-msgid "Set desktop wallpaper"
-msgstr "Définir le fond d'écran"
-
-#: extension.js:151
-#, fuzzy
-#| msgid "Set wallpaper"
-msgid "Set screensaver wallpaper"
-msgstr "Définir le fond d'écran"
-
-#: extension.js:152
+#: extension.js:161
 msgid "Refresh Now"
 msgstr "Actualiser maintenant"
 
-#: extension.js:194
+#: extension.js:203
 msgid "Next refresh"
 msgstr "Prochaine actualisation"
 
-#: extension.js:365
+#: extension.js:388
 msgid "Bing Wallpaper of the Day for"
 msgstr "Le fond d'écran Bing du jour pour"
 
-#: extension.js:370 prefs.js:181
+#: extension.js:393 prefs.js:181
 msgid "Market not available in your region"
 msgstr "Marché non disponible dans votre région"
 
-#: extension.js:418
+#: extension.js:441
 msgid "No wallpaper available"
-msgstr "Aucun fond d'écran disponnible"
+msgstr "Aucun fond d'écran disponible"
 
-#: extension.js:419
+#: extension.js:442
 msgid "No picture for today 😞."
 msgstr "Pas d'image pour aujourd'hui 😞."
 
@@ -190,6 +177,16 @@ msgstr "Récupération des données..."
 #: prefs.js:185
 msgid "A network error occured"
 msgstr "Une erreur de réseau est survenue"
+
+#, fuzzy
+#~| msgid "Set wallpaper"
+#~ msgid "Set desktop wallpaper"
+#~ msgstr "Définir le fond d'écran"
+
+#, fuzzy
+#~| msgid "Set wallpaper"
+#~ msgid "Set screensaver wallpaper"
+#~ msgstr "Définir le fond d'écran"
 
 #~ msgid "Send a notification with explanation when a new image is downloaded."
 #~ msgstr ""
