@@ -11,7 +11,11 @@ and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.
 
 This is my first attempt at a GNOME extension, so it may have some issues.
 
+Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension).
+
 ## Features
+
+![Screenshot](/screenshot/popup.png)
 
 * Fetches the Bing wallpaper of the day and sets as both lock screen (and now it's dialog also) and desktop wallpaper (these are both optional)
 * Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
@@ -62,3 +66,11 @@ Heres a suitable [zip file](https://neffo.github.io/BingWallpaper@ineffable-gmai
 ![Screenshot](/screenshot/notification.png)
 
 ![Settings](/screenshot/settings.png)
+
+## Toss a coin to your coder
+
+Do you like this extension and want to show that you appreciate the work that goes into adding new features and keeping it maintained? Please consider buying me a coffee at [Flattr](https://flattr.com/@neffo).
+
+## Special Thanks
+
+I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements.

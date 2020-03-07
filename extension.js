@@ -152,8 +152,13 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.titleItem.label.get_clutter_text().set_line_wrap(true);
+        this.titleItem.label.set_style("max-width: 350px;");
         this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.explainItem.label.get_clutter_text().set_line_wrap(true);
+        this.explainItem.label.set_style("max-width: 350px;");
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.separator = new PopupMenu.PopupSeparatorMenuItem();
         this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
         this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
         this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
@@ -168,6 +173,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.explainItem);
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
+        this.menu.addMenuItem(this.separator);
         this.menu.addMenuItem(this.clipboardImageItem);
         this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
@@ -329,8 +335,8 @@ const BingWallpaperIndicator = new Lang.Class({
           throw Error("error creating Clutter.Image()");
         }
         
-        getActorCompat(this.thumbnailItem).hexpand = true;
-        getActorCompat(this.thumbnailItem).vexpand = true;
+        getActorCompat(this.thumbnailItem).hexpand = false;
+        getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
         //getActorCompat(this.thumbnailItem).width = 375;
         getActorCompat(this.thumbnailItem).set_size(350,200);
