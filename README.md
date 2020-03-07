@@ -1,6 +1,6 @@
 # GNOME Shell extension - Bing Wallpaper Changer
 
-A lightweight GNOME shell extension to set your wallpaper once per day to today's Microsoft Bing image of the day (the image you see when you visit Bing.com). The intention of this extension is to just do what it needs to do and stay out of your way.
+A lightweight GNOME shell extension to syncs your desktop wallpaper to today's Microsoft Bing image of the day (the image you see when you visit Bing.com). The intention of this extension is to just do what it needs to do and stay out of your way.
 
 *Disclaimer*: this extension is unofficial and not affiliated with Bing or
 Microsoft in any way. Images are protected by copyright, and are licensed only
@@ -24,8 +24,9 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Only attempts to download wallpapers when they have been updated
 * Doesn't poll continuously - only once per day and on startup (a refresh is scheduled when Bing is due to update)
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portugeuse (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca) and Norwegian Bokmål & Nynorsk - a HUGE thanks to the translators
-* NEW: manually set desktop and lockscreen wallpapers individually from the menus
+* NEW: image preview in menus & ability to manually set desktop and lockscreen wallpapers individually
 * NEW: copy image to clipboard
+* NEW: a selection of different indicator (tray) icons to choose
 
 ## TODO
 
@@ -36,7 +37,6 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 * In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry)
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
-* Some users see a GNOME shell crash (this seems to be a GNOME bug though...) (#17) - this seems to fixed on current Gnome releases (3.28+)
 * We are limited by the resolution of Bing's wallpapers, so no 4K options yet
 
 ## Requirements
