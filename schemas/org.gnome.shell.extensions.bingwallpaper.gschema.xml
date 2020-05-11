@@ -48,7 +48,7 @@
     <key name="resolution" type="s">
       <default>"auto"</default>
       <summary>Screen Size</summary>
-      <description>Valid sizes are '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', and '1920x1200' </description>
+      <description>Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200' and 'UHD'</description>
     </key>
 
     <key name="debug-logging" type="b">
