@@ -32,8 +32,8 @@ const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is
 const ICON_DEFAULT = "simple-frame";
 
 let monitors;
-let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200'];
-let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6]; // width / height (ignore the lower res equivalents)
+let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
+let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6, -1]; // width / height (ignore the lower res equivalents)
 
 let monitorW; // largest (in pixels) monitor width
 let monitorH; // largest (in pixels) monitor height
@@ -568,7 +568,8 @@ function enable() {
     autores = monitorW+"x"+monitorH;
 
     if (validresolutions.indexOf(autores) == -1) {
-        autores = "1920x1080"; // default to this, as people don't like the Bing logo
+        // default to 1080, as people don't like the Bing logo
+        autores = monitorW > 1920 ? "UHD" : "1920x1080";
         log("unknown resolution, defaulted to "+autores);
     }
     else {

@@ -37,7 +37,7 @@ let marketName = [
   "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
 ];
 
-let resolutions = [ 'auto', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
+let resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
 let marketDescription = null;
 let icon_image = null;
 
