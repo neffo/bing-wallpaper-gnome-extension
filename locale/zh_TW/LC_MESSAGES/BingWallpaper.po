@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-23 23:18+0800\n"
+"PO-Revision-Date: 2020-05-23 23:26+0800\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_TW\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "隱藏指示器"
+
+#: Settings.ui.h:2
+msgid "Indicator icon"
+msgstr "指示器圖示"
+
+#: Settings.ui.h:3 extension.js:164
+msgid "Set background image"
+msgstr "設定背景影像"
+
+#: Settings.ui.h:4 extension.js:165
+msgid "Set lock screen image"
+msgstr "設定鎖定螢幕影像"
+
+#: Settings.ui.h:5
+msgid "Download folder:"
+msgstr "下載資料夾："
+
+#: Settings.ui.h:6
+msgid "Bing Wallpaper pictures folder"
+msgstr "Bing 桌布圖片資料夾"
+
+#: Settings.ui.h:7
+msgid "Delete previously downloaded wallpapers:"
+msgstr "刪除先前下載的桌布："
+
+#: Settings.ui.h:8
+msgid "Days to store wallpapers before deleting:"
+msgstr "刪除前保留桌布的天數："
+
+#: Settings.ui.h:9
+msgid "Bing locale:"
+msgstr "Bing 語區："
+
+#: Settings.ui.h:10
+msgid "Default is English - United States"
+msgstr "預設值是 English - United States"
+
+#: Settings.ui.h:11
+msgid "Screen resolution:"
+msgstr "螢幕解析度："
+
+#: Settings.ui.h:12
+msgid "Override automatic resolution selection"
+msgstr "覆蓋自動選擇的解析度"
+
+#: Settings.ui.h:13 extension.js:167
+msgid "Settings"
+msgstr "設定"
+
+#: Settings.ui.h:14
+msgid "Gnome shell extension version: "
+msgstr "GNOME Shell 擴充元件版本："
+
+#: Settings.ui.h:15
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Displays the picture description and copyright information."
+msgstr "每天將您的桌布變更為您語區的 Bing 今日照片。顯示圖片描述及著作權資訊。"
+
+#: Settings.ui.h:16
+msgid "Maintained by Michael Carroll"
+msgstr "由 Michael Carroll 維護"
+
+#: Settings.ui.h:17
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:18
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "以 Elia Argentieri 製作的 NASA APOD GNOME Shell 擴充套件為基礎"
+
+#: Settings.ui.h:19
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">此程式完全不提供擔保。\n"
+"請參閱 <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License 第三版或更新版</a> 取得更多資訊。</span>"
+
+#: Settings.ui.h:21
+msgid "About"
+msgstr "關於"
+
+#: extension.js:88 extension.js:91
+msgid "minutes"
+msgstr "分"
+
+#: extension.js:94
+msgid "days"
+msgstr "天"
+
+#: extension.js:97
+msgid "hours"
+msgstr "時"
+
+#: extension.js:152
+msgid "<No refresh scheduled>"
+msgstr "<未排定重新整理>"
+
+#: extension.js:154 extension.js:157 extension.js:160
+msgid "Awaiting refresh..."
+msgstr "等待重新整理…"
+
+#: extension.js:162
+msgid "Copy image to clipboard"
+msgstr "複製影像至剪貼簿"
+
+#: extension.js:163
+msgid "Copy image URL to clipboard"
+msgstr "複製影像 URL 至剪貼簿"
+
+#: extension.js:166
+msgid "Refresh Now"
+msgstr "立刻重新整理"
+
+#: extension.js:209
+msgid "Next refresh"
+msgstr "下次重新整理"
+
+#: extension.js:394
+msgid "Bing Wallpaper of the Day for"
+msgstr "Bing 下述的今日桌布："
+
+#: extension.js:399 prefs.js:181
+msgid "Market not available in your region"
+msgstr "您的語區尚不能使用 Market"
+
+#: extension.js:447
+msgid "No wallpaper available"
+msgstr "沒有可以使用的桌布"
+
+#: extension.js:448
+msgid "No picture for today 😞."
+msgstr "今天沒有影像 😞"
+
+#: prefs.js:169
+msgid "Fetching data..."
+msgstr "正在取得資料…"
+
+#: prefs.js:185
+msgid "A network error occured"
+msgstr "發生網路錯誤"
