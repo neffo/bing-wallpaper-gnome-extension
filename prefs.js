@@ -16,15 +16,15 @@ const _ = Gettext.gettext;
 
 let settings;
 
-let markets = ['ar-XA', 'bg-BG','cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AU', 'en-CA', 'en-GB',
+let markets = ['ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
 'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
 'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
 'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
 'zh-CN', 'zh-HK', 'zh-TW'];
 let marketName = [
-  "(شبه الجزيرة العربية‎) العربية", "български (България)", "čeština (Česko)", "dansk (Danmark)", "Deutsch (Österreich)",
-  "Deutsch (Schweiz)", "Deutsch (Deutschland)", "Ελληνικά (Ελλάδα)", "English (Australia)", "English (Canada)",
+  "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
+  "Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
   "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
   "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
   "English (International)", "English (Arabia)", "English (South Africa)", "español (Argentina)", "español (Chile)",

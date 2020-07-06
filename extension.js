@@ -24,7 +24,7 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
+const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
 const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
@@ -410,7 +410,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (validresolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
                 (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
                 // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
-                resolution = "1920x1080";
+                resolution = "UHD";
             }
 
             this.imageURL = BingURL+imagejson.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 18:11+1000\n"
+"POT-Creation-Date: 2020-05-30 15:02+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: Settings.ui.h:3 extension.js:159
+#: Settings.ui.h:3 extension.js:164
 msgid "Set background image"
 msgstr ""
 
-#: Settings.ui.h:4 extension.js:160
+#: Settings.ui.h:4 extension.js:165
 msgid "Set lock screen image"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:13 extension.js:162
+#: Settings.ui.h:13 extension.js:167
 msgid "Settings"
 msgstr ""
 
@@ -118,39 +118,39 @@ msgstr ""
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:154 extension.js:155 extension.js:156
+#: extension.js:154 extension.js:157 extension.js:160
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:157
+#: extension.js:162
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:158
+#: extension.js:163
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:161
+#: extension.js:166
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:203
+#: extension.js:209
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:388
+#: extension.js:394
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:393 prefs.js:181
+#: extension.js:399 prefs.js:181
 msgid "Market not available in your region"
 msgstr ""
 
-#: extension.js:441
+#: extension.js:447
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:442
+#: extension.js:448
 msgid "No picture for today 😞."
 msgstr ""
 

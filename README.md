@@ -1,4 +1,4 @@
-# GNOME Shell extension - Bing Wallpaper Changer
+# GNOME Shell extension - Bing Wallpaper
 
 A lightweight GNOME shell extension to syncs your desktop wallpaper to today's Microsoft Bing image of the day (the image you see when you visit Bing.com). The intention of this extension is to just do what it needs to do and stay out of your way.
 
@@ -8,8 +8,6 @@ for use as wallpapers.
 
 This extension is based extensively on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
 and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta).
-
-This is my first attempt at a GNOME extension, so it may have some issues.
 
 Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension).
 
@@ -35,9 +33,8 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Known Issues
 
-* In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry)
+* In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry!)
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
-* We are limited by the resolution of Bing's wallpapers, so no 4K options yet
 
 ## Requirements
 
