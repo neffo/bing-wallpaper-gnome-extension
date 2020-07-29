@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-30 15:02+1000\n"
-"PO-Revision-Date: 2020-07-28 20:01+0200\n"
+"PO-Revision-Date: 2020-07-29 21:12+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,14 +50,13 @@ msgstr "Ta bort tidigare nedladdade bakgrundsbilder:"
 msgid "Days to store wallpapers before deleting:"
 msgstr "Antal dagar innan bilder tas bort:"
 
-# There is no translations of "locale", in this context that I'm aware of. I would say that you use the english words in swedish aswell
 #: Settings.ui.h:9
 msgid "Bing locale:"
-msgstr ""
+msgstr "Bing språkvariant:"
 
 #: Settings.ui.h:10
 msgid "Default is English - United States"
-msgstr "Standardspråk är engelska (USA)"
+msgstr "Standardspråk är Engelska (United States)"
 
 #: Settings.ui.h:11
 msgid "Screen resolution:"
@@ -147,13 +146,11 @@ msgstr "Nästa uppdatering"
 
 #: extension.js:394
 msgid "Bing Wallpaper of the Day for"
-msgstr "Bings dagliga foto"
+msgstr "Bings dagliga bakgrundsbild för"
 
-# I cant trigger the source text in the program so I don't know in what context it prompts. I guess it's when a picture can't be fetched from Bing? The translation could seem weird
 #: extension.js:399 prefs.js:181
-#, fuzzy
 msgid "Market not available in your region"
-msgstr "Marknaden är inte tillgänglig i din region"
+msgstr "Marknaden är inte tillgänglig för din region"
 
 #: extension.js:447
 msgid "No wallpaper available"
