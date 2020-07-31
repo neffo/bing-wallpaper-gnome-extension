@@ -58,6 +58,13 @@ You can then install this file using the Gnome Tweak Tool. Please note to instal
 
 Heres a suitable [zip file](https://neffo.github.io/BingWallpaper@ineffable-gmail.com.zip) I prepared earlier.
 
+## Enable debug logging
+
+If you run into problems, you can enable debugging using dconf-editor with this command:
+`GSETTINGS_SCHEMA_DIR=$HOME/.local/share/gnome-shell/extensions/BingWallpaper@ineffable-gmail.com/schemas dconf-editor /org/gnome/shell/extensions/bingwallpaper/`
+
+Please include logs from your journal when submitting bug notices (make sure nothing sensitive is included in the text!).
+
 ## Screenshots
 
 ![Screenshot](/screenshot/notification.png)

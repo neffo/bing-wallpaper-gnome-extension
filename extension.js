@@ -15,6 +15,9 @@ const Clutter = imports.gi.Clutter;
 const Cogl = imports.gi.Cogl;
 const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
+const _createBackground = UnlockDialog.prototype._createBackground;
+const _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -30,6 +33,9 @@ const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
 const ICON_DEFAULT = "simple-frame";
+
+let shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: this needs work will porobably break on newer shell versions
+let shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]); //FIXME: this needs work will porobably break on newer shell versions
 
 let monitors;
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
@@ -127,6 +133,8 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshdue = 0;
         this.refreshduetext = "";
         this.thumbnail = null;
+        this.blur_strength = 2;
+        this.blur_brightness = 0.55;
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = Utils.getSettings();
@@ -529,6 +537,67 @@ const BingWallpaperIndicator = new Lang.Class({
     _open_in_system_viewer: function launchOpen() {
         const context = global.create_app_launch_context(0, -1);
         Gio.AppInfo.launch_default_for_uri(this.filename.get_uri(), context);
+    },
+
+    // code based on https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen
+    _do_lockscreen_blur(monitor_index) {
+        log("_do_lockscreen_blur() called");
+        if (shellVersionMajor == 36 && shellVersionMinor <= 3) { // GNOME shell 3.36.3 and below (FIXME: this needs work)
+            let monitor = Main.layoutManager.monitors[monitorIndex];
+            let widget = new St.Widget({
+                style_class: 'screen-shield-background',
+                x: monitor.x,
+                y: monitor.y,
+                width: monitor.width,
+                height: monitor.height,
+            });
+
+            let bgManager = new Background.BackgroundManager({
+                container: widget,
+                monitorIndex,
+                controlPosition: false,
+            });
+            this._bgManagers.push(bgManager);
+            this._backgroundGroup.add_child(widget);
+            const themeContext = St.ThemeContext.get_for_stage(global.stage);
+            let effect = new Shell.BlurEffect({ brightness: this.blur_brightness, sigma: this.blur_strength * themeContext.scale_factor });
+            this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = SIGMA_VALUE * themeContext.scale_factor; });
+            widget.add_effect(effect);
+        }
+        else { // GNOME shell 3.36.4 and above
+            const themeContext = St.ThemeContext.get_for_stage(global.stage);
+
+            for (const widget of this._backgroundGroup.get_children()) {
+                widget.get_effect('blur').set({
+                    brightness: this.blur_brightness,
+                    sigma: this.blur_strength * themeContext.scale_factor,
+                });
+            } 
+        }
+    },
+
+    _lockscreen_blur_enable() {
+        log("_lockscreen_blur_enable() called");
+        if (shellVersionMajor >= 36) {
+            if (shellVersionMinor <= 3) {
+                UnlockDialog.prototype._createBackground = this._do_lockscreen_blur;
+            }
+            else {
+                UnlockDialog.prototype._updateBackgroundEffects = this._do_lockscreen_blur;
+            }
+        }
+    },
+
+    _lockscreen_blur_disable() {
+        log("_lockscreen_blur_disable() called");
+        if (shellVersionMajor >= 36) {
+            if (shellVersionMinor <= 3) {
+                UnlockDialog.prototype._createBackground = _createBackground;
+            }
+            else {
+                UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
+            }
+        }
     },
 
     stop: function () {
