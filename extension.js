@@ -154,6 +154,10 @@ const BingWallpaperIndicator = new Lang.Class({
         this._settings.connect('changed::set-lockscreen', Lang.bind(this, function() {
             this._setBackground();
         }));
+        this._settings.connect('changed::override-lockscreen-blur', Lang.bind(this, function () {
+            this._set_lockscreen_blur();
+        }));
+        this._set_lockscreen_blur();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -573,6 +577,15 @@ const BingWallpaperIndicator = new Lang.Class({
                     sigma: this.blur_strength * themeContext.scale_factor,
                 });
             } 
+        }
+    },
+
+    _set_lockscreen_blur() {
+        if (this._settings.get_boolean('override-lockscreen-blur')) {
+            this._lockscreen_blur_enable();
+        }
+        else {
+            this._lockscreen_blur_disable();
         }
     },
 
