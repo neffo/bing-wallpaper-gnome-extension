@@ -157,6 +157,12 @@ const BingWallpaperIndicator = new Lang.Class({
         this._settings.connect('changed::override-lockscreen-blur', Lang.bind(this, function () {
             this._set_lockscreen_blur();
         }));
+        this._settings.connect('changed::lockscreen-blur-strength', Lang.bind(this, function () {
+            this.blur_strength = this._settings.get_boolean('lockscreen-blur-strength');
+        }));
+        this._settings.connect('changed::lockscreen-blur-brightness', Lang.bind(this, function () {
+            this.blur_strength = this._settings.get_boolean('lockscreen-blur-brightness');
+        }));
         this._set_lockscreen_blur();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
