@@ -25,11 +25,12 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * NEW: image preview in menus & ability to manually set desktop and lockscreen wallpapers individually
 * NEW: copy image to clipboard
 * NEW: a selection of different indicator (tray) icons to choose
+* NEW: override the GDM3 lockscreen blur
 
 ## TODO
 
 * add more languages (#14) - [please help if you can](https://github.com/neffo/bing-wallpaper-gnome-extension/issues/14)
-* fix/test HTTP(S) proxy support (#22)
+* add user features requests
 
 ## Known Issues
 

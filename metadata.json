@@ -1,9 +1,9 @@
 {
     "uuid": "BingWallpaper@ineffable-gmail.com",
-    "shell-version": ["3.28", "3.30", "3.32", "3.34", "3.36"],
+    "shell-version": ["3.28", "3.30", "3.32", "3.34", "3.36", "3.38"],
     "name": "Bing Wallpaper",
     "settings-schema": "org.gnome.shell.extensions.bingwallpaper",
     "description": "Lightweight GNOME shell extension to set your wallpaper once per day to today's Microsoft Bing image of the day (the image you see when you visit Bing.com).\n\n *Disclaimer*: this extension is unofficial and not affiliated with Bing or Microsoft in any way. Images are protected by copyright and are licensed only for use as wallpapers.\n\nThis extension is based extensively on the NASA APOD extension by Elinvention (https://github.com/Elinvention) and inspired by Bing Desktop Wallpaper Changer by Utkarsh Gupta (https://github.com/UtkarshGpta).\n\nFeatures:\n* Fetches the Bing wallpaper of the day and sets as both lock screen and desktop wallpaper (these are both user selectable)\n* Optionally force a specific region (i.e. locale)\n* Automatically selects the highest resolution (and most appropriate wallpaper) in multiple monitor setups\n* Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first)\n* Only attempts to download wallpapers when they have been updated\n* Doesn't poll continuously - only once per day and on startup (schedules a refresh when Bing is due to update)\n* English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN, zh_TW), French (fr_FR), Portugeuse (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca) and Norwegian Bokmål & Nynorsk - a HUGE thanks to the translators\n\nPlease report bugs to the GitHub page below",
-    "version": "27",
+    "version": "28",
     "url": "https://github.com/neffo/bing-wallpaper-gnome-extension"
 }
