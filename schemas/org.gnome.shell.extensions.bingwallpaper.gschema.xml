@@ -106,9 +106,9 @@
       <description>Degree of fuzziness</description>
     </key>
 
-    <key name="lockscreen-blur-brightness" type="d">
-      <range min="0" max="1" />
-      <default>0.55</default>
+    <key name="lockscreen-blur-brightness" type="i">
+      <range min="0" max="100" />
+      <default>50</default>
       <summary>GNOME lockscreen (gdm3) wallpaper blur Brightness</summary>
       <description>Used to darken the wallpaper to improve visibility</description>
     </key>

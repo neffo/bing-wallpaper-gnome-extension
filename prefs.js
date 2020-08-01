@@ -71,6 +71,9 @@ function buildPrefsWidget(){
     let daysSpin = buildable.get_object('days_after_spinbutton');
     marketDescription = buildable.get_object('market_description');
     icon_image = buildable.get_object('icon_image');
+    let overrideSwitch = buildable.get_object('lockscreen_override');
+    let strengthEntry = buildable.get_object('entry_strength');
+    let brightnessEntry = buildable.get_object('entry_brightness');
 
     // previous wallpaper images
     let images=[];
@@ -132,6 +135,12 @@ function buildPrefsWidget(){
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+    // GDM3 override
+
+    settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     box.show_all();
 
