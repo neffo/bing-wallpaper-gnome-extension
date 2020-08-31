@@ -82,7 +82,7 @@
     </key>
 
      <key name="icon-name" type="s">
-      <default>"bing-light"</default>
+      <default>"bing-symbolic"</default>
       <summary>Icon Name</summary>
       <description>Icon filename to use for extension applet</description>
     </key>

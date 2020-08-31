@@ -41,7 +41,7 @@ let resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x72
 let marketDescription = null;
 let icon_image = null;
 
-let icon_list = ['bing-light', 'bing-dark', 'brick', 'high-frame', 'mid-frame', 'low-frame'];
+let icon_list = ['bing-symbolic', 'bing-light', 'bing-dark', 'brick', 'high-frame', 'mid-frame', 'low-frame'];
 
 const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
 
