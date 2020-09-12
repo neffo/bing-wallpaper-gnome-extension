@@ -27,7 +27,7 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
+const BingImageURL = Utils.BingImageURL;
 const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
@@ -35,8 +35,6 @@ const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is
 const ICON_DEFAULT = "simple-frame";
 
 let monitors;
-let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
-let aspectratios = [ -1, 1.33, -1, 1.67, 1.78, 1.78, 1.6, -1]; // width / height (ignore the lower res equivalents)
 
 let monitorW; // largest (in pixels) monitor width
 let monitorH; // largest (in pixels) monitor height
@@ -236,6 +234,7 @@ const BingWallpaperIndicator = new Lang.Class({
     // set indicator icon (tray icon)
     _setIcon: function(icon_name) {
         //log('Icon set to : '+icon_name)
+        Utils.validate_icon(this._settings);
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         if (!this.icon.get_parent() && 0) {
@@ -247,7 +246,6 @@ const BingWallpaperIndicator = new Lang.Class({
             getActorCompat(this).remove_all_children();
             getActorCompat(this).add_child(this.icon);
         }
-            
     },
 
     // set backgrounds as requested and set preview image in menu
@@ -428,7 +426,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
 
-            if (validresolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
+            if (Utils.resolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
                 (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
                 // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
                 resolution = "UHD";
@@ -588,7 +586,7 @@ function enable() {
     log("highest res: "+monitorW+" x "+monitorH);
     autores = monitorW+"x"+monitorH;
 
-    if (validresolutions.indexOf(autores) == -1) {
+    if (Utils.resolutions.indexOf(autores) == -1) {
         // default to 1080, as people don't like the Bing logo
         autores = monitorW > 1920 ? "UHD" : "1920x1080";
         log("unknown resolution, defaulted to "+autores);

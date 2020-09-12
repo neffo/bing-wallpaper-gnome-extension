@@ -4,11 +4,7 @@ const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
-const Soup = imports.gi.Soup;
 const Lang = imports.lang;
-
-let httpSession = new Soup.SessionAsync();
-Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -16,34 +12,10 @@ const _ = Gettext.gettext;
 
 let settings;
 
-let markets = ['ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
-'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
-'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
-'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
-'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
-'zh-CN', 'zh-HK', 'zh-TW'];
-let marketName = [
-  "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
-  "Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
-  "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
-  "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
-  "English (International)", "English (Arabia)", "English (South Africa)", "español (Argentina)", "español (Chile)",
-  "español (España)", "español (México)", "español (Estados Unidos)", "español (Latinoamérica)", "eesti (Eesti)",
-  "suomi (Suomi)", "français (Belgique)", "français (Canada)", "français (Suisse)", "français (France)",
-  "(עברית (ישראל", "hrvatski (Hrvatska)", "magyar (Magyarország)", "italiano (Italia)", "日本語 (日本)", "한국어(대한민국)",
-  "lietuvių (Lietuva)", "latviešu (Latvija)", "norsk bokmål (Norge)", "Nederlands (België)", "Nederlands (Nederland)",
-  "polski (Polska)", "português (Brasil)", "português (Portugal)", "română (România)", "русский (Россия)",
-  "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
-  "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
-];
-
-let resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
 let marketDescription = null;
 let icon_image = null;
 
-let icon_list = ['bing-light', 'bing-dark', 'brick', 'high-frame', 'mid-frame', 'low-frame'];
-
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mbl=1&mkt=";
+const BingImageURL = Utils.BingImageURL;
 
 function init() {
     settings = Utils.getSettings(Me);
@@ -51,7 +23,6 @@ function init() {
 }
 
 function buildPrefsWidget(){
-
     // Prepare labels and controls
     let buildable = new Gtk.Builder();
     buildable.add_from_file( Me.dir.get_path() + '/Settings.ui' );
@@ -82,19 +53,19 @@ function buildPrefsWidget(){
     }
 
     // check that these are valid (can be edited through dconf-editor)
-    validate_market();
-    validate_resolution();
+    Utils.validate_market(settings, marketDescription);
+    Utils.validate_resolution(settings);
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
-    icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
+    Utils.icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
         iconEntry.append(iconname, iconname);
     });
     settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
     settings.connect('changed::icon-name', function() {
-        validate_icon();
+        Utils.validate_icon(settings, icon_image);
     });
     iconEntry.set_active_id(settings.get_string('icon-name'));
 
@@ -112,25 +83,25 @@ function buildPrefsWidget(){
 
     // Bing Market (locale/country)
 
-    markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
-        marketEntry.append(bingmarket, bingmarket+": "+marketName[index]);
+    Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
+        marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
     });
     //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
     settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::market', function() {
-        validate_market();
+        Utils.validate_market(settings,marketDescription);
         //marketDescription.label = "Set to "+ marketEntry.active_id + " - " + _("Default is en-US");
     });
 
-    resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
+    Utils.resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);
     });
 
     // Resolution
     settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::resolution', function() {
-        validate_resolution();
+        Utils.validate_resolution(settings);
     });
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -147,51 +118,4 @@ function buildPrefsWidget(){
     return box;
 }
 
-function validate_icon() {
-    log('validate_icon()');
-    let icon_name  = settings.get_string('icon-name');
-    if (icon_name == "" || icon_list.indexOf(icon_name) == -1) {
-        settings.reset('icon-name');
-        icon_name = settings.get_string('icon-name');
-    }
-    log('set icon to: '+Me.dir.get_path() + '/icons/' + icon_name + '.svg');
-    icon_image.set_from_file(Me.dir.get_path() + '/icons/' + icon_name + '.svg');
-    icon_image.height = 128;
-    //icon_image.set_size_request(64,64);
-}
 
-function validate_resolution() {
-    let resolution = settings.get_string('resolution');
-    if (resolution == "" || resolutions.indexOf(resolution) == -1) // if not a valid resolution
-        settings.reset('resolution');
-}
-
-function validate_market() {
-    let market = settings.get_string('market');
-    if (market == "" || markets.indexOf(market) == -1 ) // if not a valid market
-        settings.reset('market');
-
-    log('Testing : '+BingImageURL);
-
-    let request = Soup.Message.new('GET', BingImageURL+market); // + market
-    log("fetching: " + BingImageURL+market);
-    marketDescription.set_label(_("Fetching data..."));
-
-    // queue the http request
-    httpSession.queue_message(request, Lang.bind(this, function(httpSession, message) {
-        if (message.status_code == 200) {
-            let data = message.response_body.data;
-            log("Recieved "+data.length+" bytes");
-            let checkData = JSON.parse(data);
-            let checkStatus = checkData.market.mkt;
-            if (checkStatus == market) {
-                marketDescription.set_label('Data OK, '+data.length+' bytes recieved');
-            } else {
-                marketDescription.set_label(_("Market not available in your region"));
-            }
-        } else {
-            log("Network error occured: "+message.status_code);
-            marketDescription.set_label(_("A network error occured")+": "+message.status_code);
-        }
-    }));
-}
