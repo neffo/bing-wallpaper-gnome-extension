@@ -31,6 +31,16 @@ Modified by: Michael Carroll
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">7</property>
     <property name="step_increment">1</property>
+    <property name="page_increment">2</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_blur">
+    <property name="upper">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_brightness">
+    <property name="upper">100</property>
+    <property name="step_increment">5</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkNotebook" id="prefs_widget">
@@ -670,7 +680,7 @@ Modified by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Blur can improve readability</property>
+                            <property name="label" translatable="yes">Blur can improve readability of login prompt</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -695,30 +705,11 @@ Modified by: Michael Carroll
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScaleButton" id="entry_strength">
+                          <object class="GtkSpinButton" id="entry_strength">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="focus_on_click">False</property>
-                            <property name="receives_default">True</property>
-                            <property name="relief">none</property>
-                            <child internal-child="plus_button">
-                              <object class="GtkButton">
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="relief">none</property>
-                              </object>
-                            </child>
-                            <child internal-child="minus_button">
-                              <object class="GtkButton">
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="relief">none</property>
-                              </object>
-                            </child>
+                            <property name="adjustment">adjustment_blur</property>
+                            <property name="numeric">True</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -753,7 +744,7 @@ Modified by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Can improve contrast</property>
+                            <property name="label" translatable="yes">Can improve contrast of login prompt</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -778,31 +769,11 @@ Modified by: Michael Carroll
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScaleButton" id="entry_brightness">
+                          <object class="GtkSpinButton" id="entry_brightness">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="focus_on_click">False</property>
-                            <property name="receives_default">True</property>
-                            <property name="relief">none</property>
-                            <property name="orientation">vertical</property>
-                            <child internal-child="plus_button">
-                              <object class="GtkButton">
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="relief">none</property>
-                              </object>
-                            </child>
-                            <child internal-child="minus_button">
-                              <object class="GtkButton">
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="relief">none</property>
-                              </object>
-                            </child>
+                            <property name="adjustment">adjustment_brightness</property>
+                            <property name="numeric">True</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
