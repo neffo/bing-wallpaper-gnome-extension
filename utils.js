@@ -1,9 +1,9 @@
-
 const Gio = imports.gi.Gio;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
+const Clutter = imports.gi.Clutter;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -12,15 +12,23 @@ const _ = Gettext.gettext;
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
-let icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
-let resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
-let markets = ['ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
+var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
+var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
+
+
+// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
+var getActorCompat = (obj) =>
+	Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
+
+var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
+var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
+var markets = ['ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
 	'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
 	'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
 	'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
 	'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
 	'zh-CN', 'zh-HK', 'zh-TW'];
-let marketName = [
+var marketName = [
 	"(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
 	"Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
 	"English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
@@ -35,7 +43,7 @@ let marketName = [
 	"українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
 ];
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
+var BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
 
 function getSettings() {
 	let extension = ExtensionUtils.getCurrentExtension();
@@ -95,7 +103,6 @@ function validate_market(settings, marketDescription = null) {
 	}
 	// only run this check if called from prefs
 	if (marketDescription) { 
-		log('Testing : ' + BingImageURL);
 		let request = Soup.Message.new('GET', BingImageURL + market); // + market
 		log("fetching: " + BingImageURL + market);
 	
@@ -118,4 +125,50 @@ function validate_market(settings, marketDescription = null) {
 			}
 		}));
 	}
+}
+
+function get_current_bg(schema) {
+	let gsettings = new Gio.Settings({ schema: schema });
+	let cur = gsettings.get_string('picture-uri');
+	return (cur);
+}
+
+function update_blur_preview(settings, image) {
+
+	actor = getActorCompat(image);
+	brightness = settings.get_int('lockscreen-blur-brightness'); 
+	intensity = settings.get_int('lockscreen-blur-strength');
+	if (shellVersionMinor == 36 && shellVersionPoint <= 3) { // GNOME shell 3.36.3 and below (FIXME: this needs work)
+		// 
+	}
+	else { // GNOME shell 3.36.4 and above
+		log("_update_blur_preview shell >= 3.36.4");
+		//const themeContext = St.ThemeContext.get_for_stage(global.stage);
+		actor.get_effect('blur').set({
+			brightness: blur_brightness * 0.01,
+			sigma: blur_strength*8,
+		});
+	}
+}
+
+let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
+
+function fetch_change_log(version, label) {
+	// create an http message
+	let url = gitreleaseurl + "v" + version;
+	let request = Soup.Message.new('GET', url);
+	httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) BingWallpaper Gnome Extension';
+	log("Fetching "+url);
+	// queue the http request
+	httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
+		if (message.status_code == 200) {
+			let data = message.response_body.data;
+			text = JSON.parse(data).body;
+			label.set_label(text);
+		} 
+		else {
+			log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
+			label.set_label(_("No change log found for this release") + ": " + message.status_code);
+		}
+	}));
 }

@@ -9,8 +9,8 @@ const _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-let shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
-let shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]); 
+let shellVersionMinor = Utils.shellVersionMinor;
+let shellVersionPoint = Utils.shellVersionPoint; 
 
 let blur_strength = 2;
 let blur_brightness = 55;
