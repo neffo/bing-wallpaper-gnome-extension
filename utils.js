@@ -3,7 +3,6 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
-const Clutter = imports.gi.Clutter;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -139,7 +138,7 @@ function update_blur_preview(settings, image) {
 	brightness = settings.get_int('lockscreen-blur-brightness'); 
 	intensity = settings.get_int('lockscreen-blur-strength');
 	if (shellVersionMinor == 36 && shellVersionPoint <= 3) { // GNOME shell 3.36.3 and below (FIXME: this needs work)
-		// 
+		// FIXME: implement this
 	}
 	else { // GNOME shell 3.36.4 and above
 		log("_update_blur_preview shell >= 3.36.4");
