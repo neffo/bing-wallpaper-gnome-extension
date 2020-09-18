@@ -47,7 +47,6 @@ function buildPrefsWidget(){
     let overrideSwitch = buildable.get_object('lockscreen_override');
     let strengthEntry = buildable.get_object('entry_strength');
     let brightnessEntry = buildable.get_object('entry_brightness');
-    let previewImage = buildable.get_object('preview_image');
     let change_log = buildable.get_object('change_log');
 
     // previous wallpaper images
@@ -109,33 +108,23 @@ function buildPrefsWidget(){
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-    // GDM3 override
-    settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-    settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    if (Convenience.currentVersionGreaterEqual("3.36")) {
+        lsSwitch.set_sensitive(false);
+        // GDM3 lockscreen blur override
+        settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    } else {
+        // older version of GNOME
+        overrideSwitch.set_sensitive(false);
+        strengthEntry.set_sensitive(false);
+        brightnessEntry.set_sensitive(false);
+    }
 
-    // resize the image so it's not rediculous
-    //previewImage.set_size(480, 270); 
-    //getActorCompat(previewImage).set_size(480,270);
-    let filename = Utils.get_current_bg('org.gnome.desktop.background').replace('file://','');
-    let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 480, 270);
-    previewImage.set_from_pixbuf(pixbuf);
     box.show_all();
-
-    settings.connect('changed::override-lockscreen-blur', function() {
-        Utils.update_blur_preview(settings, previewImage);
-    });
-    settings.connect('changed::lockscreen-blur-strength', function () {
-        Utils.update_blur_preview(settings, previewImage);
-    });
-    settings.connect('changed::lockscreen-blur-brightness', function () {
-        Utils.update_blur_preview(settings, previewImage);
-    });
 
     // fetch
     Utils.fetch_change_log(Me.metadata.version.toString(), change_log);
 
     return box;
 }
-
-

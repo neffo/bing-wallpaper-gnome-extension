@@ -11,9 +11,13 @@ const _ = Gettext.gettext;
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
+
+
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
 var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
 
+var vertical_blur = null;
+var horizontal_blur = null;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
@@ -132,31 +136,13 @@ function get_current_bg(schema) {
 	return (cur);
 }
 
-function update_blur_preview(settings, image) {
-
-	actor = getActorCompat(image);
-	brightness = settings.get_int('lockscreen-blur-brightness'); 
-	intensity = settings.get_int('lockscreen-blur-strength');
-	if (shellVersionMinor == 36 && shellVersionPoint <= 3) { // GNOME shell 3.36.3 and below (FIXME: this needs work)
-		// FIXME: implement this
-	}
-	else { // GNOME shell 3.36.4 and above
-		log("_update_blur_preview shell >= 3.36.4");
-		//const themeContext = St.ThemeContext.get_for_stage(global.stage);
-		actor.get_effect('blur').set({
-			brightness: blur_brightness * 0.01,
-			sigma: blur_strength*8,
-		});
-	}
-}
-
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 
 function fetch_change_log(version, label) {
 	// create an http message
 	let url = gitreleaseurl + "v" + version;
 	let request = Soup.Message.new('GET', url);
-	httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) BingWallpaper Gnome Extension';
+	httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:'+version+') BingWallpaper Gnome Extension';
 	log("Fetching "+url);
 	// queue the http request
 	httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {

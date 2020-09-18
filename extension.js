@@ -198,7 +198,11 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.clipboardImageItem);
         this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
-        this.menu.addMenuItem(this.swallpaperItem);
+        if (Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+            this.menu.addMenuItem(this.swallpaperItem);
+            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
+        }
+            
         this.menu.addMenuItem(this.settingsItem);
         this.explainItem.setSensitive(false);
         this.copyrightItem.setSensitive(false);
@@ -211,14 +215,16 @@ const BingWallpaperIndicator = new Lang.Class({
         this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
         this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
-        this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
         this.thumbnailItem.connect('activate', Lang.bind(this, this._open_in_system_viewer));
         this.settingsItem.connect('activate', function() {
-            Util.spawn(["gnome-shell-extension-prefs", Me.metadata.uuid]);
+            if (ExtensionUtils.openPrefs)
+                ExtensionUtils.openPrefs();
+            else 
+                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
         });
 
-        ((this instanceof Clutter.Actor) ? this : this.actor).connect('button-press-event', Lang.bind(this, function () {
+        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
             this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
@@ -339,32 +345,28 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set menu thumbnail
     _setImage: function () {
-        let pixbuf =  this.thumbnail.gtkImage.get_pixbuf();
-        const {width, height} = pixbuf;
+        let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
+        const { width, height } = pixbuf;
         if (height == 0) {
-          return;
+            return;
         }
         const image = new Clutter.Image();
         const success = image.set_data(
-          pixbuf.get_pixels(),
-          pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
-          width,
-          height,
-          pixbuf.get_rowstride()
+            pixbuf.get_pixels(),
+            pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
+            width,
+            height,
+            pixbuf.get_rowstride()
         );
         if (!success) {
-          throw Error("error creating Clutter.Image()");
+            throw Error("error creating Clutter.Image()");
         }
-        
+
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-        //getActorCompat(this.thumbnailItem).width = 375;
-        getActorCompat(this.thumbnailItem).set_size(350,200);
-        /*getActorCompat(this.thumbnailItem).set_x_expand(false);
-        getActorCompat(this.thumbnailItem).set_y_expand(false);
-        getActorCompat(this.thumbnailItem).set_x_align (Clutter.ActorAlign.CLUTTER_ACTOR_ALIGN_CENTER);
-        getActorCompat(this.thumbnailItem).set_y_align (Clutter.ActorAlign.CLUTTER_ACTOR_ALIGN_CENTER);*/
+    
+        getActorCompat(this.thumbnailItem).set_size(480, 270);    
         this.thumbnailItem.setSensitive(true);
       },
 

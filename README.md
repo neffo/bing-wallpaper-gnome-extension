@@ -9,7 +9,7 @@ for use as wallpapers.
 This extension is based extensively on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
 and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta).
 
-Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived (Bing Desktop Wallpaper for Cinnamon)[https://github.com/Starcross/bing-wallpaper-cinnamon] by Starcross.
+Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon(https://github.com/Starcross/bing-wallpaper-cinnamon) by Starcross.
 
 ## Features
 
@@ -23,7 +23,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portugeuse (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca) and Norwegian Bokmål & Nynorsk - a HUGE thanks to the translators
 * image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
 * NEW: a selection of different theme-aware indicator (tray) icons to choose
-* NEW: override the Gnome (GDM3) lockscreen blur (requested feature)
+* NEW: override the GNOME (GDM3) lockscreen blur (requested feature #77)
 
 ## TODO
 

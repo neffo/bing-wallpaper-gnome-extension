@@ -794,39 +794,37 @@ Modified by: Michael Carroll
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
-                      <object class="GtkGrid">
+                      <object class="GtkGrid" id="preview_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">False</property>
                         <property name="vexpand">False</property>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Preview:</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
+                          <placeholder/>
                         </child>
                         <child>
-                          <object class="GtkImage" id="preview_image">
-                            <property name="width_request">480</property>
-                            <property name="height_request">270</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="hexpand">False</property>
-                            <property name="vexpand">False</property>
-                            <property name="pixbuf">icons/bing-symbolic.svg</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
-                          </packing>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
                         </child>
                       </object>
                     </child>
@@ -887,13 +885,29 @@ Modified by: Michael Carroll
           <object class="GtkLabel" id="extension_name">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">&lt;b&gt;Bing Wallpaper Changer&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label">Bing Wallpaper</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="extension_description">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">New wallpaper images everyday from Bing</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -930,21 +944,24 @@ Modified by: Michael Carroll
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="extension_description">
+          <object class="GtkLinkButton" id="homepage_link">
+            <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Changes your wallpaper daily to the Bing picture of the day for your region. Displays the picture description and copyright information.</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
+            <property name="receives_default">True</property>
+            <property name="events"/>
+            <property name="halign">center</property>
+            <property name="relief">none</property>
+            <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -952,6 +969,7 @@ Modified by: Michael Carroll
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">5</property>
             <child>
               <object class="GtkLabel" id="maintainer_label">
@@ -976,23 +994,23 @@ Modified by: Michael Carroll
                 <property name="position">1</property>
               </packing>
             </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLinkButton" id="homepage_link">
-            <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="events"/>
-            <property name="halign">center</property>
-            <property name="relief">none</property>
-            <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
+            <child>
+              <object class="GtkLinkButton" id="flattr_link">
+                <property name="label" translatable="yes">Support the extension author on Flattr!</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="events"/>
+                <property name="halign">center</property>
+                <property name="relief">none</property>
+                <property name="uri">https://flattr.com/@neffo</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -1005,23 +1023,6 @@ Modified by: Michael Carroll
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
-                <property name="justify">center</property>
-                <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="style" value="italic"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkLabel" id="change_log">
                 <property name="visible">True</property>
@@ -1037,6 +1038,23 @@ Modified by: Michael Carroll
                 <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="padding">10</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
+                <property name="justify">center</property>
+                <property name="wrap">True</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -1061,7 +1079,7 @@ See the &lt;a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"&gt;G
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">7</property>
+            <property name="position">9</property>
           </packing>
         </child>
       </object>
