@@ -11,7 +11,9 @@ const _ = Gettext.gettext;
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
-
+const PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
+const PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
+const PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
 
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
 var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
@@ -156,4 +158,10 @@ function fetch_change_log(version, label) {
 			label.set_label(_("No change log found for this release") + ": " + message.status_code);
 		}
 	}));
+}
+
+function set_blur_preset(settings, preset) {
+    settings.set_int('lockscreen-blur-strength', preset.blur);
+	settings.set_int('lockscreen-blur-brightness', preset.dim);
+	log("Set blur preset to "+preset.blur+" brightness to "+preset.dim);
 }

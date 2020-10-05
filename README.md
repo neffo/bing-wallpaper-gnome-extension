@@ -55,8 +55,6 @@ or create a zip file by doing this
 
 You can then install this file using the Gnome Tweak Tool. Please note to install an extension correctly the zip must have the metadata.json file in the base directory (not in a sub-directory), so you can't use the Git zip file to do this.
 
-Heres a suitable [zip file](https://neffo.github.io/BingWallpaper@ineffable-gmail.com.zip) I prepared earlier.
-
 ## Enable debug logging
 
 If you run into problems, you can enable debugging using dconf-editor with this command:

@@ -49,6 +49,10 @@ function buildPrefsWidget(){
     let brightnessEntry = buildable.get_object('entry_brightness');
     let change_log = buildable.get_object('change_log');
 
+    let buttonGDMdefault = buildable.get_object('button_default_gnome');
+    let buttonnoblur = buildable.get_object('button_no_blur');
+    let buttonslightblur = buildable.get_object('button_slight_blur');
+
     // previous wallpaper images
     let images=[];
     for(let i = 1; i <= 7; i++) {
@@ -114,11 +118,24 @@ function buildPrefsWidget(){
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+        buttonGDMdefault.connect('activate',function(widget) {
+            Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
+        });
+        buttonnoblur.connect('activate',function(widget) {
+            Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
+        });
+        buttonslightblur.connect('activate',function(widget) {
+            Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
+        });
     } else {
         // older version of GNOME
         overrideSwitch.set_sensitive(false);
         strengthEntry.set_sensitive(false);
         brightnessEntry.set_sensitive(false);
+        buttonGDMdefault.set_sensitive(false);
+        buttonnoblur.set_sensitive(false);
+        buttonslightblur.set_sensitive(false);
+
     }
 
     box.show_all();
@@ -128,3 +145,4 @@ function buildPrefsWidget(){
 
     return box;
 }
+
