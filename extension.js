@@ -173,13 +173,15 @@ const BingWallpaperIndicator = new Lang.Class({
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
-        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
         this.titleItem.label.get_clutter_text().set_line_wrap(true);
         this.titleItem.label.set_style("max-width: 350px;");
         this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.explainItem.label.get_clutter_text().set_line_wrap(true);
         this.explainItem.label.set_style("max-width: 350px;");
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.copyrightItem.label.get_clutter_text().set_line_wrap(true);
+        this.copyrightItem.label.set_style("max-width: 350px;");
         this.separator = new PopupMenu.PopupSeparatorMenuItem();
         this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
         this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
@@ -199,7 +201,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.clipboardImageItem);
         this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
-        if (Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
             this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
         }
