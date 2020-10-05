@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.2 
 
-Copyright (C) 2017
+Copyright (C) 2017-2020
 
 This file is part of Bing Wallpaper extension preferences.
 
@@ -18,8 +18,8 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this extension.  If not, see <http://www.gnu.org/licenses/>.
 
-Author: Elia Argentieri
-Modified by: Michael Carroll
+Original Author: Elia Argentieri
+Bing Wallpaper GNOME extension by: Michael Carroll
 
 -->
 <interface domain="BingWallpaper">

@@ -1,3 +1,11 @@
+// Bing Wallpaper GNOME extension
+// Copyright (C) 2017-2020 Michael Carroll
+// This extension is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// See the GNU General Public License, version 3 or later for details.
+// Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 const St = imports.gi.St;
 const Main = imports.ui.main;
@@ -32,7 +40,6 @@ const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
-const ICON_DEFAULT = "simple-frame";
 
 let monitors;
 
@@ -111,12 +118,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _init: function() {
         this.parent(0.0, IndicatorName);
-
-        /*
-        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON_DEFAULT + ".svg");
-        this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
-        this.actor.add_child(this.icon);
-        */
 
         this.title = "";
         this.explanation = "";
