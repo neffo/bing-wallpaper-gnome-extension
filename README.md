@@ -72,7 +72,7 @@ Please include logs from your journal when submitting bug notices (make sure not
 
 ## Toss a coin to your coder
 
-Do you like this extension and want to show that you appreciate the work that goes into adding new features and keeping it maintained? Please consider buying me a coffee at [Flattr](https://flattr.com/@neffo).
+Do you like this extension and want to show that you appreciate the work that goes into adding new features and keeping it maintained? Please consider buying me a coffee on [GitHub Sponsors](https://github.com/sponsors/neffo) or on [Flattr](https://flattr.com/@neffo).
 
 ## Special Thanks
 
