@@ -126,13 +126,13 @@ function buildPrefsWidget(){
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        buttonGDMdefault.connect('activate',function(widget) {
+        buttonGDMdefault.connect('clicked',function(widget) {
             Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
         });
-        buttonnoblur.connect('activate',function(widget) {
+        buttonnoblur.connect('clicked',function(widget) {
             Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
         });
-        buttonslightblur.connect('activate',function(widget) {
+        buttonslightblur.connect('clicked',function(widget) {
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
     } else {
