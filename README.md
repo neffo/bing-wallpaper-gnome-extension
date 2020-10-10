@@ -7,9 +7,9 @@ Microsoft in any way. Images are protected by copyright, and are licensed only
 for use as wallpapers.
 
 This extension is based extensively on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
-and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta).
+and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). As featured on [OMG! Ubuntu](https://www.omgubuntu.co.uk/2017/07/bing-wallpaper-changer-gnome-extension).
 
-Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon(https://github.com/Starcross/bing-wallpaper-cinnamon) by Starcross.
+Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon](https://github.com/Starcross/bing-wallpaper-cinnamon) by Starcross.
 
 ## Features
 
@@ -28,7 +28,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 ## TODO
 
 * add more languages (#14) - [please help if you can](https://github.com/neffo/bing-wallpaper-gnome-extension/issues/14)
-* add user features requests
+* add user features requests - [lots have already been implemented](https://github.com/neffo/bing-wallpaper-gnome-extension/issues?q=is%3Aissue+label%3Aenhancement+is%3Aclosed)
 
 ## Known Issues
 
@@ -37,7 +37,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Requirements
 
-Gnome 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported)
+GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported). Blur control requires GNOME 3.36+
 
 ## Install
 
@@ -53,7 +53,7 @@ or create a zip file by doing this
 `cd bing-wallpaper-gnome-extension`
 `sh buildzip.sh`
 
-You can then install this file using the Gnome Tweak Tool. Please note to install an extension correctly the zip must have the metadata.json file in the base directory (not in a sub-directory), so you can't use the Git zip file to do this.
+You can then install this file using the GNOME Tweak Tool. Please note to install an extension correctly the zip must have the metadata.json file in the base directory (not in a sub-directory), so you can't use the Git zip file to do this.
 
 ## Enable debug logging
 
@@ -68,7 +68,7 @@ Please include logs from your journal when submitting bug notices (make sure not
 
 ![Settings](/screenshot/settings.png)
 
-![Blur example](/screenshot/blurexample.png)
+![Blur example](/screenshot/blurexample.jpg)
 
 ## Toss a coin to your coder
 
