@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Marwén Ben Romdhan <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-30 15:02+1000\n"
+"PO-Revision-Date: 2020-12-30 10:50+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Language: ar\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "إخفاء المؤشر"
+
+#: Settings.ui.h:2
+msgid "Indicator icon"
+msgstr "رمز المؤشر"
+
+#: Settings.ui.h:3 extension.js:164
+msgid "Set background image"
+msgstr "صورة الخلفية"
+
+#: Settings.ui.h:4 extension.js:165
+msgid "Set lock screen image"
+msgstr "صورة الخلفية للشاشة المقفلة"
+
+#: Settings.ui.h:5
+msgid "Download folder:"
+msgstr "مجلد التحميل:"
+
+#: Settings.ui.h:6
+msgid "Bing Wallpaper pictures folder"
+msgstr "مجلد صور Bing الخلفية"
+
+#: Settings.ui.h:7
+msgid "Delete previously downloaded wallpapers:"
+msgstr "حذف صور الخلفية المحملة سابقا:"
+
+#: Settings.ui.h:8
+msgid "Days to store wallpapers before deleting:"
+msgstr "عدد الأيام قبل حذف صور الخلفية:"
+
+#: Settings.ui.h:9
+msgid "Bing locale:"
+msgstr "لغة Bing:"
+
+#: Settings.ui.h:10
+msgid "Default is English - United States"
+msgstr "الافتراضي هو الإنجليزية - الولايات المتحدة"
+
+#: Settings.ui.h:11
+msgid "Screen resolution:"
+msgstr "دقة الشاشة:"
+
+#: Settings.ui.h:12
+msgid "Override automatic resolution selection"
+msgstr "تجاوز دقة الشاشة التلقائية"
+
+#: Settings.ui.h:13 extension.js:167
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: Settings.ui.h:14
+msgid "Gnome shell extension version: "
+msgstr "إصدار امتدادات صدفة جنوم: "
+
+#: Settings.ui.h:15
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Displays the picture description and copyright information."
+msgstr ""
+"يغير صورة الخلفية يوميا إلى صورة اليوم من موقع Bing الخاص بمنطقتك. يعرض وصف "
+"الصورة ومعلومات حقوق النشر."
+
+#: Settings.ui.h:16
+msgid "Maintained by Michael Carroll"
+msgstr "يقوم بالصيانة Michael Carroll"
+
+#: Settings.ui.h:17
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:18
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "يرتكز على امتداد صدفة جنوم NASA APOD لـElia Argentieri"
+
+#: Settings.ui.h:19
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span dir=\"rtl\" size=\"small\">يقدم هذا البرنامج دون أي ضمان على الإطلاق.\n"
+"راجع <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">رخصة "
+"جنو العمومية ، الإصدار 3 أو أحدث</a> لمزيد من التفاصيل.</span>"
+
+#: Settings.ui.h:21
+msgid "About"
+msgstr "عن هذا البرنامج"
+
+#: extension.js:88 extension.js:91
+msgid "minutes"
+msgstr "دقائق"
+
+#: extension.js:94
+msgid "days"
+msgstr "أيام"
+
+#: extension.js:97
+msgid "hours"
+msgstr "ساعات"
+
+#: extension.js:152
+msgid "<No refresh scheduled>"
+msgstr "<لا تحديث مجدول>"
+
+#: extension.js:154 extension.js:157 extension.js:160
+msgid "Awaiting refresh..."
+msgstr "في انتظار التحديث ..."
+
+#: extension.js:162
+msgid "Copy image to clipboard"
+msgstr "نسخ الصورة إلى الحافظة"
+
+#: extension.js:163
+msgid "Copy image URL to clipboard"
+msgstr "نسخ رابط الصورة إلى الحافظة"
+
+#: extension.js:166
+msgid "Refresh Now"
+msgstr "التحديث الآن"
+
+#: extension.js:209
+msgid "Next refresh"
+msgstr "التحديث التالي"
+
+#: extension.js:394
+msgid "Bing Wallpaper of the Day for"
+msgstr "صور Bing اليومية لـ"
+
+#: extension.js:399 prefs.js:181
+msgid "Market not available in your region"
+msgstr "خدمة غير متوفرة في منطقتك"
+
+#: extension.js:447
+msgid "No wallpaper available"
+msgstr "لا يوجد صور خلفية"
+
+#: extension.js:448
+msgid "No picture for today 😞."
+msgstr "لا توجد صورة لهذا اليوم 😞."
+
+#: prefs.js:169
+msgid "Fetching data..."
+msgstr "تحميل البيانات..."
+
+#: prefs.js:185
+msgid "A network error occured"
+msgstr "حدث خطأ على مستوى الشبكة"
