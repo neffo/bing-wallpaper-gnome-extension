@@ -21,7 +21,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first), or keep them forever
 * Only attempts to download wallpapers when they have been updated
 * Doesn't poll continuously - only once per day and on startup (a refresh is scheduled when Bing is due to update)
-* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca) and Norwegian Bokmål & Nynorsk - a HUGE thanks to the translators
+* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv) and Arabic (ar) - a HUGE thanks to the translators
 * NEW: image preview in menus & ability to manually set desktop and lockscreen wallpapers individually
 * NEW: copy image to clipboard
 * NEW: a selection of different indicator (tray) icons to choose
