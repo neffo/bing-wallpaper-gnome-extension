@@ -82,7 +82,7 @@
     </key>
 
      <key name="icon-name" type="s">
-      <default>"bing-light"</default>
+      <default>"bing-symbolic"</default>
       <summary>Icon Name</summary>
       <description>Icon filename to use for extension applet</description>
     </key>
@@ -93,5 +93,24 @@
       <description>Used when wallpaper is animated, or not licensed for wallpaper use</description>
     </key>
 
+    <key name="override-lockscreen-blur" type="b">
+      <default>false</default>
+      <summary>Override GNOME lockscreen (gdm3) wallpaper blur</summary>
+      <description>Applies to GNOME 3.36 and above only</description>
+    </key>
+
+    <key name="lockscreen-blur-strength" type="i">
+      <range min="0" max="100" />
+      <default>2</default>
+      <summary>GNOME lockscreen (gdm3) wallpaper blur strength</summary>
+      <description>Degree of fuzziness</description>
+    </key>
+
+    <key name="lockscreen-blur-brightness" type="i">
+      <range min="0" max="100" />
+      <default>50</default>
+      <summary>GNOME lockscreen (gdm3) wallpaper blur Brightness</summary>
+      <description>Used to darken the wallpaper to improve visibility</description>
+    </key>
   </schema>
 </schemalist>

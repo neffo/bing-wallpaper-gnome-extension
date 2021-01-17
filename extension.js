@@ -1,3 +1,11 @@
+// Bing Wallpaper GNOME extension
+// Copyright (C) 2017-2020 Michael Carroll
+// This extension is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// See the GNU General Public License, version 3 or later for details.
+// Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 const St = imports.gi.St;
 const Main = imports.ui.main;
@@ -15,28 +23,33 @@ const Clutter = imports.gi.Clutter;
 const Cogl = imports.gi.Cogl;
 const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
+// const Background = imports.ui.background;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
+const Blur = Me.imports.blur;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-const BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
+const BingImageURL = Utils.BingImageURL;
 const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
-const ICON_DEFAULT = "simple-frame";
 
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
 
 let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
+let blur=null;
 let init_called=false;
+let blur_brightness=0.55;
+let blur_strength=30;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
@@ -104,12 +117,6 @@ const BingWallpaperIndicator = new Lang.Class({
     _init: function() {
         this.parent(0.0, IndicatorName);
 
-        /*
-        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + ICON_DEFAULT + ".svg");
-        this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
-        this.actor.add_child(this.icon);
-        */
-
         this.title = "";
         this.explanation = "";
         this.filename = "";
@@ -123,6 +130,9 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshdue = 0;
         this.refreshduetext = "";
         this.thumbnail = null;
+        blur = new Blur.Blur();
+        blur.blur_strength = 30;
+        blur.blur_brightness = 0.55;
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = Utils.getSettings();
@@ -142,18 +152,34 @@ const BingWallpaperIndicator = new Lang.Class({
         this._settings.connect('changed::set-lockscreen', Lang.bind(this, function() {
             this._setBackground();
         }));
+        this._settings.connect('changed::override-lockscreen-blur', Lang.bind(this, function () {
+            blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
+            blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
+            blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
+        }));
+        this._settings.connect('changed::lockscreen-blur-strength', Lang.bind(this, function () {
+            blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
+        }));
+        this._settings.connect('changed::lockscreen-blur-brightness', Lang.bind(this, function () {
+            blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
+        }));
+        blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
+        blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
+        blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
-        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
         this.titleItem.label.get_clutter_text().set_line_wrap(true);
         this.titleItem.label.set_style("max-width: 350px;");
         this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this.explainItem.label.get_clutter_text().set_line_wrap(true);
         this.explainItem.label.set_style("max-width: 350px;");
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this.copyrightItem.label.get_clutter_text().set_line_wrap(true);
+        this.copyrightItem.label.set_style("max-width: 350px;");
         this.separator = new PopupMenu.PopupSeparatorMenuItem();
         this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
         this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
@@ -173,7 +199,11 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.clipboardImageItem);
         this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
-        this.menu.addMenuItem(this.swallpaperItem);
+        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+            this.menu.addMenuItem(this.swallpaperItem);
+            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
+        }
+            
         this.menu.addMenuItem(this.settingsItem);
         this.explainItem.setSensitive(false);
         this.copyrightItem.setSensitive(false);
@@ -186,14 +216,16 @@ const BingWallpaperIndicator = new Lang.Class({
         this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
         this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
-        this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
         this.thumbnailItem.connect('activate', Lang.bind(this, this._open_in_system_viewer));
         this.settingsItem.connect('activate', function() {
-            Util.spawn(["gnome-shell-extension-prefs", Me.metadata.uuid]);
+            if (ExtensionUtils.openPrefs)
+                ExtensionUtils.openPrefs();
+            else 
+                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
         });
 
-        ((this instanceof Clutter.Actor) ? this : this.actor).connect('button-press-event', Lang.bind(this, function () {
+        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
             this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
@@ -211,6 +243,7 @@ const BingWallpaperIndicator = new Lang.Class({
     // set indicator icon (tray icon)
     _setIcon: function(icon_name) {
         //log('Icon set to : '+icon_name)
+        Utils.validate_icon(this._settings);
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         if (!this.icon.get_parent() && 0) {
@@ -222,7 +255,6 @@ const BingWallpaperIndicator = new Lang.Class({
             getActorCompat(this).remove_all_children();
             getActorCompat(this).add_child(this.icon);
         }
-            
     },
 
     // set backgrounds as requested and set preview image in menu
@@ -314,32 +346,28 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set menu thumbnail
     _setImage: function () {
-        let pixbuf =  this.thumbnail.gtkImage.get_pixbuf();
-        const {width, height} = pixbuf;
+        let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
+        const { width, height } = pixbuf;
         if (height == 0) {
-          return;
+            return;
         }
         const image = new Clutter.Image();
         const success = image.set_data(
-          pixbuf.get_pixels(),
-          pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
-          width,
-          height,
-          pixbuf.get_rowstride()
+            pixbuf.get_pixels(),
+            pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
+            width,
+            height,
+            pixbuf.get_rowstride()
         );
         if (!success) {
-          throw Error("error creating Clutter.Image()");
+            throw Error("error creating Clutter.Image()");
         }
-        
+
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-        //getActorCompat(this.thumbnailItem).width = 375;
-        getActorCompat(this.thumbnailItem).set_size(350,200);
-        /*getActorCompat(this.thumbnailItem).set_x_expand(false);
-        getActorCompat(this.thumbnailItem).set_y_expand(false);
-        getActorCompat(this.thumbnailItem).set_x_align (Clutter.ActorAlign.CLUTTER_ACTOR_ALIGN_CENTER);
-        getActorCompat(this.thumbnailItem).set_y_align (Clutter.ActorAlign.CLUTTER_ACTOR_ALIGN_CENTER);*/
+    
+        getActorCompat(this.thumbnailItem).set_size(480, 270);    
         this.thumbnailItem.setSensitive(true);
       },
 
@@ -403,7 +431,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
 
-            if (validresolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
+            if (Utils.resolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
                 (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
                 // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
                 resolution = "UHD";
