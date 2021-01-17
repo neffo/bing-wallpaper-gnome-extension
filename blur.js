@@ -101,7 +101,7 @@ class Blur {
     _enable() {
         log("_enable() called");
         if (shellVersionMinor >= 36) {
-            if (shellVersionPoint <= 3) {
+            if (shellVersionMinor == 36 && shellVersionPoint <= 3) {
                 UnlockDialog.prototype._createBackground = this._do_blur;
             }
             else {
