@@ -41,10 +41,8 @@ const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
 
-let monitors;
+let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
 
-let monitorW; // largest (in pixels) monitor width
-let monitorH; // largest (in pixels) monitor height
 let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
@@ -578,29 +576,7 @@ function init(extensionMeta) {
 function enable() {
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
-    monitors = Main.layoutManager.monitors; // get list of connected monitors (and sizes)
-    let largest = 0;
-    for (let monitorIdx in monitors) {
-        let monitor = monitors[monitorIdx];
-        log("monitor "+monitorIdx+" -> "+monitor.width+" x "+monitor.height);
-        if ((monitor.width * monitor.height) > largest) {
-            monitorW = monitor.width;
-            monitorH = monitor.height;
-            largest = monitorW * monitorH;
-        }
-    }
-
-    log("highest res: "+monitorW+" x "+monitorH);
-    autores = monitorW+"x"+monitorH;
-
-    if (Utils.resolutions.indexOf(autores) == -1) {
-        // default to 1080, as people don't like the Bing logo
-        autores = monitorW > 1920 ? "UHD" : "1920x1080";
-        log("unknown resolution, defaulted to "+autores);
-    }
-    else {
-        log("detected best resolution "+autores);
-    }
+    autores = "UHD"; // remove monitor size checks
 }
 
 function disable() {
