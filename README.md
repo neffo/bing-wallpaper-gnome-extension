@@ -77,7 +77,8 @@ Please include logs from your journal when submitting bug notices (make sure not
 ![Settings](/screenshot/settings3.png)
 
 
-Examples of adjustable blur on the lockscreen (from left to right: no blur/no dimming, slight blur/default dimming, default blur/default dimming):
+Examples of adjustable blur on the lockscreen:
+(from left to right: no blur/no dimming, slight blur/default dimming, default blur/default dimming)
 ![Blur example](/screenshot/blurexample.jpg)
 
 ## Toss a coin to your coder
