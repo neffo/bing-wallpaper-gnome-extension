@@ -1,90 +1,89 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Laszlo Kardos <<echo bGFjZXN6QGZlZG9yYXByb2plY3Qub3Jn | base64 --decode>>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 18:11+1000\n"
-"PO-Revision-Date: 2020-03-04 18:34+1000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: id\n"
+"POT-Creation-Date: 2020-05-30 15:02+1000\n"
+"PO-Revision-Date: 2021-03-04 22:49+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Last-Translator: Laszlo Kardos <<echo bGFjZXN6QGZlZG9yYXByb2plY3Qub3Jn | base64 --decode>>\n"
+"Language-Team: Hungarian Translator Team\n"
+"X-Generator: Poedit 2.4.2\n"
+"Language: hu\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
-msgstr "Sembunyikan indikator"
+msgstr "Elrejtés a panelről"
 
 #: Settings.ui.h:2
 msgid "Indicator icon"
-msgstr "Indikator"
+msgstr "Panel ikon"
 
-#: Settings.ui.h:3 extension.js:159
+#: Settings.ui.h:3 extension.js:164
 msgid "Set background image"
-msgstr "Set gambar latar belakang"
+msgstr "Beállítás háttérképnek"
 
-#: Settings.ui.h:4 extension.js:160
+#: Settings.ui.h:4 extension.js:165
 msgid "Set lock screen image"
-msgstr "Set gambar layar penguncian"
+msgstr "Beállítás zárolási képnek"
 
 #: Settings.ui.h:5
 msgid "Download folder:"
-msgstr "Folder unduhan:"
+msgstr "Letöltési könyvtár:"
 
 #: Settings.ui.h:6
 msgid "Bing Wallpaper pictures folder"
-msgstr "Folder gambar wallpaper Bing"
+msgstr "Bing Háttérképek könyvtár"
 
 #: Settings.ui.h:7
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Hapus wallpaper yang sebelumnya terunduh:"
+msgstr "Előzőleg letöltött háttérképek törlése:"
 
 #: Settings.ui.h:8
 msgid "Days to store wallpapers before deleting:"
-msgstr "Durasi penyimpanan gambar di komputer (dalam hari):"
+msgstr "A háttérképek tárolásának napja a törlés előtt:"
 
 #: Settings.ui.h:9
 msgid "Bing locale:"
-msgstr "Bing lokal:"
+msgstr "Bing nyelve:"
 
 #: Settings.ui.h:10
 msgid "Default is English - United States"
-msgstr "Default bahasa Inggris - Amerika Serikat"
+msgstr "Alaprételmezett Angol - Egyesült Államok"
 
 #: Settings.ui.h:11
 msgid "Screen resolution:"
-msgstr "Ukuran layar:"
+msgstr "Képernyőfelbontás:"
 
 #: Settings.ui.h:12
 msgid "Override automatic resolution selection"
-msgstr "Menimpa aturan pemilihan ukuran otomatis"
+msgstr "Az automatikus felbontás kiválasztásának felülbírálása"
 
-#: Settings.ui.h:13 extension.js:162
+#: Settings.ui.h:13 extension.js:167
 msgid "Settings"
-msgstr "Pengaturan"
+msgstr "Beállítások"
 
 #: Settings.ui.h:14
 msgid "Gnome shell extension version: "
-msgstr "Versi ekstensi Gnome shell: "
+msgstr "Gnome shell kiterjesztés verzió: "
 
 #: Settings.ui.h:15
 msgid ""
 "Changes your wallpaper daily to the Bing picture of the day for your region. "
 "Displays the picture description and copyright information."
 msgstr ""
-"Atur wallpaper harian berdasarkan gambar harian Bing sesuai wilayah anda. "
-"Memuat pemberitahuan tentang deskripsi dan informasi hak cipta dari gambar."
+"Naponta megváltoztatja a háttérképet a régió Bing képére. Megjeleníti a kép "
+"leírását és a szerzői jogi információkat."
 
 #: Settings.ui.h:16
 msgid "Maintained by Michael Carroll"
-msgstr "Dikelola oleh Michael Carroll"
+msgstr "Karbantartja Michael Carroll"
 
 #: Settings.ui.h:17
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -92,7 +91,7 @@ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:18
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Berdasarkan ekstensi Gnome NASA APOD oleh Elia Argentieri"
+msgstr "Elia Argentieri NASA APOD Gnome shell kiterjesztése alapján"
 
 #: Settings.ui.h:19
 msgid ""
@@ -100,74 +99,72 @@ msgid ""
 "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 or later</a> for details.</span>"
+"<span size=\"small\">Ez a program abszolút semmilyen garanciát nem "
+"tartalmaz.\n"
+"Tekintse meg a <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html\">GNU Általános Nyilvános Licenc, 3 vagy késöbbi verzióját</a> a "
+"részletekért.</span>"
 
 #: Settings.ui.h:21
 msgid "About"
-msgstr "Tentang"
+msgstr "Névjegy"
 
 #: extension.js:88 extension.js:91
 msgid "minutes"
-msgstr "menit"
+msgstr "perce"
 
 #: extension.js:94
 msgid "days"
-msgstr "hari"
+msgstr "napja"
 
 #: extension.js:97
 msgid "hours"
-msgstr "jam"
+msgstr "órája"
 
 #: extension.js:152
 msgid "<No refresh scheduled>"
-msgstr "<Muat ulang tidak terjadwal>"
+msgstr "<Nincs frissítés ütemezve>"
 
-#: extension.js:154 extension.js:155 extension.js:156
+#: extension.js:154 extension.js:157 extension.js:160
 msgid "Awaiting refresh..."
-msgstr "Menunggu pemuatan ulang"
+msgstr "Frissítésre vár..."
 
-#: extension.js:157
-#, fuzzy
+#: extension.js:162
 msgid "Copy image to clipboard"
-msgstr "Salin gambar ke papan baki"
+msgstr "Kép másolása vágólapra"
 
-#: extension.js:158
+#: extension.js:163
 msgid "Copy image URL to clipboard"
-msgstr "Salin URL gambar ke papan baki"
+msgstr "Kép hivatkozás másolása vágólapra"
 
-#: extension.js:161
+#: extension.js:166
 msgid "Refresh Now"
-msgstr "Muat ulang sekarang"
+msgstr "Frissítés most"
 
-#: extension.js:203
+#: extension.js:209
 msgid "Next refresh"
-msgstr "Pemuatan ulang selanjutnya"
+msgstr "Következő frissítés"
 
-#: extension.js:388
+#: extension.js:394
 msgid "Bing Wallpaper of the Day for"
-msgstr "Wallpaper Bing hari ini untuk"
+msgstr "A nap Bing Háttérképe"
 
-#: extension.js:393 prefs.js:181
+#: extension.js:399 prefs.js:181
 msgid "Market not available in your region"
-msgstr "Market tidak tersedia di daerah anda"
+msgstr "A piac nem érhető el az Ön régiójában"
 
-#: extension.js:441
+#: extension.js:447
 msgid "No wallpaper available"
-msgstr "Wallpaper tidak tersedia"
+msgstr "Nincs elérhető háttérkép"
 
-#: extension.js:442
+#: extension.js:448
 msgid "No picture for today 😞."
-msgstr "Tidak ada gambar baru hari ini"
+msgstr "Nincs elérhető kép ma 😞."
 
 #: prefs.js:169
 msgid "Fetching data..."
-msgstr "Mengambil data..."
+msgstr "Adatok lekérése..."
 
 #: prefs.js:185
 msgid "A network error occured"
-msgstr "Terjadi kesalahan jaringan"
-
-#~ msgid "Set wallpaper"
-#~ msgstr "Atur wallpapers"
+msgstr "Hálózati hiba történt"

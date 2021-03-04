@@ -20,7 +20,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Automatically selects the highest resolution (and most appropriate wallpaper) in multiple monitor setups
 * Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first), or keep them forever
 * Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
-* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv) and Arabic (ar) - a HUGE thanks to the translators
+* Language support: English (en), German (de), Hungarian (hu), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv) and Arabic (ar) - a HUGE thanks to the translators
 * image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
 * NEW: a selection of different theme-aware indicator (tray) icons to choose
 * NEW: override the GNOME (GDM3) lockscreen blur (requested feature #77)
