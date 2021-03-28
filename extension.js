@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2020 Michael Carroll
+// Copyright (C) 2017-2021 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -187,7 +187,12 @@ const BingWallpaperIndicator = new Lang.Class({
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
+            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        }
+        else {
+            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+        }
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.titleItem);
@@ -196,7 +201,16 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.separator);
-        this.menu.addMenuItem(this.clipboardImageItem);
+        if (Utils.is_x11()) { // these do not work on Wayland atm
+            this.menu.addMenuItem(this.clipboardImageItem);
+            this.menu.addMenuItem(this.clipboardURLItem);
+        }
+        this.menu.addMenuItem(this.dwallpaperItem);
+        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+            this.menu.addMenuItem(this.swallpaperItem);
+            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
+        }
+        
         this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
         if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
@@ -213,11 +227,10 @@ const BingWallpaperIndicator = new Lang.Class({
             if (this.imageinfolink)
               Util.spawn(["xdg-open", this.imageinfolink]);
         }));
-        this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
+        
         this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
-        this.thumbnailItem.connect('activate', Lang.bind(this, this._open_in_system_viewer));
         this.settingsItem.connect('activate', function() {
             if (ExtensionUtils.openPrefs)
                 ExtensionUtils.openPrefs();
@@ -228,7 +241,8 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
-            this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+            if (Utils.is_x11())
+                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
             this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -261,8 +275,10 @@ const BingWallpaperIndicator = new Lang.Class({
     _setBackground: function() {
         if (this.filename == "")
             return;
-        this.thumbnail = new Thumbnail(this.filename);
-        this._setImage();
+        if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
+            this.thumbnail = new Thumbnail(this.filename);
+            this._setImage();
+        }
 
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();

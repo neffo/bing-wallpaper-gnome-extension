@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2020 Michael Carroll
+// Copyright (C) 2017-2021 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -8,10 +8,12 @@
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
+const Config = imports.misc.config;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -173,4 +175,15 @@ function set_blur_preset(settings, preset) {
     settings.set_int('lockscreen-blur-strength', preset.blur);
 	settings.set_int('lockscreen-blur-brightness', preset.dim);
 	log("Set blur preset to "+preset.blur+" brightness to "+preset.dim);
+}
+
+function is_x11() {
+	return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
+}
+
+function gnome_major_version() {
+	let [major] = Config.PACKAGE_VERSION.split('.');
+	let shellVersion = Number.parseInt(major);
+
+	return shellVersion;
 }

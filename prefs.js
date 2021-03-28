@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2020 Michael Carroll
+// Copyright (C) 2017-2021 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -35,7 +35,13 @@ function init() {
 function buildPrefsWidget(){
     // Prepare labels and controls
     let buildable = new Gtk.Builder();
-    buildable.add_from_file( Me.dir.get_path() + '/Settings.ui' );
+    if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
+        buildable.add_from_file( Me.dir.get_path() + '/Settings4.ui' );
+    }
+    else {
+        buildable.add_from_file( Me.dir.get_path() + '/Settings.ui' );
+    }
+    
     let box = buildable.get_object('prefs_widget');
 
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
@@ -45,7 +51,8 @@ function buildPrefsWidget(){
     let iconEntry = buildable.get_object('icon');
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
-    let fileChooser = buildable.get_object('download_folder');
+    let fileChooserBtn = buildable.get_object('download_folder');
+    let fileChooser = buildable.get_object('file_chooser');
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
     let deleteSwitch = buildable.get_object('delete_previous');
@@ -88,12 +95,29 @@ function buildPrefsWidget(){
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     //download folder
-    fileChooser.set_filename(settings.get_string('download-folder'));
-    log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
-    fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
+    
+    fileChooserBtn.set_label(settings.get_string('download-folder'));
+    //log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+    //fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
+    fileChooserBtn.connect('clicked', function(widget) {
+        let parent = widget.get_root();
+        filechooser.set_transient_for(parent);
+        filechooser.show();
+    });
+    fileChooser.connect('response', function(widget, response) {
+        if (response !== Gtk.ResponseType.ACCEPT) {
+            return;
+        }
+        let fileURI = native.get_file();
+        log("fileChooser returned: "+fileURI);
+        fileChooserBtn.set_label(fileURI);
+        settings.set_string('download-folder', fileURI);
+    }); 
+
+    /*
     fileChooser.connect('file-set', function(widget) {
         settings.set_string('download-folder', widget.get_filename());
-    });
+    });*/
     
     // Bing Market (locale/country)
     Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
@@ -120,8 +144,11 @@ function buildPrefsWidget(){
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-    if (Convenience.currentVersionGreaterEqual("3.36")) {
+    if (Convenience.currentVersionGreaterEqual("3.36") ) {
         lsSwitch.set_sensitive(false);
+    }
+
+    if (Convenience.currentVersionGreaterEqual("3.36") && Utils.gnome_major_version() < 4 ) {
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
@@ -136,7 +163,7 @@ function buildPrefsWidget(){
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
     } else {
-        // older version of GNOME
+        // older version of GNOME or GNOME 40+
         overrideSwitch.set_sensitive(false);
         strengthEntry.set_sensitive(false);
         brightnessEntry.set_sensitive(false);
@@ -146,7 +173,9 @@ function buildPrefsWidget(){
 
     }
 
-    box.show_all();
+    // not required in GTK4 as widgets are displayed by default
+    if (Gtk.get_major_version() < 4)
+        box.show_all();
 
     // fetch
     Utils.fetch_change_log(Me.metadata.version.toString(), change_log);
