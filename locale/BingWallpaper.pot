@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-30 15:02+1000\n"
+"POT-Creation-Date: 2021-03-28 19:31+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: Settings.ui.h:3 extension.js:164
+#: Settings.ui.h:3 extension.js:186
 msgid "Set background image"
 msgstr ""
 
-#: Settings.ui.h:4 extension.js:165
+#: Settings.ui.h:4 extension.js:187
 msgid "Set lock screen image"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:13 extension.js:167
+#: Settings.ui.h:13 extension.js:189
 msgid "Settings"
 msgstr ""
 
@@ -102,62 +102,58 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:88 extension.js:91
+#: extension.js:97 extension.js:100
 msgid "minutes"
 msgstr ""
 
-#: extension.js:94
+#: extension.js:103
 msgid "days"
 msgstr ""
 
-#: extension.js:97
+#: extension.js:106
 msgid "hours"
 msgstr ""
 
-#: extension.js:152
+#: extension.js:172
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:154 extension.js:157 extension.js:160
+#: extension.js:174 extension.js:177 extension.js:180
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:162
+#: extension.js:184
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:163
+#: extension.js:185
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:166
+#: extension.js:188
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:209
+#: extension.js:194
+msgid "Thumbnail disabled on Wayland"
+msgstr ""
+
+#: extension.js:245
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:394
+#: extension.js:428
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:399 prefs.js:181
+#: extension.js:433
 msgid "Market not available in your region"
 msgstr ""
 
-#: extension.js:447
+#: extension.js:481
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:448
+#: extension.js:482
 msgid "No picture for today 😞."
-msgstr ""
-
-#: prefs.js:169
-msgid "Fetching data..."
-msgstr ""
-
-#: prefs.js:185
-msgid "A network error occured"
 msgstr ""
