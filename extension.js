@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2020 Michael Carroll
+// Copyright (C) 2017-2021 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -192,6 +192,7 @@ const BingWallpaperIndicator = new Lang.Class({
         }
         else {
             this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+            log('X11 not detected, disabling some unsafe features');
         }
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
@@ -355,6 +356,8 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // set menu thumbnail
+    // "But really, what the extension is doing is a terrible terrible hack, and I'm quite surprised that it worked at all." - Florian Müllner, 2020
+    // FIXME: find another way
     _setImage: function () {
         let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
         const { width, height } = pixbuf;
