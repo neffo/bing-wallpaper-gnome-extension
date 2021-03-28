@@ -187,7 +187,12 @@ const BingWallpaperIndicator = new Lang.Class({
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
+            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        }
+        else {
+            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+        }
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.titleItem);
@@ -196,8 +201,10 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.separator);
-        this.menu.addMenuItem(this.clipboardImageItem);
-        this.menu.addMenuItem(this.clipboardURLItem);
+        if (Utils.is_x11()) { // these do not work on Wayland atm
+            this.menu.addMenuItem(this.clipboardImageItem);
+            this.menu.addMenuItem(this.clipboardURLItem);
+        }
         this.menu.addMenuItem(this.dwallpaperItem);
         if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
@@ -230,6 +237,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this.refreshItem.setSensitive(!this._updatePending);
             this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
             this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -261,8 +269,10 @@ const BingWallpaperIndicator = new Lang.Class({
     _setBackground: function() {
         if (this.filename == "")
             return;
-        this.thumbnail = new Thumbnail(this.filename);
-        this._setImage();
+        if (Utils.is_x11()) {
+            this.thumbnail = new Thumbnail(this.filename);
+            this._setImage();
+        }
 
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();

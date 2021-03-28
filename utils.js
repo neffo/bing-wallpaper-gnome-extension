@@ -12,6 +12,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
+const GLib = imports.gi.GLib;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -173,4 +174,8 @@ function set_blur_preset(settings, preset) {
     settings.set_int('lockscreen-blur-strength', preset.blur);
 	settings.set_int('lockscreen-blur-brightness', preset.dim);
 	log("Set blur preset to "+preset.blur+" brightness to "+preset.dim);
+}
+
+function is_x11() {
+	return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
 }
