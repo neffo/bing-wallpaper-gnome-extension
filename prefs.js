@@ -70,6 +70,7 @@ function buildPrefsWidget(){
     // check that these are valid (can be edited through dconf-editor)
     Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
+    Utils.validate_icon(settings, icon_image);
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
