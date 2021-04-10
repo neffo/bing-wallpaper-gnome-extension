@@ -112,13 +112,13 @@ function validate_resolution(settings) {
 		settings.reset('resolution');
 }
 
-function validate_market(settings, marketDescription = null) {
+function validate_market(settings, marketDescription = null, lastreq = null) {
 	let market = settings.get_string('market');
 	if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
 		settings.reset('market');
 	}
 	// only run this check if called from prefs
-	if (marketDescription) { 
+	if (marketDescription && lastreq === null || GLib.DateTime.new_now_utc().difference(lastreq)>5000) { // rate limit no more than 1 request per 5 seconds
 		let request = Soup.Message.new('GET', BingImageURL + market); // + market
 		log("fetching: " + BingImageURL + market);
 	

@@ -24,6 +24,7 @@ let settings;
 
 let marketDescription = null;
 let icon_image = null;
+let lastreq = null;
 
 const BingImageURL = Utils.BingImageURL;
 
@@ -97,12 +98,14 @@ function buildPrefsWidget(){
     //download folder
     
     fileChooserBtn.set_label(settings.get_string('download-folder'));
+    fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder'))); //FIXME: unsure why this doesn't work
     //log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
     //fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
     fileChooserBtn.connect('clicked', function(widget) {
         let parent = widget.get_root();
-        filechooser.set_transient_for(parent);
-        filechooser.show();
+        fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
+        fileChooser.set_transient_for(parent);
+        fileChooser.show();
     });
     fileChooser.connect('response', function(widget, response) {
         if (response !== Gtk.ResponseType.ACCEPT) {
@@ -127,7 +130,8 @@ function buildPrefsWidget(){
 
     settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::market', function() {
-        Utils.validate_market(settings,marketDescription);
+        Utils.validate_market(settings,marketDescription, lastreq);
+        lastreq = GLib.DateTime.new_now_utc();
         //marketDescription.label = "Set to "+ marketEntry.active_id + " - " + _("Default is en-US");
     });
 
@@ -148,7 +152,7 @@ function buildPrefsWidget(){
         lsSwitch.set_sensitive(false);
     }
 
-    if (Convenience.currentVersionGreaterEqual("3.36") && Utils.gnome_major_version() < 4 ) {
+    if (Convenience.currentVersionGreaterEqual("3.36") && Convenience.currentVersionSmallerEqual("40.0") ) {
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
@@ -179,6 +183,7 @@ function buildPrefsWidget(){
 
     // fetch
     Utils.fetch_change_log(Me.metadata.version.toString(), change_log);
+    lastreq = GLib.DateTime.new_now_utc();
 
     return box;
 }
