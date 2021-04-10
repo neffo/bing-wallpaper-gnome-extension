@@ -107,7 +107,8 @@ function buildPrefsWidget(){
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
         fileChooserBtn.set_label(settings.get_string('download-folder'));
-        fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder')));
+        fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder')).get_parent());
+        //fileChooser.set_file(Gio.File.new_for_path(settings.get_string('download-folder')).get_child());
         fileChooserBtn.connect('clicked', function(widget) {
             let parent = widget.get_root();
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
@@ -125,10 +126,10 @@ function buildPrefsWidget(){
         });
     }
     else {
-        fileChooser.set_filename(settings.get_string('download-folder'));
-        log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
-        fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-        fileChooser.connect('file-set', function(widget) {
+        fileChooserBtn.set_filename(settings.get_string('download-folder'));
+        log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+        fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
+        fileChooserBtn.connect('file-set', function(widget) {
             settings.set_string('download-folder', widget.get_filename());
         });
     }
