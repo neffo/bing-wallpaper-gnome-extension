@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Laszlo Kardos <<echo bGFjZXN6QGZlZG9yYXByb2plY3Qub3Jn | base64 --decode>>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-30 15:02+1000\n"
+"PO-Revision-Date: 2021-03-04 22:49+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Laszlo Kardos <<echo bGFjZXN6QGZlZG9yYXByb2plY3Qub3Jn | base64 --decode>>\n"
+"Language-Team: Hungarian Translator Team\n"
+"X-Generator: Poedit 2.4.2\n"
+"Language: hu\n"
+
+#: Settings.ui.h:1
+msgid "Hide the indicator"
+msgstr "Elrejtés a panelről"
+
+#: Settings.ui.h:2
+msgid "Indicator icon"
+msgstr "Panel ikon"
+
+#: Settings.ui.h:3 extension.js:164
+msgid "Set background image"
+msgstr "Beállítás háttérképnek"
+
+#: Settings.ui.h:4 extension.js:165
+msgid "Set lock screen image"
+msgstr "Beállítás zárolási képnek"
+
+#: Settings.ui.h:5
+msgid "Download folder:"
+msgstr "Letöltési könyvtár:"
+
+#: Settings.ui.h:6
+msgid "Bing Wallpaper pictures folder"
+msgstr "Bing Háttérképek könyvtár"
+
+#: Settings.ui.h:7
+msgid "Delete previously downloaded wallpapers:"
+msgstr "Előzőleg letöltött háttérképek törlése:"
+
+#: Settings.ui.h:8
+msgid "Days to store wallpapers before deleting:"
+msgstr "A háttérképek tárolásának napja a törlés előtt:"
+
+#: Settings.ui.h:9
+msgid "Bing locale:"
+msgstr "Bing nyelve:"
+
+#: Settings.ui.h:10
+msgid "Default is English - United States"
+msgstr "Alaprételmezett Angol - Egyesült Államok"
+
+#: Settings.ui.h:11
+msgid "Screen resolution:"
+msgstr "Képernyőfelbontás:"
+
+#: Settings.ui.h:12
+msgid "Override automatic resolution selection"
+msgstr "Az automatikus felbontás kiválasztásának felülbírálása"
+
+#: Settings.ui.h:13 extension.js:167
+msgid "Settings"
+msgstr "Beállítások"
+
+#: Settings.ui.h:14
+msgid "Gnome shell extension version: "
+msgstr "Gnome shell kiterjesztés verzió: "
+
+#: Settings.ui.h:15
+msgid ""
+"Changes your wallpaper daily to the Bing picture of the day for your region. "
+"Displays the picture description and copyright information."
+msgstr ""
+"Naponta megváltoztatja a háttérképet a régió Bing képére. Megjeleníti a kép "
+"leírását és a szerzői jogi információkat."
+
+#: Settings.ui.h:16
+msgid "Maintained by Michael Carroll"
+msgstr "Karbantartja Michael Carroll"
+
+#: Settings.ui.h:17
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:18
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "Elia Argentieri NASA APOD Gnome shell kiterjesztése alapján"
+
+#: Settings.ui.h:19
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Ez a program abszolút semmilyen garanciát nem "
+"tartalmaz.\n"
+"Tekintse meg a <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html\">GNU Általános Nyilvános Licenc, 3 vagy késöbbi verzióját</a> a "
+"részletekért.</span>"
+
+#: Settings.ui.h:21
+msgid "About"
+msgstr "Névjegy"
+
+#: extension.js:88 extension.js:91
+msgid "minutes"
+msgstr "perce"
+
+#: extension.js:94
+msgid "days"
+msgstr "napja"
+
+#: extension.js:97
+msgid "hours"
+msgstr "órája"
+
+#: extension.js:152
+msgid "<No refresh scheduled>"
+msgstr "<Nincs frissítés ütemezve>"
+
+#: extension.js:154 extension.js:157 extension.js:160
+msgid "Awaiting refresh..."
+msgstr "Frissítésre vár..."
+
+#: extension.js:162
+msgid "Copy image to clipboard"
+msgstr "Kép másolása vágólapra"
+
+#: extension.js:163
+msgid "Copy image URL to clipboard"
+msgstr "Kép hivatkozás másolása vágólapra"
+
+#: extension.js:166
+msgid "Refresh Now"
+msgstr "Frissítés most"
+
+#: extension.js:209
+msgid "Next refresh"
+msgstr "Következő frissítés"
+
+#: extension.js:394
+msgid "Bing Wallpaper of the Day for"
+msgstr "A nap Bing Háttérképe"
+
+#: extension.js:399 prefs.js:181
+msgid "Market not available in your region"
+msgstr "A piac nem érhető el az Ön régiójában"
+
+#: extension.js:447
+msgid "No wallpaper available"
+msgstr "Nincs elérhető háttérkép"
+
+#: extension.js:448
+msgid "No picture for today 😞."
+msgstr "Nincs elérhető kép ma 😞."
+
+#: prefs.js:169
+msgid "Fetching data..."
+msgstr "Adatok lekérése..."
+
+#: prefs.js:185
+msgid "A network error occured"
+msgstr "Hálózati hiba történt"

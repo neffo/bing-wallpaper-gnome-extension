@@ -192,6 +192,7 @@ const BingWallpaperIndicator = new Lang.Class({
         }
         else {
             this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+            log('X11 not detected, disabling some unsafe features');
         }
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
@@ -204,11 +205,6 @@ const BingWallpaperIndicator = new Lang.Class({
         if (Utils.is_x11()) { // these do not work on Wayland atm
             this.menu.addMenuItem(this.clipboardImageItem);
             this.menu.addMenuItem(this.clipboardURLItem);
-        }
-        this.menu.addMenuItem(this.dwallpaperItem);
-        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
-            this.menu.addMenuItem(this.swallpaperItem);
-            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
         }
         
         this.menu.addMenuItem(this.clipboardURLItem);
@@ -244,6 +240,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (Utils.is_x11())
                 this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
             this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -361,6 +358,8 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // set menu thumbnail
+    // "But really, what the extension is doing is a terrible terrible hack, and I'm quite surprised that it worked at all." - Florian Müllner, 2020
+    // FIXME: find another way
     _setImage: function () {
         let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
         const { width, height } = pixbuf;

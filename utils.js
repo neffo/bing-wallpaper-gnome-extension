@@ -14,6 +14,8 @@ const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
 const Config = imports.misc.config;
+const GLib = imports.gi.GLib;
+const GdkPixbuf = imports.gi.GdkPixbuf;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -101,8 +103,8 @@ function validate_icon(settings, icon_image = null) {
 	// if called from prefs
 	if (icon_image) { 
 		log('set icon to: ' + Me.dir.get_path() + '/icons/' + icon_name + '.svg');
-		icon_image.set_from_file(Me.dir.get_path() + '/icons/' + icon_name + '.svg');
-		icon_image.height = 128;
+		let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(Me.dir.get_path() + '/icons/' + icon_name + '.svg', 32, 32);
+		icon_image.set_from_pixbuf(pixbuf);
 	}
 }
 

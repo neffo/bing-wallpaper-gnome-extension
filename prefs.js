@@ -53,7 +53,7 @@ function buildPrefsWidget(){
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooserBtn = buildable.get_object('download_folder');
-    let fileChooser = buildable.get_object('file_chooser');
+    let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
     let deleteSwitch = buildable.get_object('delete_previous');
@@ -70,14 +70,16 @@ function buildPrefsWidget(){
     let buttonslightblur = buildable.get_object('button_slight_blur');
 
     // previous wallpaper images
+    /*
     let images=[];
     for(let i = 1; i <= 7; i++) {
         images.push(buildable.get_object('image'+i));
-    }
+    }*/
 
     // check that these are valid (can be edited through dconf-editor)
     Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
+    Utils.validate_icon(settings, icon_image);
 
     // Indicator
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -96,31 +98,33 @@ function buildPrefsWidget(){
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     //download folder
-    
-    fileChooserBtn.set_label(settings.get_string('download-folder'));
-    fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder'))); //FIXME: unsure why this doesn't work
-    //log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
-    //fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-    fileChooserBtn.connect('clicked', function(widget) {
-        let parent = widget.get_root();
-        fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
-        fileChooser.set_transient_for(parent);
-        fileChooser.show();
-    });
-    fileChooser.connect('response', function(widget, response) {
-        if (response !== Gtk.ResponseType.ACCEPT) {
-            return;
-        }
-        let fileURI = native.get_file();
-        log("fileChooser returned: "+fileURI);
-        fileChooserBtn.set_label(fileURI);
-        settings.set_string('download-folder', fileURI);
-    }); 
-
-    /*
-    fileChooser.connect('file-set', function(widget) {
-        settings.set_string('download-folder', widget.get_filename());
-    });*/
+    if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
+        fileChooserBtn.set_label(settings.get_string('download-folder'));
+        fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder')));
+        fileChooserBtn.connect('clicked', function(widget) {
+            let parent = widget.get_root();
+            fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
+            fileChooser.set_transient_for(parent);
+            fileChooser.show();
+        });
+        fileChooser.connect('response', function(widget, response) {
+            if (response !== Gtk.ResponseType.ACCEPT) {
+                return;
+            }
+            let fileURI = native.get_file();
+            log("fileChooser returned: "+fileURI);
+            fileChooserBtn.set_label(fileURI);
+            settings.set_string('download-folder', fileURI);
+        });
+    }
+    else {
+        fileChooser.set_filename(settings.get_string('download-folder'));
+        log("fileChooser filename/dirname set to '"+fileChooser.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+        fileChooser.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
+        fileChooser.connect('file-set', function(widget) {
+            settings.set_string('download-folder', widget.get_filename());
+        });
+    }
     
     // Bing Market (locale/country)
     Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
