@@ -14,7 +14,6 @@ const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
 const Config = imports.misc.config;
-const GLib = imports.gi.GLib;
 const GdkPixbuf = imports.gi.GdkPixbuf;
 
 const Convenience = Me.imports.convenience;
