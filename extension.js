@@ -205,6 +205,8 @@ const BingWallpaperIndicator = new Lang.Class({
         if (Utils.is_x11()) { // these do not work on Wayland atm
             this.menu.addMenuItem(this.clipboardImageItem);
             this.menu.addMenuItem(this.clipboardURLItem);
+            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
         }
         
         this.menu.addMenuItem(this.dwallpaperItem);
@@ -223,7 +225,6 @@ const BingWallpaperIndicator = new Lang.Class({
               Util.spawn(["xdg-open", this.imageinfolink]);
         }));
         
-        this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
         this.settingsItem.connect('activate', function() {
@@ -236,9 +237,10 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
-            if (Utils.is_x11())
+            if (Utils.is_x11()) {
                 this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-            this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+	    }
             this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
