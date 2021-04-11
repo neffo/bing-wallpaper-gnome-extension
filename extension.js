@@ -207,7 +207,6 @@ const BingWallpaperIndicator = new Lang.Class({
             this.menu.addMenuItem(this.clipboardURLItem);
         }
         
-        this.menu.addMenuItem(this.clipboardURLItem);
         this.menu.addMenuItem(this.dwallpaperItem);
         if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
