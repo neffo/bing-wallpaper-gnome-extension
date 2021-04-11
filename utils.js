@@ -8,11 +8,12 @@
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Lang = imports.lang;
-const GLib = imports.gi.GLib;
+const Config = imports.misc.config;
 const GdkPixbuf = imports.gi.GdkPixbuf;
 
 const Convenience = Me.imports.convenience;
@@ -112,13 +113,13 @@ function validate_resolution(settings) {
 		settings.reset('resolution');
 }
 
-function validate_market(settings, marketDescription = null) {
+function validate_market(settings, marketDescription = null, lastreq = null) {
 	let market = settings.get_string('market');
 	if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
 		settings.reset('market');
 	}
 	// only run this check if called from prefs
-	if (marketDescription) { 
+	if (marketDescription && lastreq === null || GLib.DateTime.new_now_utc().difference(lastreq)>5000) { // rate limit no more than 1 request per 5 seconds
 		let request = Soup.Message.new('GET', BingImageURL + market); // + market
 		log("fetching: " + BingImageURL + market);
 	
@@ -179,4 +180,11 @@ function set_blur_preset(settings, preset) {
 
 function is_x11() {
 	return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
+}
+
+function gnome_major_version() {
+	let [major] = Config.PACKAGE_VERSION.split('.');
+	let shellVersion = Number.parseInt(major);
+
+	return shellVersion;
 }

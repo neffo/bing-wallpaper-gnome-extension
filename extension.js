@@ -205,7 +205,10 @@ const BingWallpaperIndicator = new Lang.Class({
         if (Utils.is_x11()) { // these do not work on Wayland atm
             this.menu.addMenuItem(this.clipboardImageItem);
             this.menu.addMenuItem(this.clipboardURLItem);
+            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
         }
+        
         this.menu.addMenuItem(this.dwallpaperItem);
         if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
@@ -221,11 +224,9 @@ const BingWallpaperIndicator = new Lang.Class({
             if (this.imageinfolink)
               Util.spawn(["xdg-open", this.imageinfolink]);
         }));
-        this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
-        this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+        
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
-        this.thumbnailItem.connect('activate', Lang.bind(this, this._open_in_system_viewer));
         this.settingsItem.connect('activate', function() {
             if (ExtensionUtils.openPrefs)
                 ExtensionUtils.openPrefs();
@@ -236,8 +237,10 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
             this.refreshItem.setSensitive(!this._updatePending);
-            this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-            this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+            if (Utils.is_x11()) {
+                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+	    }
             this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -270,7 +273,7 @@ const BingWallpaperIndicator = new Lang.Class({
     _setBackground: function() {
         if (this.filename == "")
             return;
-        if (Utils.is_x11()) {
+        if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
             this.thumbnail = new Thumbnail(this.filename);
             this._setImage();
         }
