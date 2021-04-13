@@ -125,7 +125,7 @@ function buildPrefsWidget(){
             settings.set_string('download-folder', fileURI);
         });
     }
-    else {
+    else { // Gtk 4
         fileChooserBtn.set_filename(settings.get_string('download-folder'));
         log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
@@ -135,17 +135,34 @@ function buildPrefsWidget(){
     }
     
     // Bing Market (locale/country)
-    Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
-        marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
-    });
-    //marketEntry.set_active_id(settings.get_string('market')); // set to current
+    if (Gtk.get_major_version() < 4) { // GTK 3 uses ComboBoxText, but this breaks in GTK4 presently
+        Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
+            marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
+        });
+        //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
-    settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-    settings.connect('changed::market', function() {
-        Utils.validate_market(settings,marketDescription, lastreq);
-        lastreq = GLib.DateTime.new_now_utc();
-        //marketDescription.label = "Set to "+ marketEntry.active_id + " - " + _("Default is en-US");
-    });
+        settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        settings.connect('changed::market', function() {
+            Utils.validate_market(settings, marketDescription, lastreq);
+            lastreq = GLib.DateTime.new_now_utc();
+        });
+    }
+    else { // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
+        let market_grid = buildable.get_object('market_grid');
+        marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
+        marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        market_grid.attach(marketEntry, 1, 0, 1, 2);
+        marketEntry.connect('notify::selected-item', function() {
+            let id = marketEntry.get_selected();
+            settings.set_string('market',Utils.markets[id]);
+            log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
+        });
+        settings.connect('changed::market', function() {
+            Utils.validate_market(settings, marketDescription, lastreq);
+            lastreq = GLib.DateTime.new_now_utc();
+            marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+    }
 
     Utils.resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);

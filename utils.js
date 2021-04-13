@@ -27,6 +27,7 @@ const PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
 const PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
 const PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
 
+var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
 var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
 
@@ -119,6 +120,9 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
 		settings.reset('market');
 	}
 	// only run this check if called from prefs
+	let timesincelastcheck = lastreq ? GLib.DateTime.new_now_utc().difference(lastreq): 9999;
+	log("last check was " + timesincelastcheck+" ms ago");
+
 	if (marketDescription && lastreq === null || GLib.DateTime.new_now_utc().difference(lastreq)>5000) { // rate limit no more than 1 request per 5 seconds
 		let request = Soup.Message.new('GET', BingImageURL + market); // + market
 		log("fetching: " + BingImageURL + market);

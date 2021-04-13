@@ -375,8 +375,8 @@
                                 </layout>
                               </object>
                             </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="market">
+                            <!--<child>
+                              <object class="GtkDropDown" id="market">
                                 <property name="can_focus">0</property>
                                 <layout>
                                   <property name="column">1</property>
@@ -384,7 +384,7 @@
                                   <property name="row-span">2</property>
                                 </layout>
                               </object>
-                            </child>
+                            </child> -->
                           </object>
                         </property>
                       </object>
