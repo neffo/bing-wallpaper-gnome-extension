@@ -1,130 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: bing-wallpaper-gnome-extension\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-28 21:10+1000\n"
-"PO-Revision-Date: 2021-04-20 00:06+1000\n"
+"PO-Revision-Date: 2021-04-20 00:07+1000\n"
 "Last-Translator: \n"
-"Language-Team: Portuguese, Brazilian\n"
-"Language: pt_BR\n"
+"Language-Team: \n"
+"Language: fi_FI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: bing-wallpaper-gnome-extension\n"
-"X-Crowdin-Project-ID: 451876\n"
-"X-Crowdin-Language: pt-BR\n"
-"X-Crowdin-File: BingWallpaper.pot\n"
-"X-Crowdin-File-ID: 2\n"
 "X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
-msgstr "Ocultar o indicador"
+msgstr "Piilota ilmaisin"
 
 #: Settings.ui.h:2
 msgid "Indicator icon"
-msgstr "Ícone do indicador"
+msgstr "Ilmaisimen kuvake"
 
 #: Settings.ui.h:3 extension.js:186
 msgid "Set background image"
-msgstr "Definir imagem de fundo"
+msgstr "Aseta työpöydän taustakuva"
 
 #: Settings.ui.h:4 extension.js:187
 msgid "Set lock screen image"
-msgstr "Definir imagem da tela de bloqueio"
+msgstr "Aseta lukitusnäytön taustakuva"
 
 #: Settings.ui.h:5
 msgid "Download folder:"
-msgstr "Pasta de download:"
+msgstr "Latauskansio"
 
 #: Settings.ui.h:6
 msgid "Bing Wallpaper pictures folder"
-msgstr "Pasta de imagens do Bing Wallpaper"
+msgstr "Bing-taustakuvien kansio"
 
 #: Settings.ui.h:7
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Excluir papéis de parede baixados anteriormente:"
+msgstr "Poista aiemmin ladatut taustakuvat"
 
 #: Settings.ui.h:8
 msgid "Days to store wallpapers before deleting:"
-msgstr "Dias para armazenar planos de fundo antes de excluir:"
+msgstr "Säilytysaika (päivää) ennen poistamista"
 
 #: Settings.ui.h:9
 msgid "Bing locale:"
-msgstr "Idioma do Bing:"
+msgstr "Bing-sijainti"
 
 #: Settings.ui.h:10
 msgid "Default is English - United States"
-msgstr "O padrão é inglês - Estados Unidos"
+msgstr "Oletus on englanti - Yhdysvallat"
 
 #: Settings.ui.h:11
 msgid "Screen resolution:"
-msgstr "Resolução de tela:"
+msgstr "Näytön tarkkuus"
 
 #: Settings.ui.h:12
 msgid "Override automatic resolution selection"
-msgstr "Substituir a seleção de resolução automática"
+msgstr "Ohita automaattinen tarkkuuden valinta"
 
 #: Settings.ui.h:13 extension.js:189
 msgid "Settings"
-msgstr "Confirgurações"
+msgstr "Asetukset"
 
 #: Settings.ui.h:14
 msgid "Use custom blur and brightness"
-msgstr "Usar desfoque e brilho personalizados"
+msgstr "Käytä mukautettua sumennusta ja kirkkautta"
 
 #: Settings.ui.h:15
 msgid "Override GDM3 lockscreen effects"
-msgstr "Sobrescrever efeitos de bloqueio GDM3"
+msgstr "Ohita GDM3-lukitusnäytön tehosteet"
 
 #: Settings.ui.h:16
 msgid "Blur can improve readability of login prompt"
-msgstr "Desfoque pode melhorar a legibilidade da solicitação de login"
+msgstr "Sumennus saattaa parantaa kirjautumisnäytön luettavuutta"
 
 #: Settings.ui.h:17
 msgid "Background blur intensity"
-msgstr "Intensidade do desfoque de fundo"
+msgstr "Taustan sumennuksen voimakkuus"
 
 #: Settings.ui.h:18
 msgid "Can improve contrast of login prompt"
-msgstr "Pode melhorar o contraste de aviso de login"
+msgstr "Saattaa parantaa kirjautumisnäytön kontrastia"
 
 #: Settings.ui.h:19
 msgid "Background brightness"
-msgstr "Brilho do fundo"
+msgstr "Taustan kirkkaus"
 
 #: Settings.ui.h:20
 msgid "Presets"
-msgstr "Predefinições"
+msgstr "Esiasetukset"
 
 #: Settings.ui.h:21
 msgid "Commonly used presets"
-msgstr "Predefinições comumente usadas"
+msgstr "Yleisesti käytetyt esiasetukset"
 
 #: Settings.ui.h:22
 msgid "No blur, slight dim"
-msgstr "Sem desfoque, um pouco escuro"
+msgstr "Ei sumennusta, hieman himennystä"
 
 #: Settings.ui.h:23
 msgid "GNOME default"
-msgstr "Padrão GNOME"
+msgstr "GNOMEn oletus"
 
 #: Settings.ui.h:24
 msgid "Slight blur, slight dim"
-msgstr "Desfoque leve, um pouco escuro"
+msgstr "Hieman sumennusta, hieman himmennys"
 
 #: Settings.ui.h:25
 msgid "Lock Screen"
-msgstr "Tela de bloqueio"
+msgstr "Lukitusnäyttö"
 
 #: Settings.ui.h:26
 msgid "New wallpaper images everyday from Bing"
-msgstr "Novas imagens de papel de parede todos os dias do Bing"
+msgstr "Uusi taustakuva Bingistä joka päivä"
 
 #: Settings.ui.h:27
 msgid "Gnome shell extension version: "
-msgstr "Versão da extensão Gnome shell: "
+msgstr "Gnome shell -laajennuksen versio: "
 
 #: Settings.ui.h:28
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -132,96 +132,103 @@ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:29
 msgid "Maintained by Michael Carroll"
-msgstr "Mantida por Michael Carroll"
+msgstr "Ylläpitäjä: Michael Carroll"
 
 #: Settings.ui.h:30
-msgid "Show your support to the author on <a href=\"https://flattr.com/@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
-msgstr "Mostre seu apoio ao autor no <a href=\"https://flattr.com/@neffo\">Flattr</a> ou <a href=\"https://github.com/sponsors/neffo\">Patrocinadores do Github</a>."
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+"Tue kehittäjää sivustoilla <a href=\"https://flattr.com/@neffo\">Flattr</a> "
+"tai <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
 #: Settings.ui.h:31
 msgid "Changes since last version"
-msgstr "Alterações desde a última versão"
+msgstr "Muutokset edellisen version jälkeen"
 
 #: Settings.ui.h:32
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baseado na extensão NASA APOD Gnome shell pela Elia Argentieri"
+msgstr "Pohjautuu Elia Argentierin NASA APOD Gnome shell -laajennukseen"
 
 #: Settings.ui.h:33
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License, version 3 or later</a> for details.</span>"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Este programa não vem com ABSOLUTEMENTE SEM GARANTIA.\n"
-"Veja a <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License, versão 3 ou posterior</a> para mais detalhes</span>"
+"<span size=\"small\">Tämä ohjelma ei sisällä MINKÄÄNLAISTA TAKUUTA.\n"
+"Lisätietoja osoitteessa <a href=\"https://www.gnu.org/licenses/gpl-3.0.html"
+"\">GNU General Public -lisenssi (GPL), versio 3 tai myöhempi</a>.</span>"
 
 #: Settings.ui.h:35
 msgid "About"
-msgstr "SOBRE"
+msgstr "Tietoja"
 
 #: extension.js:97 extension.js:100
 msgid "minutes"
-msgstr "minutos"
+msgstr "minuuttia"
 
 #: extension.js:103
 msgid "days"
-msgstr "Dias"
+msgstr "päivää"
 
 #: extension.js:106
 msgid "hours"
-msgstr "horas"
+msgstr "tuntia"
 
 #: extension.js:172
 msgid "<No refresh scheduled>"
-msgstr "<No refresh scheduled>"
+msgstr "<Ei virkistystä ajastettuna>"
 
 #: extension.js:174 extension.js:177 extension.js:180
 msgid "Awaiting refresh..."
-msgstr "Aguardando atualização..."
+msgstr "Odotetaan virkistystä..."
 
 #: extension.js:184
 msgid "Copy image to clipboard"
-msgstr "Copiar imagem para área de transferência"
+msgstr "Kopioi kuva leikepöydälle"
 
 #: extension.js:185
 msgid "Copy image URL to clipboard"
-msgstr "Copiar URL da imagem para área de transferência"
+msgstr "Kopioi kuvan URL leikepöydälle"
 
 #: extension.js:188
 msgid "Refresh Now"
-msgstr "Atualizar agora"
+msgstr "Virkistä nyt"
 
 #: extension.js:194
 msgid "Thumbnail disabled on Wayland"
-msgstr "Miniaturas desativadas na Wayland"
+msgstr "Esikatselukuva pois käytöstä Waylandissa"
 
 #: extension.js:245
 msgid "Next refresh"
-msgstr "Próxima atualização"
+msgstr "Seuraava virkistys"
 
 #: extension.js:428
 msgid "Bing Wallpaper of the Day for"
-msgstr "Papel de parede do dia para"
+msgstr "Bingin taustakuva päivälle"
 
 #: extension.js:433 utils.js:135
 msgid "Market not available in your region"
-msgstr "Mercado não disponível na sua região"
+msgstr "Ei Bing-markkinaa saatavilla alueellasi"
 
 #: extension.js:481
 msgid "No wallpaper available"
-msgstr "Nenhum plano de fundo disponível"
+msgstr "Taustakuvaa ei saatavilla"
 
 #: extension.js:482
 msgid "No picture for today 😞."
-msgstr "Nenhuma imagem para hoje 😞"
+msgstr "Ei kuvaa tälle päivälle 😞"
 
 #: utils.js:124
 msgid "Fetching data..."
-msgstr "Buscando dados..."
+msgstr "Haetaan tietoja..."
 
 #: utils.js:139
 msgid "A network error occured"
-msgstr "Ocorreu um erro de rede"
+msgstr "Tapahtui verkkovirhe"
 
 #: utils.js:168
 msgid "No change log found for this release"
-msgstr "Não foram encontrados registros de alterações para esta versão"
+msgstr "Tälle julkaisulle ei löytynyt muutoslokia"
