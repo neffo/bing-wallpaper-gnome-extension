@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Onno Giesmann <nutzer3105@gmail.com>, 2019-2020.
+# Onno Giesmann <nutzer3105@gmail.com>, 2019-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 18:11+1000\n"
-"PO-Revision-Date: 2020-03-04 18:40+1000\n"
+"POT-Creation-Date: 2021-03-28 21:10+1000\n"
+"PO-Revision-Date: 2021-04-28 21:12+0200\n"
 "Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: Settings.ui.h:1
 msgid "Hide the indicator"
@@ -25,11 +25,11 @@ msgstr "Indikator ausblenden"
 msgid "Indicator icon"
 msgstr "Indikator-Symbol"
 
-#: Settings.ui.h:3 extension.js:159
+#: Settings.ui.h:3 extension.js:186
 msgid "Set background image"
 msgstr "Verwenden für Hintergrund"
 
-#: Settings.ui.h:4 extension.js:160
+#: Settings.ui.h:4 extension.js:187
 msgid "Set lock screen image"
 msgstr "Verwenden für Sperrbildschirm"
 
@@ -65,109 +65,181 @@ msgstr "Bildschirmauflösung:"
 msgid "Override automatic resolution selection"
 msgstr "Überschreibt die automatische Auswahl der Auflösung"
 
-#: Settings.ui.h:13 extension.js:162
+#: Settings.ui.h:13 extension.js:189
 msgid "Settings"
 msgstr "Einstellungen"
 
 #: Settings.ui.h:14
+msgid "Use custom blur and brightness"
+msgstr "Eigene Unschärfe und Helligkeit einstellen"
+
+#: Settings.ui.h:15
+msgid "Override GDM3 lockscreen effects"
+msgstr "Effekte des GDM3-Sperrbildschirms überschreiben"
+
+#: Settings.ui.h:16
+msgid "Blur can improve readability of login prompt"
+msgstr "Unschärfe kann die Lesbarkeit des Anmeldedialogs verbessern"
+
+#: Settings.ui.h:17
+msgid "Background blur intensity"
+msgstr "Intensität der Hintergrundunschärfe"
+
+#: Settings.ui.h:18
+msgid "Can improve contrast of login prompt"
+msgstr "Kann den Kontrast des Anmeldedialogs verbessern"
+
+#: Settings.ui.h:19
+msgid "Background brightness"
+msgstr "Hintergrundhelligkeit"
+
+#: Settings.ui.h:20
+msgid "Presets"
+msgstr "Voreinstellungen"
+
+#: Settings.ui.h:21
+msgid "Commonly used presets"
+msgstr "Häufig verwendete Voreinstellungen"
+
+#: Settings.ui.h:22
+msgid "No blur, slight dim"
+msgstr "Keine Unschärfe, ein bisschen dimmen"
+
+#: Settings.ui.h:23
+msgid "GNOME default"
+msgstr "GNOME-Standard"
+
+#: Settings.ui.h:24
+msgid "Slight blur, slight dim"
+msgstr "Etwas Unschärfe, ein bisschen dimmen"
+
+#: Settings.ui.h:25
+msgid "Lock Screen"
+msgstr "Sperrbildschirm"
+
+#: Settings.ui.h:26
+msgid "New wallpaper images everyday from Bing"
+msgstr "Jeden Tag neue Hintergrundbilder von Bing"
+
+#: Settings.ui.h:27
 msgid "Gnome shell extension version: "
 msgstr "Version dieser Gnome-Shell-Erweiterung: "
 
-#: Settings.ui.h:15
-msgid ""
-"Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Displays the picture description and copyright information."
-msgstr ""
-"Wechselt täglich Ihr Hintergrundbild zum aktuellen Bing Bild des Tages für "
-"Ihre Region. Zeigt eine Benachrichtigung mit Bildbeschreibung und "
-"Urheberrechtsinformation an."
-
-#: Settings.ui.h:16
-msgid "Maintained by Michael Carroll"
-msgstr "Betreut von Michael Carroll"
-
-#: Settings.ui.h:17
+#: Settings.ui.h:28
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:18
+#: Settings.ui.h:29
+msgid "Maintained by Michael Carroll"
+msgstr "Betreut von Michael Carroll"
+
+#: Settings.ui.h:30
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+"Unterstützen Sie den Autor auf <a href=\"https://flattr.com/@neffo\">Flattr</"
+"a> oder <a href=\"https://github.com/sponsors/neffo\">Github-Sponsoren</a>."
+
+#: Settings.ui.h:31
+msgid "Changes since last version"
+msgstr "Änderungen seit der letzten Version"
+
+#: Settings.ui.h:32
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Basiert auf der NASA APOD Gnome-Shell-Erweiterung von Elia Argentieri"
 
-#: Settings.ui.h:19
+#: Settings.ui.h:33
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 or later</a> for details.</span>"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Für dieses Programm kommt ohne JEDWEDE GARANTIE.\n"
-"Siehe auch <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, Version 3 oder neuer</a> für weitere "
-"Informationen</span>"
+"<span size=\"small\">Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
+"Schauen Sie sich die <a href=\"https://www.gnu.org/licenses/gpl-3.0.html"
+"\">GNU General Public License, Version 3 oder später</a> für weitere Details "
+"an.</span>"
 
-#: Settings.ui.h:21
+#: Settings.ui.h:35
 msgid "About"
 msgstr "Über"
 
-#: extension.js:88 extension.js:91
+#: extension.js:97 extension.js:100
 msgid "minutes"
 msgstr "Minuten"
 
-#: extension.js:94
+#: extension.js:103
 msgid "days"
 msgstr "Tage"
 
-#: extension.js:97
+#: extension.js:106
 msgid "hours"
 msgstr "Stunden"
 
-#: extension.js:152
+#: extension.js:172
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
-#: extension.js:154 extension.js:155 extension.js:156
+#: extension.js:174 extension.js:177 extension.js:180
 msgid "Awaiting refresh..."
 msgstr "Warten auf Aktualisierung..."
 
-#: extension.js:157
+#: extension.js:184
 msgid "Copy image to clipboard"
 msgstr "Bild in Zwischenablage kopieren"
 
-#: extension.js:158
+#: extension.js:185
 msgid "Copy image URL to clipboard"
 msgstr "Bildadresse in Zwischenablage kopieren"
 
-#: extension.js:161
+#: extension.js:188
 msgid "Refresh Now"
 msgstr "Jetzt aktualisieren"
 
-#: extension.js:203
+#: extension.js:194
+msgid "Thumbnail disabled on Wayland"
+msgstr "Vorschaubild unter Wayland deaktiviert"
+
+#: extension.js:245
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
-#: extension.js:388
+#: extension.js:428
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing-Hintergrundbild des Tages für"
 
-#: extension.js:393 prefs.js:181
+#: extension.js:433 utils.js:135
 msgid "Market not available in your region"
 msgstr "Bing Bild in Ihrer Region nicht verfügbar"
 
-#: extension.js:441
+#: extension.js:481
 msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
-#: extension.js:442
+#: extension.js:482
 msgid "No picture for today 😞."
 msgstr "Heute kein Bild 😞."
 
-#: prefs.js:169
+#: utils.js:124
 msgid "Fetching data..."
 msgstr "Daten werden abgerufen..."
 
-#: prefs.js:185
+#: utils.js:139
 msgid "A network error occured"
 msgstr "Ein Netzwerkfehler ist aufgetreten"
+
+#: utils.js:168
+msgid "No change log found for this release"
+msgstr "Kein Änderungsverlauf gefunden für diese Version"
+
+#~ msgid ""
+#~ "Changes your wallpaper daily to the Bing picture of the day for your "
+#~ "region. Displays the picture description and copyright information."
+#~ msgstr ""
+#~ "Wechselt täglich Ihr Hintergrundbild zum aktuellen Bing Bild des Tages "
+#~ "für Ihre Region. Zeigt eine Benachrichtigung mit Bildbeschreibung und "
+#~ "Urheberrechtsinformation an."
 
 #~ msgid "Set desktop wallpaper"
 #~ msgstr "Schreibtisch-Hintergrund einstellen"
