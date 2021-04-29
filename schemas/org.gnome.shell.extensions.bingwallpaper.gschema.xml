@@ -112,5 +112,25 @@
       <summary>GNOME lockscreen (gdm3) wallpaper blur Brightness</summary>
       <description>Used to darken the wallpaper to improve visibility</description>
     </key>
+
+    <key name="selected-image" type="s">
+      <default>"current"</default>
+      <summary>Use older Bing image, select by filename</summary>
+      <description></description>
+    </key>
+
+    <key name="state" type="s">
+      <default>"[]"</default>
+      <summary>Store state in JSON format so we can restore details immediately on boot</summary>
+      <description></description>
+    </key>
+
+    <key name="bing-json" type="s">
+      <default>"[]"</default>
+      <summary>Store Bing image details for rollback</summary>
+      <description></description>
+    </key>
+
+
   </schema>
 </schemalist>

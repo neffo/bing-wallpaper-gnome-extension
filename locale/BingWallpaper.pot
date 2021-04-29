@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-28 21:10+1000\n"
+"POT-Creation-Date: 2021-04-29 23:22+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: Settings.ui.h:3 extension.js:186
+#: Settings.ui.h:3 extension.js:198
 msgid "Set background image"
 msgstr ""
 
-#: Settings.ui.h:4 extension.js:187
+#: Settings.ui.h:4 extension.js:199
 msgid "Set lock screen image"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: Settings.ui.h:13 extension.js:189
+#: Settings.ui.h:13 extension.js:201
 msgid "Settings"
 msgstr ""
 
@@ -171,58 +171,58 @@ msgstr ""
 msgid "hours"
 msgstr ""
 
-#: extension.js:172
+#: extension.js:184
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:174 extension.js:177 extension.js:180
+#: extension.js:186 extension.js:189 extension.js:192
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:184
+#: extension.js:196
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:185
+#: extension.js:197
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:188
+#: extension.js:200
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:194
+#: extension.js:206
 msgid "Thumbnail disabled on Wayland"
 msgstr ""
 
-#: extension.js:245
+#: extension.js:261
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:428
+#: extension.js:449
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:433 utils.js:135
+#: extension.js:454 utils.js:148
 msgid "Market not available in your region"
 msgstr ""
 
-#: extension.js:481
+#: extension.js:502
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:482
+#: extension.js:503
 msgid "No picture for today 😞."
 msgstr ""
 
-#: utils.js:124
+#: utils.js:137
 msgid "Fetching data..."
 msgstr ""
 
-#: utils.js:139
+#: utils.js:152
 msgid "A network error occured"
 msgstr ""
 
-#: utils.js:168
+#: utils.js:181
 msgid "No change log found for this release"
 msgstr ""

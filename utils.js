@@ -114,6 +114,13 @@ function validate_resolution(settings) {
 		settings.reset('resolution');
 }
 
+function validate_filename(settings) {
+	let filename = settings.get_string('selected-image');
+	let filepath = Gio.file_new_for_path(filename);
+	if (filename != "current" && !filepath.query_exists(null))
+		settings.reset('selected-image');
+}
+
 function validate_market(settings, marketDescription = null, lastreq = null) {
 	let market = settings.get_string('market');
 	if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
@@ -191,4 +198,10 @@ function gnome_major_version() {
 	let shellVersion = Number.parseInt(major);
 
 	return shellVersion;
+}
+
+function imageHasBasename(image_item, index, array, basename) {
+	if (image_item.urlbase == basename)
+		return true;
+	return false;
 }

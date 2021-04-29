@@ -130,6 +130,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshdue = 0;
         this.refreshduetext = "";
         this.thumbnail = null;
+        this.selected_image = "current";
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -166,6 +167,17 @@ const BingWallpaperIndicator = new Lang.Class({
         blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
         blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
         blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
+        this._settings.connect('changed::selected-image', Lang.bind(this, function () {
+            blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
+        }));
+
+        this._settings.connect('changed::selected-image', Lang.bind(this, function () {
+            Utils.validate_filename(this._settings);
+            // handle background changed, currently this is just a placeholder
+            this.filename = this._settings.get_string('selected-image');
+            log('selected image changed to :'+this.filename);
+            this._setBackground();
+        }));
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -426,6 +438,10 @@ const BingWallpaperIndicator = new Lang.Class({
         let imagejson = parsed.images[0];
         let datamarket = parsed.market.mkt;
         let prefmarket = this._settings.get_string('market');
+
+        // FIXME: we need to handle this better, including storing longer history & removing duplicates and deleted files
+        //Utils.merge_bing_json(this._settings, parsed.images);
+        this._settings.set_string('bing-json', JSON.stringify(parsed.images));
 
         log('JSON returned (raw):\n' + data);
 
