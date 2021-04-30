@@ -24,7 +24,7 @@ const Cogl = imports.gi.Cogl;
 const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
-// const Background = imports.ui.background;
+const GdkPixbuf = imports.gi.GdkPixbuf;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -174,8 +174,9 @@ const BingWallpaperIndicator = new Lang.Class({
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
             Utils.validate_filename(this._settings);
             // handle background changed, currently this is just a placeholder
-            this.filename = this._settings.get_string('selected-image');
-            log('selected image changed to :'+this.filename);
+            this.selected_image = this._settings.get_string('selected-image');
+            log('selected image changed to :'+this.selected_image);
+            this._selectImage();
             this._setBackground();
         }));
 
@@ -332,13 +333,7 @@ const BingWallpaperIndicator = new Lang.Class({
         // 201708041400 YYYYMMDDHHMM
         // 012345678901
         let timezone = GLib.TimeZone.new_utc(); // all bing times are in UTC (+0)
-        let refreshDue = GLib.DateTime.new(timezone,
-            parseInt(longdate.substr(0,4)), // year
-            parseInt(longdate.substr(4,2)), // month
-            parseInt(longdate.substr(6,2)), // day
-            parseInt(longdate.substr(8,2)), // hour
-            parseInt(longdate.substr(10,2)), // mins
-            0 ).add_seconds(86400); // seconds
+        let refreshDue = Utils.dateFromLongDate(longdate, 86400);
 
         let now = GLib.DateTime.new_now(timezone);
         let difference = refreshDue.difference(now)/1000000;
@@ -355,7 +350,8 @@ const BingWallpaperIndicator = new Lang.Class({
     // convert shortdate format into human friendly format
     _localeDate: function (shortdate) {
       let timezone = GLib.TimeZone.new_local(); // TZ doesn't really matter for this
-      let date = GLib.DateTime.new(timezone,
+      let date = Utils.dateFromShortDate(shortdate);
+      GLib.DateTime.new(timezone,
           parseInt(shortdate.substr(0,4)), // year
           parseInt(shortdate.substr(4,2)), // month
           parseInt(shortdate.substr(6,2)), // day
@@ -371,10 +367,11 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // set menu thumbnail
-    // "But really, what the extension is doing is a terrible terrible hack, and I'm quite surprised that it worked at all." - Florian Müllner, 2020
-    // FIXME: find another way
     _setImage: function () {
-        let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
+        //let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
+        let pixbuf = this.thumbnail.pixbuf;
+        if (pixbuf == null)
+            return;
         const { width, height } = pixbuf;
         if (height == 0) {
             return;
@@ -420,6 +417,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 let data = message.response_body.data;
                 log("Recieved "+data.length+" bytes");
                 this._parseData(data);
+                this._selectImage();
             } else if (message.status_code == 403) {
                 log("Access denied: "+message.status_code);
                 this._updatePending = false;
@@ -442,18 +440,38 @@ const BingWallpaperIndicator = new Lang.Class({
         // FIXME: we need to handle this better, including storing longer history & removing duplicates and deleted files
         //Utils.merge_bing_json(this._settings, parsed.images);
         this._settings.set_string('bing-json', JSON.stringify(parsed.images));
-
+        /*if (datamarket != prefmarket) {
+            // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
+            log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
+            this.copyright = this.copyright + '\n\n INFO: ' + _("Market not available in your region") + '\n Req: '+prefmarket +' -> Recv: ' + datamarket;
+        }*/
         log('JSON returned (raw):\n' + data);
+        this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
+        this._updatePending = false;
+    },
+
+    _selectImage: function() {
+        image_list = JSON.parse(this._settings.get_string('bing-json'));
+        let selected_image = this._settings.get_string('selected-image');
+        //let imagejson = image_list.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
+        let imagejson = null;
+        //let indx = image_list.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
+        image_list.forEach(function(x, i) {
+            log(x.urlbase.replace('/th?id=OHR.', '')+" == "+selected_image+"???");
+            if (selected_image.search(x.urlbase.replace('/th?id=OHR.', '')) > 0)
+                imagejson = x;
+        });
+        //imagejson = image_list[indx];
+        log('_selectImage: '+this.selected_image+' = '+imagejson.urlbase);
+        
+        // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
+        //imagejson = image_list[0]; // this should be selected based on value of 'selected-image'
 
         if (imagejson.url != '') {
             this.title = imagejson.copyright.replace(/\s*\(.*?\)\s*/g, "");
-            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson.startdate)+' ('+datamarket+')';
+            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson.startdate);
             this.copyright = imagejson.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
-            if (datamarket != prefmarket) {
-                // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
-                log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
-                this.copyright = this.copyright + '\n\n WARNING: ' + _("Market not available in your region") + '\n Req: '+prefmarket +' -> Recv: ' + datamarket;
-            }
+
             this.longstartdate = imagejson.fullstartdate;
             this.imageinfolink = imagejson.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = this._settings.get_string('resolution');
@@ -506,7 +524,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this._updatePending = false;
         }
         this._setMenuText();
-        this._restartTimeoutFromLongDate(this.longstartdate);
+        
     },
 
     // download and process new image
@@ -619,6 +637,10 @@ function disable() {
     bingWallpaperIndicator = null;
 }
 
+function toFilename(wallpaperDir, startdate, imageURL) {
+    return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+}
+
 // props to Otto Allmendinger 
 // see https://github.com/OttoAllmendinger/gnome-shell-screenshot
 class Thumbnail {
@@ -626,7 +648,8 @@ class Thumbnail {
       if (!filePath) {
         throw new Error(`need argument ${filePath}`);
       }
-      this.gtkImage = new Gtk.Image({file: filePath});
+      //this.gtkImage = new Gtk.Image({file: filePath});
+      this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270); 
       this.srcFile = Gio.File.new_for_path(filePath);
     }
   }

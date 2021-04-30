@@ -200,8 +200,27 @@ function gnome_major_version() {
 	return shellVersion;
 }
 
-function imageHasBasename(image_item, index, array, basename) {
-	if (image_item.urlbase == basename)
+function imageHasBasename(image_item, i, b) {
+	log("imageHasBasename : "+image_item.urlbase+ " =? "+this);
+	if (this && this.search(image_item.urlbase.replace('th?id=OHR.', '')))
 		return true;
 	return false;
+}
+
+function dateFromLongDate(longdate, add_seconds) {
+	return GLib.DateTime.new(GLib.TimeZone.new_utc(),
+		parseInt(longdate.substr(0,4)), // year
+		parseInt(longdate.substr(4,2)), // month
+		parseInt(longdate.substr(6,2)), // day
+		parseInt(longdate.substr(8,2)), // hour
+		parseInt(longdate.substr(10,2)), // mins
+		0 ).add_seconds(add_seconds); // seconds
+}
+
+function dateFromShortDate(shortdate) {
+	return GLib.DateTime.new(GLib.TimeZone.new_utc(),
+		parseInt(shortdate.substr(0,4)), // year
+		parseInt(shortdate.substr(4,2)), // month
+		parseInt(shortdate.substr(6,2)), // day
+		0, 0, 0 );
 }
