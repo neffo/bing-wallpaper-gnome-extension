@@ -397,6 +397,71 @@
               </object>
             </child>
             <child>
+              <object class="GtkFrame" id="history_frame">
+                <property name="can_focus">0</property>
+                <property name="child">
+                  <object class="GtkListBox" id="history_listbox">
+                    <property name="can_focus">0</property>
+                    <property name="selection_mode">none</property>
+                    <child>
+                      <object class="GtkListBoxRow" id="history_listboxrow">
+                        <property name="can_focus">0</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="history_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="history_label">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Selected image:</property>
+                                <property name="wrap">1</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="history_description">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes"></property>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="history">
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                  <property name="row-span">2</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+                <child type="label_item">
+                  <placeholder/>
+                </child>
+              </object>
+            </child>
+            <child>
               <object class="GtkFrame" id="resolution_frame">
                 <property name="can_focus">0</property>
                 <property name="child">
