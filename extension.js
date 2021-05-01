@@ -173,11 +173,9 @@ const BingWallpaperIndicator = new Lang.Class({
 
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
             Utils.validate_imagename(this._settings);
-            // handle background changed, currently this is just a placeholder
             this.selected_image = this._settings.get_string('selected-image');
             log('selected image changed to :'+this.selected_image);
             this._selectImage();
-            this._setBackground();
         }));
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
@@ -423,7 +421,6 @@ const BingWallpaperIndicator = new Lang.Class({
     // process Bing metadata
     _parseData: function(data) {
         let parsed = JSON.parse(data);
-        let imagejson = parsed.images[0];
         let datamarket = parsed.market.mkt;
         let prefmarket = this._settings.get_string('market');
 
@@ -432,8 +429,8 @@ const BingWallpaperIndicator = new Lang.Class({
         Utils.mergeImageLists(this._settings, parsed.images);
 
         // FIXME: this is only here for testing, delete before release
-        oldJson = '{"market":{"mkt":"en-AU"},"images":[{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}],"tooltips":{"loading":"Loading...","previous":"Previous image","next":"Next image","walle":"This image is not available to download as wallpaper.","walls":"Download this image. Use of this image is restricted to wallpaper only."}}';
-        Utils.mergeImageLists(this._settings, JSON.parse(oldJson).images);
+        //oldJson = '{"market":{"mkt":"en-AU"},"images":[{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}],"tooltips":{"loading":"Loading...","previous":"Previous image","next":"Next image","walle":"This image is not available to download as wallpaper.","walls":"Download this image. Use of this image is restricted to wallpaper only."}}';
+        //Utils.mergeImageLists(this._settings, JSON.parse(oldJson).images);
         // end bit to delete
         
         Utils.cleanupImageList(this._settings);
@@ -444,32 +441,33 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _selectImage: function() {
-        image_list = JSON.parse(this._settings.get_string('bing-json'));
-        let selected_image = this._settings.get_string('selected-image');
-        //let imagejson = image_list.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
-        let imagejson = null;
-        if (selected_image == 'random') {
+        imageList = JSON.parse(this._settings.get_string('bing-json'));
+        //let selected_image = this._settings.get_string('selected-image');
+        //let image = imageList.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
+        let image = null;
+        if (this.selected_image == 'random') {
             // do random selection here
-        } else if (selected_image == 'current') {
-            imagejson = image_list[0];
+            image = imageList[Utils.getRandomInt(imageList.length)];
+        } else if (this.selected_image == 'current') {
+            image = imageList[0];
         } else {    
-            //let indx = image_list.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
-            imagejson = Utils.inImageList(image_list, selected_image);
-            //imagejson = image_list[indx];
-            log('_selectImage: '+this.selected_image+' = '+imagejson?imagejson.urlbase:"not found");
+            //let indx = imageList.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
+            image = Utils.inImageList(imageList, this.selected_image);
+            //image = imageList[indx];
+            log('_selectImage: '+this.selected_image+' = '+image?image.urlbase:"not found");
         }
-        if (!imagejson)
-            imagejson = image_list[0];
+        if (!image)
+            image = imageList[0];
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
-        //imagejson = image_list[0]; // this should be selected based on value of 'selected-image'
+        //image = imageList[0]; // this should be selected based on value of 'selected-image'
 
-        if (imagejson.url != '') {
-            this.title = imagejson.copyright.replace(/\s*\(.*?\)\s*/g, "");
-            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson.startdate);
-            this.copyright = imagejson.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
+        if (image.url != '') {
+            this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
+            this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
 
-            this.longstartdate = imagejson.fullstartdate;
-            this.imageinfolink = imagejson.copyrightlink.replace(/^http:\/\//i, 'https://');
+            this.longstartdate = image.fullstartdate;
+            this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = this._settings.get_string('resolution');
 
             if (resolution == "auto") {
@@ -477,17 +475,17 @@ const BingWallpaperIndicator = new Lang.Class({
                 resolution = autores;
             }
 
-            if (Utils.resolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
+            if (Utils.resolutions.indexOf(resolution) == -1 || image.wp == false ||
                 (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
                 // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
                 resolution = "UHD";
             }
 
-            this.imageURL = BingURL+imagejson.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
+            this.imageURL = BingURL+image.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
 
             let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
 
-            this.filename = BingWallpaperDir+imagejson.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+            this.filename = BingWallpaperDir+image.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
             let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
@@ -530,13 +528,13 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
-	    //log("got_chuck, status: "+message.status_code);
-	    if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
-	    	fstream.write(chunk.get_data(), null);
-	    }
-	    else {
-		log("got_chuck, status: "+message.status_code);
-	    }
+            //log("got_chuck, status: "+message.status_code);
+            if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
+                fstream.write(chunk.get_data(), null);
+            }
+            else {
+                log("got_chuck, status: "+message.status_code);
+            }
         }));
 
         // queue the http request

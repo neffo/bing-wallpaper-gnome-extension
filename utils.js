@@ -296,6 +296,9 @@ function getWallpaperDir(settings) {
 }
 
 function imageToFilename(settings, image) {
-	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
-	
+	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');	
+}
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
 }
