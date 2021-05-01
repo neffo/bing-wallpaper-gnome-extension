@@ -334,7 +334,7 @@ const BingWallpaperIndicator = new Lang.Class({
         // 012345678901
          // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
-
+        let timezone = GLib.TimeZone.new_local();
         let now = GLib.DateTime.new_now(timezone);
         let difference = refreshDue.difference(now)/1000000;
 
@@ -349,7 +349,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // convert shortdate format into human friendly format
     _localeDate: function (shortdate) {
-      let timezone = GLib.TimeZone.new_local(); // TZ doesn't really matter for this
       let date = Utils.dateFromShortDate(shortdate);
       return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
     },
@@ -438,7 +437,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // {"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}
         oldJson = '{"market":{"mkt":"en-AU"},"images":[{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}],"tooltips":{"loading":"Loading...","previous":"Previous image","next":"Next image","walle":"This image is not available to download as wallpaper.","walls":"Download this image. Use of this image is restricted to wallpaper only."}}';
-        //parsed.images.append(JSON.parse(oldJson).images);
         Utils.mergeImageLists(this._settings, JSON.parse(oldJson).images);
 
         /*if (datamarket != prefmarket) {
@@ -493,7 +491,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
             this.imageURL = BingURL+imagejson.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
 
-            let BingWallpaperDir = getWallpaperDir(this._settings);
+            let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
 
             this.filename = BingWallpaperDir+imagejson.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
             let file = Gio.file_new_for_path(this.filename);
@@ -644,7 +642,12 @@ class Thumbnail {
         throw new Error(`need argument ${filePath}`);
       }
       //this.gtkImage = new Gtk.Image({file: filePath});
-      this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270); 
-      this.srcFile = Gio.File.new_for_path(filePath);
+      try {
+        this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270); 
+        this.srcFile = Gio.File.new_for_path(filePath);
+      }
+      catch(err) {
+        log('Unable to create thumbnail for corrupt or incomplete file: '+filePath+ ' err: '+err);
+      }
     }
   }

@@ -279,11 +279,11 @@ function cleanupImageList(settings) {
 }
 
 function getWallpaperDir(settings) {
-	let BingWallpaperDir = this._settings.get_string('download-folder');
+	let BingWallpaperDir = settings.get_string('download-folder');
 	let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
 	if (BingWallpaperDir == '') {
 		BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
-		this._settings.set_string('download-folder', BingWallpaperDir);
+		settings.set_string('download-folder', BingWallpaperDir);
 		log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
 	}
 	else if (!BingWallpaperDir.endsWith('/')) {
