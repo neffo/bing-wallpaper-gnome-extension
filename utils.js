@@ -114,11 +114,12 @@ function validate_resolution(settings) {
 		settings.reset('resolution');
 }
 
-function validate_filename(settings) {
+// needs work
+function validate_imagename(settings) {
 	let filename = settings.get_string('selected-image');
 	let filepath = Gio.file_new_for_path(filename);
-	if (filename != "current" && !filepath.query_exists(null))
-		settings.reset('selected-image');
+	//if (filename != "current" && !filepath.query_exists(null))
+	//	settings.reset('selected-image');
 }
 
 function validate_market(settings, marketDescription = null, lastreq = null) {
@@ -223,4 +224,8 @@ function dateFromShortDate(shortdate) {
 		parseInt(shortdate.substr(4,2)), // month
 		parseInt(shortdate.substr(6,2)), // day
 		0, 0, 0 );
+}
+
+function getImageList(settings) {
+	return JSON.parse(settings.get_string('bing-json'));
 }

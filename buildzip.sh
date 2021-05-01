@@ -2,7 +2,8 @@
 
 glib-compile-schemas schemas/
 intltool-extract --type=gettext/glade Settings.ui
-xgettext -k -k_ -kN_ -o locale/BingWallpaper.pot Settings.ui.h extension.js prefs.js blur.js utils.js convenience.js --from-code=UTF-8
+intltool-extract --type=gettext/glade Settings4.ui
+xgettext -k -k_ -kN_ -o locale/BingWallpaper.pot Settings.ui.h Settings4.ui.h extension.js prefs.js blur.js utils.js convenience.js --from-code=UTF-8
 
 for D in locale/*; do
     if [ -d "${D}" ]; then

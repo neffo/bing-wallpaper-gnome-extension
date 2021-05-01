@@ -172,7 +172,7 @@ const BingWallpaperIndicator = new Lang.Class({
         }));
 
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
-            Utils.validate_filename(this._settings);
+            Utils.validate_imagename(this._settings);
             // handle background changed, currently this is just a placeholder
             this.selected_image = this._settings.get_string('selected-image');
             log('selected image changed to :'+this.selected_image);
@@ -455,15 +455,22 @@ const BingWallpaperIndicator = new Lang.Class({
         let selected_image = this._settings.get_string('selected-image');
         //let imagejson = image_list.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
         let imagejson = null;
-        //let indx = image_list.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
-        image_list.forEach(function(x, i) {
-            log(x.urlbase.replace('/th?id=OHR.', '')+" == "+selected_image+"???");
-            if (selected_image.search(x.urlbase.replace('/th?id=OHR.', '')) > 0)
-                imagejson = x;
-        });
-        //imagejson = image_list[indx];
-        log('_selectImage: '+this.selected_image+' = '+imagejson.urlbase);
-        
+        if (selected_image == 'random') {
+            // do random selection here
+        } else if (selected_image == 'current') {
+            imagejson = image_list[0];
+        } else {    
+            //let indx = image_list.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
+            image_list.forEach(function(x, i) {
+                log(x.urlbase.replace('/th?id=OHR.', '')+" == "+selected_image+"???");
+                if (selected_image == x.urlbase.replace('/th?id=OHR.', ''))
+                    imagejson = x;
+            });
+            //imagejson = image_list[indx];
+            log('_selectImage: '+this.selected_image+' = '+imagejson?imagejson.urlbase:"not found");
+        }
+        if (!imagejson)
+            imagejson = image_list[0];
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
         //imagejson = image_list[0]; // this should be selected based on value of 'selected-image'
 

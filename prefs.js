@@ -63,6 +63,7 @@ function buildPrefsWidget(){
     let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
+    let historyEntry = buildable.get_object('history');
     let deleteSwitch = buildable.get_object('delete_previous');
     let daysSpin = buildable.get_object('days_after_spinbutton');
     marketDescription = buildable.get_object('market_description');
@@ -164,15 +165,28 @@ function buildPrefsWidget(){
         });
     }
 
+    // Resolution
     Utils.resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);
     });
-
-    // Resolution
     settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::resolution', function() {
         Utils.validate_resolution(settings);
     });
+
+    // History
+    let imageList = Utils.getImageList(settings);
+    historyEntry.append('current',_('Most recent image'));
+    historyEntry.append('random',_('Random image'));
+    imageList.forEach(function (image) {
+        // this should probably be a friendlier name
+        historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''),image.urlbase.replace('/th?id=OHR.', ''));
+    });
+    settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+    settings.connect('changed::selected-image', function() {
+        Utils.validate_imagename(settings);
+    });
+
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
