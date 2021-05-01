@@ -329,9 +329,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set a timer on when the current image is going to expire
     _restartTimeoutFromLongDate: function (longdate) {
-        // longdate is UTC, in the following format
-        // 201708041400 YYYYMMDDHHMM
-        // 012345678901
          // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
         let timezone = GLib.TimeZone.new_local();
@@ -362,7 +359,6 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set menu thumbnail
     _setImage: function () {
-        //let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
         let pixbuf = this.thumbnail.pixbuf;
         if (pixbuf == null)
             return;
@@ -435,15 +431,13 @@ const BingWallpaperIndicator = new Lang.Class({
         // FIXME: we need to handle this better, including storing longer history & removing duplicates and deleted files
         Utils.mergeImageLists(this._settings, parsed.images);
 
-        // {"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}
+        // FIXME: this is only here for testing, delete before release
         oldJson = '{"market":{"mkt":"en-AU"},"images":[{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}],"tooltips":{"loading":"Loading...","previous":"Previous image","next":"Next image","walle":"This image is not available to download as wallpaper.","walls":"Download this image. Use of this image is restricted to wallpaper only."}}';
         Utils.mergeImageLists(this._settings, JSON.parse(oldJson).images);
+        // end bit to delete
+        
         Utils.cleanupImageList(this._settings);
-        /*if (datamarket != prefmarket) {
-            // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
-            log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
-            this.copyright = this.copyright + '\n\n INFO: ' + _("Market not available in your region") + '\n Req: '+prefmarket +' -> Recv: ' + datamarket;
-        }*/
+
         log('JSON returned (raw):\n' + data);
         this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
         this._updatePending = false;
@@ -633,14 +627,11 @@ function toFilename(wallpaperDir, startdate, imageURL) {
     return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
 }
 
-// props to Otto Allmendinger 
-// see https://github.com/OttoAllmendinger/gnome-shell-screenshot
 class Thumbnail {
     constructor(filePath) {
       if (!filePath) {
         throw new Error(`need argument ${filePath}`);
       }
-      //this.gtkImage = new Gtk.Image({file: filePath});
       try {
         this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270); 
         this.srcFile = Gio.File.new_for_path(filePath);

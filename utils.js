@@ -114,7 +114,7 @@ function validate_resolution(settings) {
 		settings.reset('resolution');
 }
 
-// needs work
+// FIXME: needs work
 function validate_imagename(settings) {
 	let filename = settings.get_string('selected-image');
 	let filepath = Gio.file_new_for_path(filename);
@@ -241,7 +241,6 @@ function getImageTitle(image_data) {
 function inImageList(imageList, urlbase) {
 	let image = null;
 	imageList.forEach(function(x, i) {
-		log(x.urlbase.replace('/th?id=OHR.', '')+" == "+urlbase.replace('/th?id=OHR.', '')+"???");
 		if (urlbase.replace('/th?id=OHR.', '') == x.urlbase.replace('/th?id=OHR.', ''))
 			image = x;
 	});
@@ -252,7 +251,6 @@ function mergeImageLists(settings, imageList) {
 	let curList = getImageList(settings);
 	log('mergeImageList list was '+curList.length);
 	imageList.forEach(function(x, i) {
-		log(x.urlbase+' in list? ');
 		if (!inImageList(curList, x.urlbase))
 			curList.push(x);
 	});
@@ -262,13 +260,13 @@ function mergeImageLists(settings, imageList) {
 
 function cleanupImageList(settings) {
 	let curList = getImageList(settings);
-	let cutOff = GLib.DateTime.now_utc().add_days(-7);
+	let cutOff = GLib.DateTime.new_now_utc().add_days(-7);
 	let newList = [];
 	log('cleanupImageList list was '+curList.length);
 	curList.forEach( function (x, i) {
 		let filename = imageToFilename(settings, x);
 		log (filename+' exists?');
-		let diff = dateFromLongDate(x.fullstartdate).difference(cutOff);
+		let diff = dateFromLongDate(x.fullstartdate,0).difference(cutOff);
 		// image is still downloadable (<7 days old) or still on disk, so we keep
 		if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
 			newList.push(x);
