@@ -229,3 +229,75 @@ function dateFromShortDate(shortdate) {
 function getImageList(settings) {
 	return JSON.parse(settings.get_string('bing-json'));
 }
+
+function setImageList(settings, imageList) {
+	settings.set_string('bing-json', JSON.stringify(imageList));
+}
+
+function getImageTitle(image_data) {
+	return image_data.copyright.replace(/\s*\(.*?\)\s*/g, "");
+}
+
+function inImageList(imageList, urlbase) {
+	let image = null;
+	imageList.forEach(function(x, i) {
+		log(x.urlbase.replace('/th?id=OHR.', '')+" == "+urlbase.replace('/th?id=OHR.', '')+"???");
+		if (urlbase.replace('/th?id=OHR.', '') == x.urlbase.replace('/th?id=OHR.', ''))
+			image = x;
+	});
+	return image;
+}
+
+function mergeImageLists(settings, imageList) {
+	let curList = getImageList(settings);
+	log('mergeImageList list was '+curList.length);
+	imageList.forEach(function(x, i) {
+		log(x.urlbase+' in list? ');
+		if (!inImageList(curList, x.urlbase))
+			curList.push(x);
+	});
+	log('mergeImageList new list is'+curList.length);
+	setImageList(settings, curList);
+}
+
+function cleanupImageList(settings) {
+	let curList = getImageList(settings);
+	let cutOff = GLib.DateTime.now_utc().add_days(-7);
+	let newList = [];
+	log('cleanupImageList list was '+curList.length);
+	curList.forEach( function (x, i) {
+		let filename = imageToFilename(settings, x);
+		log (filename+' exists?');
+		let diff = dateFromLongDate(x.fullstartdate).difference(cutOff);
+		// image is still downloadable (<7 days old) or still on disk, so we keep
+		if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
+			newList.push(x);
+		}
+	});
+	log('cleanupImageList list is now '+newList.length);
+	setImageList(settings, newList);
+}
+
+function getWallpaperDir(settings) {
+	let BingWallpaperDir = this._settings.get_string('download-folder');
+	let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
+	if (BingWallpaperDir == '') {
+		BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
+		this._settings.set_string('download-folder', BingWallpaperDir);
+		log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
+	}
+	else if (!BingWallpaperDir.endsWith('/')) {
+		BingWallpaperDir += '/';
+	}
+
+	let dir = Gio.file_new_for_path(BingWallpaperDir);
+	if (!dir.query_exists(null)) {
+		dir.make_directory_with_parents(null);
+	}
+	return BingWallpaperDir;
+}
+
+function imageToFilename(settings, image) {
+	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+	
+}

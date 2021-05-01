@@ -332,7 +332,7 @@ const BingWallpaperIndicator = new Lang.Class({
         // longdate is UTC, in the following format
         // 201708041400 YYYYMMDDHHMM
         // 012345678901
-        let timezone = GLib.TimeZone.new_utc(); // all bing times are in UTC (+0)
+         // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
 
         let now = GLib.DateTime.new_now(timezone);
@@ -351,11 +351,6 @@ const BingWallpaperIndicator = new Lang.Class({
     _localeDate: function (shortdate) {
       let timezone = GLib.TimeZone.new_local(); // TZ doesn't really matter for this
       let date = Utils.dateFromShortDate(shortdate);
-      GLib.DateTime.new(timezone,
-          parseInt(shortdate.substr(0,4)), // year
-          parseInt(shortdate.substr(4,2)), // month
-          parseInt(shortdate.substr(6,2)), // day
-          0, 0, 0 );
       return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
     },
 
@@ -437,9 +432,15 @@ const BingWallpaperIndicator = new Lang.Class({
         let datamarket = parsed.market.mkt;
         let prefmarket = this._settings.get_string('market');
 
+        //Utils.setImageList(this._settings, parsed.images);
         // FIXME: we need to handle this better, including storing longer history & removing duplicates and deleted files
-        //Utils.merge_bing_json(this._settings, parsed.images);
-        this._settings.set_string('bing-json', JSON.stringify(parsed.images));
+        Utils.mergeImageLists(this._settings, parsed.images);
+
+        // {"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}
+        oldJson = '{"market":{"mkt":"en-AU"},"images":[{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]}],"tooltips":{"loading":"Loading...","previous":"Previous image","next":"Next image","walle":"This image is not available to download as wallpaper.","walls":"Download this image. Use of this image is restricted to wallpaper only."}}';
+        //parsed.images.append(JSON.parse(oldJson).images);
+        Utils.mergeImageLists(this._settings, JSON.parse(oldJson).images);
+
         /*if (datamarket != prefmarket) {
             // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
             log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
@@ -461,11 +462,7 @@ const BingWallpaperIndicator = new Lang.Class({
             imagejson = image_list[0];
         } else {    
             //let indx = image_list.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
-            image_list.forEach(function(x, i) {
-                log(x.urlbase.replace('/th?id=OHR.', '')+" == "+selected_image+"???");
-                if (selected_image == x.urlbase.replace('/th?id=OHR.', ''))
-                    imagejson = x;
-            });
+            imagejson = Utils.inImageList(image_list, selected_image);
             //imagejson = image_list[indx];
             log('_selectImage: '+this.selected_image+' = '+imagejson?imagejson.urlbase:"not found");
         }
@@ -496,17 +493,8 @@ const BingWallpaperIndicator = new Lang.Class({
 
             this.imageURL = BingURL+imagejson.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
 
-            let BingWallpaperDir = this._settings.get_string('download-folder');
-            let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
-            if (BingWallpaperDir == '') {
-                BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
-		        this._settings.set_string('download-folder', BingWallpaperDir);
-            }
-            else if (!BingWallpaperDir.endsWith('/')) {
-                BingWallpaperDir += '/';
-            }
+            let BingWallpaperDir = getWallpaperDir(this._settings);
 
-            log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
             this.filename = BingWallpaperDir+imagejson.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
@@ -530,6 +518,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this.filename = "";
             this._updatePending = false;
         }
+        this._setBackground();
         this._setMenuText();
         
     },
@@ -567,7 +556,6 @@ const BingWallpaperIndicator = new Lang.Class({
             this._updatePending = false;
             if (message.status_code == 200) {
                 log('Download successful');
-                this._setBackground();
                 this._add_to_previous_queue(this.filename);
             } else {
                 log("Couldn't fetch image from " + url);
