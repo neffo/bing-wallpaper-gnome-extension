@@ -77,13 +77,6 @@ function buildPrefsWidget(){
     let buttonnoblur = buildable.get_object('button_no_blur');
     let buttonslightblur = buildable.get_object('button_slight_blur');
 
-    // previous wallpaper images
-    /*
-    let images=[];
-    for(let i = 1; i <= 7; i++) {
-        images.push(buildable.get_object('image'+i));
-    }*/
-
     // check that these are valid (can be edited through dconf-editor)
     Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
@@ -179,8 +172,7 @@ function buildPrefsWidget(){
     historyEntry.append('current',_('Most recent image'));
     historyEntry.append('random',_('Random image'));
     imageList.forEach(function (image) {
-        // this should probably be a friendlier name
-        historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''),Utils.getImageTitle(image));
+            historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''),Utils.getImageTitle(image));
     });
     settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::selected-image', function() {
@@ -217,7 +209,6 @@ function buildPrefsWidget(){
         buttonGDMdefault.set_sensitive(false);
         buttonnoblur.set_sensitive(false);
         buttonslightblur.set_sensitive(false);
-
     }
 
     // not required in GTK4 as widgets are displayed by default

@@ -465,7 +465,6 @@ const BingWallpaperIndicator = new Lang.Class({
             this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
             this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
-
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = this._settings.get_string('resolution');
@@ -482,9 +481,7 @@ const BingWallpaperIndicator = new Lang.Class({
             }
 
             this.imageURL = BingURL+image.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
-
             let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
-
             this.filename = BingWallpaperDir+image.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
@@ -517,10 +514,8 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // open the Gfile
         let fstream = file.replace(null, false, Gio.FileCreateFlags.NONE, null);
-
         // create an http message
         let request = Soup.Message.new('GET', url);
-
         // got_headers event
         request.connect('got_headers', Lang.bind(this, function(message){
             log("got_headers, status: "+message.status_code);
