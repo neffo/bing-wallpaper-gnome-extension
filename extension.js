@@ -177,6 +177,7 @@ const BingWallpaperIndicator = new Lang.Class({
             log('selected image changed to :'+this.selected_image);
             this._selectImage();
         }));
+        this.selected_image = this._settings.get_string('selected-image');
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -448,6 +449,7 @@ const BingWallpaperIndicator = new Lang.Class({
         if (this.selected_image == 'random') {
             // do random selection here
             image = imageList[Utils.getRandomInt(imageList.length)];
+            this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
         } else if (this.selected_image == 'current') {
             image = imageList[0];
         } else {    

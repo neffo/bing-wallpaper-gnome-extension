@@ -131,6 +131,13 @@
       <description></description>
     </key>
 
+    <key name="random-interval" type="i">
+      <range min="300" max="86400" />
+      <default>3600</default>
+      <summary>How frequently to change the wallpaper when on random mode</summary>
+      <description></description>
+    </key>
+
 
   </schema>
 </schemalist>

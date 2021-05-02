@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-01 19:11+1000\n"
+"POT-Creation-Date: 2021-05-02 10:39+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: Settings.ui.h:3 Settings4.ui.h:4 extension.js:197
+#: Settings.ui.h:3 Settings4.ui.h:4 extension.js:198
 msgid "Set background image"
 msgstr ""
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:198
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:199
 msgid "Set lock screen image"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Selected image:"
 msgstr ""
 
-#: Settings.ui.h:14 Settings4.ui.h:14 extension.js:200
+#: Settings.ui.h:14 Settings4.ui.h:14 extension.js:201
 msgid "Settings"
 msgstr ""
 
@@ -175,51 +175,51 @@ msgstr ""
 msgid "hours"
 msgstr ""
 
-#: extension.js:183
+#: extension.js:184
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:185 extension.js:188 extension.js:191
+#: extension.js:186 extension.js:189 extension.js:192
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:195
+#: extension.js:196
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:196
+#: extension.js:197
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:199
+#: extension.js:200
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:205
+#: extension.js:206
 msgid "Thumbnail disabled on Wayland"
 msgstr ""
 
-#: extension.js:260
+#: extension.js:261
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:466
+#: extension.js:468
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:506
+#: extension.js:505
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:507
+#: extension.js:506
 msgid "No picture for today 😞."
 msgstr ""
 
-#: prefs.js:179
+#: prefs.js:172
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:180
+#: prefs.js:173
 msgid "Random image"
 msgstr ""
 
