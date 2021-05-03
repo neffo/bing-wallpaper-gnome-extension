@@ -220,7 +220,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.separator);
-        if (Utils.is_x11()) { // these may not work on Wayland atm
+        if (Utils.is_x11() && this.clipboard.clipboard) { // these may not work on Wayland atm, check to see if it's working
             this.menu.addMenuItem(this.clipboardImageItem);
             this.menu.addMenuItem(this.clipboardURLItem);
             this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));

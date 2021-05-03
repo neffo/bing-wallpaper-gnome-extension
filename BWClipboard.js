@@ -12,7 +12,7 @@ const Gtk = imports.gi.Gtk;
 class BWClipboard {
     constructor() {
         this.display = Gdk.Display.get_default();
-        this.clipboard = Gtk.Clipboard.get_default(this.display);
+        this.clipboard = this.display ? Gtk.Clipboard.get_default(this.display) : null;
     }
 
     setImage(pixbuf) {
