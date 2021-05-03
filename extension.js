@@ -21,10 +21,9 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Clutter = imports.gi.Clutter;
 const Cogl = imports.gi.Cogl;
-const Clipboard = St.Clipboard.get_default();
-const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
 const GdkPixbuf = imports.gi.GdkPixbuf;
+const Gdk = imports.gi.Gdk;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -131,6 +130,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshduetext = "";
         this.thumbnail = null;
         this.selected_image = "current";
+        this.clipboard = new BWClipboard();
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -306,11 +306,11 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _copyURLToClipboard: function() {
-        Clipboard.set_text(CLIPBOARD_TYPE, this.imageURL);
+        this.clipboard.setText(this.imageURL);
     },
 
     _copyImageToClipboard: function() {
-        Clipboard.setImage(this.thumbnailImage.gtkImage);
+        this.clipboard.setImage(GdkPixbuf.Pixbuf.new_from_file(this.filename));
     },
 
     // sets a timer for next refresh of Bing metadata
@@ -635,4 +635,19 @@ class Thumbnail {
         log('Unable to create thumbnail for corrupt or incomplete file: '+filePath+ ' err: '+err);
       }
     }
-  }
+}
+
+class BWClipboard {
+    constructor() {
+        this.display = Gdk.Display.get_default();
+        this.clipboard = Gtk.Clipboard.get_default(this.display);
+    }
+
+    setImage(pixbuf) {
+        this.clipboard.set_image(pixbuf);
+    }
+
+    setText(text) {
+        this.clipboard.set_text(text, -1);
+    }
+}
