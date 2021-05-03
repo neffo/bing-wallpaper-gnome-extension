@@ -6,20 +6,38 @@
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 
-const Gdk = imports.gi.Gdk;
-const Gtk = imports.gi.Gtk;
+const St = imports.gi.St;
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+/*const Gdk = imports.gi.Gdk;
+const Gtk = imports.gi.Gtk;*/
 
 class BWClipboard {
     constructor() {
+        /*
         this.display = Gdk.Display.get_default();
-        this.clipboard = this.display ? Gtk.Clipboard.get_default(this.display) : null;
+        this.clipboard = this.display ? Gtk.Clipboard.get_default(this.display) : null;*/
+        this.clipboard = St.Clipboard.get_default();
     }
 
+    /*
     setImage(pixbuf) {
         this.clipboard.set_image(pixbuf);
     }
+    */
+
+    setImage(filename) {
+        try {
+            let file = Gio.File.new_for_path(filename);
+            let [success, image_data] = file.load_contents(null);
+            log('error: '+success);
+            this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
+        } catch (err) {
+            log('unable to set clipboard to data in '+filename);
+        }
+    }
 
     setText(text) {
-        this.clipboard.set_text(text, -1);
+        /*this.clipboard.set_text(text, -1);*/
+        this.clipboard.set_text(CLIPBOARD_TYPE, text);
     }
 }

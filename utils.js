@@ -116,10 +116,11 @@ function validate_resolution(settings) {
 
 // FIXME: needs work
 function validate_imagename(settings) {
-	let filename = settings.get_string('selected-image');
-	let filepath = Gio.file_new_for_path(filename);
-	//if (filename != "current" && !filepath.query_exists(null))
-	//	settings.reset('selected-image');
+	/*let filename = settings.get_string('selected-image');
+	if (filename !='current' || filename != 'random' || !inImageList(getImageList(settings), filename)) {
+		log('invalid image selected');
+		//settings.reset('selected-image');
+	}*/
 }
 
 function validate_market(settings, marketDescription = null, lastreq = null) {
@@ -254,30 +255,25 @@ function inImageList(imageList, urlbase) {
 
 function mergeImageLists(settings, imageList) {
 	let curList = getImageList(settings);
-	log('mergeImageList list was '+curList.length);
 	imageList.forEach(function(x, i) {
-		if (!inImageList(curList, x.urlbase))
+		if (!inImageList(curList, x.urlbase)) // if not in the list, add it
 			curList.push(x);
 	});
-	log('mergeImageList new list is'+curList.length);
 	setImageList(settings, curList);
 }
 
 function cleanupImageList(settings) {
 	let curList = getImageList(settings);
-	let cutOff = GLib.DateTime.new_now_utc().add_days(-7);
+	let cutOff = GLib.DateTime.new_now_utc().add_days(-7); // 7 days ago
 	let newList = [];
-	log('cleanupImageList list was '+curList.length);
 	curList.forEach( function (x, i) {
 		let filename = imageToFilename(settings, x);
-		log (filename+' exists?');
 		let diff = dateFromLongDate(x.fullstartdate,0).difference(cutOff);
-		// image is still downloadable (<7 days old) or still on disk, so we keep
+		// image is still downloadable (< 7 days old) or still on disk, so we keep
 		if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
 			newList.push(x);
 		}
 	});
-	log('cleanupImageList list is now '+newList.length);
 	setImageList(settings, newList);
 }
 
@@ -287,7 +283,6 @@ function getWallpaperDir(settings) {
 	if (BingWallpaperDir == '') {
 		BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
 		settings.set_string('download-folder', BingWallpaperDir);
-		log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
 	}
 	else if (!BingWallpaperDir.endsWith('/')) {
 		BingWallpaperDir += '/';
@@ -300,10 +295,51 @@ function getWallpaperDir(settings) {
 	return BingWallpaperDir;
 }
 
-function imageToFilename(settings, image) {
-	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');	
+function imageToFilename(settings, image, resolution) {
+	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"+getResolution(settings, image)+".jpg";
 }
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
+}
+
+function dump(object) {
+    let output = '';
+    for (let property in object) {
+        output += property + ': ' + object[property]+'; ';
+    }
+    log(output);
+}
+
+function friendly_time_diff(time, short = true) {
+    // short we want to keep ~4-5 characters
+    let timezone = GLib.TimeZone.new_local();
+    let now = GLib.DateTime.new_now(timezone).to_unix();
+    let seconds = time.to_unix() - now;
+
+    if (seconds <= 0) {
+        return "now";
+    }
+    else if (seconds < 60) {
+        return "< 1 "+(short?"m":_("minutes"));
+    }
+    else if (seconds < 3600) {
+        return Math.round(seconds/60)+" "+(short?"m":_("minutes"));
+    }
+    else if (seconds > 86400) {
+        return Math.round(seconds/86400)+" "+(short?"d":_("days"));
+    }
+    else {
+        return Math.round(seconds/3600)+" "+(short?"h":_("hours"));
+    }
+}
+
+function getResolution(settings, image) {
+	let resolution = settings.get_string('resolution');
+	if (resolutions.indexOf(resolution) == -1 || (image ? image.wp == false:true) || // wp == false when background is animated
+		settings.get_string('resolution') == "auto" ) {
+		// resolution invalid, animated background or autoselected
+		resolution = "UHD";
+	}
+	return resolution;
 }
