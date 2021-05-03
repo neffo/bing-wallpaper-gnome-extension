@@ -194,6 +194,11 @@ function is_x11() {
 	return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
 }
 
+function enabled_unsafe() {
+	log("User override, enabling unsafe Wayland functionality");
+	return true;
+}
+
 function gnome_major_version() {
 	let [major] = Config.PACKAGE_VERSION.split('.');
 	let shellVersion = Number.parseInt(major);

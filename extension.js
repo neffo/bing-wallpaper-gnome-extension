@@ -29,7 +29,8 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
-
+const Thumbnail = Me.imports.thumbnail;
+const BWClipboard = Me.imports.BWClipboard;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -130,7 +131,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshduetext = "";
         this.thumbnail = null;
         this.selected_image = "current";
-        this.clipboard = new BWClipboard();
+        this.clipboard = new BWClipboard.BWClipboard();
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -181,6 +182,11 @@ const BingWallpaperIndicator = new Lang.Class({
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
+        // enable unsafe features on Wayland if the user overrides it
+        if (this._settings.get_boolean('override-unsafe-wayland')) {
+            Utils.is_x11 = Utils.enabled_unsafe;
+        }
+
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
@@ -214,7 +220,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.separator);
-        if (Utils.is_x11()) { // these do not work on Wayland atm
+        if (Utils.is_x11()) { // these may not work on Wayland atm
             this.menu.addMenuItem(this.clipboardImageItem);
             this.menu.addMenuItem(this.clipboardURLItem);
             this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
@@ -286,7 +292,7 @@ const BingWallpaperIndicator = new Lang.Class({
         if (this.filename == "")
             return;
         if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
-            this.thumbnail = new Thumbnail(this.filename);
+            this.thumbnail = new Thumbnail.Thumbnail(this.filename);
             this._setImage();
         }
 
@@ -622,32 +628,3 @@ function toFilename(wallpaperDir, startdate, imageURL) {
     return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
 }
 
-class Thumbnail {
-    constructor(filePath) {
-      if (!filePath) {
-        throw new Error(`need argument ${filePath}`);
-      }
-      try {
-        this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270); 
-        this.srcFile = Gio.File.new_for_path(filePath);
-      }
-      catch(err) {
-        log('Unable to create thumbnail for corrupt or incomplete file: '+filePath+ ' err: '+err);
-      }
-    }
-}
-
-class BWClipboard {
-    constructor() {
-        this.display = Gdk.Display.get_default();
-        this.clipboard = Gtk.Clipboard.get_default(this.display);
-    }
-
-    setImage(pixbuf) {
-        this.clipboard.set_image(pixbuf);
-    }
-
-    setText(text) {
-        this.clipboard.set_text(text, -1);
-    }
-}

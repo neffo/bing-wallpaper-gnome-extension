@@ -138,6 +138,11 @@
       <description></description>
     </key>
 
+    <key name="override-unsafe-wayland" type="b">
+      <default>false</default>
+      <summary>Override safe defaults for Wayland desktop</summary>
+      <description>Enables features which may or may not be unstable or untested</description>
+    </key>
 
   </schema>
 </schemalist>
