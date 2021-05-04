@@ -61,6 +61,7 @@ function buildPrefsWidget(){
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooserBtn = buildable.get_object('download_folder');
     let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
+    let folderOpenBtn = buildable.get_object('button_open_download_folder');
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
     let historyEntry = buildable.get_object('history');
@@ -97,6 +98,10 @@ function buildPrefsWidget(){
 
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+
+    folderOpenBtn.connect('clicked', function(widget) {
+        Utils.openImageFolder(settings);
+    });
 
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4

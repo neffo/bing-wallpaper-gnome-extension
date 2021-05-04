@@ -304,6 +304,19 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="top_attach">0</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkButton" id="button_open_download_folder">
+                            <property name="label">Open folder</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes"></property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>

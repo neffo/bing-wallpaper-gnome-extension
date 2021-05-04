@@ -247,6 +247,17 @@
                                 </layout>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkButton" id="button_open_download_folder">
+                                <property name="label" translatable="yes">Open folder</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <layout>
+                                <property name="column">2</property>
+                                <property name="row">0</property>
+                              </layout>
+                            </child>
                           </object>
                         </property>
                       </object>
