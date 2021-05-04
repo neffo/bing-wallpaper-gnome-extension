@@ -252,11 +252,11 @@
                                 <property name="label" translatable="yes">Open folder</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <layout>
+                                  <property name="column">2</property>
+                                  <property name="row">0</property>
+                                </layout>
                               </object>
-                              <layout>
-                                <property name="column">2</property>
-                                <property name="row">0</property>
-                              </layout>
                             </child>
                           </object>
                         </property>
