@@ -106,6 +106,107 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = Utils.getSettings();
+        this._setConnections();
+
+        getActorCompat(this).visible = !this._settings.get_boolean('hide');
+
+        // enable unsafe features on Wayland if the user overrides it
+        if (this._settings.get_boolean('override-unsafe-wayland')) {
+            Utils.is_x11 = Utils.enabled_unsafe;
+        }
+
+        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
+        //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
+        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
+        this._wrapLabelItem(this.titleItem);
+        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this._wrapLabelItem(this.explainItem);
+        this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this._wrapLabelItem(this.copyrightItem);
+        this.separator = new PopupMenu.PopupSeparatorMenuItem();
+        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
+        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
+        this.folderItem = new PopupMenu.PopupMenuItem(_("Open image folder"));
+        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
+        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
+        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
+        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
+        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
+            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        }
+        else {
+            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+            log('X11 not detected, disabling some unsafe features');
+        }
+        this.menu.addMenuItem(this.refreshItem);
+        this.menu.addMenuItem(this.refreshDueItem);
+        this.menu.addMenuItem(this.titleItem);
+        this.menu.addMenuItem(this.thumbnailItem);
+        this.menu.addMenuItem(this.explainItem);
+        this.menu.addMenuItem(this.copyrightItem);
+        //this.menu.addMenuItem(this.showItem);
+        this.menu.addMenuItem(this.separator);
+        if (Utils.is_x11() && this.clipboard.clipboard) { // these may not work on Wayland atm, check to see if it's working
+            // currently non functional
+            /*this.menu.addMenuItem(this.clipboardImageItem);
+            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));*/
+            this.menu.addMenuItem(this.clipboardURLItem);
+            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+        }
+
+        this.menu.addMenuItem(this.folderItem);
+        
+        this.menu.addMenuItem(this.dwallpaperItem);
+        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+            this.menu.addMenuItem(this.swallpaperItem);
+            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
+        }
+            
+        this.menu.addMenuItem(this.settingsItem);
+        this.explainItem.setSensitive(false);
+        this.copyrightItem.setSensitive(false);
+        this.refreshDueItem.setSensitive(false);
+        this.thumbnailItem.setSensitive(false);
+        this.thumbnailItem.connect('activate', Lang.bind(this, function() {
+            this._openInSystemViewer();
+        }));
+        this.titleItem.connect('activate', Lang.bind(this, function() {
+            if (this.imageinfolink)
+              Util.spawn(["xdg-open", this.imageinfolink]);
+        }));
+        this.folderItem.connect('activate', Lang.bind(this, function() {
+            Utils.openImageFolder(this._settings);
+        }));
+        
+        this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
+        this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
+        this.settingsItem.connect('activate', function() {
+            if (ExtensionUtils.openPrefs)
+                ExtensionUtils.openPrefs();
+            else 
+                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
+        });
+
+        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
+            // Grey out menu items if an update is pending
+            this.refreshItem.setSensitive(!this._updatePending);
+            if (Utils.is_x11()) {
+                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+	        }
+            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
+            //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
+            this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
+            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
+            this.refreshDueItem.label.set_text(this.refreshduetext); //
+        }));
+        this._restartTimeout(60); // wait 60 seconds before performing refresh
+    },
+
+    // listen for configuration changes
+    _setConnections: function(){
         this._settings.connect('changed::hide', Lang.bind(this, function() {
             getActorCompat(this).visible = !this._settings.get_boolean('hide');
         }));
@@ -139,7 +240,6 @@ const BingWallpaperIndicator = new Lang.Class({
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
             blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
         }));
-
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
             Utils.validate_imagename(this._settings);
             this.selected_image = this._settings.get_string('selected-image');
@@ -147,95 +247,6 @@ const BingWallpaperIndicator = new Lang.Class({
             this._selectImage();
         }));
         this.selected_image = this._settings.get_string('selected-image');
-
-        getActorCompat(this).visible = !this._settings.get_boolean('hide');
-
-        // enable unsafe features on Wayland if the user overrides it
-        if (this._settings.get_boolean('override-unsafe-wayland')) {
-            Utils.is_x11 = Utils.enabled_unsafe;
-        }
-
-        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
-        //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
-        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
-        this.titleItem.label.get_clutter_text().set_line_wrap(true);
-        this.titleItem.label.set_style("max-width: 350px;");
-        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this.explainItem.label.get_clutter_text().set_line_wrap(true);
-        this.explainItem.label.set_style("max-width: 350px;");
-        this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this.copyrightItem.label.get_clutter_text().set_line_wrap(true);
-        this.copyrightItem.label.set_style("max-width: 350px;");
-        this.separator = new PopupMenu.PopupSeparatorMenuItem();
-        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
-        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
-        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
-        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
-        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
-        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
-            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
-        }
-        else {
-            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
-            log('X11 not detected, disabling some unsafe features');
-        }
-        this.menu.addMenuItem(this.refreshItem);
-        this.menu.addMenuItem(this.refreshDueItem);
-        this.menu.addMenuItem(this.titleItem);
-        this.menu.addMenuItem(this.thumbnailItem);
-        this.menu.addMenuItem(this.explainItem);
-        this.menu.addMenuItem(this.copyrightItem);
-        //this.menu.addMenuItem(this.showItem);
-        this.menu.addMenuItem(this.separator);
-        if (Utils.is_x11() && this.clipboard.clipboard) { // these may not work on Wayland atm, check to see if it's working
-            this.menu.addMenuItem(this.clipboardImageItem);
-            this.menu.addMenuItem(this.clipboardURLItem);
-            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
-            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
-        }
-        
-        this.menu.addMenuItem(this.dwallpaperItem);
-        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
-            this.menu.addMenuItem(this.swallpaperItem);
-            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
-        }
-            
-        this.menu.addMenuItem(this.settingsItem);
-        this.explainItem.setSensitive(false);
-        this.copyrightItem.setSensitive(false);
-        this.refreshDueItem.setSensitive(false);
-        this.thumbnailItem.setSensitive(false);
-        this.titleItem.connect('activate', Lang.bind(this, function() {
-            if (this.imageinfolink)
-              Util.spawn(["xdg-open", this.imageinfolink]);
-        }));
-        
-        this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
-        this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
-        this.settingsItem.connect('activate', function() {
-            if (ExtensionUtils.openPrefs)
-                ExtensionUtils.openPrefs();
-            else 
-                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
-        });
-
-        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
-            // Grey out menu items if an update is pending
-            this.refreshItem.setSensitive(!this._updatePending);
-            if (Utils.is_x11()) {
-                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
-	    }
-            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
-            //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
-            this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
-            this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
-            this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
-            this.refreshDueItem.label.set_text(this.refreshduetext); //
-        }));
-        this._restartTimeout(60); // wait 60 seconds before performing refresh
     },
 
     // set indicator icon (tray icon)
@@ -328,6 +339,11 @@ const BingWallpaperIndicator = new Lang.Class({
         this.titleItem.label.set_text(this.title);
         this.explainItem.label.set_text(this.explanation);
         this.copyrightItem.label.set_text(this.copyright);
+    },
+
+    _wrapLabelItem: function (menuItem) {
+        menuItem.label.get_clutter_text().set_line_wrap(true);
+        menuItem.label.set_style("max-width: 350px;");
     },
 
     // set menu thumbnail
@@ -462,7 +478,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 if (!dir.query_exists(null)) {
                     dir.make_directory_with_parents(null);
                 }
-                this._download_image(this.imageURL, file);
+                this._downloadImage(this.imageURL, file);
             } else {
                 log("Image already downloaded");
                 let changed = this._setBackground();
@@ -479,7 +495,7 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // download and process new image
-    _download_image: function(url, file) {
+    _downloadImage: function(url, file) {
         log("Downloading " + url + " to " + file.get_uri());
 
         // open the Gfile
@@ -510,7 +526,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (message.status_code == 200) {
                 log('Download successful');
                 this._setBackground();
-                this._add_to_previous_queue(this.filename);
+                this._addToPreviousQueue(this.filename);
             } else {
                 log("Couldn't fetch image from " + url);
                 file.delete(null);
@@ -519,7 +535,7 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
-    _add_to_previous_queue: function (filename) {
+    _addToPreviousQueue: function (filename) {
         let rawimagelist = this._settings.get_string('previous');
         let imagelist = rawimagelist.split(',');
         let maxpictures = this._settings.get_int('previous-days');
@@ -549,9 +565,9 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // open image in default image view
-    _open_in_system_viewer: function launchOpen() {
+    _openInSystemViewer: function () {
         const context = global.create_app_launch_context(0, -1);
-        Gio.AppInfo.launch_default_for_uri(this.filename.get_uri(), context);
+        Gio.AppInfo.launch_default_for_uri('file://'+this.filename, context);
     },
 
     stop: function () {
