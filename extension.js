@@ -47,7 +47,6 @@ let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
 let blur=null;
-let init_called=false;
 let blur_brightness=0.55;
 let blur_strength=30;
 
@@ -579,13 +578,7 @@ const BingWallpaperIndicator = new Lang.Class({
 });
 
 function init(extensionMeta) {
-    if (init_called === false) {
-        Convenience.initTranslations("BingWallpaper");
-        init_called = true;
-    }
-    else {
-        log("WARNING: init() called more than once, ignoring");
-   }
+    Convenience.initTranslations("BingWallpaper");
 }
 
 function enable() {

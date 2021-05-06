@@ -129,10 +129,10 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
 		settings.reset('market');
 	}
 	// only run this check if called from prefs
-	let timesincelastcheck = lastreq ? GLib.DateTime.new_now_utc().difference(lastreq): 9999;
-	log("last check was " + timesincelastcheck+" ms ago");
+	let lastReqDiff = lastreq ? GLib.DateTime.new_now_utc().difference(lastreq): null; // time diff in *micro*seconds
+	log("last check was " + lastReqDiff+" us ago");
 
-	if (marketDescription && lastreq === null || GLib.DateTime.new_now_utc().difference(lastreq)>5000) { // rate limit no more than 1 request per 5 seconds
+	if ((marketDescription && lastreq === null) || (lastReqDiff && lastReqDiff>5000000)) { // rate limit no more than 1 request per 5 seconds
 		let request = Soup.Message.new('GET', BingImageURL + market); // + market
 		log("fetching: " + BingImageURL + market);
 	
@@ -154,6 +154,9 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
 				marketDescription.set_label(_("A network error occured") + ": " + message.status_code);
 			}
 		}));
+	}
+	else {
+		marketDescription.set_label(_("Too many requests in 5 seconds"));
 	}
 }
 

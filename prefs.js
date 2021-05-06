@@ -79,7 +79,7 @@ function buildPrefsWidget(){
     let buttonslightblur = buildable.get_object('button_slight_blur');
 
     // check that these are valid (can be edited through dconf-editor)
-    Utils.validate_market(settings, marketDescription);
+    //Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
     Utils.validate_icon(settings, icon_image);
 
@@ -123,30 +123,7 @@ function buildPrefsWidget(){
             fileChooserBtn.set_label(fileURI);
             settings.set_string('download-folder', fileURI);
         });
-    }
-    else { // Gtk 4
-        fileChooserBtn.set_filename(settings.get_string('download-folder'));
-        log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
-        fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-        fileChooserBtn.connect('file-set', function(widget) {
-            settings.set_string('download-folder', widget.get_filename());
-        });
-    }
-    
-    // Bing Market (locale/country)
-    if (Gtk.get_major_version() < 4) { // GTK 3 uses ComboBoxText, but this breaks in GTK4 presently
-        Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
-            marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
-        });
-        //marketEntry.set_active_id(settings.get_string('market')); // set to current
-
-        settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-        settings.connect('changed::market', function() {
-            Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();
-        });
-    }
-    else { // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
+        // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
         let market_grid = buildable.get_object('market_grid');
         marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
         marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
@@ -160,6 +137,24 @@ function buildPrefsWidget(){
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+    }
+    else { // Gtk 3
+        fileChooserBtn.set_filename(settings.get_string('download-folder'));
+        log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+        fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
+        fileChooserBtn.connect('file-set', function(widget) {
+            settings.set_string('download-folder', widget.get_filename());
+        });
+        Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
+            marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
+        });
+        //marketEntry.set_active_id(settings.get_string('market')); // set to current
+
+        settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        settings.connect('changed::market', function() {
+            Utils.validate_market(settings, marketDescription, lastreq);
+            lastreq = GLib.DateTime.new_now_utc();
         });
     }
 
@@ -190,9 +185,10 @@ function buildPrefsWidget(){
 
     if (Convenience.currentVersionGreaterEqual("3.36") ) {
         lsSwitch.set_sensitive(false);
+        buildable.get_object('lock_screen_listboxrow').set_tooltip_text(_("Disabled on current GNOME version"));
     }
 
-    if (Convenience.currentVersionGreaterEqual("3.36") && Convenience.currentVersionSmallerEqual("40.0") ) {
+    if (Convenience.currentVersionGreaterEqual("3.36") /*&& Convenience.currentVersionSmallerEqual("40.0")*/ ) {
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
@@ -208,6 +204,7 @@ function buildPrefsWidget(){
         });
     } else {
         // older version of GNOME or GNOME 40+
+        buildable.get_object('lockscreen_box').set_tooltip_text(_("Disabled on current GNOME version"));
         overrideSwitch.set_sensitive(false);
         strengthEntry.set_sensitive(false);
         brightnessEntry.set_sensitive(false);
