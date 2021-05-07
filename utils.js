@@ -247,6 +247,11 @@ function getImageTitle(image_data) {
 	return image_data.copyright.replace(/\s*\(.*?\)\s*/g, "");
 }
 
+function getMaxLongDate(settings) {
+	imageList = getImageList(settings);
+	return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }))
+}
+
 function inImageList(imageList, urlbase) {
 	let image = null;
 	imageList.forEach(function(x, i) {

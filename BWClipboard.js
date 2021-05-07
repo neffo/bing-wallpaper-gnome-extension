@@ -19,12 +19,13 @@ class BWClipboard {
         this.clipboard = St.Clipboard.get_default();
     }
 
-    /*
+    /* 
     setImage(pixbuf) {
         this.clipboard.set_image(pixbuf);
     }
     */
 
+    // non functional, getting this to function would likely involve using Gtk, which seems to be a bit unsafe on Wayland
     setImage(filename) {
         try {
             let file = Gio.File.new_for_path(filename);

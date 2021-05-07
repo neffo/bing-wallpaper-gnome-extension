@@ -183,12 +183,10 @@ function buildPrefsWidget(){
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-    if (Convenience.currentVersionGreaterEqual("3.36") ) {
+    if (Convenience.currentVersionGreaterEqual("3.36")) {
+        // lockscreen and desktop wallpaper are shared in GNOME 3.36+
         lsSwitch.set_sensitive(false);
         buildable.get_object('lock_screen_listboxrow').set_tooltip_text(_("Disabled on current GNOME version"));
-    }
-
-    if (Convenience.currentVersionGreaterEqual("3.36") /*&& Convenience.currentVersionSmallerEqual("40.0")*/ ) {
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
@@ -203,7 +201,7 @@ function buildPrefsWidget(){
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
     } else {
-        // older version of GNOME or GNOME 40+
+        // older version of GNOME
         buildable.get_object('lockscreen_box').set_tooltip_text(_("Disabled on current GNOME version"));
         overrideSwitch.set_sensitive(false);
         strengthEntry.set_sensitive(false);

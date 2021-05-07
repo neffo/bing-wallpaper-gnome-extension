@@ -201,7 +201,12 @@ const BingWallpaperIndicator = new Lang.Class({
             this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
             this.refreshDueItem.label.set_text(this.refreshduetext); //
         }));
-        this._restartTimeout(60); // wait 60 seconds before performing refresh
+        if (this._settings.get_string('state') != '[]') {
+            this._reStoreState();
+        }
+        else {
+            this._restartTimeout(60); // wait 60 seconds before performing refresh
+        }
     },
 
     // listen for configuration changes
@@ -491,6 +496,40 @@ const BingWallpaperIndicator = new Lang.Class({
             this._updatePending = false;
         }
         this._setMenuText();
+        this._storeState();
+    },
+
+    _storeState: function() {
+        if (this.filename) {
+            let maxLongDate = Utils.getMaxLongDate(this._settings); // 1 day from max long date
+            let state = { maxlongdate: maxLongDate, title: this.title, copyright: this.copyright,
+                longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
+                filename: this.filename};
+            let stateJSON = JSON.stringify(state);
+            log('Storing state as JSON: '+stateJSON);
+            this._settings.set_string('state', stateJSON);
+        }
+    },
+
+    _reStoreState: function() {
+        let stateJSON = this._settings.get_string('state');
+        let state = JSON.parse(stateJSON);
+        let maxLongDate = null;
+        maxLongdate = state.maxlongdate;
+        this.title = state.title;
+        this.copyright = state.copyright;
+        this.longstartdate = state.longstartdate;
+        this.imageinfolink = state.imageinfolink;
+        this.imageURL = state.imageURL;
+        this.filename = state.filename;
+        this._setMenuText();
+        this._setBackground();
+        if (this.selected_image == 'random') {
+            this._restartTimeout(60);
+        }
+        else {
+            this._restartTimeoutFromLongDate(maxLongDate);
+        }
     },
 
     // download and process new image
