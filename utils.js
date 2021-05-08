@@ -252,6 +252,26 @@ function getMaxLongDate(settings) {
 	return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }))
 }
 
+function getCurrentImageIndex (imageList)
+{
+	if (!imageList)
+		return -1;
+	let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
+	let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
+	log('getCurrentImageIndex for '+maxLongDate+': '+index)
+	return index;
+}
+
+function getCurrentImage(imageList) {
+	if (!imageList)
+		return null;
+	let index = getCurrentImageIndex(imageList)
+	log('getCurrentImage for '+maxLongDate+': '+index)
+	if (index == -1)
+		return imageList[0]; // give something sensible
+	return imageList[index];
+}
+
 function inImageList(imageList, urlbase) {
 	let image = null;
 	imageList.forEach(function(x, i) {
@@ -263,15 +283,29 @@ function inImageList(imageList, urlbase) {
 
 function mergeImageLists(settings, imageList) {
 	let curList = getImageList(settings);
+	let newList = []; // list of only new images (for future notifications)
 	imageList.forEach(function(x, i) {
-		if (!inImageList(curList, x.urlbase)) // if not in the list, add it
-			curList.push(x);
+		if (!inImageList(curList, x.urlbase)) {// if not in the list, add it
+			curList.unshift(x); // use unshift to maintain reverse chronological order
+			newList.unshift(x); 
+		}
 	});
 	setImageList(settings, curList);
+	return newList; // return this to caller for notifications
+}
+
+function imageIndex(imageList, urlbase) {
+	return imageList.map(p => p.urlbase.replace('/th?id=OHR.', '')).indexOf(urlbase.replace('/th?id=OHR.', ''));
+}
+
+function getImageByIndex(imageList, index) {
+	if (imageList.length == 0 || index < 0 || index > imageList.length-1)
+		return null;
+	return imageList[index];
 }
 
 function cleanupImageList(settings) {
-	let curList = getImageList(settings);
+	let curList = imageListSortByDate(getImageList(settings));
 	let cutOff = GLib.DateTime.new_now_utc().add_days(-7); // 7 days ago
 	let newList = [];
 	curList.forEach( function (x, i) {
@@ -355,4 +389,11 @@ function getResolution(settings, image) {
 function openImageFolder(settings) {
 	//const context = global?global.create_app_launch_context(0, -1):null;
 	Gio.AppInfo.launch_default_for_uri('file://'+getWallpaperDir(settings), null);
+}
+
+function imageListSortByDate(imageList) {
+	return imageList.sort(function(a, b) {
+        var x = parseInt(a.fullstartdate); var y = parseInt(b.fullstartdate);
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
 }

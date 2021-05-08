@@ -139,9 +139,11 @@ const BingWallpaperIndicator = new Lang.Class({
         }
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
-        this.menu.addMenuItem(this.titleItem);
-        this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.explainItem);
+        this.prevBtn = this._newMenuIcon('go-previous-symbolic', this.explainItem, this._prevImage);
+        this.nextBtn = this._newMenuIcon('go-next-symbolic', this.explainItem, this._nextImage);
+        this.menu.addMenuItem(this.thumbnailItem);
+        this.menu.addMenuItem(this.titleItem);
         this.menu.addMenuItem(this.copyrightItem);
         //this.menu.addMenuItem(this.showItem);
         this.menu.addMenuItem(this.separator);
@@ -312,7 +314,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let timezone = GLib.TimeZone.new_local();
         let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds);
         this.refreshdue = localTime;
-        log('next check in '+seconds+' seconds @ local time '+localTime);
+        log('next check in '+seconds+' seconds @ local time '+localTime.format('%F %R %z'));
     },
 
     // set a timer on when the current image is going to expire
@@ -350,6 +352,30 @@ const BingWallpaperIndicator = new Lang.Class({
         menuItem.label.set_style("max-width: 350px;");
     },
 
+    _newMenuIcon: function (icon_name, parent, fn) {
+        //let icon_name = favorite ? 'starred-symbolic' : 'non-starred-symbolic';
+        let icon = new St.Icon({
+            icon_name: icon_name,
+            style_class: 'system-status-icon'
+        });
+
+        let iconBtn = new St.Button({
+            style_class: 'ci-action-btn',
+            can_focus: true,
+            child: icon,
+            x_align: Clutter.ActorAlign.END,
+            x_expand: true,
+            y_expand: true
+        });
+
+        getActorCompat(parent).add_child(iconBtn);
+        //parent.iconBtn = icofavBtn;
+        iconBtn.connect('button-press-event',
+            Lang.bind(this, fn)
+        );
+        return iconBtn;
+    },
+
     // set menu thumbnail
     _setImage: function () {
         let pixbuf = this.thumbnail.pixbuf;
@@ -377,7 +403,31 @@ const BingWallpaperIndicator = new Lang.Class({
     
         getActorCompat(this.thumbnailItem).set_size(480, 270);    
         this.thumbnailItem.setSensitive(true);
-      },
+    },
+
+    _nextImage: function () {
+        this._gotoImage(1);
+    },
+
+    _prevImage: function () {
+        this._gotoImage(-1);
+    },
+
+    _gotoImage: function (relativePos) {
+        let imageList = Utils.getImageList(this._settings);
+        let curIndex = 0;
+        if (this.selected_image == 'random')
+            return;
+        if (this.selected_image == 'current') {
+            curIndex = Utils.getCurrentImageIndex(imageList);
+        }
+        else {
+            curIndex = Utils.imageIndex(imageList, this.selected_image);
+        }
+        let newImage = Utils.getImageByIndex(imageList, curIndex+relativePos);
+        if (newImage)
+            this._settings.set_string('selected-image', newImage.urlbase.replace('/th?id=OHR.', ''));
+    },
 
     // download Bing metadat
     _refresh: function() {
@@ -418,21 +468,8 @@ const BingWallpaperIndicator = new Lang.Class({
         let parsed = JSON.parse(data);
         let datamarket = parsed.market.mkt;
         let prefmarket = this._settings.get_string('market');
-
-        //Utils.setImageList(this._settings, parsed.images);
-        // FIXME: we need to handle this better, including storing longer history & removing duplicates and deleted files
+        // FIXME: we need to handle this better, including storing longer history & removing duplicates
         Utils.mergeImageLists(this._settings, parsed.images);
-
-        // FIXME: this is only here for testing, delete before release
-        /*oldJsonImages = '[';
-        oldJsonImages += '{"startdate":"20190515","fullstartdate":"201905151400","enddate":"20190516","url":"/th?id=OHR.AbuSimbel_EN-AU0072035482_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AbuSimbel_EN-AU0072035482","copyright":"Abu Simbel temples on the west shore of Lake Nasser, Egypt (© George Steinmetz/Getty Images)","copyrightlink":"http://www.bing.com/search?q=abu+simbel+temples&form=hpcapt&filters=HpDate:%2220190515_1400%22","title":"Egypt’s mysteries still delight","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190515_AbuSimbel%22&FORM=HPQUIZ","wp":true,"hsh":"71857c9b9e15abfd8a8fe7b8135c59ff","drk":1,"top":1,"bot":1,"hs":[]},';
-        oldJsonImages += '{"startdate":"20210323","fullstartdate":"202103230700","enddate":"20210324","url":"/th?id=OHR.LoftedMadagascar_ROW4625924322_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.LoftedMadagascar_ROW4625924322","copyright":"Satellite image of the Mania River in Madagascar (© NASA Earth Observatory image by Joshua Stevens, using Landsat data from the US Geological Survey)","copyrightlink":"javascript:void(0)","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210323_LoftedMadagascar%22&FORM=HPQUIZ","wp":true,"hsh":"18c285623d7f2471d3a1d0722e0e3165","drk":1,"top":1,"bot":1,"hs":[]},';
-        oldJsonImages += '{"startdate":"20210421","fullstartdate":"202104210700","enddate":"20210422","url":"/th?id=OHR.SaoJorgeMadeira_ROW4612072821_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.SaoJorgeMadeira_ROW4612072821","copyright":"Madeira, Portugal (© Hemis/Alamy)","copyrightlink":"https://www.bing.com/search?q=madeira+island&form=hpcapt&filters=HpDate%3a%2220210421_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210421_SaoJorgeMadeira%22&FORM=HPQUIZ","wp":true,"hsh":"b47a9323cae2e6bfb8e6f1d4604c2caa","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210420","fullstartdate":"202104200700","enddate":"20210421","url":"/th?id=OHR.Ceking_ROW4482501669_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.Ceking_ROW4482501669","copyright":"Tegalalang Rice Terraces, Ubud, Bali, Indonesia (© Michele Falzone/Alamy)","copyrightlink":"https://www.bing.com/search?q=tegalalang+rice+terrace+bali&form=hpcapt&filters=HpDate%3a%2220210420_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210420_Ceking%22&FORM=HPQUIZ","wp":true,"hsh":"045c1ecce767c48d796a4008aa32a626","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210419","fullstartdate":"202104190700","enddate":"20210420","url":"/th?id=OHR.Mobula_ROW4335910337_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.Mobula_ROW4335910337","copyright":"Munk\'s pygmy devil rays, Gulf of California, Mexico (© Mark Carwardine/Minden Pictures)","copyrightlink":"https://www.bing.com/search?q=Mobula+munkiana&form=hpcapt&filters=HpDate%3a%2220210419_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210419_Mobula%22&FORM=HPQUIZ","wp":true,"hsh":"eb45744e7d0a1196495e4fc5873f9efd","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210418","fullstartdate":"202104180700","enddate":"20210419","url":"/th?id=OHR.MontalbanoElicona_ROW4195477684_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.MontalbanoElicona_ROW4195477684","copyright":"Montalbano Elicona, Messina, Sicily, Italy (© Antonino Bartuccio/SOPA Collection/Offset by Shutterstock)","copyrightlink":"https://www.bing.com/search?q=Montalbano+Elicona+Sicily&form=hpcapt&filters=HpDate%3a%2220210418_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210418_MontalbanoElicona%22&FORM=HPQUIZ","wp":true,"hsh":"f8c3adca75b6a67cd968b9119f912cac","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210417","fullstartdate":"202104170700","enddate":"20210418","url":"/th?id=OHR.NewRiverGorge_ROW4012498745_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.NewRiverGorge_ROW4012498745","copyright":"New River Gorge Bridge, New River Gorge National Park and Preserve, West Virginia, USA (© Entropy Workshop/iStock/Getty Images Plus)","copyrightlink":"https://www.bing.com/search?q=New+River+Gorge+National+Park&form=hpcapt&filters=HpDate%3a%2220210417_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210417_NewRiverGorge%22&FORM=HPQUIZ","wp":true,"hsh":"18a660fd59de7556a2f2c492994e64ff","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210416","fullstartdate":"202104160700","enddate":"20210417","url":"/th?id=OHR.FlowerTown_ROW3852044104_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.FlowerTown_ROW3852044104","copyright":"Dinan, Brittany, France (© Scott Wilson/Alamy)","copyrightlink":"https://www.bing.com/search?q=dinan+brittany&form=hpcapt&filters=HpDate%3a%2220210416_0700%22","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210416_FlowerTown%22&FORM=HPQUIZ","wp":true,"hsh":"8e0169391f82222ebe150ae4d754a92c","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210415","fullstartdate":"202104150700","enddate":"20210416","url":"/th?id=OHR.AlbertaTrunks_ROW3515049267_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.AlbertaTrunks_ROW3515049267","copyright":"Abraham Lake, Alberta, Canada (© Coolbiere/Getty Images)","copyrightlink":"javascript:void(0)","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210415_AlbertaTrunks%22&FORM=HPQUIZ","wp":true,"hsh":"fc7f7dd0ef00938e5a92faaededf774f","drk":1,"top":1,"bot":1,"hs":[]},{"startdate":"20210414","fullstartdate":"202104140700","enddate":"20210415","url":"/th?id=OHR.CarrizoPlain_ROW1847102473_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp","urlbase":"/th?id=OHR.CarrizoPlain_ROW1847102473","copyright":"Carrizo Plain National Monument, California, USA (© Dennis Frates/Alamy)","copyrightlink":"javascript:void(0)","title":"Info","quiz":"/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20210414_CarrizoPlain%22&FORM=HPQUIZ","wp":true,"hsh":"3f611399f912b40898883498e272e20d","drk":1,"top":1,"bot":1,"hs":[]}';
-        oldJsonImages += ']';
-        Utils.mergeImageLists(this._settings, JSON.parse(oldJsonImages));
-        */
-        // end bit to delete
-        
         Utils.cleanupImageList(this._settings);
 
         log('JSON returned (raw):\n' + data);
@@ -446,11 +483,10 @@ const BingWallpaperIndicator = new Lang.Class({
         //let image = imageList.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
         let image = null;
         if (this.selected_image == 'random') {
-            // do random selection here
             image = imageList[Utils.getRandomInt(imageList.length)];
             this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
         } else if (this.selected_image == 'current') {
-            image = imageList[0];
+            image = Utils.getCurrentImage(imageList);
         } else {    
             //let indx = imageList.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
             image = Utils.inImageList(imageList, this.selected_image);
@@ -502,7 +538,7 @@ const BingWallpaperIndicator = new Lang.Class({
     _storeState: function() {
         if (this.filename) {
             let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent Bing image
-            let state = { maxlongdate: maxLongDate, title: this.title, copyright: this.copyright,
+            let state = { maxlongdate: maxLongDate, title: this.title, explanation: this.explanation, copyright: this.copyright,
                 longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
                 filename: this.filename};
             let stateJSON = JSON.stringify(state);
@@ -517,6 +553,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let maxLongDate = null;
         maxLongdate = state.maxlongdate? state.maxlongdate: null;
         this.title = state.title;
+        this.explanation = state.explanation;
         this.copyright = state.copyright;
         this.longstartdate = state.longstartdate;
         this.imageinfolink = state.imageinfolink;
