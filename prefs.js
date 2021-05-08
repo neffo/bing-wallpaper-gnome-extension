@@ -86,7 +86,7 @@ function buildPrefsWidget(){
 
     // Indicator & notifications
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    settings.bing('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     Utils.icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
         iconEntry.append(iconname, iconname);
