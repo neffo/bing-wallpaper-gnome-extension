@@ -326,7 +326,7 @@ const BingWallpaperIndicator = new Lang.Class({
         log("Next refresh due @ "+refreshDue.format('%F %R %z')+" = "+difference+" seconds from now ("+now.format('%F %R %z')+")");
 
         if (difference < 60 || difference > 86400) // something wierd happened
-            difference = 3600;
+            difference = 60;
 
         difference=difference+300; // 5 minute fudge offset in case of inaccurate local clock
         this._restartTimeout(difference);
@@ -501,7 +501,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _storeState: function() {
         if (this.filename) {
-            let maxLongDate = Utils.getMaxLongDate(this._settings); // 1 day from max long date
+            let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent Bing image
             let state = { maxlongdate: maxLongDate, title: this.title, copyright: this.copyright,
                 longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
                 filename: this.filename};
@@ -515,7 +515,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let stateJSON = this._settings.get_string('state');
         let state = JSON.parse(stateJSON);
         let maxLongDate = null;
-        maxLongdate = state.maxlongdate;
+        maxLongdate = state.maxlongdate? state.maxlongdate: null;
         this.title = state.title;
         this.copyright = state.copyright;
         this.longstartdate = state.longstartdate;
@@ -524,7 +524,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.filename = state.filename;
         this._setMenuText();
         this._setBackground();
-        if (this.selected_image == 'random') {
+        if (this.selected_image == 'random' || !maxLongDate) {
             this._restartTimeout(60);
         }
         else {
