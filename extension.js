@@ -429,7 +429,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this._settings.set_string('selected-image', newImage.urlbase.replace('/th?id=OHR.', ''));
     },
 
-    // download Bing metadat
+    // download Bing metadata
     _refresh: function() {
         if (this._updatePending)
             return;
@@ -469,12 +469,36 @@ const BingWallpaperIndicator = new Lang.Class({
         let datamarket = parsed.market.mkt;
         let prefmarket = this._settings.get_string('market');
         // FIXME: we need to handle this better, including storing longer history & removing duplicates
-        Utils.mergeImageLists(this._settings, parsed.images);
+        let newImages = Utils.mergeImageLists(this._settings, parsed.images);
         Utils.cleanupImageList(this._settings);
 
         log('JSON returned (raw):\n' + data);
         this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
         this._updatePending = false;
+        if (this._settings.get_boolean('notify')) {
+            let that = this;
+            newImages.forEach(function(image, index) {
+                that._createNotification(image);
+            });
+        }
+    },
+
+    _createNotification: function (image) {
+        // set notifications icon
+        let source = new MessageTray.Source("Bing Wallpaper", "preferences-desktop-wallpaper-symbolic");
+        Main.messageTray.add(source);
+        let msg = _("Bing Wallpaper of the Day for")+' '+that._localeDate(x.startdate)
+        let details = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+        let notification = new MessageTray.Notification(source, msg, details);
+        //notification.setTransient(transient);
+        // Add action to open Bing website with default browser
+        notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
+            this._settings.set_string('selected-image', image.urlbase.replace('/th?id=OHR.', ''));
+        }));
+        notification.addAction(_("More info on Bing.com"), Lang.bind(this, function() {
+            Util.spawn(["xdg-open", image.imageinfolink]);
+        }));
+        source.notify(notification);
     },
 
     _selectImage: function() {

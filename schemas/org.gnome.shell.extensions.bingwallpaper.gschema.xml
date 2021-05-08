@@ -10,9 +10,9 @@
     </key>
 
     <key name="notify" type="b">
-      <default>true</default>
+      <default>false</default>
         <summary>Send a notifications</summary>
-        <description>Send a notification with explanation when the picture of the day is downloaded</description>
+        <description>Send a notification with explanation when a new image is available</description>
     </key>
 
     <key name="transient" type="b">

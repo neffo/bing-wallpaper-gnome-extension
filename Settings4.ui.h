@@ -1,9 +1,11 @@
 char *s = N_("Bing Wallpaper pictures folder");
 char *s = N_("Hide the indicator");
 char *s = N_("Indicator icon");
+char *s = N_("Enable desktop notifications");
 char *s = N_("Set background image");
 char *s = N_("Set lock screen image");
 char *s = N_("Download folder:");
+char *s = N_("Open folder");
 char *s = N_("Delete previously downloaded wallpapers:");
 char *s = N_("Days to store wallpapers before deleting:");
 char *s = N_("Bing locale:");

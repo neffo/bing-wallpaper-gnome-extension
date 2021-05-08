@@ -132,6 +132,42 @@
                         </property>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="notify_listboxrow">
+                        <property name="can_focus">0</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="notify_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="notify_label">
+                                <property name="can_focus">0</property>
+                                <property name="label" translatable="yes">Enable desktop notifications</property>
+                                <property name="wrap">1</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="notify">
+                                <property name="halign">end</property>
+                                <property name="hexpand">1</property>
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </property>
                 <child type="label_item">

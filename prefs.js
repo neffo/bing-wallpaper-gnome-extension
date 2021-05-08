@@ -57,6 +57,7 @@ function buildPrefsWidget(){
 
     let hideSwitch = buildable.get_object('hide');
     let iconEntry = buildable.get_object('icon');
+    let notifySwitch = buildable.get_object('notify');
     let bgSwitch = buildable.get_object('background');
     let lsSwitch = buildable.get_object('lock_screen');
     let fileChooserBtn = buildable.get_object('download_folder');
@@ -83,8 +84,9 @@ function buildPrefsWidget(){
     Utils.validate_resolution(settings);
     Utils.validate_icon(settings, icon_image);
 
-    // Indicator
+    // Indicator & notifications
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bing('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     Utils.icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
         iconEntry.append(iconname, iconname);
@@ -107,7 +109,6 @@ function buildPrefsWidget(){
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
         fileChooserBtn.set_label(settings.get_string('download-folder'));
         fileChooser.set_current_folder(Gio.File.new_for_path(settings.get_string('download-folder')).get_parent());
-        //fileChooser.set_file(Gio.File.new_for_path(settings.get_string('download-folder')).get_child());
         fileChooserBtn.connect('clicked', function(widget) {
             let parent = widget.get_root();
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
