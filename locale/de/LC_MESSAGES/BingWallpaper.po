@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Onno Giesmann <nutzer3105@gmail.com>, 2019-2020.
+# Onno Giesmann <nutzer3105@gmail.com>, 2019-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 13:29+1000\n"
+"POT-Creation-Date: 2021-05-09 18:16+1000\n"
+"PO-Revision-Date: 2021-05-10 07:34+1000\n"
 "Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -83,47 +83,47 @@ msgstr "Einstellungen"
 
 #: Settings.ui.h:16 Settings4.ui.h:17
 msgid "Use custom blur and brightness"
-msgstr ""
+msgstr "Eigene Unschärfe und Helligkeit einstellen"
 
 #: Settings.ui.h:17 Settings4.ui.h:18
 msgid "Override GDM3 lockscreen effects"
-msgstr ""
+msgstr "Effekte des GDM3-Sperrbildschirms überschreiben"
 
 #: Settings.ui.h:18 Settings4.ui.h:19
 msgid "Blur can improve readability of login prompt"
-msgstr ""
+msgstr "Unschärfe kann die Lesbarkeit des Anmeldedialogs verbessern"
 
 #: Settings.ui.h:19 Settings4.ui.h:20
 msgid "Background blur intensity"
-msgstr ""
+msgstr "Intensität der Hintergrundunschärfe"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Can improve contrast of login prompt"
-msgstr ""
+msgstr "Kann den Kontrast des Anmeldedialogs verbessern"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Background brightness"
-msgstr ""
+msgstr "Hintergrundhelligkeit"
 
 #: Settings.ui.h:22 Settings4.ui.h:23
 msgid "Presets"
-msgstr ""
+msgstr "Voreinstellungen"
 
 #: Settings.ui.h:23 Settings4.ui.h:24
 msgid "Commonly used presets"
-msgstr ""
+msgstr "Häufig verwendete Voreinstellungen"
 
 #: Settings.ui.h:24 Settings4.ui.h:25
 msgid "No blur, slight dim"
-msgstr ""
+msgstr "Keine Unschärfe, ein bisschen dimmen"
 
 #: Settings.ui.h:25 Settings4.ui.h:26
 msgid "GNOME default"
-msgstr ""
+msgstr "GNOME-Standard"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
 msgid "Slight blur, slight dim"
-msgstr ""
+msgstr "Etwas Unschärfe, ein bisschen dimmen"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "Lock Screen"
@@ -131,11 +131,13 @@ msgstr "Sperrbildschirm"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "New wallpaper images everyday from Bing"
-msgstr ""
+msgstr "Jeden Tag neue Hintergrundbilder von Bing"
 
 #: Settings.ui.h:29 Settings4.ui.h:30
+#, fuzzy
+#| msgid "Gnome shell extension version: "
 msgid "Gnome shell extension version "
-msgstr "Version dieser Gnome-Shell-Erweiterung "
+msgstr "Version dieser Gnome-Shell-Erweiterung: "
 
 #: Settings.ui.h:30 Settings4.ui.h:31
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -151,38 +153,37 @@ msgid ""
 "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
+"Unterstützen Sie den Autor auf <a href=\"https://flattr.com/@neffo\">Flattr</"
+"a> oder <a href=\"https://github.com/sponsors/neffo\">Github-Sponsoren</a>."
 
 #: Settings.ui.h:33 Settings4.ui.h:34
 msgid "Changes since last version"
-msgstr ""
+msgstr "Änderungen seit der letzten Version"
 
 #: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Basiert auf der NASA APOD Gnome-Shell-Erweiterung von Elia Argentieri"
 
 #: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Für dieses Programm kommt ohne JEDWEDE GARANTIE.\n"
-"Siehe auch <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, Version 3 oder neuer</a> für weitere "
-"Informationen</span>"
+"<span size=\"small\">Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
+"Schauen Sie sich die <a href=\"https://www.gnu.org/licenses/gpl-3.0.html"
+"\">GNU General Public License, Version 3 oder später</a> für weitere Details "
+"an.</span>"
 
 #: Settings.ui.h:37 Settings4.ui.h:38
 msgid "About"
 msgstr "Über"
 
 #: Settings4.ui.h:8
+#, fuzzy
+#| msgid "Download folder"
 msgid "Open folder"
-msgstr ""
+msgstr "Downloadordner"
 
 #: extension.js:117
 msgid "<No refresh scheduled>"
@@ -210,7 +211,7 @@ msgstr "Jetzt aktualisieren"
 
 #: extension.js:137
 msgid "Thumbnail disabled on Wayland"
-msgstr ""
+msgstr "Vorschaubild unter Wayland deaktiviert"
 
 #: extension.js:203
 msgid "Next refresh"
@@ -239,14 +240,12 @@ msgid "No picture for today 😞."
 msgstr "Heute kein Bild 😞."
 
 #: prefs.js:173
-#, fuzzy
 msgid "Most recent image"
-msgstr "Das heutige Bild"
+msgstr ""
 
 #: prefs.js:174
-#, fuzzy
 msgid "Random image"
-msgstr "Zufälliges bild"
+msgstr ""
 
 #: prefs.js:190 prefs.js:206
 msgid "Disabled on current GNOME version"
@@ -270,7 +269,7 @@ msgstr ""
 
 #: utils.js:186
 msgid "No change log found for this release"
-msgstr ""
+msgstr "Kein Änderungsverlauf gefunden für diese Version"
 
 #: utils.js:366 utils.js:369
 msgid "minutes"
