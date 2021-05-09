@@ -324,7 +324,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <object class="GtkLabel" id="download_folder_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Download folder:</property>
+                            <property name="label" translatable="yes">Download folder</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -379,7 +379,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <object class="GtkLabel" id="delete_previous_switch_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Delete previously downloaded wallpapers:</property>
+                            <property name="label" translatable="yes">Delete previously downloaded wallpapers</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -419,7 +419,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <object class="GtkLabel" id="days_delete_after_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Days to store wallpapers before deleting:</property>
+                            <property name="label" translatable="yes">Days to store wallpapers before deleting</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -486,7 +486,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Bing locale:</property>
+                            <property name="label" translatable="yes">Bing locale</property>
                             <property name="wrap">True</property>
                           </object>
                           <packing>
@@ -567,7 +567,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Screen resolution:</property>
+                            <property name="label" translatable="yes">Screen resolution</property>
                             <property name="wrap">True</property>
                           </object>
                           <packing>
@@ -647,7 +647,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Selected image:</property>
+                            <property name="label" translatable="yes">Selected image</property>
                             <property name="wrap">True</property>
                           </object>
                           <packing>
@@ -1097,7 +1097,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               <object class="GtkLabel" id="extension_version_label">
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Gnome shell extension version: </property>
+                <property name="label" translatable="yes">Gnome shell extension version </property>
               </object>
               <packing>
                 <property name="expand">False</property>

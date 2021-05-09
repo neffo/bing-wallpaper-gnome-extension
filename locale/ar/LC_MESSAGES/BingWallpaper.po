@@ -7,164 +7,285 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-30 15:02+1000\n"
-"PO-Revision-Date: 2020-12-30 10:50+0100\n"
+"POT-Creation-Date: 2021-05-09 13:04+1000\n"
+"PO-Revision-Date: 2021-05-09 13:06+1000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
-"Language: ar\n"
 
-#: Settings.ui.h:1
+#: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
 msgstr "إخفاء المؤشر"
 
-#: Settings.ui.h:2
+#: Settings.ui.h:2 Settings4.ui.h:3
 msgid "Indicator icon"
 msgstr "رمز المؤشر"
 
-#: Settings.ui.h:3 extension.js:164
+#: Settings.ui.h:3 Settings4.ui.h:4
+msgid "Enable desktop notifications"
+msgstr ""
+
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
 msgstr "صورة الخلفية"
 
-#: Settings.ui.h:4 extension.js:165
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
 msgstr "صورة الخلفية للشاشة المقفلة"
 
-#: Settings.ui.h:5
+#: Settings.ui.h:6 Settings4.ui.h:7
 msgid "Download folder:"
 msgstr "مجلد التحميل:"
 
-#: Settings.ui.h:6
+#: Settings.ui.h:7 Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
 msgstr "مجلد صور Bing الخلفية"
 
-#: Settings.ui.h:7
+#: Settings.ui.h:8 Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers:"
 msgstr "حذف صور الخلفية المحملة سابقا:"
 
-#: Settings.ui.h:8
+#: Settings.ui.h:9 Settings4.ui.h:10
 msgid "Days to store wallpapers before deleting:"
 msgstr "عدد الأيام قبل حذف صور الخلفية:"
 
-#: Settings.ui.h:9
+#: Settings.ui.h:10 Settings4.ui.h:11
 msgid "Bing locale:"
 msgstr "لغة Bing:"
 
-#: Settings.ui.h:10
+#: Settings.ui.h:11 Settings4.ui.h:12
 msgid "Default is English - United States"
 msgstr "الافتراضي هو الإنجليزية - الولايات المتحدة"
 
-#: Settings.ui.h:11
+#: Settings.ui.h:12 Settings4.ui.h:14
 msgid "Screen resolution:"
 msgstr "دقة الشاشة:"
 
-#: Settings.ui.h:12
+#: Settings.ui.h:13 Settings4.ui.h:15
 msgid "Override automatic resolution selection"
 msgstr "تجاوز دقة الشاشة التلقائية"
 
-#: Settings.ui.h:13 extension.js:167
+#: Settings.ui.h:14 Settings4.ui.h:13
+#, fuzzy
+#| msgid "Set lock screen image"
+msgid "Selected image:"
+msgstr "صورة الخلفية للشاشة المقفلة"
+
+#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: Settings.ui.h:14
+#: Settings.ui.h:16 Settings4.ui.h:17
+msgid "Use custom blur and brightness"
+msgstr ""
+
+#: Settings.ui.h:17 Settings4.ui.h:18
+msgid "Override GDM3 lockscreen effects"
+msgstr ""
+
+#: Settings.ui.h:18 Settings4.ui.h:19
+msgid "Blur can improve readability of login prompt"
+msgstr ""
+
+#: Settings.ui.h:19 Settings4.ui.h:20
+msgid "Background blur intensity"
+msgstr ""
+
+#: Settings.ui.h:20 Settings4.ui.h:21
+msgid "Can improve contrast of login prompt"
+msgstr ""
+
+#: Settings.ui.h:21 Settings4.ui.h:22
+#, fuzzy
+#| msgid "Set background image"
+msgid "Background brightness"
+msgstr "صورة الخلفية"
+
+#: Settings.ui.h:22 Settings4.ui.h:23
+msgid "Presets"
+msgstr ""
+
+#: Settings.ui.h:23 Settings4.ui.h:24
+msgid "Commonly used presets"
+msgstr ""
+
+#: Settings.ui.h:24 Settings4.ui.h:25
+msgid "No blur, slight dim"
+msgstr ""
+
+#: Settings.ui.h:25 Settings4.ui.h:26
+msgid "GNOME default"
+msgstr ""
+
+#: Settings.ui.h:26 Settings4.ui.h:27
+msgid "Slight blur, slight dim"
+msgstr ""
+
+#: Settings.ui.h:27 Settings4.ui.h:28
+msgid "Lock Screen"
+msgstr ""
+
+#: Settings.ui.h:28 Settings4.ui.h:29
+msgid "New wallpaper images everyday from Bing"
+msgstr ""
+
+#: Settings.ui.h:29 Settings4.ui.h:30
 msgid "Gnome shell extension version: "
 msgstr "إصدار امتدادات صدفة جنوم: "
 
-#: Settings.ui.h:15
-msgid ""
-"Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Displays the picture description and copyright information."
-msgstr ""
-"يغير صورة الخلفية يوميا إلى صورة اليوم من موقع Bing الخاص بمنطقتك. يعرض وصف "
-"الصورة ومعلومات حقوق النشر."
-
-#: Settings.ui.h:16
-msgid "Maintained by Michael Carroll"
-msgstr "يقوم بالصيانة Michael Carroll"
-
-#: Settings.ui.h:17
+#: Settings.ui.h:30 Settings4.ui.h:31
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:18
+#: Settings.ui.h:31 Settings4.ui.h:32
+msgid "Maintained by Michael Carroll"
+msgstr "يقوم بالصيانة Michael Carroll"
+
+#: Settings.ui.h:32 Settings4.ui.h:33
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+
+#: Settings.ui.h:33 Settings4.ui.h:34
+msgid "Changes since last version"
+msgstr ""
+
+#: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "يرتكز على امتداد صدفة جنوم NASA APOD لـElia Argentieri"
 
-#: Settings.ui.h:19
+#: Settings.ui.h:35 Settings4.ui.h:36
+#, fuzzy
+#| msgid ""
+#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 or later</a> for details.</span>"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
 msgstr ""
 "<span dir=\"rtl\" size=\"small\">يقدم هذا البرنامج دون أي ضمان على الإطلاق.\n"
 "راجع <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">رخصة "
 "جنو العمومية ، الإصدار 3 أو أحدث</a> لمزيد من التفاصيل.</span>"
 
-#: Settings.ui.h:21
+#: Settings.ui.h:37 Settings4.ui.h:38
 msgid "About"
 msgstr "عن هذا البرنامج"
 
-#: extension.js:88 extension.js:91
-msgid "minutes"
-msgstr "دقائق"
+#: Settings4.ui.h:8
+msgid "Open folder"
+msgstr ""
 
-#: extension.js:94
-msgid "days"
-msgstr "أيام"
-
-#: extension.js:97
-msgid "hours"
-msgstr "ساعات"
-
-#: extension.js:152
+#: extension.js:117
 msgid "<No refresh scheduled>"
 msgstr "<لا تحديث مجدول>"
 
-#: extension.js:154 extension.js:157 extension.js:160
+#: extension.js:119 extension.js:121 extension.js:123
 msgid "Awaiting refresh..."
 msgstr "في انتظار التحديث ..."
 
-#: extension.js:162
+#: extension.js:126
 msgid "Copy image to clipboard"
 msgstr "نسخ الصورة إلى الحافظة"
 
-#: extension.js:163
+#: extension.js:127
 msgid "Copy image URL to clipboard"
 msgstr "نسخ رابط الصورة إلى الحافظة"
 
-#: extension.js:166
+#: extension.js:128
+msgid "Open image folder"
+msgstr ""
+
+#: extension.js:131
 msgid "Refresh Now"
 msgstr "التحديث الآن"
 
-#: extension.js:209
+#: extension.js:137
+msgid "Thumbnail disabled on Wayland"
+msgstr ""
+
+#: extension.js:203
 msgid "Next refresh"
 msgstr "التحديث التالي"
 
-#: extension.js:394
+#: extension.js:490 extension.js:527
 msgid "Bing Wallpaper of the Day for"
 msgstr "صور Bing اليومية لـ"
 
-#: extension.js:399 prefs.js:181
-msgid "Market not available in your region"
-msgstr "خدمة غير متوفرة في منطقتك"
+#: extension.js:495
+msgid "Set as wallpaper"
+msgstr ""
 
-#: extension.js:447
+#: extension.js:498
+msgid "More info on Bing.com"
+msgstr ""
+
+#: extension.js:553
 msgid "No wallpaper available"
 msgstr "لا يوجد صور خلفية"
 
-#: extension.js:448
+#: extension.js:554
 msgid "No picture for today 😞."
 msgstr "لا توجد صورة لهذا اليوم 😞."
 
-#: prefs.js:169
+#: prefs.js:173
+#, fuzzy
+#| msgid "Set lock screen image"
+msgid "Most recent image"
+msgstr "صورة الخلفية للشاشة المقفلة"
+
+#: prefs.js:174
+msgid "Random image"
+msgstr ""
+
+#: prefs.js:190 prefs.js:206
+msgid "Disabled on current GNOME version"
+msgstr ""
+
+#: utils.js:139
 msgid "Fetching data..."
 msgstr "تحميل البيانات..."
 
-#: prefs.js:185
+#: utils.js:150
+msgid "Market not available in your region"
+msgstr "خدمة غير متوفرة في منطقتك"
+
+#: utils.js:154
 msgid "A network error occured"
 msgstr "حدث خطأ على مستوى الشبكة"
+
+#: utils.js:159
+msgid "Too many requests in 5 seconds"
+msgstr ""
+
+#: utils.js:186
+msgid "No change log found for this release"
+msgstr ""
+
+#: utils.js:366 utils.js:369
+msgid "minutes"
+msgstr "دقائق"
+
+#: utils.js:372
+msgid "days"
+msgstr "أيام"
+
+#: utils.js:375
+msgid "hours"
+msgstr "ساعات"
+
+#~ msgid ""
+#~ "Changes your wallpaper daily to the Bing picture of the day for your "
+#~ "region. Displays the picture description and copyright information."
+#~ msgstr ""
+#~ "يغير صورة الخلفية يوميا إلى صورة اليوم من موقع Bing الخاص بمنطقتك. يعرض "
+#~ "وصف الصورة ومعلومات حقوق النشر."

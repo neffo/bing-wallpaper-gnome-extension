@@ -263,7 +263,7 @@
                             <child>
                               <object class="GtkLabel" id="download_folder_label">
                                 <property name="can_focus">0</property>
-                                <property name="label" translatable="yes">Download folder:</property>
+                                <property name="label" translatable="yes">Download folder</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -312,7 +312,7 @@
                             <child>
                               <object class="GtkLabel" id="delete_previous_switch_label">
                                 <property name="can_focus">0</property>
-                                <property name="label" translatable="yes">Delete previously downloaded wallpapers:</property>
+                                <property name="label" translatable="yes">Delete previously downloaded wallpapers</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -346,7 +346,7 @@
                             <child>
                               <object class="GtkLabel" id="days_delete_after_label">
                                 <property name="can_focus">0</property>
-                                <property name="label" translatable="yes">Days to store wallpapers before deleting:</property>
+                                <property name="label" translatable="yes">Days to store wallpapers before deleting</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -399,7 +399,7 @@
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Bing locale:</property>
+                                <property name="label" translatable="yes">Bing locale</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -466,7 +466,7 @@
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Selected image:</property>
+                                <property name="label" translatable="yes">Selected image</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -531,7 +531,7 @@
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Screen resolution:</property>
+                                <property name="label" translatable="yes">Screen resolution</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -913,7 +913,7 @@
                     <property name="visible">0</property>
                     <property name="can_focus">0</property>
                     <property name="halign">end</property>
-                    <property name="label" translatable="yes">Gnome shell extension version: </property>
+                    <property name="label" translatable="yes">Gnome shell extension version </property>
                   </object>
                 </child>
                 <child>

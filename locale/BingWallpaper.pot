@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 01:15+1000\n"
+"POT-Creation-Date: 2021-05-09 18:16+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgid "Set lock screen image"
 msgstr ""
 
 #: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder:"
+msgid "Download folder"
 msgstr ""
 
 #: Settings.ui.h:7 Settings4.ui.h:1
@@ -46,15 +46,15 @@ msgid "Bing Wallpaper pictures folder"
 msgstr ""
 
 #: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers:"
+msgid "Delete previously downloaded wallpapers"
 msgstr ""
 
 #: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting:"
+msgid "Days to store wallpapers before deleting"
 msgstr ""
 
 #: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale:"
+msgid "Bing locale"
 msgstr ""
 
 #: Settings.ui.h:11 Settings4.ui.h:12
@@ -62,7 +62,7 @@ msgid "Default is English - United States"
 msgstr ""
 
 #: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution:"
+msgid "Screen resolution"
 msgstr ""
 
 #: Settings.ui.h:13 Settings4.ui.h:15
@@ -70,7 +70,7 @@ msgid "Override automatic resolution selection"
 msgstr ""
 
 #: Settings.ui.h:14 Settings4.ui.h:13
-msgid "Selected image:"
+msgid "Selected image"
 msgstr ""
 
 #: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
@@ -130,7 +130,7 @@ msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
 #: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version: "
+msgid "Gnome shell extension version "
 msgstr ""
 
 #: Settings.ui.h:30 Settings4.ui.h:31
