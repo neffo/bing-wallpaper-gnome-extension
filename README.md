@@ -11,6 +11,8 @@ and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.
 
 Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon](https://github.com/Starcross/bing-wallpaper-cinnamon) by Starcross.
 
+[![Get it on GNOME extensions](/screenshot/get_it_on_gnome_extensions.png)](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/)
+
 ## Features
 
 ![Screenshot](/screenshot/popup.png)
