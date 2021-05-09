@@ -141,6 +141,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.explainItem);
         this.prevBtn = this._newMenuIcon('go-previous-symbolic', this.explainItem, this._prevImage);
+        this.randomBtn = this._newMenuIcon('media-playlist-shuffle-symbolic', this.explainItem, this._setRandom);
         this.nextBtn = this._newMenuIcon('go-next-symbolic', this.explainItem, this._nextImage);
         this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.titleItem);
@@ -411,6 +412,18 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _prevImage: function () {
         this._gotoImage(-1);
+    },
+
+    _setRandom: function () {
+        if (this._settings.get_string('selected-image')=='random') {
+            // already set to random, so just roll the dice once more
+            this._selectImage();
+            this._restartTimeout(this._settings.get_int('random-interval'));
+        }
+        else {
+            // setting this will force a new image selection
+            this._settings.set_string('selected-image', 'random');
+        }
     },
 
     _gotoImage: function (relativePos) {
