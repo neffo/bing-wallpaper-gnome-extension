@@ -245,9 +245,6 @@ const BingWallpaperIndicator = new Lang.Class({
         blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
         blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
         this._settings.connect('changed::selected-image', Lang.bind(this, function () {
-            blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
-        }));
-        this._settings.connect('changed::selected-image', Lang.bind(this, function () {
             Utils.validate_imagename(this._settings);
             this.selected_image = this._settings.get_string('selected-image');
             log('selected image changed to :'+this.selected_image);
@@ -343,9 +340,9 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set menu text in lieu of a notification/popup
     _setMenuText: function() {
-        this.titleItem.label.set_text(this.title);
-        this.explainItem.label.set_text(this.explanation);
-        this.copyrightItem.label.set_text(this.copyright);
+        this.titleItem.label.set_text(this.title?this.title:'');
+        this.explainItem.label.set_text(this.explanation?this.explanation:'');
+        this.copyrightItem.label.set_text(this.copyright?this.copyright:'');
     },
 
     _wrapLabelItem: function (menuItem) {
@@ -478,21 +475,26 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // process Bing metadata
     _parseData: function(data) {
-        let parsed = JSON.parse(data);
-        let datamarket = parsed.market.mkt;
-        let prefmarket = this._settings.get_string('market');
-        // FIXME: we need to handle this better, including storing longer history & removing duplicates
-        let newImages = Utils.mergeImageLists(this._settings, parsed.images);
-        Utils.cleanupImageList(this._settings);
+        try {
+            let parsed = JSON.parse(data);
+            let datamarket = parsed.market.mkt;
+            let prefmarket = this._settings.get_string('market');
+            // FIXME: we need to handle this better, including storing longer history & removing duplicates
+            let newImages = Utils.mergeImageLists(this._settings, parsed.images);
+            Utils.cleanupImageList(this._settings);
 
-        log('JSON returned (raw):\n' + data);
-        this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
-        this._updatePending = false;
-        if (this._settings.get_boolean('notify')) {
-            let that = this;
-            newImages.forEach(function(image, index) {
-                that._createNotification(image);
-            });
+            log('JSON returned (raw):\n' + data);
+            this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
+            this._updatePending = false;
+            if (this._settings.get_boolean('notify')) {
+                let that = this;
+                newImages.forEach(function(image, index) {
+                    that._createNotification(image);
+                });
+            }
+        }
+        catch (error) {
+            log('_parseData() failed with error '+error);
         }
     },
 
@@ -533,7 +535,6 @@ const BingWallpaperIndicator = new Lang.Class({
         if (!image)
             image = imageList[0];
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
-        //image = imageList[0]; // this should be selected based on value of 'selected-image'
 
         if (image.url != '') {
             this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
@@ -585,28 +586,40 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _reStoreState: function() {
-        let stateJSON = this._settings.get_string('state');
-        let state = JSON.parse(stateJSON);
-        let maxLongDate = null;
-        maxLongdate = state.maxlongdate? state.maxlongdate: null;
-        this.title = state.title;
-        this.explanation = state.explanation;
-        this.copyright = state.copyright;
-        this.longstartdate = state.longstartdate;
-        this.imageinfolink = state.imageinfolink;
-        this.imageURL = state.imageURL;
-        this.filename = state.filename;
-        this._setMenuText();
-        this._setBackground();
-        if (this.selected_image == 'random' || !maxLongDate) {
-            this._restartTimeout(60);
+        try {
+            let stateJSON = this._settings.get_string('state');
+            let state = JSON.parse(stateJSON);
+            log('state length = '+state.count);
+            let maxLongDate = null;
+            maxLongdate = state.maxlongdate? state.maxlongdate: null;
+            this.title = state.title;
+            this.explanation = state.explanation;
+            this.copyright = state.copyright;
+            this.longstartdate = state.longstartdate;
+            this.imageinfolink = state.imageinfolink;
+            this.imageURL = state.imageURL;
+            this.filename = state.filename;
+            this._setMenuText();
+            this._setBackground();
+            if (!maxLongDate) {
+                this._restartTimeout(60);
+            } 
+            else if (this.selected_image == 'random') {
+                this._restartTimeout(this._settings.get_int('random-interval'));
+            }
+            else {
+                this._restartTimeoutFromLongDate(maxLongDate);
+            }
+            return;
         }
-        else {
-            this._restartTimeoutFromLongDate(maxLongDate);
+        catch (error) {
+            log('bad state - refreshing...');
         }
+        this._restartTimeout(60);
     },
 
     // download and process new image
+    // FIXME: improve error handling
     _downloadImage: function(url, file) {
         log("Downloading " + url + " to " + file.get_uri());
 
@@ -653,9 +666,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let maxpictures = this._settings.get_int('previous-days');
         let deletepictures = this._settings.get_boolean('delete-previous');
 
-        log("Raw: "+ rawimagelist+" count: "+imagelist.length);
         log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
-
         imagelist.push(filename); // add current to end of list
 
         while(imagelist.length > maxpictures+1) {
@@ -664,8 +675,13 @@ const BingWallpaperIndicator = new Lang.Class({
             if (deletepictures && to_delete != '') {
                 var file = Gio.file_new_for_path(to_delete);
                 if (file.query_exists(null)) {
-                    file.delete(null);
-                    log("deleted file: "+ to_delete);
+                    try {
+                        file.delete(null);
+                        log("deleted file: "+ to_delete);
+                    }
+                    catch (error) {
+                        log("an error occured deleting "+to_delete+" : "+error);
+                    }
                 }
             }
         }
@@ -673,7 +689,6 @@ const BingWallpaperIndicator = new Lang.Class({
         // put it back together and send back to settings
         rawimagelist = imagelist.join();
         this._settings.set_string('previous', rawimagelist);
-        log("wrote back this: "+rawimagelist);
     },
 
     // open image in default image view
@@ -706,6 +721,7 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
+    blur._disable();
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {

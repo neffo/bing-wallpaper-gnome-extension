@@ -116,11 +116,13 @@ function validate_resolution(settings) {
 
 // FIXME: needs work
 function validate_imagename(settings) {
-	/*let filename = settings.get_string('selected-image');
-	if (filename !='current' || filename != 'random' || !inImageList(getImageList(settings), filename)) {
+	let filename = settings.get_string('selected-image');
+	if (filename !='current' || filename != 'random')
+		return;
+	 if (!inImageList(getImageList(settings), filename)) {
 		log('invalid image selected');
 		//settings.reset('selected-image');
-	}*/
+	}
 }
 
 function validate_market(settings, marketDescription = null, lastreq = null) {
