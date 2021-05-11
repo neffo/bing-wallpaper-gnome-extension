@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 13:36+1000\n"
-"Last-Translator: Mario Rubio\n"
+"POT-Creation-Date: 2021-05-09 18:16+1000\n"
+"PO-Revision-Date: 2021-05-11 22:10+1000\n"
+"Last-Translator: Mario Rubio <mario@mrrb.eu>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
@@ -24,7 +24,7 @@ msgstr "Ocultar indicador"
 
 #: Settings.ui.h:2 Settings4.ui.h:3
 msgid "Indicator icon"
-msgstr ""
+msgstr "Icono del indicador"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
@@ -32,11 +32,11 @@ msgstr ""
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
-msgstr "Cambio automático de fondo de pantalla"
+msgstr "Establecer fondo de pantalla"
 
 #: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
-msgstr "Cambio automático de imagen en la pantalla de bloqueo"
+msgstr "Establecer fondo de pantalla de bloqueo"
 
 #: Settings.ui.h:6 Settings4.ui.h:7
 msgid "Download folder"
@@ -44,7 +44,7 @@ msgstr "Carpeta de descarga"
 
 #: Settings.ui.h:7 Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
-msgstr "Carpeta de almacenamiento de los fondos de pantalla Bing"
+msgstr "Carpeta de fondos de pantalla de Bing"
 
 #: Settings.ui.h:8 Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers"
@@ -58,9 +58,6 @@ msgstr "Días a almacenar fondos antes de su borrado"
 msgid "Bing locale"
 msgstr "Localización de Bing"
 
-# Locale names are automatically translated/fetched??
-# Yes > Por defecto se usa "Inglés - EEUU"
-# No > Por defecto se usa "English - United States"
 #: Settings.ui.h:11 Settings4.ui.h:12
 msgid "Default is English - United States"
 msgstr "Por defecto se usa \"English - United States\""
@@ -71,12 +68,12 @@ msgstr "Resolución de pantalla"
 
 #: Settings.ui.h:13 Settings4.ui.h:15
 msgid "Override automatic resolution selection"
-msgstr "Desactivar selección automática de resolución"
+msgstr "Ignorar selección automática de resolución"
 
 #: Settings.ui.h:14 Settings4.ui.h:13
 #, fuzzy
 msgid "Selected image"
-msgstr "Fondo"
+msgstr "Establecer fondo de pantalla de bloqueo"
 
 #: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
 msgid "Settings"
@@ -84,55 +81,56 @@ msgstr "Ajustes"
 
 #: Settings.ui.h:16 Settings4.ui.h:17
 msgid "Use custom blur and brightness"
-msgstr ""
+msgstr "Usar desenfoque y brillo personalizado"
 
 #: Settings.ui.h:17 Settings4.ui.h:18
 msgid "Override GDM3 lockscreen effects"
-msgstr ""
+msgstr "Ignorar efectos de la pantalla de bloqueo de GDM3"
 
 #: Settings.ui.h:18 Settings4.ui.h:19
 msgid "Blur can improve readability of login prompt"
 msgstr ""
+"El desenfoque puede mejorar la legibilidad de la pantalla de inicio de sesión"
 
 #: Settings.ui.h:19 Settings4.ui.h:20
 msgid "Background blur intensity"
-msgstr ""
+msgstr "Intensidad del desenfoque del fondo de pantalla"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Can improve contrast of login prompt"
-msgstr ""
+msgstr "Puede mejorar contraste de la pantalla de inicio de sesión"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Background brightness"
-msgstr ""
+msgstr "Brillo del fondo de pantalla"
 
 #: Settings.ui.h:22 Settings4.ui.h:23
 msgid "Presets"
-msgstr ""
+msgstr "Valores preestablecidos"
 
 #: Settings.ui.h:23 Settings4.ui.h:24
 msgid "Commonly used presets"
-msgstr ""
+msgstr "Valores preestablecidos más usados"
 
 #: Settings.ui.h:24 Settings4.ui.h:25
 msgid "No blur, slight dim"
-msgstr ""
+msgstr "Sin desenfoque, leve atenuación"
 
 #: Settings.ui.h:25 Settings4.ui.h:26
 msgid "GNOME default"
-msgstr ""
+msgstr "Por defecto de GNOME"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
 msgid "Slight blur, slight dim"
-msgstr ""
+msgstr "Leve desenfoque, leve atenuación"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "Lock Screen"
-msgstr ""
+msgstr "Pantalla de bloqueo"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "New wallpaper images everyday from Bing"
-msgstr ""
+msgstr "Nuevo fondo de pantalla de Bing todos los días"
 
 #: Settings.ui.h:29 Settings4.ui.h:30
 msgid "Gnome shell extension version "
@@ -144,7 +142,7 @@ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
 #: Settings.ui.h:31 Settings4.ui.h:32
 msgid "Maintained by Michael Carroll"
-msgstr "Mantenido por Michael Carroll"
+msgstr "Mantenida por Michael Carroll"
 
 #: Settings.ui.h:32 Settings4.ui.h:33
 msgid ""
@@ -152,28 +150,24 @@ msgid ""
 "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
+"Muestre su apoyo al autor en <a href=\"https://flattr.com/@neffo\">Flattr</"
+"a> o <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
 #: Settings.ui.h:33 Settings4.ui.h:34
 msgid "Changes since last version"
-msgstr ""
+msgstr "Cambios desde la última versión"
 
 #: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Basada en la extensión NASA APOD de Elia Argentieri"
 
 #: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Este programa se distribuye con la esperanza de que sea "
-"útil pero SIN NINGUNA GARANTÍA\n"
+"<span size=\"small\">Este software se distribuye sin NINGUNA GARANTÍA\n"
 "Para más detalles, vea <a href=\"https://www.gnu.org/licenses/old-licenses/"
 "gpl-2.0.html\">GNU General Public License, versión 3 o superior</a>.</span>"
 
@@ -183,19 +177,17 @@ msgstr "Sobre"
 
 #: Settings4.ui.h:8
 msgid "Open folder"
-msgstr "Abrir carpeta"
+msgstr "Abre la carpeta"
 
 #: extension.js:117
 msgid "<No refresh scheduled>"
 msgstr "<No hay actualizaciones programadas>"
 
 #: extension.js:119 extension.js:121 extension.js:123
-#, fuzzy
 msgid "Awaiting refresh..."
-msgstr "Esperando la actualización..."
+msgstr "Esperando para actualizar..."
 
 #: extension.js:126
-#, fuzzy
 msgid "Copy image to clipboard"
 msgstr "Copiar imagen al portapapeles"
 
@@ -204,9 +196,8 @@ msgid "Copy image URL to clipboard"
 msgstr "Copiar URL de la imagen al portapapeles"
 
 #: extension.js:128
-#, fuzzy
 msgid "Open image folder"
-msgstr "Abrir carpeta de imágenes"
+msgstr "Abra la carpeta de imágenes"
 
 #: extension.js:131
 msgid "Refresh Now"
@@ -214,7 +205,7 @@ msgstr "Actualizar ahora"
 
 #: extension.js:137
 msgid "Thumbnail disabled on Wayland"
-msgstr ""
+msgstr "Miniatura no disponible en Wayland"
 
 #: extension.js:203
 msgid "Next refresh"
@@ -225,8 +216,9 @@ msgid "Bing Wallpaper of the Day for"
 msgstr "Fondo de pantalla de Bing del día para"
 
 #: extension.js:495
+#, fuzzy
 msgid "Set as wallpaper"
-msgstr "Establecer fondo de pantalla"
+msgstr "Establecer como fondo de pantalla"
 
 #: extension.js:498
 msgid "More info on Bing.com"
@@ -242,7 +234,7 @@ msgstr "Hoy no hay ninguna imagen 😞."
 
 #: prefs.js:173
 msgid "Most recent image"
-msgstr ""
+msgstr "Imagen de hoy"
 
 #: prefs.js:174
 msgid "Random image"
@@ -273,55 +265,16 @@ msgstr ""
 
 #: utils.js:186
 msgid "No change log found for this release"
-msgstr ""
+msgstr "Esta versión no tiene registro de cambios"
 
 #: utils.js:366 utils.js:369
-#, fuzzy
 msgid "minutes"
 msgstr "minutos"
 
 #: utils.js:372
-#, fuzzy
 msgid "days"
-msgstr "dias"
+msgstr "días"
 
 #: utils.js:375
-#, fuzzy
 msgid "hours"
 msgstr "horas"
-
-#~ msgid ""
-#~ "Changes your wallpaper daily to the Bing picture of the day for your "
-#~ "region. Displays the picture description and copyright information."
-#~ msgstr ""
-#~ "Cambio diario del fondo de pantalla utilizando la foto del día regional "
-#~ "de Bing. Notificaciones automáticas con la descripción e información de "
-#~ "copyright de la imagen."
-
-#~ msgid "Send a notification with explanation when a new image is downloaded."
-#~ msgstr ""
-#~ "Mostrar una notificación explicatoria cada vez que se descargue una nueva "
-#~ "imagen."
-
-#~ msgid "Notifications"
-#~ msgstr "Notificaciones"
-
-#~ msgid "Use transient notifications (auto dismiss)"
-#~ msgstr "Usar notificaciones temporales"
-
-#~ msgid "Show description"
-#~ msgstr "Mostrar descripción"
-
-#~ msgid "Open extension settings"
-#~ msgstr "Abrir el menú de ajustes de la extensión"
-
-#~ msgid "Bing website"
-#~ msgstr "Página de Bing"
-
-#~ msgid ""
-#~ "The selected market is not available in your country or geographic "
-#~ "region.\n"
-#~ msgstr "El Servicio no está disponible en su país o región geográfica.\n"
-
-#~ msgid "This market is not available in your region"
-#~ msgstr "Este servicio no esta disponible en su región"
