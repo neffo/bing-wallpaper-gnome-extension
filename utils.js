@@ -399,3 +399,10 @@ function imageListSortByDate(imageList) {
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
+
+function shortenName(string, limit) {
+	if (string.length > limit) {
+		string = string.substr(0, limit-4) + '...';
+	}
+	return string;
+}

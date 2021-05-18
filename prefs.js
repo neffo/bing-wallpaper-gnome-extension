@@ -173,7 +173,7 @@ function buildPrefsWidget(){
     historyEntry.append('current',_('Most recent image'));
     historyEntry.append('random',_('Random image'));
     imageList.forEach(function (image) {
-            historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''),Utils.getImageTitle(image));
+            historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image),50));
     });
     settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::selected-image', function() {

@@ -351,10 +351,11 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _newMenuIcon: function (icon_name, parent, fn) {
-        //let icon_name = favorite ? 'starred-symbolic' : 'non-starred-symbolic';
         let icon = new St.Icon({
             icon_name: icon_name,
-            style_class: 'system-status-icon'
+            style_class: 'popup-menu-icon',
+            x_expand: false,
+            y_expand: false
         });
 
         let iconBtn = new St.Button({
@@ -367,7 +368,6 @@ const BingWallpaperIndicator = new Lang.Class({
         });
 
         getActorCompat(parent).add_child(iconBtn);
-        //parent.iconBtn = icofavBtn;
         iconBtn.connect('button-press-event',
             Lang.bind(this, fn)
         );
