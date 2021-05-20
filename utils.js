@@ -267,8 +267,7 @@ function getCurrentImageIndex (imageList)
 function getCurrentImage(imageList) {
 	if (!imageList || imageList.length == 0)
 		return null;
-	let index = getCurrentImageIndex(imageList)
-	log('getCurrentImage for '+maxLongDate+': '+index)
+	let index = getCurrentImageIndex(imageList);
 	if (index == -1)
 		return imageList[0]; // give something sensible
 	return imageList[index];
