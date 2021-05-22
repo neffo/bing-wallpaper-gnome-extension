@@ -67,7 +67,6 @@ function buildPrefsWidget(){
     let resolutionEntry = buildable.get_object('resolution');
     let historyEntry = buildable.get_object('history');
     let deleteSwitch = buildable.get_object('delete_previous');
-    let daysSpin = buildable.get_object('days_after_spinbutton');
     marketDescription = buildable.get_object('market_description');
     icon_image = buildable.get_object('icon_image');
     let overrideSwitch = buildable.get_object('lockscreen_override');
@@ -182,7 +181,6 @@ function buildPrefsWidget(){
 
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    settings.bind('previous-days', daysSpin, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     if (Convenience.currentVersionGreaterEqual("3.36")) {
         // lockscreen and desktop wallpaper are shared in GNOME 3.36+
