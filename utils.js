@@ -249,13 +249,16 @@ function getImageTitle(image_data) {
 	return image_data.copyright.replace(/\s*\(.*?\)\s*/g, "");
 }
 
+function getImageUrlBase(image_data) {
+	return image_data.urlbase.replace('/th?id=OHR.', '');
+}
+
 function getMaxLongDate(settings) {
 	imageList = getImageList(settings);
 	return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }))
 }
 
-function getCurrentImageIndex (imageList)
-{
+function getCurrentImageIndex (imageList) {
 	if (!imageList)
 		return -1;
 	let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
@@ -277,6 +280,16 @@ function inImageList(imageList, urlbase) {
 	let image = null;
 	imageList.forEach(function(x, i) {
 		if (urlbase.replace('/th?id=OHR.', '') == x.urlbase.replace('/th?id=OHR.', ''))
+			image = x;
+	});
+	return image;
+}
+
+function inImageListByTitle(imageList, title) {
+	let image = null;
+	imageList.forEach(function(x, i) {
+		log('inImageListbyTitle(): '+title+' == '+getImageTitle(x));
+		if (getImageTitle(x) == title)
 			image = x;
 	});
 	return image;
@@ -338,8 +351,10 @@ function getWallpaperDir(settings) {
 	return BingWallpaperDir;
 }
 
-function imageToFilename(settings, image, resolution) {
-	return getWallpaperDir(settings)+image.startdate+'-'+image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"+getResolution(settings, image)+".jpg";
+function imageToFilename(settings, image, resolution = null) {
+	return getWallpaperDir(settings)+image.startdate+'-'+
+		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"
+		+(resolution? resolution : getResolution(settings, image))+".jpg";
 }
 
 function getRandomInt(max) {

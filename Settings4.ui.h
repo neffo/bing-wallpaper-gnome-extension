@@ -7,7 +7,6 @@ char *s = N_("Set lock screen image");
 char *s = N_("Download folder");
 char *s = N_("Open folder");
 char *s = N_("Delete previously downloaded wallpapers");
-char *s = N_("Days to store wallpapers before deleting");
 char *s = N_("Bing locale");
 char *s = N_("Default is English - United States");
 char *s = N_("Selected image");

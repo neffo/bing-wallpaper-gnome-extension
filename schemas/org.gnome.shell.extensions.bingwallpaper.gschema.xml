@@ -119,6 +119,12 @@
       <description></description>
     </key>
 
+    <key name="revert-to-current-image" type="b">
+      <default>true</default>
+      <summary>Revert to showing the current image when a new one arrives</summary>
+      <description>This setting may best reflect what users want from selectable or random images</description>
+    </key>
+
     <key name="state" type="s">
       <default>"[]"</default>
       <summary>Store state in JSON format so we can restore details immediately on boot</summary>

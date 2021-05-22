@@ -482,16 +482,19 @@ const BingWallpaperIndicator = new Lang.Class({
             // FIXME: we need to handle this better, including storing longer history & removing duplicates
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
             Utils.cleanupImageList(this._settings);
-
-            log('JSON returned (raw):\n' + data);
-            this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
-            this._updatePending = false;
+            if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
+                // user wants to switch to the new image when it arrives
+                this._settings.set_string('selected-image', 'current');
+            }
             if (this._settings.get_boolean('notify')) {
                 let that = this;
                 newImages.forEach(function(image, index) {
                     that._createNotification(image);
                 });
             }
+
+            this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
+            this._updatePending = false;
         }
         catch (error) {
             log('_parseData() failed with error '+error);
@@ -503,17 +506,22 @@ const BingWallpaperIndicator = new Lang.Class({
         let source = new MessageTray.Source("Bing Wallpaper", "preferences-desktop-wallpaper-symbolic");
         Main.messageTray.add(source);
         let msg = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
-        let details = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+        let details = Utils.getImageTitle(image); //image.copyright.replace(/\s*\(.*?\)\s*/g, "");
         let notification = new MessageTray.Notification(source, msg, details);
         //notification.setTransient(transient);
-        // Add action to open Bing website with default browser
-        notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
-            this._settings.set_string('selected-image', image.urlbase.replace('/th?id=OHR.', ''));
-        }));
+        // Add action to open Bing website with default browser, this is unfortunately very hacky
+        /*notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
+            let imageList = Utils.getImageList(this._settings);
+            let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
+            this._settings.set_string('selected-image', Utils.getImageUrlBase(image));
+        }));*/
         notification.addAction(_("More info on Bing.com"), Lang.bind(this, function() {
-            Util.spawn(["xdg-open", image.imageinfolink]);
+            log("Open :"+notification.bannerBodyText);
+            let imageList = Utils.getImageList(this._settings);
+            let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
+            Util.spawn(["xdg-open", image.copyrightlink]);
         }));
-        source.notify(notification);
+        source.showNotification(notification);
     },
 
     _selectImage: function() {
@@ -562,6 +570,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 let changed = this._setBackground();
                 this._updatePending = false;
             }
+            //this._createNotification(image);
         } 
         else {
             this.title = _("No wallpaper available");
