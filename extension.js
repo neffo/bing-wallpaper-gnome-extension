@@ -502,7 +502,7 @@ const BingWallpaperIndicator = new Lang.Class({
         // set notifications icon
         let source = new MessageTray.Source("Bing Wallpaper", "preferences-desktop-wallpaper-symbolic");
         Main.messageTray.add(source);
-        let msg = _("Bing Wallpaper of the Day for")+' '+that._localeDate(x.startdate)
+        let msg = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
         let details = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
         let notification = new MessageTray.Notification(source, msg, details);
         //notification.setTransient(transient);
@@ -562,8 +562,8 @@ const BingWallpaperIndicator = new Lang.Class({
                 let changed = this._setBackground();
                 this._updatePending = false;
             }
-            
-        } else {
+        } 
+        else {
             this.title = _("No wallpaper available");
             this.explanation = _("No picture for today 😞.");
             this.filename = "";
