@@ -9,7 +9,7 @@
 const Gio = imports.gi.Gio;
 const GdkPixbuf = imports.gi.GdkPixbuf;
 
-class Thumbnail {
+var Thumbnail = class Thumbnail {
     constructor(filePath) {
         if (!filePath) {
             throw new Error(`need argument ${filePath}`);

@@ -23,9 +23,9 @@ const _ = Gettext.gettext;
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
-const PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
-const PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
-const PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
+var PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
+var PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
+var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
 
 var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions

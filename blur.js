@@ -14,8 +14,8 @@ const Shell = imports.gi.Shell;
 const Background = imports.ui.background;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
 const ExtensionUtils = imports.misc.extensionUtils;
-const _createBackground = UnlockDialog.prototype._createBackground;
-const _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects;
+var _createBackground = UnlockDialog.prototype._createBackground;
+var _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
@@ -34,7 +34,7 @@ function log(msg) {
         print("BingWallpaper extension/Blur: " + msg); // disable to keep the noise down in journal
 }
 
-class Blur {
+var Blur = class Blur {
     constructor() {
         log('Blur mode is '+blurMode);
     }

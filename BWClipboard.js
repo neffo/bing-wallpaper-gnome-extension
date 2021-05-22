@@ -11,7 +11,7 @@ const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 /*const Gdk = imports.gi.Gdk;
 const Gtk = imports.gi.Gtk;*/
 
-class BWClipboard {
+var BWClipboard = class BWClipboard {
     constructor() {
         /*
         this.display = Gdk.Display.get_default();
