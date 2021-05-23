@@ -320,12 +320,12 @@ function getImageByIndex(imageList, index) {
 
 function cleanupImageList(settings) {
 	let curList = imageListSortByDate(getImageList(settings));
-	let cutOff = GLib.DateTime.new_now_utc().add_days(-7); // 7 days ago
+	let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
 	let newList = [];
 	curList.forEach( function (x, i) {
 		let filename = imageToFilename(settings, x);
 		let diff = dateFromLongDate(x.fullstartdate,0).difference(cutOff);
-		// image is still downloadable (< 7 days old) or still on disk, so we keep
+		// image is still downloadable (< 8 days old) or still on disk, so we keep
 		if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
 			newList.push(x);
 		}

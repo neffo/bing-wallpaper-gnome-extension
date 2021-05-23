@@ -489,6 +489,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (this._settings.get_boolean('notify')) {
                 let that = this;
                 newImages.forEach(function(image, index) {
+                    log('New image to notify: '+Utils.getImageTitle(image));
                     that._createNotification(image);
                 });
             }
@@ -508,7 +509,7 @@ const BingWallpaperIndicator = new Lang.Class({
         let msg = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
         let details = Utils.getImageTitle(image); //image.copyright.replace(/\s*\(.*?\)\s*/g, "");
         let notification = new MessageTray.Notification(source, msg, details);
-        //notification.setTransient(transient);
+        notification.setTransient(this._settings.get_boolean('transient'));
         // Add action to open Bing website with default browser, this is unfortunately very hacky
         /*notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
             let imageList = Utils.getImageList(this._settings);
