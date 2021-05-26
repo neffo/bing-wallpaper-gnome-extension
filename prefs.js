@@ -118,9 +118,10 @@ function buildPrefsWidget(){
             if (response !== Gtk.ResponseType.ACCEPT) {
                 return;
             }
-            let fileURI = native.get_file();
+            let fileURI = fileChooser.get_file().get_uri();
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
+            Utils.moveImagesToNewFolder(settings, fileURI);
             settings.set_string('download-folder', fileURI);
         });
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special

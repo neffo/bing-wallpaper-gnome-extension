@@ -420,3 +420,7 @@ function shortenName(string, limit) {
 	}
 	return string;
 }
+
+function moveImagesToNewFolder(settings, fileURI) {
+	log('moveImagesToNewFolder(): stub function');
+}
