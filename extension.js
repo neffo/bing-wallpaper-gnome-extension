@@ -293,11 +293,11 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _setBackgroundDesktop: function() {
-        doSetBackground(this.filename, 'org.gnome.desktop.background');
+        doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
     },
     
     _setBackgroundScreensaver: function() {
-        doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
+        doSetBackground(this.filename, Utils.LOCKSCREEN_SCHEMA);
     },
 
     _copyURLToClipboard: function() {

@@ -27,6 +27,9 @@ var PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
 var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
 
+var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
+var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
+
 var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
 var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
@@ -348,6 +351,7 @@ function getWallpaperDir(settings) {
 	if (!dir.query_exists(null)) {
 		dir.make_directory_with_parents(null);
 	}
+	//FIXME: test if dir is good and writable
 	return BingWallpaperDir;
 }
 
@@ -421,6 +425,47 @@ function shortenName(string, limit) {
 	return string;
 }
 
-function moveImagesToNewFolder(settings, fileURI) {
+function moveImagesToNewFolder(settings, oldPath, newPath) {
 	log('moveImagesToNewFolder(): stub function');
+	// possible race condition here, need to think about how to fix it
+	//let BingWallpaperDir = settings.get_string('download-folder');
+	let dir = Gio.file_new_for_path(oldPath);
+	let dirIter = dir.enumerate_children("", Gio.FileQueryInfoFlags.NONE, null );
+	let newDir = Gio.file_new_for_path(newPath);
+	if (!newDir.query_exists(null)) {
+		newDir.make_directory_with_parents(null);
+	}
+	let file = null;
+	while (file = dirIter.next_file(null)) {
+		let filename = file.get_name();
+		if (filename.match(/\d{8}\-.+\.jpg/i)) {
+			log('file: '+slash(oldPath)+filename+' -> '+slash(newPath)+filename);
+			let cur = Gio.file_new_for_path(slash(oldPath)+filename);
+			let dest = Gio.file_new_for_path(slash(newPath)+filename);
+			cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ("...moved"); });
+		}
+	}
+	// fix filenames in previous queue
+	settings.set_string('previous', settings.get_string('previous').replaceAll(oldPath,newPath));
+	moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
+	moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
+
+function dirname(path) {
+	return path.match(/.*\//);
+}
+
+function slash(path) {
+	if (!path.endsWith('/'))
+		return path += '/';
+	return path;
+}
+
+function moveBackground(oldPath, newPath, schema) {
+    let gsettings = new Gio.Settings({schema: schema});
+    let uri = gsettings.get_string('picture-uri');
+    gsettings.set_string('picture-uri', uri.replace(oldPath, newPath));
+    Gio.Settings.sync();
+    gsettings.apply();
+}
+  

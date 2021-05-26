@@ -118,7 +118,7 @@ function buildPrefsWidget(){
             if (response !== Gtk.ResponseType.ACCEPT) {
                 return;
             }
-            let fileURI = fileChooser.get_file().get_uri();
+            let fileURI = fileChooser.get_file().get_uri().replace('file://','');
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
             Utils.moveImagesToNewFolder(settings, fileURI);
@@ -144,7 +144,8 @@ function buildPrefsWidget(){
         fileChooserBtn.set_filename(settings.get_string('download-folder'));
         log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-        fileChooserBtn.connect('file-set', function(widget) {
+        fileChooserBtn.connect('file-set', function(widget) {      
+            Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
             settings.set_string('download-folder', widget.get_filename());
         });
         Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
