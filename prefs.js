@@ -121,7 +121,7 @@ function buildPrefsWidget(){
             let fileURI = fileChooser.get_file().get_uri().replace('file://','');
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
-            Utils.moveImagesToNewFolder(settings, fileURI);
+            Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), fileURI);
             settings.set_string('download-folder', fileURI);
         });
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
