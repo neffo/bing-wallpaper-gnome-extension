@@ -183,10 +183,16 @@ const BingWallpaperIndicator = new Lang.Class({
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
         this.settingsItem.connect('activate', function() {
-            if (ExtensionUtils.openPrefs)
+            try {
                 ExtensionUtils.openPrefs();
-            else 
-                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
+            }
+            catch (e) {
+                log('Falling back to Util.spawn to launch extensions...');
+                if (Convenience.currentVersionSmaller("3.36"))
+                    Util.spawn(['gnome-shell-extension-prefs', Me.metadata.uuid]); // fall back for older gnome versions
+                else 
+                    Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]);
+            }
         });
 
         getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
@@ -362,7 +368,7 @@ const BingWallpaperIndicator = new Lang.Class({
             style_class: 'ci-action-btn',
             can_focus: true,
             child: icon,
-            x_align: Clutter.ActorAlign.END,
+            /* x_align: Clutter.ActorAlign.END, // FIXME: errors on GNOME 3.28, default to center is ok */
             x_expand: true,
             y_expand: true
         });
