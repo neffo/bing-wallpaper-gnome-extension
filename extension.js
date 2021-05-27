@@ -533,18 +533,14 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _selectImage: function() {
         imageList = JSON.parse(this._settings.get_string('bing-json'));
-        //let selected_image = this._settings.get_string('selected-image');
-        //let image = imageList.findIndex(Utils.imageHasBasename, null, null, this.selected_image);
         let image = null;
         if (this.selected_image == 'random') {
             image = imageList[Utils.getRandomInt(imageList.length)];
             this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
         } else if (this.selected_image == 'current') {
             image = Utils.getCurrentImage(imageList);
-        } else {    
-            //let indx = imageList.findIndex(x => this.selected_image.search(x.urlbase.replace('/th?id=OHR.', ''))>0);
+        } else {
             image = Utils.inImageList(imageList, this.selected_image);
-            //image = imageList[indx];
             log('_selectImage: '+this.selected_image+' = '+image?image.urlbase:"not found");
         }
         if (!image)
@@ -577,7 +573,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 let changed = this._setBackground();
                 this._updatePending = false;
             }
-            //this._createNotification(image);
+            //this._createNotification(image); // for testing
         } 
         else {
             this.title = _("No wallpaper available");

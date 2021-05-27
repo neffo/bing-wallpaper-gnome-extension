@@ -37,6 +37,8 @@ var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[
 var vertical_blur = null;
 var horizontal_blur = null;
 
+let debug = true;
+
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
 	Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
@@ -437,7 +439,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
 	}
 	let file = null;
 	while (file = dirIter.next_file(null)) {
-		let filename = file.get_name();
+		let filename = file.get_name(); // we only want to move files that we think we own
 		if (filename.match(/\d{8}\-.+\.jpg/i)) {
 			log('file: '+slash(oldPath)+filename+' -> '+slash(newPath)+filename);
 			let cur = Gio.file_new_for_path(slash(oldPath)+filename);
@@ -447,8 +449,11 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
 	}
 	// fix filenames in previous queue
 	settings.set_string('previous', settings.get_string('previous').replaceAll(oldPath,newPath));
-	moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-	moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
+	// correct filenames for GNOME backgrounds
+	if (this._settings.get_boolean('set-background'))
+		moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
+	if (this._settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller("3.36"))
+		moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
 function dirname(path) {
@@ -468,4 +473,10 @@ function moveBackground(oldPath, newPath, schema) {
     Gio.Settings.sync();
     gsettings.apply();
 }
+
+function log(msg) {
+    if (debug)
+        print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+}
+
   

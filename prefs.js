@@ -223,3 +223,8 @@ function buildPrefsWidget(){
     return box;
 }
 
+function log(msg) {
+    if (settings.get_boolean('debug-logging'))
+        print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+}
+
