@@ -7,13 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-30 15:02+1000\n"
-"PO-Revision-Date: 2020-07-29 21:12+0200\n"
+"POT-Creation-Date: 2021-03-28 21:10+1000\n"
+"PO-Revision-Date: 2021-05-29 11:56+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.3\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sv\n"
@@ -26,11 +26,11 @@ msgstr "Göm indikatorn"
 msgid "Indicator icon"
 msgstr "Indikatorikon"
 
-#: Settings.ui.h:3 extension.js:164
+#: Settings.ui.h:3 extension.js:186
 msgid "Set background image"
 msgstr "Välj backgrundsbild"
 
-#: Settings.ui.h:4 extension.js:165
+#: Settings.ui.h:4 extension.js:187
 msgid "Set lock screen image"
 msgstr "Välj låsskärmsbild"
 
@@ -44,11 +44,11 @@ msgstr "Bing Wallpaper nedladdningsmapp"
 
 #: Settings.ui.h:7
 msgid "Delete previously downloaded wallpapers:"
-msgstr "Ta bort tidigare nedladdade bakgrundsbilder:"
+msgstr "Radera tidigare nedladdade bakgrundsbilder:"
 
 #: Settings.ui.h:8
 msgid "Days to store wallpapers before deleting:"
-msgstr "Antal dagar innan bilder tas bort:"
+msgstr "Antal dagar innan bilder raderas:"
 
 #: Settings.ui.h:9
 msgid "Bing locale:"
@@ -66,104 +66,170 @@ msgstr "Skärmupplösning:"
 msgid "Override automatic resolution selection"
 msgstr "Välj manuell skärmupplösning"
 
-#: Settings.ui.h:13 extension.js:167
+#: Settings.ui.h:13 extension.js:189
 msgid "Settings"
 msgstr "Inställningar"
 
 #: Settings.ui.h:14
+msgid "Use custom blur and brightness"
+msgstr "Använd "
+
+#: Settings.ui.h:15
+msgid "Override GDM3 lockscreen effects"
+msgstr "Åsidosätt GDM3s låsskärmseffekter"
+
+#: Settings.ui.h:16
+msgid "Blur can improve readability of login prompt"
+msgstr "Oskärpa kan förbättra läsbarheten för inloggningsfältet"
+
+#: Settings.ui.h:17
+msgid "Background blur intensity"
+msgstr "Bakgrundsoskärpa"
+
+#: Settings.ui.h:18
+msgid "Can improve contrast of login prompt"
+msgstr "Kan förbättra kontrasten för inloggningsfältet"
+
+#: Settings.ui.h:19
+msgid "Background brightness"
+msgstr "Bakgrundsbelysning"
+
+#: Settings.ui.h:20
+msgid "Presets"
+msgstr "Förinställningar"
+
+#: Settings.ui.h:21
+msgid "Commonly used presets"
+msgstr "Vanliga inställningar"
+
+#: Settings.ui.h:22
+msgid "No blur, slight dim"
+msgstr "Endast dimrat"
+
+#: Settings.ui.h:23
+msgid "GNOME default"
+msgstr "GNOME-standard"
+
+#: Settings.ui.h:24
+msgid "Slight blur, slight dim"
+msgstr "Något oskarpt och dimrat"
+
+#: Settings.ui.h:25
+msgid "Lock Screen"
+msgstr "Låsskärm"
+
+#: Settings.ui.h:26
+msgid "New wallpaper images everyday from Bing"
+msgstr "Nya skrivbordsbakgrundsbilder dagligen från Bing"
+
+#: Settings.ui.h:27
 msgid "Gnome shell extension version: "
 msgstr "GNOME shell-tillägg version: "
 
-#: Settings.ui.h:15
-msgid ""
-"Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Displays the picture description and copyright information."
-msgstr ""
-"Ändrar skrivbordsbakgrund till Bings dagliga bakgrundsbild för din region . "
-"Visar bild- och copyrightinformation."
-
-#: Settings.ui.h:16
-msgid "Maintained by Michael Carroll"
-msgstr "Underhålls av Michael Carroll"
-
-#: Settings.ui.h:17
+#: Settings.ui.h:28
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:18
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baserat på \"NASA APOD Gnome shell extensions\" av Elia Argentieri"
+#: Settings.ui.h:29
+msgid "Maintained by Michael Carroll"
+msgstr "Underhålls av Michael Carroll"
 
-#: Settings.ui.h:19
+#: Settings.ui.h:30
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+"Stöd tillägget genom <a href=\"https://flattr.com/@neffo\">Flattr</a> "
+"eller <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
+
+#: Settings.ui.h:31
+msgid "Changes since last version"
+msgstr "Nyheter"
+
+#: Settings.ui.h:32
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr ""
+"Baserat på \\\"NASA APOD Gnome shell extensions\\\" av Elia Argentieri"
+
+#: Settings.ui.h:33
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 or later</a> for details.</span>"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Detta program kommer INTE MED NÅGON GARANTI.\n"
-"Se <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
-"General Public License, version 3 eller senare</a> för detaljer.</span>"
+"<span size=\"small\">Detta program distribueras UTAN NÅGRA GARANTIER.\n"
+"Se <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 eller senare</a> för detaljer.</span>"
 
-#: Settings.ui.h:21
+#: Settings.ui.h:35
 msgid "About"
 msgstr "Om"
 
-#: extension.js:88 extension.js:91
+#: extension.js:97 extension.js:100
 msgid "minutes"
 msgstr "minuter"
 
-#: extension.js:94
+#: extension.js:103
 msgid "days"
 msgstr "dagar"
 
-#: extension.js:97
+#: extension.js:106
 msgid "hours"
 msgstr "timmar"
 
-#: extension.js:152
+#: extension.js:172
 msgid "<No refresh scheduled>"
 msgstr "<Ingen uppdatering schemalagd>"
 
-#: extension.js:154 extension.js:157 extension.js:160
+#: extension.js:174 extension.js:177 extension.js:180
 msgid "Awaiting refresh..."
 msgstr "Uppdaterar..."
 
-#: extension.js:162
+#: extension.js:184
 msgid "Copy image to clipboard"
 msgstr "Kopiera bild till urklippet"
 
-#: extension.js:163
+#: extension.js:185
 msgid "Copy image URL to clipboard"
 msgstr "Kopiera bildlänk till urklippet"
 
-#: extension.js:166
+#: extension.js:188
 msgid "Refresh Now"
 msgstr "Uppdatera"
 
-#: extension.js:209
+#: extension.js:194
+msgid "Thumbnail disabled on Wayland"
+msgstr "Miniatyrbild är inaktiverad på Wayland"
+
+#: extension.js:245
 msgid "Next refresh"
 msgstr "Nästa uppdatering"
 
-#: extension.js:394
+#: extension.js:428
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bings dagliga bakgrundsbild för"
 
-#: extension.js:399 prefs.js:181
+#: extension.js:433 utils.js:135
 msgid "Market not available in your region"
 msgstr "Marknaden är inte tillgänglig för din region"
 
-#: extension.js:447
+#: extension.js:481
 msgid "No wallpaper available"
 msgstr "Inga skrivbordsbakgrunder tillgängliga"
 
-#: extension.js:448
+#: extension.js:482
 msgid "No picture for today 😞."
-msgstr "Inga nya bilder idag :(."
+msgstr "Inga nya bilder idag 😞."
 
-#: prefs.js:169
+#: utils.js:124
 msgid "Fetching data..."
 msgstr "Hämtar data..."
 
-#: prefs.js:185
+#: utils.js:139
 msgid "A network error occured"
 msgstr "Ett nätverksproblem inträffade"
+
+#: utils.js:168
+msgid "No change log found for this release"
+msgstr "Nyheter saknas för denna version"
