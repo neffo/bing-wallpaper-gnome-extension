@@ -72,6 +72,9 @@ function buildPrefsWidget(){
     let overrideSwitch = buildable.get_object('lockscreen_override');
     let strengthEntry = buildable.get_object('entry_strength');
     let brightnessEntry = buildable.get_object('entry_brightness');
+    let debugSwitch = buildable.get_object('debug_switch');
+    let revertSwitch = buildable.get_object('revert_switch');
+    let unsafeSwitch = buildable.get_object('unsafe_switch');
     let change_log = buildable.get_object('change_log');
 
     let buttonGDMdefault = buildable.get_object('button_default_gnome');
@@ -99,6 +102,10 @@ function buildPrefsWidget(){
 
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+
 
     folderOpenBtn.connect('clicked', function(widget) {
         Utils.openImageFolder(settings);
