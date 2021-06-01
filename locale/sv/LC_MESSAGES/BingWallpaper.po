@@ -124,7 +124,7 @@ msgstr "Låsskärm"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "New wallpaper images everyday from Bing"
-msgstr "Daglige nya skrivbordsbakgrundsbilder från Bing"
+msgstr "Dagliga nya skrivbordsbakgrundsbilder från Bing"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "Gnome shell extension version "
