@@ -884,7 +884,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="margin_bottom">12</property>
                             <property name="column_spacing">32</property>
                             <child>
-                              <object class="GtkSwitch" id="debug_override">
+                              <object class="GtkSwitch" id="debug_switch">
                                 <property name="halign">end</property>
                                 <layout>
                                   <property name="column">1</property>
@@ -968,7 +968,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               </object>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="revert_override">
+                              <object class="GtkSwitch" id="revert_switch">
                                 <property name="halign">end</property>
                                 <layout>
                                   <property name="column">1</property>
@@ -1024,7 +1024,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               </object>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="unsafe_override">
+                              <object class="GtkSwitch" id="unsafe_switch">
                                 <property name="halign">end</property>
                                 <layout>
                                   <property name="column">1</property>
