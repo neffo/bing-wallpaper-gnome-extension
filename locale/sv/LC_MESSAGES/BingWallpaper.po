@@ -28,7 +28,7 @@ msgstr "Indikatorikon"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Aktivera aviseringar"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
@@ -68,7 +68,7 @@ msgstr "Välj manuell skärmupplösning"
 
 #: Settings.ui.h:13 Settings4.ui.h:12
 msgid "Selected image"
-msgstr ""
+msgstr "Vald bild"
 
 #: Settings.ui.h:14 Settings4.ui.h:15 extension.js:132
 msgid "Settings"
@@ -222,11 +222,11 @@ msgstr "Inga nya bilder idag 😞."
 
 #: prefs.js:172
 msgid "Most recent image"
-msgstr ""
+msgstr "Den senaste bilden"
 
 #: prefs.js:173
 msgid "Random image"
-msgstr ""
+msgstr "Slumpmässig bild"
 
 #: prefs.js:188 prefs.js:204
 #, fuzzy
@@ -247,7 +247,7 @@ msgstr "Ett nätverksproblem inträffade"
 
 #: utils.js:161
 msgid "Too many requests in 5 seconds"
-msgstr ""
+msgstr "För många förfrågningar under fem sekunder"
 
 #: utils.js:188
 msgid "No change log found for this release"
