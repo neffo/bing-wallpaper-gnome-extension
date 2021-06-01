@@ -25,7 +25,7 @@ var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[
 
 var blur_strength = 2;
 var blur_brightness = 55;
-var debug = true;
+var debug = false;
 
 var blurMode = whichVersion();
 

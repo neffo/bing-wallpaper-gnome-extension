@@ -363,73 +363,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               </object>
             </child>
             <child>
-              <object class="GtkFrame" id="market_frame">
-                <property name="can_focus">0</property>
-                <property name="child">
-                  <object class="GtkListBox" id="market_listbox">
-                    <property name="can_focus">0</property>
-                    <property name="selection_mode">none</property>
-                    <child>
-                      <object class="GtkListBoxRow" id="market_listboxrow">
-                        <property name="can_focus">0</property>
-                        <property name="child">
-                          <object class="GtkGrid" id="market_grid">
-                            <property name="can_focus">0</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin_top">12</property>
-                            <property name="margin_bottom">12</property>
-                            <property name="column_spacing">32</property>
-                            <child>
-                              <object class="GtkLabel" id="market_label">
-                                <property name="can_focus">0</property>
-                                <property name="halign">start</property>
-                                <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Bing locale</property>
-                                <property name="wrap">1</property>
-                                <layout>
-                                  <property name="column">0</property>
-                                  <property name="row">0</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="market_description">
-                                <property name="can_focus">0</property>
-                                <property name="halign">start</property>
-                                <property name="hexpand">0</property>
-                                <property name="label" translatable="yes">Default is English - United States</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                                <layout>
-                                  <property name="column">0</property>
-                                  <property name="row">1</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <!--<child>
-                              <object class="GtkDropDown" id="market">
-                                <property name="can_focus">0</property>
-                                <layout>
-                                  <property name="column">1</property>
-                                  <property name="row">0</property>
-                                  <property name="row-span">2</property>
-                                </layout>
-                              </object>
-                            </child> -->
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-                <child type="label_item">
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-            <child>
               <object class="GtkFrame" id="history_frame">
                 <property name="can_focus">0</property>
                 <property name="child">
@@ -495,17 +428,17 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               </object>
             </child>
             <child>
-              <object class="GtkFrame" id="resolution_frame">
+              <object class="GtkFrame" id="market_frame">
                 <property name="can_focus">0</property>
                 <property name="child">
-                  <object class="GtkListBox" id="resolution_listbox">
+                  <object class="GtkListBox" id="market_listbox">
                     <property name="can_focus">0</property>
                     <property name="selection_mode">none</property>
                     <child>
-                      <object class="GtkListBoxRow" id="resolution_listboxrow">
+                      <object class="GtkListBoxRow" id="market_listboxrow">
                         <property name="can_focus">0</property>
                         <property name="child">
-                          <object class="GtkGrid" id="resolution_grid">
+                          <object class="GtkGrid" id="market_grid">
                             <property name="can_focus">0</property>
                             <property name="margin-start">12</property>
                             <property name="margin-end">12</property>
@@ -513,11 +446,11 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="margin_bottom">12</property>
                             <property name="column_spacing">32</property>
                             <child>
-                              <object class="GtkLabel" id="resolution_label">
+                              <object class="GtkLabel" id="market_label">
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Screen resolution</property>
+                                <property name="label" translatable="yes">Bing locale</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -526,25 +459,17 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="resolution_description">
+                              <object class="GtkLabel" id="market_description">
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Override automatic resolution selection</property>
+                                <property name="hexpand">0</property>
+                                <property name="label" translatable="yes">Default is English - United States</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">1</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="resolution">
-                                <layout>
-                                  <property name="column">1</property>
-                                  <property name="row">0</property>
-                                  <property name="row-span">2</property>
                                 </layout>
                               </object>
                             </child>
@@ -559,6 +484,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
               </object>
             </child>
+            
           </object>
         </property>
         <property name="tab">
@@ -897,7 +823,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Log to system journal</property>
+                                <property name="label" translatable="yes">Enable logging to system journal</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -944,7 +870,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Always switch to new images when available</property>
+                                <property name="label" translatable="yes">Switch to new images when available (unless on random mode)</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -959,7 +885,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Always show new image</property>
+                                <property name="label" translatable="yes">Always show new images</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -1000,7 +926,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Some features may be unstable on Wayland</property>
+                                <property name="label" translatable="yes">Some newer features may be unstable on Wayland</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -1034,6 +960,57 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             </child>
                             <child>
                               <placeholder/>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="resolution_listboxrow">
+                        <property name="can_focus">0</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="resolution_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="resolution_label">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Screen resolution</property>
+                                <property name="wrap">1</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="resolution_description">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Override automatic resolution selection</property>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="resolution">
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                  <property name="row-span">2</property>
+                                </layout>
+                              </object>
                             </child>
                           </object>
                         </property>

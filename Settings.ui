@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.2 
 
-Copyright (C) 2017-2020
+Copyright (C) 2017-2021
 
 This file is part of Bing Wallpaper extension preferences.
 
@@ -339,7 +339,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                         </child>
                         <child>
                           <object class="GtkButton" id="button_open_download_folder">
-                            <property name="label">Open folder</property>
+                            <property name="label" translatable="yes">Open folder</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -968,7 +968,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Log to system journal</property>
+                            <property name="label" translatable="yes">Enable logging to system journal</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -1015,7 +1015,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Always show new image</property>
+                            <property name="label" translatable="yes">Always show new images</property>
                             <property name="wrap">True</property>
                           </object>
                           <packing>
@@ -1029,7 +1029,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Always switch to new images when available</property>
+                            <property name="label" translatable="yes">Switch to new images when available (unless on random mode)</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -1190,7 +1190,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
       <object class="GtkLabel" id="debug_tab_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Debug</property>
+        <property name="label" translatable="yes">Debug options</property>
       </object>
       <packing>
         <property name="position">2</property>

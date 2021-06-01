@@ -23,9 +23,9 @@ const _ = Gettext.gettext;
 let httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
-var PRESET_GNOME_DEFAULT = { blur: 60, dim: 60 }; // fixme: double check this
-var PRESET_NO_BLUR = { blur: 0, dim: 60 }; // fixme: double check this
-var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; // fixme: double check this
+var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
+var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
+var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; 
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';

@@ -601,7 +601,6 @@ const BingWallpaperIndicator = new Lang.Class({
         try {
             let stateJSON = this._settings.get_string('state');
             let state = JSON.parse(stateJSON);
-            log('state length = '+Object(state).keys.length);
             let maxLongDate = null;
             maxLongdate = state.maxlongdate? state.maxlongdate: null;
             this.title = state.title;

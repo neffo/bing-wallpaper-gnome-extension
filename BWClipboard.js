@@ -19,18 +19,12 @@ var BWClipboard = class BWClipboard {
         this.clipboard = St.Clipboard.get_default();
     }
 
-    /* 
-    setImage(pixbuf) {
-        this.clipboard.set_image(pixbuf);
-    }
-    */
-
     // non functional, getting this to function would likely involve using Gtk, which seems to be a bit unsafe on Wayland
     setImage(filename) {
         try {
             let file = Gio.File.new_for_path(filename);
             let [success, image_data] = file.load_contents(null);
-            log('error: '+success);
+            //log('error: '+success);
             this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
         } catch (err) {
             log('unable to set clipboard to data in '+filename);
