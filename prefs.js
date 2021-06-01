@@ -114,7 +114,7 @@ function buildPrefsWidget(){
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
         fileChooserBtn.set_label(settings.get_string('download-folder'));
-        fileChooser.set_current_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings).get_parent()));
+        fileChooser.set_current_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)).get_parent());
         fileChooserBtn.connect('clicked', function(widget) {
             let parent = widget.get_root();
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
