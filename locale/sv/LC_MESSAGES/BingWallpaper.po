@@ -32,7 +32,7 @@ msgstr "Aktivera aviseringar"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
-msgstr "Välj backgrundsbild"
+msgstr "Välj bakgrundsbild"
 
 #: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
