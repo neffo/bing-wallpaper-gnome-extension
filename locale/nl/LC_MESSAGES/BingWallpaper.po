@@ -7,177 +7,292 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 18:11+1000\n"
-"PO-Revision-Date: 2020-03-04 18:40+1000\n"
+"POT-Creation-Date: 2021-05-09 13:10+1000\n"
+"PO-Revision-Date: 2021-05-09 14:16+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Settings.ui.h:1
+#: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
 msgstr "Verberg de indicator"
 
-#: Settings.ui.h:2
+#: Settings.ui.h:2 Settings4.ui.h:3
+#, fuzzy
 msgid "Indicator icon"
+msgstr "Indicator"
+
+#: Settings.ui.h:3 Settings4.ui.h:4
+msgid "Enable desktop notifications"
 msgstr ""
 
-#: Settings.ui.h:3 extension.js:159
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
 msgstr "Stel achtergrondafbeelding in"
 
-#: Settings.ui.h:4 extension.js:160
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
 msgstr "Stel vergrendelscherm afbeelding in"
 
-#: Settings.ui.h:5
-msgid "Download folder:"
-msgstr "Download map:"
+#: Settings.ui.h:6 Settings4.ui.h:7
+msgid "Download folder"
+msgstr "Download map"
 
-#: Settings.ui.h:6
+#: Settings.ui.h:7 Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
 msgstr "Bing Wallpaper afbeeldingenmap"
 
-#: Settings.ui.h:7
-msgid "Delete previously downloaded wallpapers:"
-msgstr "Verwijder voorgaand gedownloade achtergronden:"
+#: Settings.ui.h:8 Settings4.ui.h:9
+msgid "Delete previously downloaded wallpapers"
+msgstr "Verwijder voorgaand gedownloade achtergronden"
 
-#: Settings.ui.h:8
-msgid "Days to store wallpapers before deleting:"
-msgstr "Dagen voordat opgeslagen achtergronden verwijderd worden:"
+#: Settings.ui.h:9 Settings4.ui.h:10
+msgid "Days to store wallpapers before deleting"
+msgstr "Dagen voordat opgeslagen achtergronden verwijderd worden"
 
-#: Settings.ui.h:9
-msgid "Bing locale:"
-msgstr "Bing landinstelling:"
+#: Settings.ui.h:10 Settings4.ui.h:11
+msgid "Bing locale"
+msgstr "Bing landinstelling"
 
-#: Settings.ui.h:10
-#, fuzzy
-#| msgid "Default is en-US"
+#: Settings.ui.h:11 Settings4.ui.h:12
 msgid "Default is English - United States"
-msgstr "Standaard is en-US"
+msgstr "Standaard is English - United States"
 
-#: Settings.ui.h:11
-msgid "Screen resolution:"
-msgstr "Schermresolutie:"
+#: Settings.ui.h:12 Settings4.ui.h:14
+msgid "Screen resolution"
+msgstr "Schermresolutie"
 
-#: Settings.ui.h:12
+#: Settings.ui.h:13 Settings4.ui.h:15
 msgid "Override automatic resolution selection"
 msgstr "Kracht optie voor schermresolutie"
 
-#: Settings.ui.h:13 extension.js:162
+#: Settings.ui.h:14 Settings4.ui.h:13
+#, fuzzy
+msgid "Selected image"
+msgstr "Valitud pilt"
+
+#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
 msgid "Settings"
 msgstr "Instellingen"
 
-#: Settings.ui.h:14
-msgid "Gnome shell extension version: "
-msgstr "Gnome shell extensie versie: "
-
-#: Settings.ui.h:15
-msgid ""
-"Changes your wallpaper daily to the Bing picture of the day for your region. "
-"Displays the picture description and copyright information."
+#: Settings.ui.h:16 Settings4.ui.h:17
+msgid "Use custom blur and brightness"
 msgstr ""
-"Verandert dagelijks je achtergrond naar de Bing achtergrond van de dag voor "
-"jouw regio. Toont een notificatie voor de afbeeldingsbeschrijving en "
-"copyright informatie."
 
-#: Settings.ui.h:16
-msgid "Maintained by Michael Carroll"
-msgstr "Onderhouden door Michael Carroll"
+#: Settings.ui.h:17 Settings4.ui.h:18
+msgid "Override GDM3 lockscreen effects"
+msgstr ""
 
-#: Settings.ui.h:17
+#: Settings.ui.h:18 Settings4.ui.h:19
+msgid "Blur can improve readability of login prompt"
+msgstr ""
+
+#: Settings.ui.h:19 Settings4.ui.h:20
+msgid "Background blur intensity"
+msgstr ""
+
+#: Settings.ui.h:20 Settings4.ui.h:21
+msgid "Can improve contrast of login prompt"
+msgstr ""
+
+#: Settings.ui.h:21 Settings4.ui.h:22
+msgid "Background brightness"
+msgstr ""
+
+#: Settings.ui.h:22 Settings4.ui.h:23
+msgid "Presets"
+msgstr ""
+
+#: Settings.ui.h:23 Settings4.ui.h:24
+msgid "Commonly used presets"
+msgstr ""
+
+#: Settings.ui.h:24 Settings4.ui.h:25
+msgid "No blur, slight dim"
+msgstr ""
+
+#: Settings.ui.h:25 Settings4.ui.h:26
+msgid "GNOME default"
+msgstr ""
+
+#: Settings.ui.h:26 Settings4.ui.h:27
+msgid "Slight blur, slight dim"
+msgstr ""
+
+#: Settings.ui.h:27 Settings4.ui.h:28
+msgid "Lock Screen"
+msgstr ""
+
+#: Settings.ui.h:28 Settings4.ui.h:29
+msgid "New wallpaper images everyday from Bing"
+msgstr ""
+
+#: Settings.ui.h:29 Settings4.ui.h:30
+msgid "Gnome shell extension version "
+msgstr "Gnome shell extensie versie "
+
+#: Settings.ui.h:30 Settings4.ui.h:31
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:18
+#: Settings.ui.h:31 Settings4.ui.h:32
+msgid "Maintained by Michael Carroll"
+msgstr "Onderhouden door Michael Carroll"
+
+#: Settings.ui.h:32 Settings4.ui.h:33
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+
+#: Settings.ui.h:33 Settings4.ui.h:34
+msgid "Changes since last version"
+msgstr ""
+
+#: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Gebaseerd op de NASA APOD Gnome Shell extensie door Elia Argentieri"
 
-#: Settings.ui.h:19
+#: Settings.ui.h:35 Settings4.ui.h:36
+#, fuzzy
+#| msgid ""
+#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 or later</a> for details.</span>"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
 msgstr ""
 "<span size=\"small\">Dit programma heeft ABSOLUUT GEEN GARANTIE.\n"
 "Zie de <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">GNU General Public License, versie 3 of nieuwer</a> voor details.</span>"
 
-#: Settings.ui.h:21
+#: Settings.ui.h:37 Settings4.ui.h:38
 msgid "About"
 msgstr "Over"
 
-#: extension.js:88 extension.js:91
-msgid "minutes"
-msgstr "minuten"
+#: Settings4.ui.h:8
+#, fuzzy
+msgid "Open folder"
+msgstr "Ava pildikaust"
 
-#: extension.js:94
-msgid "days"
-msgstr "dag"
-
-#: extension.js:97
-msgid "hours"
-msgstr "uur"
-
-#: extension.js:152
+#: extension.js:117
 msgid "<No refresh scheduled>"
 msgstr "<Geen vernieuwing gepland>"
 
-#: extension.js:154 extension.js:155 extension.js:156
+#: extension.js:119 extension.js:121 extension.js:123
 msgid "Awaiting refresh..."
 msgstr "Wachten op verversing..."
 
-#: extension.js:157
+#: extension.js:126
 #, fuzzy
 msgid "Copy image to clipboard"
 msgstr "Kopieer afbeelding URL naar klembord"
 
-#: extension.js:158
+#: extension.js:127
 #, fuzzy
 msgid "Copy image URL to clipboard"
 msgstr "Kopieer afbeelding naar klembord"
 
-#: extension.js:161
+#: extension.js:128
+#, fuzzy
+msgid "Open image folder"
+msgstr "Ava pildikaust"
+
+#: extension.js:131
 msgid "Refresh Now"
 msgstr "Vernieuw nu"
+
+#: extension.js:137
+msgid "Thumbnail disabled on Wayland"
+msgstr ""
 
 #: extension.js:203
 msgid "Next refresh"
 msgstr "Volgende vernieuwing"
 
-#: extension.js:388
+#: extension.js:490 extension.js:527
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing achtergrond van de dag voor"
 
-#: extension.js:393 prefs.js:181
-#, fuzzy
-msgid "Market not available in your region"
-msgstr "Landinstelling niet beschikbaar in uw regio"
+#: extension.js:495
+msgid "Set as wallpaper"
+msgstr "Stel achtergrond in"
 
-#: extension.js:441
+#: extension.js:498
+msgid "More info on Bing.com"
+msgstr ""
+
+#: extension.js:553
 msgid "No wallpaper available"
 msgstr "Geen achtergrond beschikbaar"
 
-#: extension.js:442
+#: extension.js:554
 msgid "No picture for today 😞."
 msgstr "Geen afbeelding voor vandaag 😞."
 
-#: prefs.js:169
+#: prefs.js:173
+#, fuzzy
+msgid "Most recent image"
+msgstr "Tänane pilt"
+
+#: prefs.js:174
+msgid "Random image"
+msgstr "Juhuslikult valitud pilt"
+
+#: prefs.js:190 prefs.js:206
+msgid "Disabled on current GNOME version"
+msgstr ""
+
+#: utils.js:139
 #, fuzzy
 msgid "Fetching data..."
 msgstr "Data ophalen..."
 
-#: prefs.js:185
+#: utils.js:150
+#, fuzzy
+msgid "Market not available in your region"
+msgstr "Landinstelling niet beschikbaar in uw regio"
+
+#: utils.js:154
 #, fuzzy
 msgid "A network error occured"
 msgstr "Er is een netwerkfout opgetreden"
 
-#~ msgid "Set wallpaper"
-#~ msgstr "Stel achtergrond in"
+#: utils.js:159
+msgid "Too many requests in 5 seconds"
+msgstr ""
+
+#: utils.js:186
+msgid "No change log found for this release"
+msgstr ""
+
+#: utils.js:366 utils.js:369
+msgid "minutes"
+msgstr "minuten"
+
+#: utils.js:372
+msgid "days"
+msgstr "dag"
+
+#: utils.js:375
+msgid "hours"
+msgstr "uur"
+
+#~ msgid ""
+#~ "Changes your wallpaper daily to the Bing picture of the day for your "
+#~ "region. Displays the picture description and copyright information."
+#~ msgstr ""
+#~ "Verandert dagelijks je achtergrond naar de Bing achtergrond van de dag "
+#~ "voor jouw regio. Toont een notificatie voor de afbeeldingsbeschrijving en "
+#~ "copyright informatie."
 
 #~ msgid "Send a notification with explanation when a new image is downloaded."
 #~ msgstr ""

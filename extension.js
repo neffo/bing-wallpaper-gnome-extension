@@ -21,16 +21,16 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Clutter = imports.gi.Clutter;
 const Cogl = imports.gi.Cogl;
-const Clipboard = St.Clipboard.get_default();
-const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
-// const Background = imports.ui.background;
+const GdkPixbuf = imports.gi.GdkPixbuf;
+const Gdk = imports.gi.Gdk;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
-
+const Thumbnail = Me.imports.thumbnail;
+const BWClipboard = Me.imports.BWClipboard;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -47,7 +47,6 @@ let autores; // automatically selected resolution
 
 let bingWallpaperIndicator=null;
 let blur=null;
-let init_called=false;
 let blur_brightness=0.55;
 let blur_strength=30;
 
@@ -58,15 +57,6 @@ const getActorCompat = (obj) =>
 function log(msg) {
     if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
-}
-
-// Utility function
-function dump(object) {
-    let output = '';
-    for (let property in object) {
-        output += property + ': ' + object[property]+'; ';
-    }
-    log(output);
 }
 
 function notifyError(msg) {
@@ -82,29 +72,6 @@ function doSetBackground(uri, schema) {
     Gio.Settings.sync();
     gsettings.apply();
     return (prev != uri); // return true if background uri has changed
-}
-
-function friendly_time_diff(time, short = true) {
-    // short we want to keep ~4-5 characters
-    let timezone = GLib.TimeZone.new_local();
-    let now = GLib.DateTime.new_now(timezone).to_unix();
-    let seconds = time.to_unix() - now;
-
-    if (seconds <= 0) {
-        return "now";
-    }
-    else if (seconds < 60) {
-        return "< 1 "+(short?"m":_("minutes"));
-    }
-    else if (seconds < 3600) {
-        return Math.round(seconds/60)+" "+(short?"m":_("minutes"));
-    }
-    else if (seconds > 86400) {
-        return Math.round(seconds/86400)+" "+(short?"d":_("days"));
-    }
-    else {
-        return Math.round(seconds/3600)+" "+(short?"h":_("hours"));
-    }
 }
 
 let httpSession = new Soup.SessionAsync();
@@ -130,12 +97,129 @@ const BingWallpaperIndicator = new Lang.Class({
         this.refreshdue = 0;
         this.refreshduetext = "";
         this.thumbnail = null;
+        this.selected_image = "current";
+        this.clipboard = new BWClipboard.BWClipboard();
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = Utils.getSettings();
+        this._setConnections();
+
+        getActorCompat(this).visible = !this._settings.get_boolean('hide');
+
+        // enable unsafe features on Wayland if the user overrides it
+        if (this._settings.get_boolean('override-unsafe-wayland')) {
+            Utils.is_x11 = Utils.enabled_unsafe;
+        }
+
+        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
+        //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
+        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
+        this._wrapLabelItem(this.titleItem);
+        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this._wrapLabelItem(this.explainItem);
+        this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
+        this._wrapLabelItem(this.copyrightItem);
+        this.separator = new PopupMenu.PopupSeparatorMenuItem();
+        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
+        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
+        this.folderItem = new PopupMenu.PopupMenuItem(_("Open image folder"));
+        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
+        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
+        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
+        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
+        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
+            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        }
+        else {
+            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
+            log('X11 not detected, disabling some unsafe features');
+        }
+        this.menu.addMenuItem(this.refreshItem);
+        this.menu.addMenuItem(this.refreshDueItem);
+        this.menu.addMenuItem(this.explainItem);
+        this.prevBtn = this._newMenuIcon('go-previous-symbolic', this.explainItem, this._prevImage);
+        this.randomBtn = this._newMenuIcon('media-playlist-shuffle-symbolic', this.explainItem, this._setRandom);
+        this.nextBtn = this._newMenuIcon('go-next-symbolic', this.explainItem, this._nextImage);
+        this.menu.addMenuItem(this.thumbnailItem);
+        this.menu.addMenuItem(this.titleItem);
+        this.menu.addMenuItem(this.copyrightItem);
+        //this.menu.addMenuItem(this.showItem);
+        this.menu.addMenuItem(this.separator);
+        if (Utils.is_x11() && this.clipboard.clipboard) { // these may not work on Wayland atm, check to see if it's working
+            // currently non functional
+            /*this.menu.addMenuItem(this.clipboardImageItem);
+            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));*/
+            this.menu.addMenuItem(this.clipboardURLItem);
+            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
+        }
+
+        this.menu.addMenuItem(this.folderItem);
+        
+        this.menu.addMenuItem(this.dwallpaperItem);
+        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+            this.menu.addMenuItem(this.swallpaperItem);
+            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
+        }
+            
+        this.menu.addMenuItem(this.settingsItem);
+        this.explainItem.setSensitive(false);
+        this.copyrightItem.setSensitive(false);
+        this.refreshDueItem.setSensitive(false);
+        this.thumbnailItem.setSensitive(false);
+        this.thumbnailItem.connect('activate', Lang.bind(this, function() {
+            this._openInSystemViewer();
+        }));
+        this.titleItem.connect('activate', Lang.bind(this, function() {
+            if (this.imageinfolink)
+              Util.spawn(["xdg-open", this.imageinfolink]);
+        }));
+        this.folderItem.connect('activate', Lang.bind(this, function() {
+            Utils.openImageFolder(this._settings);
+        }));
+        
+        this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
+        this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
+        this.settingsItem.connect('activate', function() {
+            try {
+                ExtensionUtils.openPrefs();
+            }
+            catch (e) {
+                log('Falling back to Util.spawn to launch extensions...');
+                if (Convenience.currentVersionSmaller("3.36"))
+                    Util.spawn(['gnome-shell-extension-prefs', Me.metadata.uuid]); // fall back for older gnome versions
+                else 
+                    Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]);
+            }
+        });
+
+        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
+            // Grey out menu items if an update is pending
+            this.refreshItem.setSensitive(!this._updatePending);
+            if (Utils.is_x11()) {
+                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
+	        }
+            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
+            //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
+            this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
+            this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
+            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
+            this.refreshDueItem.label.set_text(this.refreshduetext); //
+        }));
+        if (this._settings.get_string('state') != '[]') {
+            this._reStoreState();
+        }
+        else {
+            this._restartTimeout(60); // wait 60 seconds before performing refresh
+        }
+    },
+
+    // listen for configuration changes
+    _setConnections: function(){
         this._settings.connect('changed::hide', Lang.bind(this, function() {
             getActorCompat(this).visible = !this._settings.get_boolean('hide');
         }));
@@ -166,90 +250,13 @@ const BingWallpaperIndicator = new Lang.Class({
         blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
         blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
         blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
-
-        getActorCompat(this).visible = !this._settings.get_boolean('hide');
-
-        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
-        //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
-        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
-        this.titleItem.label.get_clutter_text().set_line_wrap(true);
-        this.titleItem.label.set_style("max-width: 350px;");
-        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this.explainItem.label.get_clutter_text().set_line_wrap(true);
-        this.explainItem.label.set_style("max-width: 350px;");
-        this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this.copyrightItem.label.get_clutter_text().set_line_wrap(true);
-        this.copyrightItem.label.set_style("max-width: 350px;");
-        this.separator = new PopupMenu.PopupSeparatorMenuItem();
-        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
-        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
-        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
-        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
-        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
-        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
-            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
-        }
-        else {
-            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
-            log('X11 not detected, disabling some unsafe features');
-        }
-        this.menu.addMenuItem(this.refreshItem);
-        this.menu.addMenuItem(this.refreshDueItem);
-        this.menu.addMenuItem(this.titleItem);
-        this.menu.addMenuItem(this.thumbnailItem);
-        this.menu.addMenuItem(this.explainItem);
-        this.menu.addMenuItem(this.copyrightItem);
-        //this.menu.addMenuItem(this.showItem);
-        this.menu.addMenuItem(this.separator);
-        if (Utils.is_x11()) { // these do not work on Wayland atm
-            this.menu.addMenuItem(this.clipboardImageItem);
-            this.menu.addMenuItem(this.clipboardURLItem);
-            this.clipboardURLItem.connect('activate', Lang.bind(this, this._copyURLToClipboard));
-            this.clipboardImageItem.connect('activate', Lang.bind(this, this._copyImageToClipboard));
-        }
-        
-        this.menu.addMenuItem(this.dwallpaperItem);
-        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
-            this.menu.addMenuItem(this.swallpaperItem);
-            this.swallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundScreensaver));
-        }
-            
-        this.menu.addMenuItem(this.settingsItem);
-        this.explainItem.setSensitive(false);
-        this.copyrightItem.setSensitive(false);
-        this.refreshDueItem.setSensitive(false);
-        this.thumbnailItem.setSensitive(false);
-        this.titleItem.connect('activate', Lang.bind(this, function() {
-            if (this.imageinfolink)
-              Util.spawn(["xdg-open", this.imageinfolink]);
+        this._settings.connect('changed::selected-image', Lang.bind(this, function () {
+            Utils.validate_imagename(this._settings);
+            this.selected_image = this._settings.get_string('selected-image');
+            log('selected image changed to :'+this.selected_image);
+            this._selectImage();
         }));
-        
-        this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
-        this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
-        this.settingsItem.connect('activate', function() {
-            if (ExtensionUtils.openPrefs)
-                ExtensionUtils.openPrefs();
-            else 
-                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]); // fall back for older gnome versions          
-        });
-
-        getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
-            // Grey out menu items if an update is pending
-            this.refreshItem.setSensitive(!this._updatePending);
-            if (Utils.is_x11()) {
-                this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-                this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
-	    }
-            this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
-            //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
-            this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
-            this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
-            this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + friendly_time_diff(this.refreshdue) + ")";
-            this.refreshDueItem.label.set_text(this.refreshduetext); //
-        }));
-        this._restartTimeout(60); // wait 60 seconds before performing refresh
+        this.selected_image = this._settings.get_string('selected-image');
     },
 
     // set indicator icon (tray icon)
@@ -274,7 +281,7 @@ const BingWallpaperIndicator = new Lang.Class({
         if (this.filename == "")
             return;
         if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
-            this.thumbnail = new Thumbnail(this.filename);
+            this.thumbnail = new Thumbnail.Thumbnail(this.filename);
             this._setImage();
         }
 
@@ -286,19 +293,19 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _setBackgroundDesktop: function() {
-        doSetBackground(this.filename, 'org.gnome.desktop.background');
+        doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
     },
     
     _setBackgroundScreensaver: function() {
-        doSetBackground(this.filename, 'org.gnome.desktop.screensaver');
+        doSetBackground(this.filename, Utils.LOCKSCREEN_SCHEMA);
     },
 
     _copyURLToClipboard: function() {
-        Clipboard.set_text(CLIPBOARD_TYPE, this.imageURL);
+        this.clipboard.setText(this.imageURL);
     },
 
     _copyImageToClipboard: function() {
-        Clipboard.setImage(this.thumbnailImage.gtkImage);
+        this.clipboard.setImage(this.filename);
     },
 
     // sets a timer for next refresh of Bing metadata
@@ -311,30 +318,21 @@ const BingWallpaperIndicator = new Lang.Class({
         let timezone = GLib.TimeZone.new_local();
         let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds);
         this.refreshdue = localTime;
-        log('next check in '+seconds+' seconds @ local time '+localTime);
+        log('next check in '+seconds+' seconds @ local time '+localTime.format('%F %R %z'));
     },
 
     // set a timer on when the current image is going to expire
     _restartTimeoutFromLongDate: function (longdate) {
-        // longdate is UTC, in the following format
-        // 201708041400 YYYYMMDDHHMM
-        // 012345678901
-        let timezone = GLib.TimeZone.new_utc(); // all bing times are in UTC (+0)
-        let refreshDue = GLib.DateTime.new(timezone,
-            parseInt(longdate.substr(0,4)), // year
-            parseInt(longdate.substr(4,2)), // month
-            parseInt(longdate.substr(6,2)), // day
-            parseInt(longdate.substr(8,2)), // hour
-            parseInt(longdate.substr(10,2)), // mins
-            0 ).add_seconds(86400); // seconds
-
+         // all bing times are in UTC (+0)
+        let refreshDue = Utils.dateFromLongDate(longdate, 86400);
+        let timezone = GLib.TimeZone.new_local();
         let now = GLib.DateTime.new_now(timezone);
         let difference = refreshDue.difference(now)/1000000;
 
         log("Next refresh due @ "+refreshDue.format('%F %R %z')+" = "+difference+" seconds from now ("+now.format('%F %R %z')+")");
 
         if (difference < 60 || difference > 86400) // something wierd happened
-            difference = 3600;
+            difference = 60;
 
         difference=difference+300; // 5 minute fudge offset in case of inaccurate local clock
         this._restartTimeout(difference);
@@ -342,27 +340,51 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // convert shortdate format into human friendly format
     _localeDate: function (shortdate) {
-      let timezone = GLib.TimeZone.new_local(); // TZ doesn't really matter for this
-      let date = GLib.DateTime.new(timezone,
-          parseInt(shortdate.substr(0,4)), // year
-          parseInt(shortdate.substr(4,2)), // month
-          parseInt(shortdate.substr(6,2)), // day
-          0, 0, 0 );
+      let date = Utils.dateFromShortDate(shortdate);
       return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
     },
 
     // set menu text in lieu of a notification/popup
     _setMenuText: function() {
-        this.titleItem.label.set_text(this.title);
-        this.explainItem.label.set_text(this.explanation);
-        this.copyrightItem.label.set_text(this.copyright);
+        this.titleItem.label.set_text(this.title?this.title:'');
+        this.explainItem.label.set_text(this.explanation?this.explanation:'');
+        this.copyrightItem.label.set_text(this.copyright?this.copyright:'');
+    },
+
+    _wrapLabelItem: function (menuItem) {
+        menuItem.label.get_clutter_text().set_line_wrap(true);
+        menuItem.label.set_style("max-width: 350px;");
+    },
+
+    _newMenuIcon: function (icon_name, parent, fn) {
+        let icon = new St.Icon({
+            icon_name: icon_name,
+            style_class: 'popup-menu-icon',
+            x_expand: false,
+            y_expand: false
+        });
+
+        let iconBtn = new St.Button({
+            style_class: 'ci-action-btn',
+            can_focus: true,
+            child: icon,
+            /* x_align: Clutter.ActorAlign.END, // FIXME: errors on GNOME 3.28, default to center is ok */
+            x_expand: true,
+            y_expand: true
+        });
+
+        getActorCompat(parent).add_child(iconBtn);
+        iconBtn.connect('button-press-event',
+            Lang.bind(this, fn)
+        );
+        return iconBtn;
     },
 
     // set menu thumbnail
-    // "But really, what the extension is doing is a terrible terrible hack, and I'm quite surprised that it worked at all." - Florian Müllner, 2020
-    // FIXME: find another way
     _setImage: function () {
-        let pixbuf = this.thumbnail.gtkImage.get_pixbuf();
+        let pixbuf = this.thumbnail.pixbuf;
+        if (pixbuf == null)
+            return;
         const { width, height } = pixbuf;
         if (height == 0) {
             return;
@@ -382,12 +404,47 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-    
         getActorCompat(this.thumbnailItem).set_size(480, 270);    
         this.thumbnailItem.setSensitive(true);
-      },
+    },
 
-    // download Bing metadat
+    _nextImage: function () {
+        this._gotoImage(1);
+    },
+
+    _prevImage: function () {
+        this._gotoImage(-1);
+    },
+
+    _setRandom: function () {
+        if (this._settings.get_string('selected-image')=='random') {
+            // already set to random, so just roll the dice once more
+            this._selectImage();
+            this._restartTimeout(this._settings.get_int('random-interval'));
+        }
+        else {
+            // setting this will force a new image selection
+            this._settings.set_string('selected-image', 'random');
+        }
+    },
+
+    _gotoImage: function (relativePos) {
+        let imageList = Utils.getImageList(this._settings);
+        let curIndex = 0;
+        if (this.selected_image == 'random')
+            return;
+        if (this.selected_image == 'current') {
+            curIndex = Utils.getCurrentImageIndex(imageList);
+        }
+        else {
+            curIndex = Utils.imageIndex(imageList, this.selected_image);
+        }
+        let newImage = Utils.getImageByIndex(imageList, curIndex+relativePos);
+        if (newImage)
+            this._settings.set_string('selected-image', newImage.urlbase.replace('/th?id=OHR.', ''));
+    },
+
+    // download Bing metadata
     _refresh: function() {
         if (this._updatePending)
             return;
@@ -408,6 +465,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 let data = message.response_body.data;
                 log("Recieved "+data.length+" bytes");
                 this._parseData(data);
+                this._selectImage();
             } else if (message.status_code == 403) {
                 log("Access denied: "+message.status_code);
                 this._updatePending = false;
@@ -422,51 +480,85 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // process Bing metadata
     _parseData: function(data) {
-        let parsed = JSON.parse(data);
-        let imagejson = parsed.images[0];
-        let datamarket = parsed.market.mkt;
-        let prefmarket = this._settings.get_string('market');
-
-        log('JSON returned (raw):\n' + data);
-
-        if (imagejson.url != '') {
-            this.title = imagejson.copyright.replace(/\s*\(.*?\)\s*/g, "");
-            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(imagejson.startdate)+' ('+datamarket+')';
-            this.copyright = imagejson.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
-            if (datamarket != prefmarket) {
-                // user requested a market that isn't available in their GeoIP area, so they are forced to use another generic type (probably "en-WW")
-                log('Mismatched market data, Req: '+prefmarket +' != Recv: ' + datamarket +')');
-                this.copyright = this.copyright + '\n\n WARNING: ' + _("Market not available in your region") + '\n Req: '+prefmarket +' -> Recv: ' + datamarket;
+        try {
+            let parsed = JSON.parse(data);
+            let datamarket = parsed.market.mkt;
+            let prefmarket = this._settings.get_string('market');
+            // FIXME: we need to handle this better, including storing longer history & removing duplicates
+            let newImages = Utils.mergeImageLists(this._settings, parsed.images);
+            Utils.cleanupImageList(this._settings);
+            if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
+                // user wants to switch to the new image when it arrives
+                this._settings.set_string('selected-image', 'current');
             }
-            this.longstartdate = imagejson.fullstartdate;
-            this.imageinfolink = imagejson.copyrightlink.replace(/^http:\/\//i, 'https://');
-            let resolution = this._settings.get_string('resolution');
-
-            if (resolution == "auto") {
-                log("auto resolution selected ("+autores+")");
-                resolution = autores;
+            if (this._settings.get_boolean('notify')) {
+                let that = this;
+                newImages.forEach(function(image, index) {
+                    log('New image to notify: '+Utils.getImageTitle(image));
+                    that._createNotification(image);
+                });
             }
 
-            if (Utils.resolutions.indexOf(resolution) == -1 || imagejson.wp == false ||
-                (this._settings.get_string('resolution') == "auto" && autores == "1920x1200") ) {
-                // resolution invalid, animated background, or override auto selected 1920x1200 to avoid bing logo unless user wants it
-                resolution = "UHD";
-            }
+            this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
+            this._updatePending = false;
+        }
+        catch (error) {
+            log('_parseData() failed with error '+error);
+        }
+    },
 
-            this.imageURL = BingURL+imagejson.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
+    _createNotification: function (image) {
+        // set notifications icon
+        let source = new MessageTray.Source("Bing Wallpaper", "preferences-desktop-wallpaper-symbolic");
+        Main.messageTray.add(source);
+        let msg = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
+        let details = Utils.getImageTitle(image); //image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+        let notification = new MessageTray.Notification(source, msg, details);
+        notification.setTransient(this._settings.get_boolean('transient'));
+        // Add action to open Bing website with default browser, this is unfortunately very hacky
+        notification.addAction(_("More info on Bing.com"), Lang.bind(this, function() {
+            log("Open :"+notification.bannerBodyText);
+            let imageList = Utils.getImageList(this._settings);
+            let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
+            Util.spawn(["xdg-open", image.copyrightlink]);
+        }));
+        /*notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
+        let imageList = Utils.getImageList(this._settings);
+        let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
+        this._settings.set_string('selected-image', Utils.getImageUrlBase(image));
+        }));*/
+        source.showNotification(notification);
+    },
 
-            let BingWallpaperDir = this._settings.get_string('download-folder');
-            let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
-            if (BingWallpaperDir == '') {
-                BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
-		        this._settings.set_string('download-folder', BingWallpaperDir);
-            }
-            else if (!BingWallpaperDir.endsWith('/')) {
-                BingWallpaperDir += '/';
-            }
+    _selectImage: function() {
+        imageList = JSON.parse(this._settings.get_string('bing-json'));
+        let image = null;
+        // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
+        if (this.selected_image == 'random') {
+            image = imageList[Utils.getRandomInt(imageList.length)];
+            this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
+        } else if (this.selected_image == 'current') {
+            image = Utils.getCurrentImage(imageList);
+        } else {
+            image = Utils.inImageList(imageList, this.selected_image);
+            log('_selectImage: '+this.selected_image+' = '+image?image.urlbase:"not found");
+            if (!image) // if we didn't find it, try for current
+                image = Utils.getCurrentImage(imageList);
+        }
+        if (!image)
+            return; // could force, image = imageList[0] or perhaps force refresh
 
-            log("XDG pictures directory detected as "+userPicturesDir+" saving pictures to "+BingWallpaperDir);
-            this.filename = BingWallpaperDir+imagejson.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+        if (image.url != '') {
+            this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+            this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
+            this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
+            this.longstartdate = image.fullstartdate;
+            this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
+            let resolution = Utils.getResolution(this._settings, image);
+            let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
+            this.imageURL = BingURL+image.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
+            this.filename = BingWallpaperDir+image.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+            
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
             let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
@@ -476,33 +568,77 @@ const BingWallpaperIndicator = new Lang.Class({
                 if (!dir.query_exists(null)) {
                     dir.make_directory_with_parents(null);
                 }
-                this._download_image(this.imageURL, file);
+                this._downloadImage(this.imageURL, file);
             } else {
                 log("Image already downloaded");
                 let changed = this._setBackground();
                 this._updatePending = false;
             }
-            
-        } else {
+            //this._createNotification(image); // for testing
+        } 
+        else {
             this.title = _("No wallpaper available");
             this.explanation = _("No picture for today 😞.");
             this.filename = "";
             this._updatePending = false;
         }
         this._setMenuText();
-        this._restartTimeoutFromLongDate(this.longstartdate);
+        this._storeState();
+    },
+
+    _storeState: function() {
+        if (this.filename) {
+            let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent Bing image
+            let state = { maxlongdate: maxLongDate, title: this.title, explanation: this.explanation, copyright: this.copyright,
+                longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
+                filename: this.filename};
+            let stateJSON = JSON.stringify(state);
+            log('Storing state as JSON: '+stateJSON);
+            this._settings.set_string('state', stateJSON);
+        }
+    },
+
+    _reStoreState: function() {
+        try {
+            let stateJSON = this._settings.get_string('state');
+            let state = JSON.parse(stateJSON);
+            let maxLongDate = null;
+            maxLongdate = state.maxlongdate? state.maxlongdate: null;
+            this.title = state.title;
+            this.explanation = state.explanation;
+            this.copyright = state.copyright;
+            this.longstartdate = state.longstartdate;
+            this.imageinfolink = state.imageinfolink;
+            this.imageURL = state.imageURL;
+            this.filename = state.filename;
+            this._setMenuText();
+            this._setBackground();
+            if (!maxLongDate) {
+                this._restartTimeout(60);
+            } 
+            else if (this.selected_image == 'random') {
+                this._restartTimeout(this._settings.get_int('random-interval'));
+            }
+            else {
+                this._restartTimeoutFromLongDate(maxLongDate);
+            }
+            return;
+        }
+        catch (error) {
+            log('bad state - refreshing...');
+        }
+        this._restartTimeout(60);
     },
 
     // download and process new image
-    _download_image: function(url, file) {
+    // FIXME: improve error handling
+    _downloadImage: function(url, file) {
         log("Downloading " + url + " to " + file.get_uri());
 
         // open the Gfile
         let fstream = file.replace(null, false, Gio.FileCreateFlags.NONE, null);
-
         // create an http message
         let request = Soup.Message.new('GET', url);
-
         // got_headers event
         request.connect('got_headers', Lang.bind(this, function(message){
             log("got_headers, status: "+message.status_code);
@@ -510,13 +646,13 @@ const BingWallpaperIndicator = new Lang.Class({
 
         // got_chunk event
         request.connect('got_chunk', Lang.bind(this, function(message, chunk){
-	    //log("got_chuck, status: "+message.status_code);
-	    if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
-	    	fstream.write(chunk.get_data(), null);
-	    }
-	    else {
-		log("got_chuck, status: "+message.status_code);
-	    }
+            //log("got_chuck, status: "+message.status_code);
+            if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
+                fstream.write(chunk.get_data(), null);
+            }
+            else {
+                log("got_chuck, status: "+message.status_code);
+            }
         }));
 
         // queue the http request
@@ -527,7 +663,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (message.status_code == 200) {
                 log('Download successful');
                 this._setBackground();
-                this._add_to_previous_queue(this.filename);
+                this._addToPreviousQueue(this.filename);
             } else {
                 log("Couldn't fetch image from " + url);
                 file.delete(null);
@@ -536,15 +672,13 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
-    _add_to_previous_queue: function (filename) {
+    _addToPreviousQueue: function (filename) {
         let rawimagelist = this._settings.get_string('previous');
         let imagelist = rawimagelist.split(',');
         let maxpictures = this._settings.get_int('previous-days');
         let deletepictures = this._settings.get_boolean('delete-previous');
 
-        log("Raw: "+ rawimagelist+" count: "+imagelist.length);
         log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
-
         imagelist.push(filename); // add current to end of list
 
         while(imagelist.length > maxpictures+1) {
@@ -553,8 +687,13 @@ const BingWallpaperIndicator = new Lang.Class({
             if (deletepictures && to_delete != '') {
                 var file = Gio.file_new_for_path(to_delete);
                 if (file.query_exists(null)) {
-                    file.delete(null);
-                    log("deleted file: "+ to_delete);
+                    try {
+                        file.delete(null);
+                        log("deleted file: "+ to_delete);
+                    }
+                    catch (error) {
+                        log("an error occured deleting "+to_delete+" : "+error);
+                    }
                 }
             }
         }
@@ -562,13 +701,12 @@ const BingWallpaperIndicator = new Lang.Class({
         // put it back together and send back to settings
         rawimagelist = imagelist.join();
         this._settings.set_string('previous', rawimagelist);
-        log("wrote back this: "+rawimagelist);
     },
 
     // open image in default image view
-    _open_in_system_viewer: function launchOpen() {
+    _openInSystemViewer: function () {
         const context = global.create_app_launch_context(0, -1);
-        Gio.AppInfo.launch_default_for_uri(this.filename.get_uri(), context);
+        Gio.AppInfo.launch_default_for_uri('file://'+this.filename, context);
     },
 
     stop: function () {
@@ -580,13 +718,7 @@ const BingWallpaperIndicator = new Lang.Class({
 });
 
 function init(extensionMeta) {
-    if (init_called === false) {
-        Convenience.initTranslations("BingWallpaper");
-        init_called = true;
-    }
-    else {
-        log("WARNING: init() called more than once, ignoring");
-   }
+    Convenience.initTranslations("BingWallpaper");
 }
 
 function enable() {
@@ -601,16 +733,11 @@ function disable() {
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
+    blur._disable();
+    blur = null;
 }
 
-// props to Otto Allmendinger 
-// see https://github.com/OttoAllmendinger/gnome-shell-screenshot
-class Thumbnail {
-    constructor(filePath) {
-      if (!filePath) {
-        throw new Error(`need argument ${filePath}`);
-      }
-      this.gtkImage = new Gtk.Image({file: filePath});
-      this.srcFile = Gio.File.new_for_path(filePath);
-    }
-  }
+function toFilename(wallpaperDir, startdate, imageURL, resolution) {
+    return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"+resolution+".jpg";;
+}
+
