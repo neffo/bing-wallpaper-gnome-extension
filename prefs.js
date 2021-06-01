@@ -148,7 +148,7 @@ function buildPrefsWidget(){
         });
     }
     else { // Gtk 3
-        fileChooserBtn.set_filename(settings.get_string('download-folder'));
+        fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
         fileChooserBtn.connect('file-set', function(widget) {      
