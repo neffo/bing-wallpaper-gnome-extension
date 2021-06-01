@@ -404,7 +404,6 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-    
         getActorCompat(this.thumbnailItem).set_size(480, 270);    
         this.thumbnailItem.setSensitive(true);
     },
@@ -517,23 +516,24 @@ const BingWallpaperIndicator = new Lang.Class({
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
         // Add action to open Bing website with default browser, this is unfortunately very hacky
-        /*notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
-            let imageList = Utils.getImageList(this._settings);
-            let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
-            this._settings.set_string('selected-image', Utils.getImageUrlBase(image));
-        }));*/
         notification.addAction(_("More info on Bing.com"), Lang.bind(this, function() {
             log("Open :"+notification.bannerBodyText);
             let imageList = Utils.getImageList(this._settings);
             let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
             Util.spawn(["xdg-open", image.copyrightlink]);
         }));
+        /*notification.addAction(_("Set as wallpaper"), Lang.bind(this, function() {
+        let imageList = Utils.getImageList(this._settings);
+        let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
+        this._settings.set_string('selected-image', Utils.getImageUrlBase(image));
+        }));*/
         source.showNotification(notification);
     },
 
     _selectImage: function() {
         imageList = JSON.parse(this._settings.get_string('bing-json'));
         let image = null;
+        // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
         if (this.selected_image == 'random') {
             image = imageList[Utils.getRandomInt(imageList.length)];
             this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
@@ -542,10 +542,11 @@ const BingWallpaperIndicator = new Lang.Class({
         } else {
             image = Utils.inImageList(imageList, this.selected_image);
             log('_selectImage: '+this.selected_image+' = '+image?image.urlbase:"not found");
+            if (!image) // if we didn't find it, try for current
+                image = Utils.getCurrentImage(imageList);
         }
         if (!image)
-            image = imageList[0];
-        // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
+            return; // could force, image = imageList[0] or perhaps force refresh
 
         if (image.url != '') {
             this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
@@ -733,6 +734,7 @@ function disable() {
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
     blur._disable();
+    blur = null;
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {
