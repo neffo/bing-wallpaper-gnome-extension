@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-22 18:34+1000\n"
-"PO-Revision-Date: 2021-05-30 14:15+1000\n"
+"POT-Creation-Date: 2021-06-01 22:23+1000\n"
+"PO-Revision-Date: 2021-06-03 23:11+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -46,99 +46,135 @@ msgstr "Nedladdningsmapp"
 msgid "Bing Wallpaper pictures folder"
 msgstr "Bing Wallpaper nedladdningsmapp"
 
-#: Settings.ui.h:8 Settings4.ui.h:9
+#: Settings.ui.h:8 Settings4.ui.h:8
+#, fuzzy
+#| msgid "Download folder"
+msgid "Open folder"
+msgstr "Öppna mapp"
+
+#: Settings.ui.h:9 Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers"
 msgstr "Radera tidigare nedladdade bakgrundsbilder"
 
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Bing locale"
-msgstr "Bing språkvariant"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Default is English - United States"
-msgstr "Standardspråk är Engelska (United States)"
-
-#: Settings.ui.h:11 Settings4.ui.h:13
-msgid "Screen resolution"
-msgstr "Skärmupplösning"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Override automatic resolution selection"
-msgstr "Åsidosätt automatiskt skärmupplösningsval"
-
-#: Settings.ui.h:13 Settings4.ui.h:12
+#: Settings.ui.h:10 Settings4.ui.h:10
 msgid "Selected image"
 msgstr "Vald bild"
 
-#: Settings.ui.h:14 Settings4.ui.h:15 extension.js:132
+#: Settings.ui.h:11 Settings4.ui.h:11
+msgid "Bing locale"
+msgstr "Bing språkvariant"
+
+#: Settings.ui.h:12 Settings4.ui.h:12
+msgid "Default is English - United States"
+msgstr "Standardspråk är Engelska (United States)"
+
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:132
 msgid "Settings"
 msgstr "Inställningar"
 
-#: Settings.ui.h:15 Settings4.ui.h:16
+#: Settings.ui.h:14 Settings4.ui.h:14
 msgid "Use custom blur and brightness"
 msgstr "Välj egna inställningar för oskärpa och ljusstyrka"
 
-#: Settings.ui.h:16 Settings4.ui.h:17
+#: Settings.ui.h:15 Settings4.ui.h:15
 msgid "Override GDM3 lockscreen effects"
 msgstr "Åsidosätt GDM3s låsskärmseffekter"
 
-#: Settings.ui.h:17 Settings4.ui.h:18
+#: Settings.ui.h:16 Settings4.ui.h:16
 msgid "Blur can improve readability of login prompt"
 msgstr "Oskärpa kan förbättra läsbarheten för inloggningsfältet"
 
-#: Settings.ui.h:18 Settings4.ui.h:19
+#: Settings.ui.h:17 Settings4.ui.h:17
 msgid "Background blur intensity"
 msgstr "Bakgrundsoskärpa"
 
-#: Settings.ui.h:19 Settings4.ui.h:20
+#: Settings.ui.h:18 Settings4.ui.h:18
 msgid "Can improve contrast of login prompt"
 msgstr "Kan förbättra läsbarheten för inloggningsfältet"
 
-#: Settings.ui.h:20 Settings4.ui.h:21
+#: Settings.ui.h:19 Settings4.ui.h:19
 msgid "Background brightness"
 msgstr "Bakgrundens ljusstyrka"
 
-#: Settings.ui.h:21 Settings4.ui.h:22
+#: Settings.ui.h:20 Settings4.ui.h:20
 msgid "Presets"
 msgstr "Förinställningar"
 
-#: Settings.ui.h:22 Settings4.ui.h:23
+#: Settings.ui.h:21 Settings4.ui.h:21
 msgid "Commonly used presets"
 msgstr "Vanliga förinställningar"
 
-#: Settings.ui.h:23 Settings4.ui.h:24
+#: Settings.ui.h:22 Settings4.ui.h:22
 msgid "No blur, slight dim"
 msgstr "Ingen oskärpa, svag neddimning"
 
-#: Settings.ui.h:24 Settings4.ui.h:25
+#: Settings.ui.h:23 Settings4.ui.h:23
 msgid "GNOME default"
 msgstr "GNOME-standard"
 
-#: Settings.ui.h:25 Settings4.ui.h:26
+#: Settings.ui.h:24 Settings4.ui.h:24
 msgid "Slight blur, slight dim"
 msgstr "Svag oskärpa, svag neddimning"
 
-#: Settings.ui.h:26 Settings4.ui.h:27
+#: Settings.ui.h:25 Settings4.ui.h:25
 msgid "Lock Screen"
 msgstr "Låsskärm"
 
-#: Settings.ui.h:27 Settings4.ui.h:28
+#: Settings.ui.h:26 Settings4.ui.h:27
+msgid "Debug logging"
+msgstr ""
+
+#: Settings.ui.h:27 Settings4.ui.h:26
+msgid "Enable logging to system journal"
+msgstr ""
+
+#: Settings.ui.h:28 Settings4.ui.h:29
+msgid "Always show new images"
+msgstr ""
+
+#: Settings.ui.h:29 Settings4.ui.h:28
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+
+#: Settings.ui.h:30 Settings4.ui.h:31
+#, fuzzy
+#| msgid "Thumbnail disabled on Wayland"
+msgid "Enable all features on Wayland"
+msgstr "Miniatyrbild är inaktiverad på Wayland"
+
+#: Settings.ui.h:31 Settings4.ui.h:30
+msgid "Some newer features may be unstable on Wayland"
+msgstr ""
+
+#: Settings.ui.h:32 Settings4.ui.h:32
+msgid "Screen resolution"
+msgstr "Skärmupplösning"
+
+#: Settings.ui.h:33 Settings4.ui.h:33
+msgid "Override automatic resolution selection"
+msgstr "Åsidosätt automatiskt skärmupplösningsval"
+
+#: Settings.ui.h:34 Settings4.ui.h:34
+msgid "Debug options"
+msgstr ""
+
+#: Settings.ui.h:35 Settings4.ui.h:35
 msgid "New wallpaper images everyday from Bing"
 msgstr "Dagliga nya skrivbordsbakgrundsbilder från Bing"
 
-#: Settings.ui.h:28 Settings4.ui.h:29
+#: Settings.ui.h:36 Settings4.ui.h:36
 msgid "Gnome shell extension version "
 msgstr "GNOME shell-tillägg version "
 
-#: Settings.ui.h:29 Settings4.ui.h:30
+#: Settings.ui.h:37 Settings4.ui.h:37
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:30 Settings4.ui.h:31
+#: Settings.ui.h:38 Settings4.ui.h:38
 msgid "Maintained by Michael Carroll"
 msgstr "Underhålls av Michael Carroll"
 
-#: Settings.ui.h:31 Settings4.ui.h:32
+#: Settings.ui.h:39 Settings4.ui.h:39
 msgid ""
 "Show your support to the author on <a href=\"https://flattr.com/@neffo"
 "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
@@ -147,15 +183,15 @@ msgstr ""
 "Stöd tillägget genom <a href=\"https://flattr.com/@neffo\">Flattr</a> eller "
 "<a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
-#: Settings.ui.h:32 Settings4.ui.h:33
+#: Settings.ui.h:40 Settings4.ui.h:40
 msgid "Changes since last version"
 msgstr "Nyheter sedan förra versionen"
 
-#: Settings.ui.h:33 Settings4.ui.h:34
+#: Settings.ui.h:41 Settings4.ui.h:41
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Baserat på \\\"NASA APOD Gnome shell extensions\\\" av Elia Argentieri"
 
-#: Settings.ui.h:34 Settings4.ui.h:35
+#: Settings.ui.h:42 Settings4.ui.h:42
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -165,15 +201,9 @@ msgstr ""
 "Se <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public "
 "License, version 3 eller senare</a> för detaljer.</span>"
 
-#: Settings.ui.h:36 Settings4.ui.h:37
+#: Settings.ui.h:44 Settings4.ui.h:44
 msgid "About"
 msgstr "Om"
-
-#: Settings4.ui.h:8
-#, fuzzy
-#| msgid "Download folder"
-msgid "Open folder"
-msgstr "Öppna mapp"
 
 #: extension.js:117
 msgid "<No refresh scheduled>"
@@ -204,64 +234,68 @@ msgstr "Uppdatera nu"
 msgid "Thumbnail disabled on Wayland"
 msgstr "Miniatyrbild är inaktiverad på Wayland"
 
-#: extension.js:204
+#: extension.js:210
 msgid "Next refresh"
 msgstr "Nästa uppdatering"
 
-#: extension.js:505 extension.js:543
+#: extension.js:515 extension.js:552
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bings dagliga bakgrundsbild för"
 
-#: extension.js:570
+#: extension.js:525
+msgid "More info on Bing.com"
+msgstr ""
+
+#: extension.js:579
 msgid "No wallpaper available"
 msgstr "Inga skrivbordsbakgrunder tillgängliga"
 
-#: extension.js:571
+#: extension.js:580
 msgid "No picture for today 😞."
 msgstr "Inga nya bilder idag 😞."
 
-#: prefs.js:172
+#: prefs.js:181
 msgid "Most recent image"
 msgstr "Den senaste bilden"
 
-#: prefs.js:173
+#: prefs.js:182
 msgid "Random image"
 msgstr "Slumpmässig bild"
 
-#: prefs.js:188 prefs.js:204
+#: prefs.js:197 prefs.js:213
 #, fuzzy
 msgid "Disabled on current GNOME version"
 msgstr "Inaktiverad i denna GNOME-version"
 
-#: utils.js:141
+#: utils.js:146
 msgid "Fetching data..."
 msgstr "Hämtar data..."
 
-#: utils.js:152
+#: utils.js:157
 msgid "Market not available in your region"
 msgstr "Marknaden är inte tillgänglig för din region"
 
-#: utils.js:156
+#: utils.js:161
 msgid "A network error occured"
 msgstr "Ett nätverksproblem inträffade"
 
-#: utils.js:161
+#: utils.js:166
 msgid "Too many requests in 5 seconds"
 msgstr "För många förfrågningar under fem sekunder"
 
-#: utils.js:188
+#: utils.js:193
 msgid "No change log found for this release"
 msgstr "Förändringslogg saknas för denna version"
 
-#: utils.js:369 utils.js:372
+#: utils.js:388 utils.js:391
 msgid "minutes"
 msgstr "minuter"
 
-#: utils.js:375
+#: utils.js:394
 msgid "days"
 msgstr "dagar"
 
-#: utils.js:378
+#: utils.js:397
 msgid "hours"
 msgstr "timmar"
 
