@@ -28,11 +28,11 @@ msgstr "Indikatorikon"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Aktivera aviseringar"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
-msgstr "Välj backgrundsbild"
+msgstr "Välj bakgrundsbild"
 
 #: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
@@ -64,11 +64,11 @@ msgstr "Skärmupplösning"
 
 #: Settings.ui.h:12 Settings4.ui.h:14
 msgid "Override automatic resolution selection"
-msgstr "Välj manuell skärmupplösning"
+msgstr "Åsidosätt automatiskt skärmupplösningsval"
 
 #: Settings.ui.h:13 Settings4.ui.h:12
 msgid "Selected image"
-msgstr ""
+msgstr "Vald bild"
 
 #: Settings.ui.h:14 Settings4.ui.h:15 extension.js:132
 msgid "Settings"
@@ -76,7 +76,7 @@ msgstr "Inställningar"
 
 #: Settings.ui.h:15 Settings4.ui.h:16
 msgid "Use custom blur and brightness"
-msgstr "Välj egna inställningar för oskärpa och belysning"
+msgstr "Välj egna inställningar för oskärpa och ljusstyrka"
 
 #: Settings.ui.h:16 Settings4.ui.h:17
 msgid "Override GDM3 lockscreen effects"
@@ -96,7 +96,7 @@ msgstr "Kan förbättra läsbarheten för inloggningsfältet"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Background brightness"
-msgstr "Bakgrundsbelysning"
+msgstr "Bakgrundens ljusstyrka"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Presets"
@@ -104,11 +104,11 @@ msgstr "Förinställningar"
 
 #: Settings.ui.h:22 Settings4.ui.h:23
 msgid "Commonly used presets"
-msgstr "Vanliga inställningar"
+msgstr "Vanliga förinställningar"
 
 #: Settings.ui.h:23 Settings4.ui.h:24
 msgid "No blur, slight dim"
-msgstr "Endast dimrat"
+msgstr "Ingen oskärpa, svag neddimning"
 
 #: Settings.ui.h:24 Settings4.ui.h:25
 msgid "GNOME default"
@@ -116,7 +116,7 @@ msgstr "GNOME-standard"
 
 #: Settings.ui.h:25 Settings4.ui.h:26
 msgid "Slight blur, slight dim"
-msgstr "Något oskarpt och dimrat"
+msgstr "Svag oskärpa, svag neddimning"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
 msgid "Lock Screen"
@@ -124,7 +124,7 @@ msgstr "Låsskärm"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "New wallpaper images everyday from Bing"
-msgstr "Nya skrivbordsbakgrundsbilder dagligen från Bing"
+msgstr "Dagliga nya skrivbordsbakgrundsbilder från Bing"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "Gnome shell extension version "
@@ -149,7 +149,7 @@ msgstr ""
 
 #: Settings.ui.h:32 Settings4.ui.h:33
 msgid "Changes since last version"
-msgstr "Nyheter"
+msgstr "Nyheter sedan förra versionen"
 
 #: Settings.ui.h:33 Settings4.ui.h:34
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
@@ -173,7 +173,7 @@ msgstr "Om"
 #, fuzzy
 #| msgid "Download folder"
 msgid "Open folder"
-msgstr "Nedladdningsmapp"
+msgstr "Öppna mapp"
 
 #: extension.js:117
 msgid "<No refresh scheduled>"
@@ -185,20 +185,20 @@ msgstr "Uppdaterar..."
 
 #: extension.js:126
 msgid "Copy image to clipboard"
-msgstr "Kopiera bild till urklippet"
+msgstr "Kopiera bild till urklipp"
 
 #: extension.js:127
 msgid "Copy image URL to clipboard"
-msgstr "Kopiera bildlänk till urklippet"
+msgstr "Kopiera bildlänk till urklipp"
 
 #: extension.js:128
 #, fuzzy
 msgid "Open image folder"
-msgstr "Nedladdningsmapp"
+msgstr "Öppna bildmapp"
 
 #: extension.js:131
 msgid "Refresh Now"
-msgstr "Uppdatera"
+msgstr "Uppdatera nu"
 
 #: extension.js:137
 msgid "Thumbnail disabled on Wayland"
@@ -222,16 +222,16 @@ msgstr "Inga nya bilder idag 😞."
 
 #: prefs.js:172
 msgid "Most recent image"
-msgstr ""
+msgstr "Den senaste bilden"
 
 #: prefs.js:173
 msgid "Random image"
-msgstr ""
+msgstr "Slumpmässig bild"
 
 #: prefs.js:188 prefs.js:204
 #, fuzzy
 msgid "Disabled on current GNOME version"
-msgstr "Miniatyrbild är inaktiverad"
+msgstr "Inaktiverad i denna GNOME-version"
 
 #: utils.js:141
 msgid "Fetching data..."
@@ -247,11 +247,11 @@ msgstr "Ett nätverksproblem inträffade"
 
 #: utils.js:161
 msgid "Too many requests in 5 seconds"
-msgstr ""
+msgstr "För många förfrågningar under fem sekunder"
 
 #: utils.js:188
 msgid "No change log found for this release"
-msgstr "Nyheter saknas för denna version"
+msgstr "Förändringslogg saknas för denna version"
 
 #: utils.js:369 utils.js:372
 msgid "minutes"
