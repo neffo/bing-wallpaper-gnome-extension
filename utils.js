@@ -450,9 +450,9 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
 	// fix filenames in previous queue
 	settings.set_string('previous', settings.get_string('previous').replaceAll(oldPath,newPath));
 	// correct filenames for GNOME backgrounds
-	if (this._settings.get_boolean('set-background'))
+	if (settings.get_boolean('set-background'))
 		moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-	if (this._settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller("3.36"))
+	if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller("3.36"))
 		moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
