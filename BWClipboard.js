@@ -25,7 +25,8 @@ var BWClipboard = class BWClipboard {
             let file = Gio.File.new_for_path(filename);
             let [success, image_data] = file.load_contents(null);
             //log('error: '+success);
-            this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
+            if (success)
+                this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
         } catch (err) {
             log('unable to set clipboard to data in '+filename);
         }

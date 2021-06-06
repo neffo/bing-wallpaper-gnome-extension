@@ -138,7 +138,7 @@ function whichVersion() {
             return 1;
         }
         else {
-            return 2
+            return 2;
         }
     }
     else {
