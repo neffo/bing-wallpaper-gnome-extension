@@ -185,7 +185,7 @@ function fetch_change_log(version, label) {
 	httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
 		if (message.status_code == 200) {
 			let data = message.response_body.data;
-			text = JSON.parse(data).body;
+			let text = JSON.parse(data).body;
 			label.set_label(text);
 		} 
 		else {
