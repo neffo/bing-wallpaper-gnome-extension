@@ -40,6 +40,10 @@ const BingURL = "https://www.bing.com";
 const IndicatorName = "BingWallpaperIndicator";
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
+const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
+const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
+const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
+const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
 
 let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
 
@@ -91,6 +95,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this.version = "0.1";
         this._updatePending = false;
         this._timeout = null;
+        this._shuffleTimeout = null;
         this.longstartdate = null;
         this.imageURL= ""; // link to image itself
         this.imageinfolink = ""; // link to Bing photo info page
@@ -120,6 +125,7 @@ const BingWallpaperIndicator = new Lang.Class({
         this._wrapLabelItem(this.titleItem);
         this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this._wrapLabelItem(this.explainItem);
+        this.controlItem = new PopupMenu.PopupMenuItem(""); // blank
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this._wrapLabelItem(this.copyrightItem);
         this.separator = new PopupMenu.PopupSeparatorMenuItem();
@@ -130,8 +136,8 @@ const BingWallpaperIndicator = new Lang.Class({
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82
-            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); // new Gtk.AspectFrame('Preview',0.5, 0.5, 1.77, false);
+        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82, now fixed
+            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); 
         }
         else {
             this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
@@ -140,9 +146,11 @@ const BingWallpaperIndicator = new Lang.Class({
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(this.explainItem);
-        this.prevBtn = this._newMenuIcon('go-previous-symbolic', this.explainItem, this._prevImage);
-        this.randomBtn = this._newMenuIcon('media-playlist-shuffle-symbolic', this.explainItem, this._setRandom);
-        this.nextBtn = this._newMenuIcon('go-next-symbolic', this.explainItem, this._nextImage);
+        this.menu.addMenuItem(this.controlItem);
+        this.prevBtn = this._newMenuIcon(ICON_PREVIOUS_BUTTON, this.controlItem, this._prevImage);
+        this.randomBtn = this._newMenuIcon(ICON_SHUFFLE_BUTTON, this.controlItem, this._setRandom);
+        this.nextBtn = this._newMenuIcon(ICON_NEXT_BUTTON, this.controlItem, this._nextImage);
+        this.curBtn = this._newMenuIcon(ICON_CURRENT_BUTTON, this.controlItem, this._curImage);
         this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.titleItem);
         this.menu.addMenuItem(this.copyrightItem);
@@ -265,15 +273,9 @@ const BingWallpaperIndicator = new Lang.Class({
         Utils.validate_icon(this._settings);
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
-        if (!this.icon.get_parent() && 0) {
-            log('New icon set to : '+icon_name);
-            getActorCompat(this).add_child(this.icon);
-        }
-        else {
-            log('Replace icon set to : '+icon_name);
-            getActorCompat(this).remove_all_children();
-            getActorCompat(this).add_child(this.icon);
-        }
+        log('Replace icon set to : '+icon_name);
+        getActorCompat(this).remove_all_children();
+        getActorCompat(this).add_child(this.icon);
     },
 
     // set backgrounds as requested and set preview image in menu
@@ -319,6 +321,16 @@ const BingWallpaperIndicator = new Lang.Class({
         let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds);
         this.refreshdue = localTime;
         log('next check in '+seconds+' seconds @ local time '+localTime.format('%F %R %z'));
+    },
+
+    _restartShuffleTimeout: function (seconds = null)
+    {
+        if (this._shuffleTimeout)
+            Mainloop.source_remove(this._shuffleTimeout);
+        if (seconds == null)
+            seconds = this._settings.get_int('random-interval');
+        this._shuffleTimeout = Mainloop.timeout_add_seconds(seconds, Lang.bind(this, this._selectImage));
+        log('next shuffle in '+seconds+' seconds');
     },
 
     // set a timer on when the current image is going to expire
@@ -416,11 +428,15 @@ const BingWallpaperIndicator = new Lang.Class({
         this._gotoImage(-1);
     },
 
+    _curImage: function () {
+        this._settings.set_string('selected-image', 'current');
+        this._gotoImage(0);
+    },
+
     _setRandom: function () {
         if (this._settings.get_string('selected-image')=='random') {
             // already set to random, so just roll the dice once more
             this._selectImage();
-            this._restartTimeout(this._settings.get_int('random-interval'));
         }
         else {
             // setting this will force a new image selection
@@ -445,7 +461,7 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // download Bing metadata
-    _refresh: function() {
+    _refresh: function(forced = false) {
         if (this._updatePending)
             return;
         this._updatePending = true;
@@ -465,7 +481,8 @@ const BingWallpaperIndicator = new Lang.Class({
                 let data = message.response_body.data;
                 log("Recieved "+data.length+" bytes");
                 this._parseData(data);
-                this._selectImage();
+                if (this.selected_image != 'random' /*|| !forced*/)
+                    this._selectImage();
             } else if (message.status_code == 403) {
                 log("Access denied: "+message.status_code);
                 this._updatePending = false;
@@ -484,6 +501,8 @@ const BingWallpaperIndicator = new Lang.Class({
             let parsed = JSON.parse(data);
             let datamarket = parsed.market.mkt;
             let prefmarket = this._settings.get_string('market');
+            if (datamarket != prefmarket)
+                log('WARNING: Bing returning market data for '+datamarket+' rather than selected '+prefmarket);
             // FIXME: we need to handle this better, including storing longer history & removing duplicates
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
             Utils.cleanupImageList(this._settings);
@@ -531,12 +550,13 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _selectImage: function() {
-        imageList = JSON.parse(this._settings.get_string('bing-json'));
+        let imageList = JSON.parse(this._settings.get_string('bing-json'));
         let image = null;
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
         if (this.selected_image == 'random') {
             image = imageList[Utils.getRandomInt(imageList.length)];
-            this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
+            this._restartShuffleTimeout();
+            //this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
         } else if (this.selected_image == 'current') {
             image = Utils.getCurrentImage(imageList);
         } else {
@@ -557,7 +577,7 @@ const BingWallpaperIndicator = new Lang.Class({
             let resolution = Utils.getResolution(this._settings, image);
             let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
             this.imageURL = BingURL+image.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
-            this.filename = BingWallpaperDir+image.startdate+'-'+this.imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '');
+            this.filename = toFilename(BingWallpaperDir,image.startdate,image.urlbase,resolution);
             
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
@@ -571,7 +591,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 this._downloadImage(this.imageURL, file);
             } else {
                 log("Image already downloaded");
-                let changed = this._setBackground();
+                this._setBackground();
                 this._updatePending = false;
             }
             //this._createNotification(image); // for testing
@@ -600,10 +620,11 @@ const BingWallpaperIndicator = new Lang.Class({
 
     _reStoreState: function() {
         try {
+            log('restoring state...');
             let stateJSON = this._settings.get_string('state');
             let state = JSON.parse(stateJSON);
             let maxLongDate = null;
-            maxLongdate = state.maxlongdate? state.maxlongdate: null;
+            maxLongDate = state.maxlongdate? state.maxlongdate: null;
             this.title = state.title;
             this.explanation = state.explanation;
             this.copyright = state.copyright;
@@ -611,13 +632,17 @@ const BingWallpaperIndicator = new Lang.Class({
             this.imageinfolink = state.imageinfolink;
             this.imageURL = state.imageURL;
             this.filename = state.filename;
+            this._selected_image = this._settings.get_string('selected-image');
             this._setMenuText();
             this._setBackground();
             if (!maxLongDate) {
                 this._restartTimeout(60);
+                return;
             } 
-            else if (this.selected_image == 'random') {
-                this._restartTimeout(this._settings.get_int('random-interval'));
+            if (this.selected_image == 'random') {
+                //this._restartTimeout(this._settings.get_int('random-interval'));
+                //this._restartShuffleTimeout();
+                this._setRandom();
             }
             else {
                 this._restartTimeoutFromLongDate(maxLongDate);
@@ -729,7 +754,9 @@ function enable() {
 
 function disable() {
     if (this._timeout)
-            Mainloop.source_remove(this._timeout);
+        Mainloop.source_remove(this._timeout);
+    if (this._shuffleTimeout)
+        Mainloop.source_remove(this._shuffleTimeout);
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
