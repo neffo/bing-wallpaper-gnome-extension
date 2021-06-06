@@ -215,7 +215,7 @@ const BingWallpaperIndicator = new Lang.Class({
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
             this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-            this.refreshduetext = _("Next refresh") + ": " + this.refreshdue.format("%X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
+            this.refreshduetext = _("Next refresh") + ": " + (this.refreshdue? this.refreshdue.format("%X"):'-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
             this.refreshDueItem.label.set_text(this.refreshduetext); //
         }));
         if (this._settings.get_string('state') != '[]') {
@@ -640,9 +640,8 @@ const BingWallpaperIndicator = new Lang.Class({
                 return;
             } 
             if (this.selected_image == 'random') {
-                //this._restartTimeout(this._settings.get_int('random-interval'));
-                //this._restartShuffleTimeout();
                 this._setRandom();
+                this._restartTimeoutFromLongDate(maxLongDate);
             }
             else {
                 this._restartTimeoutFromLongDate(maxLongDate);
