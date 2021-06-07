@@ -1,0 +1,10 @@
+{
+  "name": "Bing Wallpaper",
+  "description": "Bing Wallpaper eslint check",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  },
+  "scripts": {
+    "lint": "eslint *.js"
+  }
+}

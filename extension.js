@@ -45,7 +45,7 @@ const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
 const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
 
-let validresolutions = [ '800x600' , '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
+let validresolutions = ['800x600', '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
 
 let autores; // automatically selected resolution
 
@@ -227,7 +227,7 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     // listen for configuration changes
-    _setConnections: function(){
+    _setConnections: function() {
         this._settings.connect('changed::hide', Lang.bind(this, function() {
             getActorCompat(this).visible = !this._settings.get_boolean('hide');
         }));
@@ -568,17 +568,17 @@ const BingWallpaperIndicator = new Lang.Class({
         if (image.url != '') {
             this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
             this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
-            this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*','');
+            this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*', '');
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = Utils.getResolution(this._settings, image);
             let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
             this.imageURL = BingURL+image.urlbase+"_"+resolution+".jpg"; // generate image url for user's resolution
-            this.filename = toFilename(BingWallpaperDir,image.startdate,image.urlbase,resolution);
+            this.filename = toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
-            let file_info = file_exists ? file.query_info ('*',Gio.FileQueryInfoFlags.NONE,null): 0;
+            let file_info = file_exists ? file.query_info ('*', Gio.FileQueryInfoFlags.NONE, null): 0;
 
             if (!file_exists || file_info.get_size () == 0) { // file doesn't exist or is empty (probably due to a network error)
                 let dir = Gio.file_new_for_path(BingWallpaperDir);
@@ -661,12 +661,12 @@ const BingWallpaperIndicator = new Lang.Class({
         // create an http message
         let request = Soup.Message.new('GET', url);
         // got_headers event
-        request.connect('got_headers', Lang.bind(this, function(message){
+        request.connect('got_headers', Lang.bind(this, function(message) {
             log("got_headers, status: "+message.status_code);
         }));
 
         // got_chunk event
-        request.connect('got_chunk', Lang.bind(this, function(message, chunk){
+        request.connect('got_chunk', Lang.bind(this, function(message, chunk) {
             //log("got_chuck, status: "+message.status_code);
             if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
                 fstream.write(chunk.get_data(), null);

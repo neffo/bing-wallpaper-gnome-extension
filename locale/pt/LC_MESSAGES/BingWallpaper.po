@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 22:23+1000\n"
-"PO-Revision-Date: 2021-06-06 10:42-0300\n"
+"POT-Creation-Date: 2021-06-06 14:27+1000\n"
+"PO-Revision-Date: 2021-06-07 23:29+1000\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@protonmail.com>\n"
 "Language-Team: Portuguese < >\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 40.0\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
@@ -31,11 +31,11 @@ msgstr "Indicador"
 msgid "Enable desktop notifications"
 msgstr "Ativar as notificações na área de trabalho"
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:135
 msgid "Set background image"
 msgstr "Definir a imagem como fundo da área de trabalho"
 
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:136
 msgid "Set lock screen image"
 msgstr "Definir a imagem como fundo do ecrã de bloqueio"
 
@@ -67,7 +67,7 @@ msgstr "Localização do Bing"
 msgid "Default is English - United States"
 msgstr "A predefinição é Inglês - Estados Unidos"
 
-#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:132
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:138
 msgid "Settings"
 msgstr "Definições"
 
@@ -162,7 +162,7 @@ msgstr "Novos fundos diariamente através do Bing"
 
 #: Settings.ui.h:36 Settings4.ui.h:36
 msgid "Gnome shell extension version "
-msgstr "Versão da extensão na consola Gnome"
+msgstr "Versão da extensão na consola Gnome "
 
 #: Settings.ui.h:37 Settings4.ui.h:37
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -203,51 +203,51 @@ msgstr ""
 msgid "About"
 msgstr "Acerca"
 
-#: extension.js:117
+#: extension.js:122
 msgid "<No refresh scheduled>"
 msgstr "<Sem atualização agendada>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:124 extension.js:126 extension.js:129
 msgid "Awaiting refresh..."
 msgstr "Em espera por atualização..."
 
-#: extension.js:126
+#: extension.js:132
 msgid "Copy image to clipboard"
 msgstr "Copiar a imagem para a área de transferência"
 
-#: extension.js:127
+#: extension.js:133
 msgid "Copy image URL to clipboard"
 msgstr "Copiar a URL da imagem para a área de transferência"
 
-#: extension.js:128
+#: extension.js:134
 msgid "Open image folder"
 msgstr "Abrir a pasta da imagem"
 
-#: extension.js:131
+#: extension.js:137
 msgid "Refresh Now"
 msgstr "Atualizar agora"
 
-#: extension.js:137
+#: extension.js:143
 msgid "Thumbnail disabled on Wayland"
 msgstr "Miniaturas desativadas no Wayland"
 
-#: extension.js:210
+#: extension.js:218
 msgid "Next refresh"
 msgstr "Próxima atualização"
 
-#: extension.js:515 extension.js:552
+#: extension.js:533 extension.js:573
 msgid "Bing Wallpaper of the Day for"
 msgstr "Fundo atual do Bing para"
 
-#: extension.js:525
+#: extension.js:538
 msgid "More info on Bing.com"
 msgstr "Mais informação em Bing.com"
 
-#: extension.js:579
+#: extension.js:600
 msgid "No wallpaper available"
 msgstr "Nenhum fundo disponível"
 
-#: extension.js:580
+#: extension.js:601
 msgid "No picture for today 😞."
 msgstr "Nenhum fundo por hoje 😞."
 
