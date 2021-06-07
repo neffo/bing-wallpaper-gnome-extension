@@ -8,6 +8,7 @@
 
 const St = imports.gi.St;
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+const Gio = imports.gi.Gio;
 /*const Gdk = imports.gi.Gdk;
 const Gtk = imports.gi.Gtk;*/
 
