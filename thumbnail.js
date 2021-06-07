@@ -22,4 +22,4 @@ var Thumbnail = class Thumbnail {
             log('Unable to create thumbnail for corrupt or incomplete file: ' + filePath + ' err: ' + err);
         }
     }
-}
+};

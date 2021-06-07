@@ -182,7 +182,7 @@ const BingWallpaperIndicator = new Lang.Class({
         }));
         this.titleItem.connect('activate', Lang.bind(this, function() {
             if (this.imageinfolink)
-              Util.spawn(["xdg-open", this.imageinfolink]);
+                Util.spawn(["xdg-open", this.imageinfolink]);
         }));
         this.folderItem.connect('activate', Lang.bind(this, function() {
             Utils.openImageFolder(this._settings);
@@ -190,7 +190,7 @@ const BingWallpaperIndicator = new Lang.Class({
         
         this.dwallpaperItem.connect('activate', Lang.bind(this, this._setBackgroundDesktop));
         this.refreshItem.connect('activate', Lang.bind(this, this._refresh));
-        this.settingsItem.connect('activate', function() {
+        this.settingsItem.connect('activate', Lang.bind(this, () => {
             try {
                 ExtensionUtils.openPrefs();
             }
@@ -201,7 +201,7 @@ const BingWallpaperIndicator = new Lang.Class({
                 else 
                     Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]);
             }
-        });
+        }));
 
         getActorCompat(this).connect('button-press-event', Lang.bind(this, function () {
             // Grey out menu items if an update is pending
@@ -209,7 +209,7 @@ const BingWallpaperIndicator = new Lang.Class({
             if (Utils.is_x11()) {
                 this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
                 this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
-	        }
+            }
             this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
             //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
             this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -323,8 +323,7 @@ const BingWallpaperIndicator = new Lang.Class({
         log('next check in '+seconds+' seconds @ local time '+localTime.format('%F %R %z'));
     },
 
-    _restartShuffleTimeout: function (seconds = null)
-    {
+    _restartShuffleTimeout: function (seconds = null) {
         if (this._shuffleTimeout)
             Mainloop.source_remove(this._shuffleTimeout);
         if (seconds == null)
@@ -335,7 +334,7 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // set a timer on when the current image is going to expire
     _restartTimeoutFromLongDate: function (longdate) {
-         // all bing times are in UTC (+0)
+        // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
         let timezone = GLib.TimeZone.new_local();
         let now = GLib.DateTime.new_now(timezone);
@@ -352,8 +351,8 @@ const BingWallpaperIndicator = new Lang.Class({
 
     // convert shortdate format into human friendly format
     _localeDate: function (shortdate) {
-      let date = Utils.dateFromShortDate(shortdate);
-      return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
+        let date = Utils.dateFromShortDate(shortdate);
+        return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
     },
 
     // set menu text in lieu of a notification/popup
@@ -386,9 +385,7 @@ const BingWallpaperIndicator = new Lang.Class({
         });
 
         getActorCompat(parent).add_child(iconBtn);
-        iconBtn.connect('button-press-event',
-            Lang.bind(this, fn)
-        );
+        iconBtn.connect('button-press-event', Lang.bind(this, fn));
         return iconBtn;
     },
 
@@ -434,7 +431,7 @@ const BingWallpaperIndicator = new Lang.Class({
     },
 
     _setRandom: function () {
-        if (this._settings.get_string('selected-image')=='random') {
+        if (this._settings.get_string('selected-image') == 'random') {
             // already set to random, so just roll the dice once more
             this._selectImage();
         }
@@ -705,7 +702,7 @@ const BingWallpaperIndicator = new Lang.Class({
         log("Settings: delete:"+(deletepictures?"yes":"no")+" max: "+maxpictures);
         imagelist.push(filename); // add current to end of list
 
-        while(imagelist.length > maxpictures+1) {
+        while (imagelist.length > maxpictures+1) {
             var to_delete = imagelist.shift(); // get the first (oldest item from the list)
             log("image: "+to_delete);
             if (deletepictures && to_delete != '') {
@@ -764,6 +761,6 @@ function disable() {
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {
-    return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"+resolution+".jpg";;
+    return wallpaperDir+startdate+'-'+imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '')+"_"+resolution+".jpg";
 }
 

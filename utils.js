@@ -259,7 +259,7 @@ function getImageUrlBase(image_data) {
 }
 
 function getMaxLongDate(settings) {
-	imageList = getImageList(settings);
+	let imageList = getImageList(settings);
 	return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }))
 }
 
@@ -268,7 +268,7 @@ function getCurrentImageIndex (imageList) {
 		return -1;
 	let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
 	let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
-	log('getCurrentImageIndex for '+maxLongDate+': '+index)
+	log('getCurrentImageIndex for '+maxLongDate+': '+index);
 	return index;
 }
 
