@@ -56,7 +56,7 @@ let blur_strength=30;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
-  Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
+    Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
 
 function log(msg) {
     if (bingWallpaperIndicator==null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
