@@ -115,7 +115,7 @@ const BingWallpaperIndicator = new Lang.Class({
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
         // enable unsafe features on Wayland if the user overrides it
-        if (this._settings.get_boolean('override-unsafe-wayland')) {
+        if (!Utils.is_x11() && this._settings.get_boolean('override-unsafe-wayland')) {
             Utils.is_x11 = Utils.enabled_unsafe;
         }
 
@@ -733,7 +733,10 @@ const BingWallpaperIndicator = new Lang.Class({
     stop: function () {
         if (this._timeout)
             Mainloop.source_remove(this._timeout);
+        if (this._shuffleTimeout)
+            Mainloop.source_remove(this._shuffleTimeout);
         this._timeout = undefined;
+        this._shuffleTimeout = undefined;
         this.menu.removeAll();
     }
 });
@@ -748,11 +751,7 @@ function enable() {
     autores = "UHD"; // remove monitor size checks
 }
 
-function disable() {
-    if (this._timeout)
-        Mainloop.source_remove(this._timeout);
-    if (this._shuffleTimeout)
-        Mainloop.source_remove(this._shuffleTimeout);
+function disable() { 
     bingWallpaperIndicator.stop();
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
