@@ -469,8 +469,8 @@ const BingWallpaperIndicator = new Lang.Class({
         log("market: " + market);
 
         // create an http message
-        let request = Soup.Message.new('GET', BingImageURL+market); // + market
-        log("fetching: " + BingImageURL+market);
+        let request = Soup.Message.new('GET', BingImageURL + (market != 'auto' ? market : '')); // + market
+        log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
 
         // queue the http request
         httpSession.queue_message(request, Lang.bind(this, function(httpSession, message) {
@@ -498,9 +498,8 @@ const BingWallpaperIndicator = new Lang.Class({
             let parsed = JSON.parse(data);
             let datamarket = parsed.market.mkt;
             let prefmarket = this._settings.get_string('market');
-            if (datamarket != prefmarket)
+            if (datamarket != prefmarket && prefmarket != 'auto')
                 log('WARNING: Bing returning market data for '+datamarket+' rather than selected '+prefmarket);
-            // FIXME: we need to handle this better, including storing longer history & removing duplicates
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
             Utils.cleanupImageList(this._settings);
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {

@@ -463,7 +463,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">0</property>
-                                <property name="label" translatable="yes">Default is English - United States</property>
+                                <property name="label" translatable="no"></property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>

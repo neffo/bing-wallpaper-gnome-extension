@@ -45,14 +45,14 @@ var getActorCompat = (obj) =>
 
 var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
-var markets = ['ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
+var markets = ['auto', 'ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
     'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
     'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
     'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
     'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
     'zh-CN', 'zh-HK', 'zh-TW'];
 var marketName = [
-    "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
+    "auto", "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
     "Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
     "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
     "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
@@ -140,8 +140,8 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
     log("last check was " + lastReqDiff + " us ago");
 
     if ((marketDescription && lastreq === null) || (lastReqDiff && lastReqDiff > 5000000)) { // rate limit no more than 1 request per 5 seconds
-        let request = Soup.Message.new('GET', BingImageURL + market); // + market
-        log("fetching: " + BingImageURL + market);
+        let request = Soup.Message.new('GET', BingImageURL + (market != 'auto' ? market : '')); // + market
+        log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
 	
         marketDescription.set_label(_("Fetching data..."));
         // queue the http request
@@ -151,7 +151,7 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
                 log("Recieved " + data.length + " bytes");
                 let checkData = JSON.parse(data);
                 let checkStatus = checkData.market.mkt;
-                if (checkStatus == market) {
+                if (market == 'auto' || checkStatus == market) {
                     marketDescription.set_label('Data OK, ' + data.length + ' bytes recieved');
                 } else {
                     marketDescription.set_label(_("Market not available in your region"));
