@@ -565,9 +565,9 @@ const BingWallpaperIndicator = new Lang.Class({
             return; // could force, image = imageList[0] or perhaps force refresh
 
         if (image.url != '') {
-            this.title = image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+            this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, "");
             this.explanation = _("Bing Wallpaper of the Day for")+' '+this._localeDate(image.startdate);
-            this.copyright = image.copyright.match(/\(([^)]+)\)/)[1].replace('\*\*', '');
+            this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = Utils.getResolution(this._settings, image);
