@@ -89,7 +89,7 @@ function getSettings(schema) {
         throw new Error('Schema ' + schema + ' could not be found for extension '
                         + extension.metadata.uuid + '. Please check your installation.');
 
-    return new Gio.Settings({ settings_schema: schemaObj });
+    return new Gio.Settings({settings_schema: schemaObj});
 }
 
 const versionArray = (v) => v.split(".").map(Number);
@@ -104,58 +104,58 @@ const zip = function(a, b, defaultValue) {
 };
 
 function versionEqual(a, b) {
-  return zip(versionArray(a), versionArray(b), 0).reduce(
-      (prev, [a, b]) => prev && (a === b)
-  , true);
+    return zip(versionArray(a), versionArray(b), 0).reduce(
+        (prev, [a, b]) => prev && (a === b)
+        , true);
 }
 
 function versionGreater(a, b) {
-  const diff = zip(versionArray(a), versionArray(b), 0).find(([a, b]) => a !== b);
-  if (!diff) {
-      return false;
-  }
-  const [x, y] = diff;
-  return x > y;
+    const diff = zip(versionArray(a), versionArray(b), 0).find(([a, b]) => a !== b);
+    if (!diff) {
+        return false;
+    }
+    const [x, y] = diff;
+    return x > y;
 }
 
 function versionSmaller(a, b) {
-  return (!versionEqual(a, b)) && (!versionGreater(a, b));
+    return (!versionEqual(a, b)) && (!versionGreater(a, b));
 }
 
 function currentVersion() {
-  return Config.PACKAGE_VERSION;
+    return Config.PACKAGE_VERSION;
 }
 
 function currentVersionEqual(v) {
-  return versionEqual(currentVersion(), v);
+    return versionEqual(currentVersion(), v);
 }
 
 function currentVersionGreater(v) {
-  return versionGreater(currentVersion(), v);
+    return versionGreater(currentVersion(), v);
 }
 
 function currentVersionGreaterEqual(v) {
-  return versionEqual(currentVersion(), v)
+    return versionEqual(currentVersion(), v)
       || versionGreater(currentVersion(), v);
 }
 
 function currentVersionSmaller(v) {
-  return versionSmaller(currentVersion(), v);
+    return versionSmaller(currentVersion(), v);
 }
 
 function currentVersionSmallerEqual(v) {
-  return versionEqual(currentVersion(), v)
+    return versionEqual(currentVersion(), v)
       && (!versionGreater(currentVersion(), v));
 }
 
 var exports = {
-initTranslations,
-getSettings,
-currentVersion,
-currentVersionEqual,
-currentVersionGreater,
-currentVersionGreaterEqual,
-currentVersionSmaller,
-currentVersionSmallerEqual
+    initTranslations,
+    getSettings,
+    currentVersion,
+    currentVersionEqual,
+    currentVersionGreater,
+    currentVersionGreaterEqual,
+    currentVersionSmaller,
+    currentVersionSmallerEqual
 };
 

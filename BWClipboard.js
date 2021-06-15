@@ -8,31 +8,26 @@
 
 const St = imports.gi.St;
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
-/*const Gdk = imports.gi.Gdk;
-const Gtk = imports.gi.Gtk;*/
+const Gio = imports.gi.Gio;
 
 var BWClipboard = class BWClipboard {
     constructor() {
-        /*
-        this.display = Gdk.Display.get_default();
-        this.clipboard = this.display ? Gtk.Clipboard.get_default(this.display) : null;*/
         this.clipboard = St.Clipboard.get_default();
     }
 
-    // non functional, getting this to function would likely involve using Gtk, which seems to be a bit unsafe on Wayland
     setImage(filename) {
         try {
             let file = Gio.File.new_for_path(filename);
             let [success, image_data] = file.load_contents(null);
             //log('error: '+success);
-            this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
+            if (success)
+                this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
         } catch (err) {
             log('unable to set clipboard to data in '+filename);
         }
     }
 
     setText(text) {
-        /*this.clipboard.set_text(text, -1);*/
         this.clipboard.set_text(CLIPBOARD_TYPE, text);
     }
-}
+};

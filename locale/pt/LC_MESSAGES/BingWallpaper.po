@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Juliano de Souza Camargo <julianosc@protonmail.com>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 17:43+1000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2021-06-06 14:27+1000\n"
+"PO-Revision-Date: 2021-06-07 23:29+1000\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@protonmail.com>\n"
+"Language-Team: Portuguese < >\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
@@ -28,141 +29,167 @@ msgstr "Indicador"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Ativar as notificações na área de trabalho"
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:135
 msgid "Set background image"
-msgstr "Definir como imagem de fundo"
+msgstr "Definir a imagem como fundo da área de trabalho"
 
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:136
 msgid "Set lock screen image"
-msgstr "Definir imagem na tela de bloqueio"
+msgstr "Definir a imagem como fundo do ecrã de bloqueio"
 
 #: Settings.ui.h:6 Settings4.ui.h:7
 msgid "Download folder"
-msgstr "Pasta de download"
+msgstr "Pasta de transferências"
 
 #: Settings.ui.h:7 Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
-msgstr "Pasta de imagens do Bing Wallpaper"
+msgstr "Pasta de imagens de fundo do Bing"
 
-#: Settings.ui.h:8 Settings4.ui.h:9
+#: Settings.ui.h:8 Settings4.ui.h:8
+msgid "Open folder"
+msgstr "Abrir pasta"
+
+#: Settings.ui.h:9 Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers"
-msgstr "Excluir os wallpapers baixados anteriormente"
+msgstr "Eliminar os fundos descarregados anteriormente"
 
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "Dias para armazenar os wallpapers antes de excluir"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Local do Bing"
-
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Padrão é Inglês - Estados Unidos"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Resolução da Tela"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "Sobrescreve a seleção automática da resolução"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
+#: Settings.ui.h:10 Settings4.ui.h:10
 msgid "Selected image"
-msgstr ""
+msgstr "Imagem selecionada"
 
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
+#: Settings.ui.h:11 Settings4.ui.h:11
+msgid "Bing locale"
+msgstr "Localização do Bing"
+
+#: Settings.ui.h:12 Settings4.ui.h:12
+msgid "Default is English - United States"
+msgstr "A predefinição é Inglês - Estados Unidos"
+
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:138
 msgid "Settings"
-msgstr "Configurações"
+msgstr "Definições"
 
-#: Settings.ui.h:16 Settings4.ui.h:17
+#: Settings.ui.h:14 Settings4.ui.h:14
 msgid "Use custom blur and brightness"
-msgstr ""
+msgstr "Utilizar brilho e desfoque personalizados"
 
-#: Settings.ui.h:17 Settings4.ui.h:18
+#: Settings.ui.h:15 Settings4.ui.h:15
 msgid "Override GDM3 lockscreen effects"
-msgstr ""
+msgstr "Sobrescrever os efeitos do ecrã de bloqueio do GDM3"
 
-#: Settings.ui.h:18 Settings4.ui.h:19
+#: Settings.ui.h:16 Settings4.ui.h:16
 msgid "Blur can improve readability of login prompt"
-msgstr ""
+msgstr "O desfoque pode tornar o ecrã de início de sessão mais legível"
 
-#: Settings.ui.h:19 Settings4.ui.h:20
+#: Settings.ui.h:17 Settings4.ui.h:17
 msgid "Background blur intensity"
-msgstr ""
+msgstr "Intensidade de desfoque do fundo"
 
-#: Settings.ui.h:20 Settings4.ui.h:21
+#: Settings.ui.h:18 Settings4.ui.h:18
 msgid "Can improve contrast of login prompt"
-msgstr ""
+msgstr "Pode melhorar o contraste do ecrã de início de sessão"
 
-#: Settings.ui.h:21 Settings4.ui.h:22
+#: Settings.ui.h:19 Settings4.ui.h:19
 msgid "Background brightness"
-msgstr ""
+msgstr "Brilho do fundo"
 
-#: Settings.ui.h:22 Settings4.ui.h:23
+#: Settings.ui.h:20 Settings4.ui.h:20
 msgid "Presets"
-msgstr ""
+msgstr "Predefinições"
 
-#: Settings.ui.h:23 Settings4.ui.h:24
+#: Settings.ui.h:21 Settings4.ui.h:21
 msgid "Commonly used presets"
-msgstr ""
+msgstr "Predefinições mais utilizadas"
 
-#: Settings.ui.h:24 Settings4.ui.h:25
+#: Settings.ui.h:22 Settings4.ui.h:22
 msgid "No blur, slight dim"
-msgstr ""
+msgstr "Sem desfoque e ligeiramente escurecido"
 
-#: Settings.ui.h:25 Settings4.ui.h:26
+#: Settings.ui.h:23 Settings4.ui.h:23
 msgid "GNOME default"
-msgstr ""
+msgstr "Predefinição GNOME"
+
+#: Settings.ui.h:24 Settings4.ui.h:24
+msgid "Slight blur, slight dim"
+msgstr "Ligeiramente desfocado e escurecido"
+
+#: Settings.ui.h:25 Settings4.ui.h:25
+msgid "Lock Screen"
+msgstr "Ecrã de bloqueio"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Slight blur, slight dim"
-msgstr ""
+msgid "Debug logging"
+msgstr "Registo de depuração"
 
-#: Settings.ui.h:27 Settings4.ui.h:28
-msgid "Lock Screen"
-msgstr ""
+#: Settings.ui.h:27 Settings4.ui.h:26
+msgid "Enable logging to system journal"
+msgstr "Ativar o registo no diário do sistema"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
-msgid "New wallpaper images everyday from Bing"
-msgstr ""
+msgid "Always show new images"
+msgstr "Mostrar sempre novas imagens"
 
-#: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version "
-msgstr "Versão da extensão do Gnome shell "
+#: Settings.ui.h:29 Settings4.ui.h:28
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+"Mudar para novas imagens quando disponíveis (a menos que em modo aleatório)"
 
 #: Settings.ui.h:30 Settings4.ui.h:31
+msgid "Enable all features on Wayland"
+msgstr "Ativar todas as funcionalidades no Wayland"
+
+#: Settings.ui.h:31 Settings4.ui.h:30
+msgid "Some newer features may be unstable on Wayland"
+msgstr "Algumas novas funcionalidades podem ser instáveis no Wayland"
+
+#: Settings.ui.h:32 Settings4.ui.h:32
+msgid "Screen resolution"
+msgstr "Resolução do ecrã"
+
+#: Settings.ui.h:33 Settings4.ui.h:33
+msgid "Override automatic resolution selection"
+msgstr "Sobrescreve automaticamente a resolução selecionada"
+
+#: Settings.ui.h:34 Settings4.ui.h:34
+msgid "Debug options"
+msgstr "Opções de depuração"
+
+#: Settings.ui.h:35 Settings4.ui.h:35
+msgid "New wallpaper images everyday from Bing"
+msgstr "Novos fundos diariamente através do Bing"
+
+#: Settings.ui.h:36 Settings4.ui.h:36
+msgid "Gnome shell extension version "
+msgstr "Versão da extensão na consola Gnome "
+
+#: Settings.ui.h:37 Settings4.ui.h:37
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#: Settings.ui.h:31 Settings4.ui.h:32
+#: Settings.ui.h:38 Settings4.ui.h:38
 msgid "Maintained by Michael Carroll"
 msgstr "Mantido por Michael Carroll"
 
-#: Settings.ui.h:32 Settings4.ui.h:33
+#: Settings.ui.h:39 Settings4.ui.h:39
 msgid ""
 "Show your support to the author on <a href=\"https://flattr.com/@neffo"
 "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
+"Dê seu apoio ao autor em <a href=\"https://flattr.com/@neffo\">Flattr</a> ou "
+"<a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
-#: Settings.ui.h:33 Settings4.ui.h:34
+#: Settings.ui.h:40 Settings4.ui.h:40
 msgid "Changes since last version"
-msgstr ""
+msgstr "Alterações desde a última versão"
 
-#: Settings.ui.h:34 Settings4.ui.h:35
+#: Settings.ui.h:41 Settings4.ui.h:41
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baseado na extensão do Gnome shell NASA APOD por Elia Argentieri"
+msgstr "Baseado na extensão da consola Gnome NASA APOD de Elia Argentieri"
 
-#: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
+#: Settings.ui.h:42 Settings4.ui.h:42
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -172,144 +199,98 @@ msgstr ""
 "Veja a <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
 "\">Licença Pública Geral GNU, versão 3 ou superior</a> para detalhes.</span>"
 
-#: Settings.ui.h:37 Settings4.ui.h:38
+#: Settings.ui.h:44 Settings4.ui.h:44
 msgid "About"
-msgstr "Sobre"
+msgstr "Acerca"
 
-#: Settings4.ui.h:8
-msgid "Open folder"
-msgstr ""
-
-#: extension.js:117
+#: extension.js:122
 msgid "<No refresh scheduled>"
 msgstr "<Sem atualização agendada>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:124 extension.js:126 extension.js:129
 msgid "Awaiting refresh..."
-msgstr "Esperando por atualização..."
+msgstr "Em espera por atualização..."
 
-#: extension.js:126
-#, fuzzy
+#: extension.js:132
 msgid "Copy image to clipboard"
-msgstr "Copiar imagem para a área de transferência"
+msgstr "Copiar a imagem para a área de transferência"
 
-#: extension.js:127
+#: extension.js:133
 msgid "Copy image URL to clipboard"
-msgstr "Copiar URL da imagem para a área de transferência"
+msgstr "Copiar a URL da imagem para a área de transferência"
 
-#: extension.js:128
+#: extension.js:134
 msgid "Open image folder"
-msgstr ""
+msgstr "Abrir a pasta da imagem"
 
-#: extension.js:131
+#: extension.js:137
 msgid "Refresh Now"
 msgstr "Atualizar agora"
 
-#: extension.js:137
+#: extension.js:143
 msgid "Thumbnail disabled on Wayland"
-msgstr ""
+msgstr "Miniaturas desativadas no Wayland"
 
-#: extension.js:203
+#: extension.js:218
 msgid "Next refresh"
 msgstr "Próxima atualização"
 
-#: extension.js:490 extension.js:527
+#: extension.js:533 extension.js:573
 msgid "Bing Wallpaper of the Day for"
-msgstr "Wallpaper do dia para"
+msgstr "Fundo atual do Bing para"
 
-#: extension.js:495
-#, fuzzy
-#| msgid "Set wallpaper"
-msgid "Set as wallpaper"
-msgstr "Definir wallpaper"
-
-#: extension.js:498
+#: extension.js:538
 msgid "More info on Bing.com"
-msgstr ""
+msgstr "Mais informação em Bing.com"
 
-#: extension.js:553
+#: extension.js:600
 msgid "No wallpaper available"
-msgstr "Nenhum wallpaper disponível"
+msgstr "Nenhum fundo disponível"
 
-#: extension.js:554
+#: extension.js:601
 msgid "No picture for today 😞."
-msgstr "Nenhuma imagem para hoje 😞."
+msgstr "Nenhum fundo por hoje 😞."
 
-#: prefs.js:173
+#: prefs.js:181
 msgid "Most recent image"
-msgstr ""
+msgstr "Imagens recentes"
 
-#: prefs.js:174
+#: prefs.js:182
 msgid "Random image"
-msgstr ""
+msgstr "Imagens aleatórias"
 
-#: prefs.js:190 prefs.js:206
+#: prefs.js:197 prefs.js:213
 msgid "Disabled on current GNOME version"
-msgstr ""
+msgstr "Desativado na versão atual do GNOME"
 
-#: utils.js:139
+#: utils.js:146
 msgid "Fetching data..."
-msgstr "Buscando dados..."
+msgstr "A obter dados..."
 
-#: utils.js:150
+#: utils.js:157
 msgid "Market not available in your region"
-msgstr "Local não disponível em sua região"
+msgstr "Loja não disponível em sua região"
 
-#: utils.js:154
+#: utils.js:161
 msgid "A network error occured"
 msgstr "Ocorreu um erro de rede"
 
-#: utils.js:159
+#: utils.js:166
 msgid "Too many requests in 5 seconds"
-msgstr ""
+msgstr "Demasiadas requisições em 5 segundos"
 
-#: utils.js:186
+#: utils.js:193
 msgid "No change log found for this release"
-msgstr ""
+msgstr "Sem registo de alterações nesta versão"
 
-#: utils.js:366 utils.js:369
+#: utils.js:388 utils.js:391
 msgid "minutes"
 msgstr "minutos"
 
-#: utils.js:372
+#: utils.js:394
 msgid "days"
 msgstr "dia"
 
-#: utils.js:375
+#: utils.js:397
 msgid "hours"
 msgstr "horas"
-
-#~ msgid ""
-#~ "Changes your wallpaper daily to the Bing picture of the day for your "
-#~ "region. Displays the picture description and copyright information."
-#~ msgstr ""
-#~ "Altera o seu wallpaper diariamente para a imagem do dia do Bing da sua "
-#~ "região. Cria uma notificação para a descrição da imagem e informações "
-#~ "sobre direitos autorais."
-
-#~ msgid "Send a notification with explanation when a new image is downloaded."
-#~ msgstr ""
-#~ "Enviar uma notificação com explicações quando uma nova imagem for baixada."
-
-#~ msgid "Notifications"
-#~ msgstr "Notificações"
-
-#~ msgid "Use transient notifications (auto dismiss)"
-#~ msgstr "Usar notificações transitórias (auto descartar)"
-
-#~ msgid "Show description"
-#~ msgstr "Exibir descrição"
-
-#~ msgid "Open extension settings"
-#~ msgstr "Abrir as configurações da extensão"
-
-#~ msgid "Bing website"
-#~ msgstr "Site do Bing"
-
-#~ msgid ""
-#~ "The selected market is not available in your country or geographic "
-#~ "region.\n"
-#~ msgstr "O local selecionado não está disponível em seu país ou região.\n"
-
-#~ msgid "This market is not available in your region"
-#~ msgstr "Este local não está disponível em sua região"

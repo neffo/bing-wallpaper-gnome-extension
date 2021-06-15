@@ -40,7 +40,7 @@
     </key>
 
     <key name="market" type="s">
-      <default>"en-US"</default>
+      <default>"auto"</default>
       <summary>Default Market for Bing</summary>
       <description></description>
     </key>

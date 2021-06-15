@@ -60,8 +60,8 @@ var Blur = class Blur {
         this._backgroundGroup.add_child(widget);
         const themeContext = St.ThemeContext.get_for_stage(global.stage);
         log("blur strength: " + blur_strength +" blur brightness: "+blur_brightness);
-        let effect = new Shell.BlurEffect({ brightness: blur_brightness * 0.01, sigma: blur_strength * themeContext.scale_factor / 5 });
-        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = SIGMA_VALUE * themeContext.scale_factor; });
+        let effect = new Shell.BlurEffect({ brightness: blur_brightness * 0.01, sigma: blur_strength * themeContext.scale_factor / 5 }); // fix me, should this be /5?
+        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = blur_strength * themeContext.scale_factor / 5; });
         widget.add_effect(effect);
     }
 
@@ -130,7 +130,7 @@ var Blur = class Blur {
             log("shell version too old, no overriding");
         }
     }
-}
+};
 
 function whichVersion() {
     if ((shellVersionMajor == 3 && shellVersionMinor >= 36) || shellVersionMajor == 40) {
@@ -138,7 +138,7 @@ function whichVersion() {
             return 1;
         }
         else {
-            return 2
+            return 2;
         }
     }
     else {

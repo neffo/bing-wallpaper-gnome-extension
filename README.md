@@ -76,6 +76,7 @@ Please include logs from your journal when submitting bug notices (make sure not
 ![Settings](/screenshot/settings.png)
 ![Settings](/screenshot/settings2.png)
 ![Settings](/screenshot/settings3.png)
+![Settings](/screenshot/settings4.png)
 
 
 Examples of adjustable blur on the lockscreen:
