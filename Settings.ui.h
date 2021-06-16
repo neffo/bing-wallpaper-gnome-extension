@@ -9,7 +9,6 @@ char *s = N_("Open folder");
 char *s = N_("Delete previously downloaded wallpapers");
 char *s = N_("Selected image");
 char *s = N_("Bing locale");
-char *s = N_("Default is English - United States");
 char *s = N_("Settings");
 char *s = N_("Use custom blur and brightness");
 char *s = N_("Override GDM3 lockscreen effects");
