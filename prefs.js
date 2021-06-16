@@ -14,8 +14,6 @@ const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
-const Lang = imports.lang;
-
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;

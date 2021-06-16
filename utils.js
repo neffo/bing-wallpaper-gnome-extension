@@ -12,10 +12,8 @@ const GLib = imports.gi.GLib;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Soup = imports.gi.Soup;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Lang = imports.lang;
 const Config = imports.misc.config;
 const GdkPixbuf = imports.gi.GdkPixbuf;
-
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -145,7 +143,7 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
 	
         marketDescription.set_label(_("Fetching data..."));
         // queue the http request
-        httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
+        httpSession.queue_message(request, function (httpSession, message) {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 log("Recieved " + data.length + " bytes");
@@ -160,7 +158,7 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
                 log("Network error occured: " + message.status_code);
                 marketDescription.set_label(_("A network error occured") + ": " + message.status_code);
             }
-        }));
+        });
     }
     else {
         marketDescription.set_label(_("Too many requests in 5 seconds"));
@@ -182,7 +180,7 @@ function fetch_change_log(version, label) {
     httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
     log("Fetching " + url);
     // queue the http request
-    httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
+    httpSession.queue_message(request, function (httpSession, message) {
         if (message.status_code == 200) {
             let data = message.response_body.data;
             let text = JSON.parse(data).body;
@@ -192,7 +190,7 @@ function fetch_change_log(version, label) {
             log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
             label.set_label(_("No change log found for this release") + ": " + message.status_code);
         }
-    }));
+    });
 }
 
 function set_blur_preset(settings, preset) {
