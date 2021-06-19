@@ -273,14 +273,19 @@ function create_gallery_item(image, settings) {
 function create_gallery_window(title, dimensions) {
     let buildable = new Gtk.Builder();
     let win = new Gtk.Window();
+    let flowBox;
     win.set_size_request(dimensions[2], dimensions[3]);
     win.set_title(title);
-    buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
-    let flowBox = buildable.get_object('carouselFlowBox');
-    if (Gtk.get_major_version() < 4)
+    if (Gtk.get_major_version() < 4) {
+        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
+        flowBox = buildable.get_object('carouselFlowBox');
         win.add(buildable.get_object('carouselScrollable'));
-    else
+    }
+    else {
+        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ['carouselScrollable']);
+        flowBox = buildable.get_object('carouselFlowBox');
         win.set_child(buildable.get_object('carouselScrollable'));
+    }
     return [win, flowBox];
 }
 
