@@ -332,6 +332,9 @@ function cleanupImageList(settings) {
         if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
             newList.push(x);
         }
+        else {
+            log('Cleaning up: '+filename);
+        }
     });
     setImageList(settings, newList);
 }

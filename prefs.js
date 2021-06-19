@@ -64,6 +64,7 @@ function buildPrefsWidget() {
     let marketEntry = buildable.get_object('market');
     let resolutionEntry = buildable.get_object('resolution');
     let historyEntry = buildable.get_object('history');
+    let galleryButton = buildable.get_object('button_open_gallery');
     let deleteSwitch = buildable.get_object('delete_previous');
     marketDescription = buildable.get_object('market_description');
     icon_image = buildable.get_object('icon_image');
@@ -107,6 +108,10 @@ function buildPrefsWidget() {
 
     folderOpenBtn.connect('clicked', function(widget) {
         Utils.openImageFolder(settings);
+    });
+    galleryButton.connect('clicked', function(widget) {
+        create_gallery(widget, settings);
+
     });
 
     //download folder
@@ -231,5 +236,71 @@ function buildPrefsWidget() {
 function log(msg) {
     if (settings.get_boolean('debug-logging'))
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+}
+
+// gallery functions
+
+function create_gallery_item(image, settings) {
+    let buildable = new Gtk.Builder();
+    buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
+    let galleryImage = buildable.get_object('galleryImage');
+    let imageLabel = buildable.get_object('imageLabel');
+    let filename = Utils.imageToFilename(settings, image);
+    let applyButton = buildable.get_object('applyButton');
+    let deleteButton = buildable.get_object('deleteButton');
+    log('fn '+filename);
+    try {
+        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 480, 270);
+        galleryImage.set_from_pixbuf(pixbuf);
+    }
+    catch (e) {
+        galleryImage.set_from_icon_name('image-missing', '64x64');
+        log('create_gallery_image: '+e);
+    }
+    galleryImage.set_tooltip_text(Utils.getImageTitle(image));
+    imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 80));
+    applyButton.connect('clicked', function() {
+        settings.set_string('selected-image', Utils.getImageUrlBase(image));
+        log('gallery selected '+Utils.getImageUrlBase(image));
+    });
+    deleteButton.set_sensitive(false);
+    let item = buildable.get_object('flowBoxChild');
+    return item;
+}
+
+function create_gallery_window(title, dimensions) {
+    let buildable = new Gtk.Builder();
+    let win = new Gtk.Window();
+    win.set_size_request(dimensions[2], dimensions[3]);
+    win.set_title(title);
+    buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
+    let flowBox = buildable.get_object('carouselFlowBox');
+    win.add(buildable.get_object('carouselScrollable'));
+    return [win, flowBox];
+}
+
+function create_gallery(button, settings) {
+    // disable the button
+    button.set_sensitive(false);
+    let dimensions = [30, 30, 1000, 600]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
+    let [win, flowBox] = create_gallery_window('Bing Wallpaper Gallery', dimensions);
+    //Utils.cleanupImageList(settings);
+    let imageList = Utils.getImageList(settings);
+
+    //historyEntry.append('current', _('Most recent image'));
+    //historyEntry.append('random', _('Random image'));
+    imageList.forEach(function (image) {
+        //historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
+        log(image.urlbase.replace('/th?id=OHR.', ''));
+        let item = create_gallery_item(image, settings);
+        flowBox.add(item);
+    });
+
+    win.connect('delete-event', function () {
+        // re-enable the button
+        button.set_sensitive(true);
+        log('Window destroyed...');
+    });
+    win.show_all();
 }
 
