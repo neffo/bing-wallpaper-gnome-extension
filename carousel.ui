@@ -33,12 +33,10 @@ Author: Michael Carroll
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="hscrollbar-policy">never</property>
-    <property name="window-placement-set">False</property>
     <child>
       <object class="GtkViewport" id="carouselViewPort">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="shadow-type">none</property>
         <child>
           <object class="GtkFlowBox" id="carouselFlowBox">
             <property name="visible">True</property>
@@ -65,7 +63,6 @@ Author: Michael Carroll
             <property name="height-request">270</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="stock">gtk-floppy</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

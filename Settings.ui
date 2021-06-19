@@ -466,7 +466,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -476,7 +476,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="top_attach">2</property>
+                            <property name="top_attach">0</property>
                             <property name="height">1</property>
                           </packing>
                         </child>

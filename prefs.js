@@ -242,7 +242,10 @@ function log(msg) {
 
 function create_gallery_item(image, settings) {
     let buildable = new Gtk.Builder();
-    buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
+    if (Gtk.get_major_version() < 4)
+        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
+    else
+        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ["flowBoxChild"]);
     let galleryImage = buildable.get_object('galleryImage');
     let imageLabel = buildable.get_object('imageLabel');
     let filename = Utils.imageToFilename(settings, image);
@@ -274,7 +277,10 @@ function create_gallery_window(title, dimensions) {
     win.set_title(title);
     buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
     let flowBox = buildable.get_object('carouselFlowBox');
-    win.add(buildable.get_object('carouselScrollable'));
+    if (Gtk.get_major_version() < 4)
+        win.add(buildable.get_object('carouselScrollable'));
+    else
+        win.set_child(buildable.get_object('carouselScrollable'));
     return [win, flowBox];
 }
 
@@ -287,14 +293,20 @@ function create_gallery(button, settings) {
 
     imageList.forEach(function (image) {
         let item = create_gallery_item(image, settings);
-        flowBox.add(item);
+        if (Gtk.get_major_version() < 4)
+            flowBox.add(item);
+        else 
+            flowBox.insert(item, -1);
     });
 
-    win.connect('delete-event', function () {
+    win.connect('destroy', function () {
         // re-enable the button
         button.set_sensitive(true);
         log('Window destroyed...');
     });
-    win.show_all();
+    if (Gtk.get_major_version() < 4)
+        win.show_all();
+    else
+        win.show();
 }
 

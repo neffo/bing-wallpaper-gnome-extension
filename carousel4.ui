@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkScrolledWindow" id="carouselScrollable">
+    <property name="hscrollbar-policy">never</property>
+    <property name="child">
+      <object class="GtkViewport" id="carouselViewPort">
+        <property name="can-focus">0</property>
+        <property name="child">
+          <object class="GtkFlowBox" id="carouselFlowBox">
+            <property name="can-focus">0</property>
+            <property name="halign">center</property>
+            <property name="homogeneous">1</property>
+            <property name="max-children-per-line">5</property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+  <object class="GtkFlowBoxChild" id="flowBoxChild">
+    <property name="can-focus">0</property>
+    <property name="child">
+      <object class="GtkGrid" id="imageGrid">
+        <property name="can-focus">0</property>
+        <child>
+          <object class="GtkImage" id="galleryImage">
+            <property name="width-request">480</property>
+            <property name="height-request">270</property>
+            <property name="can-focus">0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="imageLabel">
+            <property name="can-focus">0</property>
+            <property name="label" translatable="yes">&lt;image name here&gt;</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="applyButton">
+            <property name="label" translatable="yes">Set as wallpaper</property>
+            <property name="receives-default">1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="deleteButton">
+            <property name="label" translatable="yes">Delete image</property>
+            <property name="receives-default">1</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>
