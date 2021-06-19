@@ -248,7 +248,6 @@ function create_gallery_item(image, settings) {
     let filename = Utils.imageToFilename(settings, image);
     let applyButton = buildable.get_object('applyButton');
     let deleteButton = buildable.get_object('deleteButton');
-    log('fn '+filename);
     try {
         let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 480, 270);
         galleryImage.set_from_pixbuf(pixbuf);
@@ -283,15 +282,10 @@ function create_gallery(button, settings) {
     // disable the button
     button.set_sensitive(false);
     let dimensions = [30, 30, 1000, 600]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
-    let [win, flowBox] = create_gallery_window('Bing Wallpaper Gallery', dimensions);
-    //Utils.cleanupImageList(settings);
+    let [win, flowBox] = create_gallery_window(_('Bing Wallpaper Gallery'), dimensions);
     let imageList = Utils.getImageList(settings);
 
-    //historyEntry.append('current', _('Most recent image'));
-    //historyEntry.append('random', _('Random image'));
     imageList.forEach(function (image) {
-        //historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
-        log(image.urlbase.replace('/th?id=OHR.', ''));
         let item = create_gallery_item(image, settings);
         flowBox.add(item);
     });

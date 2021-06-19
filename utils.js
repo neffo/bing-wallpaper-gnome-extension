@@ -216,7 +216,7 @@ function gnome_major_version() {
 }
 
 function imageHasBasename(image_item, i, b) {
-    log("imageHasBasename : " + image_item.urlbase + " =? " + this);
+    //log("imageHasBasename : " + image_item.urlbase + " =? " + this);
     if (this && this.search(image_item.urlbase.replace('th?id=OHR.', '')))
         return true;
     return false;

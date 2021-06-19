@@ -408,11 +408,21 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               </object>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="history">
+                              <object class="GtkButton" id="button_open_gallery">
+                                <property name="label" translatable="yes">Bing Wallpaper Gallery</property>
                                 <layout>
                                   <property name="column">1</property>
                                   <property name="row">0</property>
-                                  <property name="row-span">2</property>
+                                  <property name="row-span">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="history">
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">2</property>
+                                  <property name="row-span">1</property>
                                 </layout>
                               </object>
                             </child>
