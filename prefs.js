@@ -18,6 +18,9 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
+const GALLERY_THUMB_WIDTH = 320;
+const GALLERY_THUMB_HEIGHT = 180;
+
 let settings;
 
 let marketDescription = null;
@@ -242,7 +245,7 @@ function log(msg) {
 
 function create_gallery_item(image, settings) {
     let buildable = new Gtk.Builder();
-    if (Gtk.get_major_version() < 4)
+    if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
         buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
     else
         buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ["flowBoxChild"]);
@@ -252,7 +255,7 @@ function create_gallery_item(image, settings) {
     let applyButton = buildable.get_object('applyButton');
     let deleteButton = buildable.get_object('deleteButton');
     try {
-        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 480, 270);
+        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
         galleryImage.set_from_pixbuf(pixbuf);
     }
     catch (e) {
@@ -260,12 +263,19 @@ function create_gallery_item(image, settings) {
         log('create_gallery_image: '+e);
     }
     galleryImage.set_tooltip_text(Utils.getImageTitle(image));
-    imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 80));
-    applyButton.connect('clicked', function() {
+    imageLabel.set_width_chars(60);
+    imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
+    applyButton.connect('clicked', function(widget) {
         settings.set_string('selected-image', Utils.getImageUrlBase(image));
         log('gallery selected '+Utils.getImageUrlBase(image));
     });
-    deleteButton.set_sensitive(false);
+    deleteButton.connect('clicked', function(widget) {
+        log('Delete requested for '+filename);
+        Utils.deleteImage(filename);
+        Utils.cleanupImageList(settings);
+        widget.get_parent().get_parent().destroy(); // bit of a hack 
+    });
+    //deleteButton.set_sensitive(false);
     let item = buildable.get_object('flowBoxChild');
     return item;
 }

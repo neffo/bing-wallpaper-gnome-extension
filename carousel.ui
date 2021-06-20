@@ -59,8 +59,8 @@ Author: Michael Carroll
         <property name="can-focus">False</property>
         <child>
           <object class="GtkImage" id="galleryImage">
-            <property name="width-request">480</property>
-            <property name="height-request">270</property>
+            <property name="width-request">320</property>
+            <property name="height-request">180</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
           </object>

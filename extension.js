@@ -690,16 +690,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             var to_delete = imagelist.shift(); // get the first (oldest item from the list)
             log("image: " + to_delete);
             if (deletepictures && to_delete != '') {
-                var file = Gio.file_new_for_path(to_delete);
-                if (file.query_exists(null)) {
-                    try {
-                        file.delete(null);
-                        log("deleted file: " + to_delete);
-                    }
-                    catch (error) {
-                        log("an error occured deleting " + to_delete + " : " + error);
-                    }
-                }
+                Utils.deleteImage(to_delete);
             }
         }
 

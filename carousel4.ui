@@ -24,8 +24,8 @@
         <property name="can-focus">0</property>
         <child>
           <object class="GtkImage" id="galleryImage">
-            <property name="width-request">480</property>
-            <property name="height-request">270</property>
+            <property name="width-request">320</property>
+            <property name="height-request">180</property>
             <property name="can-focus">0</property>
             <layout>
               <property name="column">0</property>

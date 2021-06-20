@@ -480,4 +480,17 @@ function log(msg) {
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
+function deleteImage(to_delete) {
+    var file = Gio.file_new_for_path(to_delete);
+    if (file.query_exists(null)) {
+        try {
+            file.delete(null);
+            log("deleted file: " + to_delete);
+        }
+        catch (error) {
+            log("an error occured deleting " + to_delete + " : " + error);
+        }
+    }
+}
+
   
