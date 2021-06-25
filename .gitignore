@@ -4,3 +4,7 @@ BingWallpaper@ineffable-gmail.com.zip
 *.log
 #Settings.ui#
 translations.txt
+Settings.ui.h
+Settings4.ui.h
+carousel.ui.h
+carousel4.ui.h

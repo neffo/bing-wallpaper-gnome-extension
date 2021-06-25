@@ -70,7 +70,7 @@
     </key>
 
     <key name="previous-days" type="i">
-      <default>7</default>
+      <default>8</default>
       <summary>Number of days to keep wallpapers</summary>
       <description>Delete wallpapers after this number of days</description>
     </key>

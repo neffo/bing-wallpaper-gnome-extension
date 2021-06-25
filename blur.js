@@ -27,6 +27,7 @@ var blur_strength = 2;
 var blur_brightness = 55;
 var debug = false;
 
+let blurEnabled = false;
 var blurMode = whichVersion();
 
 function log(msg) {
@@ -63,6 +64,7 @@ var Blur = class Blur {
         let effect = new Shell.BlurEffect({ brightness: blur_brightness * 0.01, sigma: blur_strength * themeContext.scale_factor / 5 }); // fix me, should this be /5?
         this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = blur_strength * themeContext.scale_factor / 5; });
         widget.add_effect(effect);
+        blurEnabled = true;
     }
 
     _do_blur_v2(monitorIndex) {
@@ -74,8 +76,8 @@ var Blur = class Blur {
                 brightness: blur_brightness * 0.01,
                 sigma: blur_strength * themeContext.scale_factor,
             });
-        } 
-    
+        }
+        blurEnabled = true;
     }
 
     set_blur_strength(value) {
@@ -119,6 +121,8 @@ var Blur = class Blur {
     }
 
     _disable() {
+        if (blurEnabled == false) // nothing to do, don't clash without other extensions that do the same
+            return;
         log("_lockscreen_blur_disable() called");
         if (blurMode == 1) {
             UnlockDialog.prototype._createBackground = _createBackground;

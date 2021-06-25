@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: bing-wallpaper-gnome-extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-09 18:12+1000\n"
-"PO-Revision-Date: 2021-05-09 18:15+1000\n"
+"PO-Revision-Date: 2021-06-24 17:30-0300\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: BingWallpaper.pot\n"
 "X-Crowdin-File-ID: 2\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
@@ -28,7 +28,7 @@ msgstr "Ícone do indicador"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Habilitar notificações na Área de Trabalho"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
@@ -52,7 +52,7 @@ msgstr "Excluir papéis de parede baixados anteriormente"
 
 #: Settings.ui.h:9 Settings4.ui.h:10
 msgid "Days to store wallpapers before deleting"
-msgstr "Dias para armazenar planos de fundo antes de excluir"
+msgstr "Dias para armazenar papéis de parede antes de excluir"
 
 #: Settings.ui.h:10 Settings4.ui.h:11
 msgid "Bing locale"
@@ -72,11 +72,11 @@ msgstr "Substituir a seleção de resolução automática"
 
 #: Settings.ui.h:14 Settings4.ui.h:13
 msgid "Selected image"
-msgstr ""
+msgstr "Imagem selecionada"
 
 #: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
 msgid "Settings"
-msgstr "Confirgurações"
+msgstr "Configurações"
 
 #: Settings.ui.h:16 Settings4.ui.h:17
 msgid "Use custom blur and brightness"
@@ -84,11 +84,11 @@ msgstr "Usar desfoque e brilho personalizados"
 
 #: Settings.ui.h:17 Settings4.ui.h:18
 msgid "Override GDM3 lockscreen effects"
-msgstr "Sobrescrever efeitos de bloqueio GDM3"
+msgstr "Sobrescrever efeitos de bloqueio de tela GDM3"
 
 #: Settings.ui.h:18 Settings4.ui.h:19
 msgid "Blur can improve readability of login prompt"
-msgstr "Desfoque pode melhorar a legibilidade da solicitação de login"
+msgstr "Desfoque pode melhorar a legibilidade da tela de login"
 
 #: Settings.ui.h:19 Settings4.ui.h:20
 msgid "Background blur intensity"
@@ -96,7 +96,7 @@ msgstr "Intensidade do desfoque de fundo"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Can improve contrast of login prompt"
-msgstr "Pode melhorar o contraste de aviso de login"
+msgstr "Pode melhorar o contraste da tela de login"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Background brightness"
@@ -166,22 +166,21 @@ msgid ""
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, version 3 or later</a> for details.</span>"
 msgstr ""
-"<span size=\"small\">Este programa não vem com ABSOLUTEMENTE SEM "
-"GARANTIA.\n"
+"<span size=\"small\">Este programa não dispõe de QUALQUER GARANTIA.\n"
 "Veja a <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, versão 3 ou posterior</a> para mais detalhes</span>"
 
 #: Settings.ui.h:37 Settings4.ui.h:38
 msgid "About"
-msgstr "SOBRE"
+msgstr "Sobre"
 
 #: Settings4.ui.h:8
 msgid "Open folder"
-msgstr "Abrir"
+msgstr "Abrir pasta"
 
 #: extension.js:117
 msgid "<No refresh scheduled>"
-msgstr "<No refresh scheduled>"
+msgstr "<Nenhuma atualização agendada>"
 
 #: extension.js:119 extension.js:121 extension.js:123
 msgid "Awaiting refresh..."
@@ -205,7 +204,7 @@ msgstr "Atualizar agora"
 
 #: extension.js:137
 msgid "Thumbnail disabled on Wayland"
-msgstr "Miniaturas desativadas na Wayland"
+msgstr "Miniaturas desativadas no Wayland"
 
 #: extension.js:203
 msgid "Next refresh"
@@ -217,31 +216,31 @@ msgstr "Papel de parede do dia para"
 
 #: extension.js:495
 msgid "Set as wallpaper"
-msgstr ""
+msgstr "Definir como papel de parede"
 
 #: extension.js:498
 msgid "More info on Bing.com"
-msgstr ""
+msgstr "Mais informações no Bing.com"
 
 #: extension.js:553
 msgid "No wallpaper available"
-msgstr "Nenhum plano de fundo disponível"
+msgstr "Nenhum papel de parede disponível"
 
 #: extension.js:554
 msgid "No picture for today 😞."
-msgstr "Nenhuma imagem para hoje 😞"
+msgstr "Nenhuma imagem para hoje 😞."
 
 #: prefs.js:173
 msgid "Most recent image"
-msgstr ""
+msgstr "Imagem mais recente"
 
 #: prefs.js:174
 msgid "Random image"
-msgstr ""
+msgstr "Imagem aleatória"
 
 #: prefs.js:190 prefs.js:206
 msgid "Disabled on current GNOME version"
-msgstr ""
+msgstr "Desabilitada na versão atual do GNOME"
 
 #: utils.js:139
 msgid "Fetching data..."
@@ -257,7 +256,7 @@ msgstr "Ocorreu um erro de rede"
 
 #: utils.js:159
 msgid "Too many requests in 5 seconds"
-msgstr ""
+msgstr "Muitas requisições realizadas em 5 segundos"
 
 #: utils.js:186
 msgid "No change log found for this release"
