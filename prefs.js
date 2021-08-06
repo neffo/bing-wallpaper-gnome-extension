@@ -17,9 +17,7 @@ const Utils = Me.imports.utils;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
-
-const GALLERY_THUMB_WIDTH = 320;
-const GALLERY_THUMB_HEIGHT = 180;
+const Carousel = Me.imports.carousel;
 
 let settings;
 
@@ -27,6 +25,8 @@ let marketDescription = null;
 let icon_image = null;
 let lastreq = null;
 let provider = new Gtk.CssProvider();
+
+let carousel = null;
 
 const BingImageURL = Utils.BingImageURL;
 
@@ -113,8 +113,9 @@ function buildPrefsWidget() {
         Utils.openImageFolder(settings);
     });
     galleryButton.connect('clicked', function(widget) {
-        create_gallery(widget, settings);
-
+        //create_gallery(widget, settings);
+        carousel = new Carousel.Carousel(settings, widget);
+        //carousel.create_gallery(widget, settings);
     });
 
     //download folder
@@ -239,89 +240,5 @@ function buildPrefsWidget() {
 function log(msg) {
     if (settings.get_boolean('debug-logging'))
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
-}
-
-// gallery functions
-
-function create_gallery_item(image, settings) {
-    let buildable = new Gtk.Builder();
-    if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
-        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
-    else
-        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ["flowBoxChild"]);
-    let galleryImage = buildable.get_object('galleryImage');
-    let imageLabel = buildable.get_object('imageLabel');
-    let filename = Utils.imageToFilename(settings, image);
-    let applyButton = buildable.get_object('applyButton');
-    let deleteButton = buildable.get_object('deleteButton');
-    try {
-        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
-        galleryImage.set_from_pixbuf(pixbuf);
-    }
-    catch (e) {
-        galleryImage.set_from_icon_name('image-missing', '64x64');
-        log('create_gallery_image: '+e);
-    }
-    galleryImage.set_tooltip_text(Utils.getImageTitle(image));
-    imageLabel.set_width_chars(60);
-    imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
-    applyButton.connect('clicked', function(widget) {
-        settings.set_string('selected-image', Utils.getImageUrlBase(image));
-        log('gallery selected '+Utils.getImageUrlBase(image));
-    });
-    deleteButton.connect('clicked', function(widget) {
-        log('Delete requested for '+filename);
-        Utils.deleteImage(filename);
-        Utils.cleanupImageList(settings);
-        widget.get_parent().get_parent().destroy(); // bit of a hack 
-    });
-    //deleteButton.set_sensitive(false);
-    let item = buildable.get_object('flowBoxChild');
-    return item;
-}
-
-function create_gallery_window(title, dimensions) {
-    let buildable = new Gtk.Builder();
-    let win = new Gtk.Window();
-    let flowBox;
-    win.set_size_request(dimensions[2], dimensions[3]);
-    win.set_title(title);
-    if (Gtk.get_major_version() < 4) {
-        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
-        flowBox = buildable.get_object('carouselFlowBox');
-        win.add(buildable.get_object('carouselScrollable'));
-    }
-    else {
-        buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ['carouselScrollable']);
-        flowBox = buildable.get_object('carouselFlowBox');
-        win.set_child(buildable.get_object('carouselScrollable'));
-    }
-    return [win, flowBox];
-}
-
-function create_gallery(button, settings) {
-    // disable the button
-    button.set_sensitive(false);
-    let dimensions = [30, 30, 1000, 600]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
-    let [win, flowBox] = create_gallery_window(_('Bing Wallpaper Gallery'), dimensions);
-    let imageList = Utils.getImageList(settings);
-
-    imageList.forEach(function (image) {
-        let item = create_gallery_item(image, settings);
-        if (Gtk.get_major_version() < 4)
-            flowBox.add(item);
-        else 
-            flowBox.insert(item, -1);
-    });
-
-    win.connect('destroy', function () {
-        // re-enable the button
-        button.set_sensitive(true);
-        log('Window destroyed...');
-    });
-    if (Gtk.get_major_version() < 4)
-        win.show_all();
-    else
-        win.show();
 }
 

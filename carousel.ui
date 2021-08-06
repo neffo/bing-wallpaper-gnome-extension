@@ -74,7 +74,7 @@ Author: Michael Carroll
           <object class="GtkLabel" id="imageLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">&lt;image name here&gt;</property>
+            <property name="label" translatable="no">&lt;image name here&gt;</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

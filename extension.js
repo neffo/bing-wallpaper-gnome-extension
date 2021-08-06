@@ -30,6 +30,7 @@ const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
 const Thumbnail = Me.imports.thumbnail;
 const BWClipboard = Me.imports.BWClipboard;
+const Carousel = Me.imports.carousel;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -52,6 +53,8 @@ let bingWallpaperIndicator = null;
 let blur = null;
 let blur_brightness = 0.55;
 let blur_strength = 30;
+let carousel = null;
+
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
@@ -190,6 +193,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             this._restartTimeout(60); // wait 60 seconds before performing refresh
         }
+        //carousel = new Carousel.Carousel(this._settings, null);
     }
 
         // listen for configuration changes
