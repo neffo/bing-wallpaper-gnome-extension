@@ -7,22 +7,12 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const St = imports.gi.St;
+const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
-const Soup = imports.gi.Soup;
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const Gtk = imports.gi.Gtk;
 const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const Clutter = imports.gi.Clutter;
-const Cogl = imports.gi.Cogl;
-const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
-const GdkPixbuf = imports.gi.GdkPixbuf;
-const Gdk = imports.gi.Gdk;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -54,7 +44,6 @@ let blur = null;
 let blur_brightness = 0.55;
 let blur_strength = 30;
 let carousel = null;
-
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
@@ -705,8 +694,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // open image in default image view
     _openInSystemViewer() {
-        const context = global.create_app_launch_context(0, -1);
-        Gio.AppInfo.launch_default_for_uri('file://' + this.filename, context);
+        Utils.openInSystemViewer(this.filename);
     }
 
     stop() {

@@ -102,6 +102,9 @@ var Carousel = class Carousel {
         galleryImage.set_tooltip_text(Utils.getImageTitle(image));
         imageLabel.set_width_chars(60);
         imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
+        /*galleryImage.connect('clicked', function (widget) {
+            Utils.openInSystemViewer(filename);
+        });*/
         applyButton.connect('clicked', function(widget) {
             settings.set_string('selected-image', Utils.getImageUrlBase(image));
             log('gallery selected '+Utils.getImageUrlBase(image));

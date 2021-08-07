@@ -493,4 +493,8 @@ function deleteImage(to_delete) {
     }
 }
 
+function openInSystemViewer(filename) {
+    const context = global.create_app_launch_context(0, -1);
+    Gio.AppInfo.launch_default_for_uri('file://' + filename, context);
+}
   
