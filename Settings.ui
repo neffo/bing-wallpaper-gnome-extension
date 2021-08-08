@@ -459,7 +459,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                         </child>
                         <child>
                           <object class="GtkButton" id="button_open_gallery">
-                            <property name="label" translatable="yes">Bing Wallpaper Gallery</property>
+                            <property name="label" translatable="yes">Select from image gallery</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>

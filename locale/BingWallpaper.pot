@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-20 13:42+1000\n"
+"POT-Creation-Date: 2021-08-08 16:00+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgstr ""
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:132
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:125
 msgid "Set background image"
 msgstr ""
 
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:133
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:126
 msgid "Set lock screen image"
 msgstr ""
 
@@ -57,15 +57,15 @@ msgstr ""
 msgid "Selected image"
 msgstr ""
 
-#: Settings.ui.h:11 Settings4.ui.h:11 prefs.js:306
-msgid "Bing Wallpaper Gallery"
+#: Settings.ui.h:11 Settings4.ui.h:11
+msgid "Select from image gallery"
 msgstr ""
 
 #: Settings.ui.h:12 Settings4.ui.h:12
 msgid "Bing locale"
 msgstr ""
 
-#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:135
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:128
 msgid "Settings"
 msgstr ""
 
@@ -195,63 +195,67 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:119
+#: extension.js:111
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:121 extension.js:123 extension.js:126
+#: extension.js:113 extension.js:115 extension.js:118
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:129
+#: extension.js:121
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:130
+#: extension.js:122
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:131
+#: extension.js:123
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:134
+#: extension.js:124
+msgid "Open image gallery"
+msgstr ""
+
+#: extension.js:127
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:140
+#: extension.js:133
 msgid "Thumbnail disabled on Wayland"
 msgstr ""
 
-#: extension.js:239
+#: extension.js:235
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:516 extension.js:553
+#: extension.js:512 extension.js:549
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:521
+#: extension.js:517
 msgid "More info on Bing.com"
 msgstr ""
 
-#: extension.js:580
+#: extension.js:576
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:581
+#: extension.js:577
 msgid "No picture for today 😞."
 msgstr ""
 
-#: prefs.js:187
+#: prefs.js:188
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:188
+#: prefs.js:189
 msgid "Random image"
 msgstr ""
 
-#: prefs.js:203 prefs.js:219
+#: prefs.js:204 prefs.js:220
 msgid "Disabled on current GNOME version"
 msgstr ""
 
@@ -287,14 +291,14 @@ msgstr ""
 msgid "hours"
 msgstr ""
 
-#: carousel.ui:77 carousel4.ui:40
-msgid "<image name here>"
-msgstr ""
-
 #: carousel.ui:87 carousel4.ui:50
 msgid "Set as wallpaper"
 msgstr ""
 
 #: carousel.ui:99 carousel4.ui:60
 msgid "Delete image"
+msgstr ""
+
+#: carousel4.ui:40
+msgid "<image name here>"
 msgstr ""
