@@ -110,7 +110,7 @@ var Carousel = class Carousel {
             Utils.openInSystemViewer(filename);
         });*/
         applyButton.connect('clicked', function(widget) {
-            settings.set_string('selected-image', Utils.getImageUrlBase(image));
+            that.settings.set_string('selected-image', Utils.getImageUrlBase(image));
             log('gallery selected '+Utils.getImageUrlBase(image));
         });
         deleteButton.connect('clicked', function(widget) {
