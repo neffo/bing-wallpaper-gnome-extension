@@ -68,4 +68,49 @@
       </object>
     </property>
   </object>
+  <object class="GtkFlowBoxChild" id="flowBoxRandom">
+    <property name="can-focus">0</property>
+    <property name="child">
+      <object class="GtkGrid" id="imageGrid">
+        <property name="can-focus">0</property>
+        <property name="halign">center</property>
+        <child>
+          <object class="GtkImage" id="randomImage">
+            <property name="width-request">320</property>
+            <property name="height-request">180</property>
+            <property name="can-focus">0</property>
+            <property name="icon-name">media-playlist-shuffle</property>
+            <property name="icon_size">3</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="randomLabel">
+            <property name="can-focus">0</property>
+            <property name="label" translatable="yes">&lt;image name here&gt;</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="randomButton">
+            <property name="label" translatable="yes">Set random mode</property>
+            <property name="receives-default">1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">2</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
 </interface>

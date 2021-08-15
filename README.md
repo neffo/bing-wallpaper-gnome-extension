@@ -23,8 +23,9 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv), Arabic (ar) and Hungarian (hu) - a HUGE thanks to the translators
 * image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
-* NEW: a selection of different theme-aware indicator (tray) icons to choose
-* NEW: override the GNOME (GDM3) lockscreen blur (requested feature #77)
+* a selection of different theme-aware indicator (tray) icons to choose
+* override the GNOME (GDM3) lockscreen blur (requested feature #77)
+* NEW: image gallery to view, select and manage stored images #115
 
 ## TODO
 
@@ -77,6 +78,7 @@ Please include logs from your journal when submitting bug notices (make sure not
 ![Settings](/screenshot/settings2.png)
 ![Settings](/screenshot/settings3.png)
 ![Settings](/screenshot/settings4.png)
+![Settings](/screenshot/settings5.png)
 
 
 Examples of adjustable blur on the lockscreen:

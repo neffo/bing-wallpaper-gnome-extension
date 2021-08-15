@@ -38,6 +38,12 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     <property name="step_increment">1</property>
     <property name="page_increment">2</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_random_interval">
+    <property name="lower">300</property>
+    <property name="upper">86400</property>
+    <property name="step_increment">60</property>
+    <property name="page_increment">3600</property>
+  </object>
   <object class="GtkFileChooserNative" id="file_chooser">
     <property name="title" translatable="yes">Bing Wallpaper pictures folder</property>
     <property name="select-multiple">0</property>
@@ -1026,6 +1032,63 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                         </property>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="random_interval_listboxrow">
+                        <property name="width_request">100</property>
+                        <property name="height_request">80</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="lrandom_interval_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="random_interval_description">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Manually adjust random interval (seconds)</property>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="random_interval_label">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Random interval</property>
+                                <property name="wrap">1</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="entry_random_interval">
+                                <property name="adjustment">adjustment_random_interval</property>
+                                <property name="numeric">1</property>
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </property>
                 <child type="label_item">
@@ -1059,7 +1122,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             <!--
               <object class="GtkImage" id="logo">
                 <property name="can_focus">0</property>
-                <property name="file">icons/bing-symbolic.svg</property>
+                <property name="file">../icons/bing-symbolic.svg</property>
               </object>
               -->
             </child>

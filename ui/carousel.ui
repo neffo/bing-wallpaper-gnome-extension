@@ -28,8 +28,6 @@ Author: Michael Carroll
   <!-- interface-copyright 2017-2021 -->
   <!-- interface-authors Michael Carroll -->
   <object class="GtkScrolledWindow" id="carouselScrollable">
-<!--    <property name="width-request">1000</property>
-    <property name="height-request">600</property>-->
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <property name="hscrollbar-policy">never</property>
@@ -63,6 +61,7 @@ Author: Michael Carroll
             <property name="height-request">180</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="icon_size">3</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -74,7 +73,7 @@ Author: Michael Carroll
           <object class="GtkLabel" id="imageLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="no">&lt;image name here&gt;</property>
+            <property name="label">&lt;image name here&gt;</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -84,7 +83,7 @@ Author: Michael Carroll
         </child>
         <child>
           <object class="GtkButton" id="applyButton">
-            <property name="label" translatable="yes">Set as wallpaper</property>
+            <property name="label" translatable="yes">Apply</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -96,7 +95,7 @@ Author: Michael Carroll
         </child>
         <child>
           <object class="GtkButton" id="deleteButton">
-            <property name="label" translatable="yes">Delete image</property>
+            <property name="label" translatable="yes">Delete</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -104,6 +103,58 @@ Author: Michael Carroll
           <packing>
             <property name="left-attach">1</property>
             <property name="top-attach">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkFlowBoxChild" id="flowBoxRandom">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <!-- n-columns=2 n-rows=3 -->
+      <object class="GtkGrid" id="imageGrid1">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">center</property>
+        <child>
+          <object class="GtkImage" id="randomImage">
+            <property name="width-request">320</property>
+            <property name="height-request">180</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="icon-name">media-playlist-shuffle</property>
+            <property name="icon_size">3</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="randomLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label">&lt;image name here&gt;</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="randomButton">
+            <property name="label" translatable="yes">Set random mode</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+            <property name="width">2</property>
           </packing>
         </child>
       </object>

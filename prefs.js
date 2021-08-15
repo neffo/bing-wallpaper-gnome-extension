@@ -39,7 +39,7 @@ function buildPrefsWidget() {
     // Prepare labels and controls
     let buildable = new Gtk.Builder();
     if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
-        buildable.add_from_file( Me.dir.get_path() + '/Settings4.ui' );
+        buildable.add_from_file( Me.dir.get_path() + '/ui/Settings4.ui' );
         /* // CSS not yet used
         provider.load_from_path(Me.dir.get_path() + '/prefs.css'); 
         Gtk.StyleContext.add_provider_for_display(
@@ -48,7 +48,7 @@ function buildPrefsWidget() {
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION); */
     }
     else {
-        buildable.add_from_file( Me.dir.get_path() + '/Settings.ui' );
+        buildable.add_from_file( Me.dir.get_path() + '/ui/Settings.ui' );
     }
     
     let box = buildable.get_object('prefs_widget');
@@ -77,6 +77,7 @@ function buildPrefsWidget() {
     let debugSwitch = buildable.get_object('debug_switch');
     let revertSwitch = buildable.get_object('revert_switch');
     let unsafeSwitch = buildable.get_object('unsafe_switch');
+    let randomIntervalEntry = buildable.get_object('entry_random_interval');
     let change_log = buildable.get_object('change_log');
 
     let buttonGDMdefault = buildable.get_object('button_default_gnome');
@@ -107,7 +108,7 @@ function buildPrefsWidget() {
     settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-
+    settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     folderOpenBtn.connect('clicked', function(widget) {
         Utils.openImageFolder(settings);

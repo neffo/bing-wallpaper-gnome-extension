@@ -1,10 +1,10 @@
 #!/bin/bash
 
 glib-compile-schemas schemas/
-intltool-extract --type=gettext/glade Settings.ui
-intltool-extract --type=gettext/glade Settings4.ui
-intltool-extract --type=gettext/glade carousel.ui
-intltool-extract --type=gettext/glade carousel4.ui
+intltool-extract --type=gettext/glade ui/Settings.ui
+intltool-extract --type=gettext/glade ui/Settings4.ui
+intltool-extract --type=gettext/glade ui/carousel.ui
+intltool-extract --type=gettext/glade ui/carousel4.ui
 xgettext -k -k_ -kN_ -o locale/BingWallpaper.pot Settings.ui.h Settings4.ui.h extension.js prefs.js blur.js utils.js convenience.js carousel.ui carousel4.ui --from-code=UTF-8
 
 echo "Translation status" > translations.txt

@@ -20,7 +20,7 @@ const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
 const Thumbnail = Me.imports.thumbnail;
 const BWClipboard = Me.imports.BWClipboard;
-const Carousel = Me.imports.carousel;
+//const Carousel = Me.imports.carousel;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -121,7 +121,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
         this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
         this.folderItem = new PopupMenu.PopupMenuItem(_("Open image folder"));
-        this.carouselItem = new PopupMenu.PopupMenuItem(_("Open image gallery"));
         this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
@@ -156,7 +155,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
 
         this.menu.addMenuItem(this.folderItem);
-        this.menu.addMenuItem(this.carouselItem);
         this.menu.addMenuItem(this.dwallpaperItem);
         if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
@@ -168,14 +166,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.copyrightItem.setSensitive(false);
         this.refreshDueItem.setSensitive(false);
         this.thumbnailItem.setSensitive(false);
-        this.carouselItem.setSensitive(false); // currently disabled
         this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         this.titleItem.connect('activate', function() {
             if (this.imageinfolink)
                 Util.spawn(["xdg-open", this.imageinfolink]);
         });
         this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
-        this.carouselItem.connect('activate', this._carouselOpen.bind(this)); 
         this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
         this.refreshItem.connect('activate', this._refresh.bind(this));
         this.settingsItem.connect('activate', this._openPrefs.bind(this));
@@ -698,18 +694,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // open image in default image view
     _openInSystemViewer() {
         Utils.openInSystemViewer(this.filename);
-    }
-
-    _carouselOpen() {
-        //carousel = new Carousel.Carousel(this._settings, null, this._carouselClosed);
-        this.carouselItem.setSensitive(false);
-        log('Carousel opened');
-    }
-
-    _carouselClosed() {
-        carousel = null;
-        log('Carousel closed');
-        this.carouselItem.setSensitive(true);
     }
 
     stop() {

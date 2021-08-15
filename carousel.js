@@ -7,11 +7,7 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const Gtk = imports.gi.Gtk;
-const Gdk = imports.gi.Gdk;
-const GdkPixbuf = imports.gi.GdkPixbuf;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
+const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Lang = imports.lang;
@@ -56,12 +52,12 @@ var Carousel = class Carousel {
         win.set_default_size(dimensions[2], dimensions[3]);
         win.set_title(title);
         if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ['carouselScrollable']);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ['carouselScrollable']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.add(buildable.get_object('carouselScrollable'));
         }
         else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ['carouselScrollable']);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselScrollable']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.set_child(buildable.get_object('carouselScrollable'));
         }
@@ -70,6 +66,13 @@ var Carousel = class Carousel {
 
     _create_gallery() {
         let that = this;
+        Utils.randomIntervals.forEach(function (seconds, i) {
+            let item = that._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
+            if (Gtk.get_major_version() < 4)
+                that.flowBox.add(item);
+            else 
+                that.flowBox.insert(item, -1);
+        });
         this.imageList.forEach(function (image) {
             let item = that._create_gallery_item(image);
             if (Gtk.get_major_version() < 4)
@@ -83,9 +86,9 @@ var Carousel = class Carousel {
         let that = this;
         let buildable = new Gtk.Builder();
         if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
-            buildable.add_objects_from_file(Me.dir.get_path() + '/carousel.ui', ["flowBoxChild"]);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
         else
-            buildable.add_objects_from_file(Me.dir.get_path() + '/carousel4.ui', ["flowBoxChild"]);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxChild"]);
         let galleryImage = buildable.get_object('galleryImage');
         let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
@@ -97,6 +100,7 @@ var Carousel = class Carousel {
         }
         catch (e) {
             galleryImage.set_from_icon_name('image-missing', '64x64');
+            galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             log('create_gallery_image: '+e);
         }
         galleryImage.set_tooltip_text(Utils.getImageTitle(image));
@@ -122,5 +126,24 @@ var Carousel = class Carousel {
         return item;
     }
 
-    
+    _create_random_item(seconds, title) {
+        let that = this;
+        let buildable = new Gtk.Builder();
+        if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
+        else
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxRandom"]);
+        let randomLabel = buildable.get_object('randomLabel');
+        randomLabel.set_label(title);
+        let filename = 'random';
+        let applyButton = buildable.get_object('randomButton');
+
+        applyButton.connect('clicked', function(widget) {
+            that.settings.set_string('selected-image', filename);
+            that.settings.set_int('random-interval', seconds);
+            log('gallery selected random with interval '+seconds);
+        });
+        let item = buildable.get_object('flowBoxRandom');
+        return item;
+    }
 };
