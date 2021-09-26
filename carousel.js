@@ -29,25 +29,21 @@ var Carousel = class Carousel {
         this.callbackfunc = callbackfunc;
         this.imageList = Utils.getImageList(this.settings).reverse(); // get images and reverse order
         // disable the button
-        if (this.button)
-            this.button.set_sensitive(false);
+        //if (this.button)
+        //    this.button.set_sensitive(false);
         [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
         if (Gtk.get_major_version() < 4)
             this.window.show_all();
         else
             this.window.show();
-        this.window.connect('destroy', function () {
-            // re-enable the button
-            if (button) {
-                // enable the button again
-                button.set_sensitive(true);
-            }
-            else {
-                log('No button specified!');
-            }
-            log('Window destroyed...');
-        });
+        //this.window.connect('destroy', this._enable_button);
         this._create_gallery();
+    }
+
+    _enable_button() {
+        if (this.button) {
+            this.button.set_sensitive(state);
+        }
     }
 
     _create_gallery_window(title, dimensions) {
@@ -173,13 +169,19 @@ var Carousel = class Carousel {
             try {
                 let pixbuf;
                 if (image_thumb.query_exists(null)) { // use thumbnail if available
-                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(image_thumb_path, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
                 else {
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
                     pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
-                galleryImage.set_from_pixbuf(pixbuf);
+                if (Gtk.get_major_version() < 4) {
+                    galleryImage.set_from_pixbuf(pixbuf);
+                }
+                else {
+                    galleryImage.set_pixbuf(pixbuf);
+                }
+                    
             }
             catch (e) {
                 this._set_blank_image(galleryImage);
@@ -191,10 +193,12 @@ var Carousel = class Carousel {
     _set_blank_image(galleryImage) {
         if (Gtk.get_major_version() < 4) {
             galleryImage.set_from_icon_name('image-missing', '64x64');
+            galleryImage.set_icon_size = 3; // Gtk.GTK_ICON_SIZE_LARGE;
         }
         else {
-            galleryImage.set_from_icon_name('image-missing');
+            //galleryImage.set_from_icon_name('image-missing');
+            //galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
         }
-        galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
+        
     }
 };

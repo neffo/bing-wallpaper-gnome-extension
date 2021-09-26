@@ -418,7 +418,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">Select from image gallery</property>
                                 <layout>
                                   <property name="column">1</property>
-                                  <property name="row">0</property>
+                                  <property name="row">1</property>
                                   <property name="row-span">1</property>
                                 </layout>
                               </object>
@@ -427,7 +427,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               <object class="GtkComboBoxText" id="history">
                                 <layout>
                                   <property name="column">1</property>
-                                  <property name="row">2</property>
+                                  <property name="row">0</property>
                                   <property name="row-span">1</property>
                                 </layout>
                               </object>

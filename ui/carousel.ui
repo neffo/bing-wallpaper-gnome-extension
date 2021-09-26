@@ -41,6 +41,7 @@ Author: Michael Carroll
             <property name="can-focus">False</property>
             <property name="halign">center</property>
             <property name="homogeneous">True</property>
+            <property name="min-children-per-line">3</property>
             <property name="max-children-per-line">5</property>
           </object>
         </child>
@@ -111,6 +112,7 @@ Author: Michael Carroll
   <object class="GtkFlowBoxChild" id="flowBoxRandom">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="width-request">360</property>
     <child>
       <!-- n-columns=2 n-rows=3 -->
       <object class="GtkGrid" id="imageGrid1">

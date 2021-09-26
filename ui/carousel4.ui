@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 
+
+Copyright (C) 2017-2021
+
+This file is part of Bing Wallpaper.
+
+Bing Wallpaper is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Bing Wallpaper is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Bing Wallpaper.  If not, see <http://www.gnu.org/licenses/>.
+
+Author: Michael Carroll
+
+-->
+
 <interface>
   <requires lib="gtk" version="4.0"/>
   <object class="GtkScrolledWindow" id="carouselScrollable">
@@ -12,6 +35,7 @@
             <property name="halign">center</property>
             <property name="homogeneous">1</property>
             <property name="max-children-per-line">5</property>
+            <property name="min-children-per-line">3</property>
           </object>
         </property>
       </object>
@@ -23,10 +47,12 @@
       <object class="GtkGrid" id="imageGrid">
         <property name="can-focus">0</property>
         <child>
-          <object class="GtkImage" id="galleryImage">
+          <object class="GtkPicture" id="galleryImage">
             <property name="width-request">320</property>
             <property name="height-request">180</property>
             <property name="can-focus">0</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>
@@ -49,6 +75,8 @@
           <object class="GtkButton" id="applyButton">
             <property name="label" translatable="yes">Apply</property>
             <property name="receives-default">1</property>
+            <property name="hexpand">0</property>
+            <property name="halign">center</property>
             <layout>
               <property name="column">0</property>
               <property name="row">2</property>
@@ -59,6 +87,8 @@
           <object class="GtkButton" id="deleteButton">
             <property name="label" translatable="yes">Delete</property>
             <property name="receives-default">1</property>
+            <property name="hexpand">0</property>
+            <property name="halign">center</property>
             <layout>
               <property name="column">1</property>
               <property name="row">2</property>
