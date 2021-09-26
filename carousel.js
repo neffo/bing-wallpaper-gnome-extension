@@ -100,11 +100,15 @@ var Carousel = class Carousel {
         let applyButton = buildable.get_object('applyButton');
         let deleteButton = buildable.get_object('deleteButton');
         try {
-            let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
-            galleryImage.set_from_pixbuf(pixbuf);
+            this._load_image(galleryImage, filename);
         }
         catch (e) {
-            galleryImage.set_from_icon_name('image-missing', '64x64');
+            if (Gtk.get_major_version() < 4) {
+                galleryImage.set_from_icon_name('image-missing', '64x64');
+            }
+            else {
+                galleryImage.set_from_icon_name('image-missing');
+            }
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             log('create_gallery_image: '+e);
         }
@@ -150,5 +154,47 @@ var Carousel = class Carousel {
         });
         let item = buildable.get_object('flowBoxRandom');
         return item;
+    }
+
+    _load_image(galleryImage, filename) {
+        let thumb_path = Utils.getWallpaperDir(this.settings)+'.thumbs/';
+        let thumb_dir = Gio.file_new_for_path(thumb_path);
+        if (!thumb_dir.query_exists(null)) {
+            thumb_dir.make_directory_with_parents(null);
+        }
+        let image_file = Gio.file_new_for_path(filename);
+        //log('thumbpath -> '+ thumb_path);
+        if (!image_file.query_exists(null)){
+            this._set_blank_image(galleryImage);
+        }
+        else {
+            let image_thumb_path = thumb_path + image_file.get_basename();
+            let image_thumb = Gio.file_new_for_path(image_thumb_path);
+            try {
+                let pixbuf;
+                if (image_thumb.query_exists(null)) { // use thumbnail if available
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(image_thumb_path, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
+                }
+                else {
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
+                    pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
+                }
+                galleryImage.set_from_pixbuf(pixbuf);
+            }
+            catch (e) {
+                this._set_blank_image(galleryImage);
+                log('create_gallery_image: '+e);
+            }
+        }
+    }
+
+    _set_blank_image(galleryImage) {
+        if (Gtk.get_major_version() < 4) {
+            galleryImage.set_from_icon_name('image-missing', '64x64');
+        }
+        else {
+            galleryImage.set_from_icon_name('image-missing');
+        }
+        galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
     }
 };
