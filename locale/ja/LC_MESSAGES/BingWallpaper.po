@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 22:23+1000\n"
-"PO-Revision-Date: 2021-09-26 17:06+0900\n"
+"POT-Creation-Date: 2021-08-08 16:00+1000\n"
+"PO-Revision-Date: 2021-09-27 00:33+1000\n"
+"Last-Translator: nexryai@outlook.com\n"
 "Language-Team: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Last-Translator: nexryai@outlook.com\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language: ja\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
@@ -30,11 +30,11 @@ msgstr "インジゲーターのアイコン"
 msgid "Enable desktop notifications"
 msgstr "デスクトップ通知を有効にする"
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:125
 msgid "Set background image"
 msgstr "背景画像を設定"
 
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:126
 msgid "Set lock screen image"
 msgstr "ロック画面の背景を設定"
 
@@ -59,14 +59,14 @@ msgid "Selected image"
 msgstr "使用する画像"
 
 #: Settings.ui.h:11 Settings4.ui.h:11
+msgid "Select from image gallery"
+msgstr ""
+
+#: Settings.ui.h:12 Settings4.ui.h:12
 msgid "Bing locale"
 msgstr "Bingのロケール"
 
-#: Settings.ui.h:12 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "デフォルトは英語（米国）"
-
-#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:132
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:128
 msgid "Settings"
 msgstr "設定"
 
@@ -198,94 +198,113 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: extension.js:117
+#: extension.js:111
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:113 extension.js:115 extension.js:118
 msgid "Awaiting refresh..."
 msgstr "更新を待っています..."
 
-#: extension.js:126
+#: extension.js:121
 msgid "Copy image to clipboard"
 msgstr "壁紙をクリップボードにコピー"
 
-#: extension.js:127
+#: extension.js:122
 msgid "Copy image URL to clipboard"
 msgstr "壁紙のURLをコピー"
 
-#: extension.js:128
+#: extension.js:123
 msgid "Open image folder"
 msgstr "壁紙のフォルダを開く"
 
-#: extension.js:131
+#: extension.js:124
+msgid "Open image gallery"
+msgstr ""
+
+#: extension.js:127
 msgid "Refresh Now"
 msgstr "今すぐ更新"
 
-#: extension.js:137
+#: extension.js:133
 msgid "Thumbnail disabled on Wayland"
 msgstr "Waylandではサムネイルが無効です"
 
-#: extension.js:210
+#: extension.js:235
 msgid "Next refresh"
 msgstr "次の更新"
 
-#: extension.js:515 extension.js:552
+#: extension.js:512 extension.js:549
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing日替わり壁紙"
 
-#: extension.js:525
+#: extension.js:517
 msgid "More info on Bing.com"
 msgstr "詳細は Bing.com を参照してください"
 
-#: extension.js:579
+#: extension.js:576
 msgid "No wallpaper available"
 msgstr "利用可能な壁紙はありません"
 
-#: extension.js:580
+#: extension.js:577
 msgid "No picture for today 😞."
 msgstr "今日の壁紙はありません😞."
 
-#: prefs.js:181
+#: prefs.js:188
 msgid "Most recent image"
 msgstr "最新の画像"
 
-#: prefs.js:182
+#: prefs.js:189
 msgid "Random image"
 msgstr "ランダムな画像"
 
-#: prefs.js:197 prefs.js:213
+#: prefs.js:204 prefs.js:220
 msgid "Disabled on current GNOME version"
 msgstr "現在のGNOMEバージョンでは無効です"
 
-#: utils.js:146
+#: utils.js:144
 msgid "Fetching data..."
 msgstr "データを取得しています..."
 
-#: utils.js:157
+#: utils.js:155
 msgid "Market not available in your region"
 msgstr "お住まいの地域ではご利用いただけません"
 
-#: utils.js:161
+#: utils.js:159
 msgid "A network error occured"
 msgstr "ネットワークエラーが発生しました"
 
-#: utils.js:166
+#: utils.js:164
 msgid "Too many requests in 5 seconds"
 msgstr "5秒間に送信されたリクエストが多すぎます"
 
-#: utils.js:193
+#: utils.js:191
 msgid "No change log found for this release"
 msgstr "このリリースの変更ログは見つかりませんでした"
 
-#: utils.js:388 utils.js:391
+#: utils.js:389 utils.js:392
 msgid "minutes"
 msgstr "分"
 
-#: utils.js:394
+#: utils.js:395
 msgid "days"
 msgstr "日"
 
-#: utils.js:397
+#: utils.js:398
 msgid "hours"
 msgstr "時間"
+
+#: carousel.ui:87 carousel4.ui:50
+msgid "Set as wallpaper"
+msgstr "背景画像を設定"
+
+#: carousel.ui:99 carousel4.ui:60
+msgid "Delete image"
+msgstr ""
+
+#: carousel4.ui:40
+msgid "<image name here>"
+msgstr ""
+
+#~ msgid "Default is English - United States"
+#~ msgstr "デフォルトは英語（米国）"
