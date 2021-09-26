@@ -1,10 +1,8 @@
 # GNOME Shell extension - Bing Wallpaper
 
-A lightweight GNOME shell extension to syncs your desktop wallpaper to today's Microsoft Bing image of the day (the image you see when you visit Bing.com). The intention of this extension is to just do what it needs to do and stay out of your way.
+A lightweight extension that brings some color to your desktop by syncing your desktop and lockscreen wallpapers with today's Microsoft Bing image of the day (the image you see when you visit Bing.com). The intention of this extension is to just do what it needs to do and stay out of your way, with a few optional features to improve quality-of-life.
 
-*Disclaimer*: this extension is unofficial and not affiliated with Bing or
-Microsoft in any way. Images are protected by copyright, and are licensed only
-for use as wallpapers.
+![Screenshot](/screenshot/notification.png)
 
 This extension is based extensively on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
 and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). As featured on [OMG! Ubuntu](https://www.omgubuntu.co.uk/2017/07/bing-wallpaper-changer-gnome-extension). Lockscreen blur code is based on [Pratap-Kumar's extension.](https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen)
@@ -15,16 +13,16 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Features
 
-![Screenshot](/screenshot/popup.png)
-
-* Fetches the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) and sets as both lock screen (and now it's dialog also) and desktop wallpaper (these are both optional)
+* Fetches the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) and sets as both lock screen and desktop wallpaper
 * Only attempts to download wallpapers when they have been updated - doesn't poll continuously
-* Optionally clean up Wallpaper directory after between 1 and 7 days (delete oldest first), or keep them forever
+* Optionally delete old images after a week, or keep them forever
 * Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
-* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv), Arabic (ar) and Hungarian (hu) - a HUGE thanks to the translators
-* image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
-* NEW: a selection of different theme-aware indicator (tray) icons to choose
-* NEW: override the GNOME (GDM3) lockscreen blur (requested feature #77)
+* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv), Arabic (ar), Hungarian (hu) and Japanese (ja) - a HUGE thanks to the translators
+* Image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
+* A selection of different theme-aware indicator (tray) icons to choose (or hide it completely)
+* Override the lockscreen blur
+* NEW: shuffle/randomise wallpapers at adjustable intervals (including from your stored Bing images)
+* NEW: image gallery to view, select and manage stored images #115
 
 ## TODO
 
@@ -38,7 +36,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Requirements
 
-GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported). Blur control requires GNOME 3.36+, and may be unreliable on 3.36.3 or below.
+GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported). Blur control requires GNOME 3.36+, and may be unreliable on 3.36.3 or below. GNOME 40+ is still beta quality.
 
 ## Install
 
@@ -71,12 +69,12 @@ Please include logs from your journal when submitting bug notices (make sure not
 
 ## Screenshots
 
-![Screenshot](/screenshot/notification.png)
+Image gallery:
+![Settings](/screenshot/settings5.png)
 
-![Settings](/screenshot/settings.png)
-![Settings](/screenshot/settings2.png)
-![Settings](/screenshot/settings3.png)
-![Settings](/screenshot/settings4.png)
+Preferences:
+![Settings](/screenshot/settings.png)![Settings](/screenshot/settings2.png)
+![Settings](/screenshot/settings3.png)![Settings](/screenshot/settings4.png)
 
 
 Examples of adjustable blur on the lockscreen:
@@ -87,9 +85,13 @@ Examples of adjustable blur on the lockscreen:
 
 Do you like this extension and want to show that you appreciate the work that goes into adding new features and keeping it maintained? Please consider buying me a coffee on [GitHub Sponsors](https://github.com/sponsors/neffo) or on [Flattr](https://flattr.com/@neffo).
 
+## Disclaimer
+
+This extension is unofficial and not affiliated with Bing or Microsoft in any way. Images are protected by copyright, and are licensed only for use as wallpapers.
+
 ## Special Thanks
 
-I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements.
+I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements. Also, thanks to Microsoft for this great API and wallpaper collection.
 
 ## License
 

@@ -38,6 +38,12 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     <property name="step_increment">5</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_random_interval">
+    <property name="lower">300</property>
+    <property name="upper">86400</property>
+    <property name="step_increment">60</property>
+    <property name="page_increment">3600</property>
+  </object>
   <object class="GtkNotebook" id="prefs_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -458,6 +464,18 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkButton" id="button_open_gallery">
+                            <property name="label" translatable="yes">Select from image gallery</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkComboBoxText" id="history">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -465,7 +483,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">2</property>
+                            <property name="height">1</property>
                           </packing>
                         </child>
                       </object>
@@ -1168,6 +1186,70 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                   </object>
                 </child>
+                <child>
+                  <object class="GtkListBoxRow" id="random_interval_listboxrow">
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="random_interval_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="random_interval_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Manually adjust random interval (seconds)</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="random_interval_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Random interval</property>
+                            <property name="wrap">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="entry_random_interval">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="adjustment">adjustment_random_interval</property>
+                            <property name="numeric">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
             <child type="label_item">
@@ -1211,7 +1293,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
           <object class="GtkImage" id="logo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixbuf">icons/bing-symbolic.svg</property>
+            <property name="pixbuf">../icons/bing-symbolic.svg</property>
           </object>
           <packing>
             <property name="expand">False</property>

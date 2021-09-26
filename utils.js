@@ -7,15 +7,12 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Soup = imports.gi.Soup;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Lang = imports.lang;
-const Config = imports.misc.config;
-const GdkPixbuf = imports.gi.GdkPixbuf;
+imports.gi.versions.Soup = '2.4';
 
+const {Gio, GLib, Soup, GdkPixbuf} = imports.gi;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Config = imports.misc.config;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -65,6 +62,9 @@ var marketName = [
     "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
     "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
 ];
+
+var randomIntervals = [300, 3600, 86400];
+var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
 
 var BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
 
@@ -145,7 +145,7 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
 	
         marketDescription.set_label(_("Fetching data..."));
         // queue the http request
-        httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
+        httpSession.queue_message(request, function (httpSession, message) {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 log("Recieved " + data.length + " bytes");
@@ -160,7 +160,7 @@ function validate_market(settings, marketDescription = null, lastreq = null) {
                 log("Network error occured: " + message.status_code);
                 marketDescription.set_label(_("A network error occured") + ": " + message.status_code);
             }
-        }));
+        });
     }
     else {
         marketDescription.set_label(_("Too many requests in 5 seconds"));
@@ -182,7 +182,7 @@ function fetch_change_log(version, label) {
     httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
     log("Fetching " + url);
     // queue the http request
-    httpSession.queue_message(request, Lang.bind(this, function (httpSession, message) {
+    httpSession.queue_message(request, function (httpSession, message) {
         if (message.status_code == 200) {
             let data = message.response_body.data;
             let text = JSON.parse(data).body;
@@ -192,7 +192,7 @@ function fetch_change_log(version, label) {
             log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
             label.set_label(_("No change log found for this release") + ": " + message.status_code);
         }
-    }));
+    });
 }
 
 function set_blur_preset(settings, preset) {
@@ -218,7 +218,7 @@ function gnome_major_version() {
 }
 
 function imageHasBasename(image_item, i, b) {
-    log("imageHasBasename : " + image_item.urlbase + " =? " + this);
+    //log("imageHasBasename : " + image_item.urlbase + " =? " + this);
     if (this && this.search(image_item.urlbase.replace('th?id=OHR.', '')))
         return true;
     return false;
@@ -333,6 +333,9 @@ function cleanupImageList(settings) {
         // image is still downloadable (< 8 days old) or still on disk, so we keep
         if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
             newList.push(x);
+        }
+        else {
+            log('Cleaning up: '+filename);
         }
     });
     setImageList(settings, newList);
@@ -479,4 +482,21 @@ function log(msg) {
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
+function deleteImage(to_delete) {
+    var file = Gio.file_new_for_path(to_delete);
+    if (file.query_exists(null)) {
+        try {
+            file.delete(null);
+            log("deleted file: " + to_delete);
+        }
+        catch (error) {
+            log("an error occured deleting " + to_delete + " : " + error);
+        }
+    }
+}
+
+function openInSystemViewer(filename) {
+    const context = global.create_app_launch_context(0, -1);
+    Gio.AppInfo.launch_default_for_uri('file://' + filename, context);
+}
   
