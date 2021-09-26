@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-01 22:23+1000\n"
+"PO-Revision-Date: 2021-09-26 17:06+0900\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: nexryai@outlook.com\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
+
+#: Settings.ui.h:1 Settings4.ui.h:2
+msgid "Hide the indicator"
+msgstr "インジケーターを表示しない"
+
+#: Settings.ui.h:2 Settings4.ui.h:3
+msgid "Indicator icon"
+msgstr "インジゲーターのアイコン"
+
+#: Settings.ui.h:3 Settings4.ui.h:4
+msgid "Enable desktop notifications"
+msgstr "デスクトップ通知を有効にする"
+
+#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
+msgid "Set background image"
+msgstr "背景画像を設定"
+
+#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
+msgid "Set lock screen image"
+msgstr "ロック画面の背景を設定"
+
+#: Settings.ui.h:6 Settings4.ui.h:7
+msgid "Download folder"
+msgstr "ダウンロードするフォルダー"
+
+#: Settings.ui.h:7 Settings4.ui.h:1
+msgid "Bing Wallpaper pictures folder"
+msgstr "Bing壁紙の写真のフォルダ"
+
+#: Settings.ui.h:8 Settings4.ui.h:8
+msgid "Open folder"
+msgstr "フォルダーを開く"
+
+#: Settings.ui.h:9 Settings4.ui.h:9
+msgid "Delete previously downloaded wallpapers"
+msgstr "以前にダウンロードした壁紙を削除する"
+
+#: Settings.ui.h:10 Settings4.ui.h:10
+msgid "Selected image"
+msgstr "使用する画像"
+
+#: Settings.ui.h:11 Settings4.ui.h:11
+msgid "Bing locale"
+msgstr "Bingのロケール"
+
+#: Settings.ui.h:12 Settings4.ui.h:12
+msgid "Default is English - United States"
+msgstr "デフォルトは英語（米国）"
+
+#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:132
+msgid "Settings"
+msgstr "設定"
+
+#: Settings.ui.h:14 Settings4.ui.h:14
+msgid "Use custom blur and brightness"
+msgstr "カスタムのブラーと明るさを使用する"
+
+#: Settings.ui.h:15 Settings4.ui.h:15
+msgid "Override GDM3 lockscreen effects"
+msgstr "GDM3のロック画面のエフェクトを上書きする"
+
+#: Settings.ui.h:16 Settings4.ui.h:16
+msgid "Blur can improve readability of login prompt"
+msgstr ""
+"ブラーエフェクトはログインプロンプトの読みやすさを向上させることができます"
+
+#: Settings.ui.h:17 Settings4.ui.h:17
+msgid "Background blur intensity"
+msgstr "背景のブラーエフェクトの強度"
+
+#: Settings.ui.h:18 Settings4.ui.h:18
+msgid "Can improve contrast of login prompt"
+msgstr "ログインプロンプトのコントラストを改善できます"
+
+#: Settings.ui.h:19 Settings4.ui.h:19
+msgid "Background brightness"
+msgstr "背景の明るさ"
+
+#: Settings.ui.h:20 Settings4.ui.h:20
+msgid "Presets"
+msgstr "プリセット"
+
+#: Settings.ui.h:21 Settings4.ui.h:21
+msgid "Commonly used presets"
+msgstr "一般的に使用されるプリセット"
+
+#: Settings.ui.h:22 Settings4.ui.h:22
+msgid "No blur, slight dim"
+msgstr "ブラーを使用せずに、わずかに薄暗くする"
+
+#: Settings.ui.h:23 Settings4.ui.h:23
+msgid "GNOME default"
+msgstr "GNOMEのデフォルト"
+
+#: Settings.ui.h:24 Settings4.ui.h:24
+msgid "Slight blur, slight dim"
+msgstr "わずかにブラーを使用し、わずかに薄暗くする"
+
+#: Settings.ui.h:25 Settings4.ui.h:25
+msgid "Lock Screen"
+msgstr "ロック画面"
+
+#: Settings.ui.h:26 Settings4.ui.h:27
+msgid "Debug logging"
+msgstr "デバッグロギング"
+
+#: Settings.ui.h:27 Settings4.ui.h:26
+msgid "Enable logging to system journal"
+msgstr "システムジャーナルへのロギングを有効にする"
+
+#: Settings.ui.h:28 Settings4.ui.h:29
+msgid "Always show new images"
+msgstr "常に新しい画像を表示する"
+
+#: Settings.ui.h:29 Settings4.ui.h:28
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+"利用可能な場合は新しい画像に切り替える（ランダムモードの場合を除く）"
+
+#: Settings.ui.h:30 Settings4.ui.h:31
+msgid "Enable all features on Wayland"
+msgstr "Waylandですべての機能を有効にする"
+
+#: Settings.ui.h:31 Settings4.ui.h:30
+msgid "Some newer features may be unstable on Wayland"
+msgstr "Waylandでは一部の新しい機能が不安定になる可能性があります"
+
+#: Settings.ui.h:32 Settings4.ui.h:32
+msgid "Screen resolution"
+msgstr "画面の解像度"
+
+#: Settings.ui.h:33 Settings4.ui.h:33
+msgid "Override automatic resolution selection"
+msgstr "自動的に設定された解像度を上書きする"
+
+#: Settings.ui.h:34 Settings4.ui.h:34
+msgid "Debug options"
+msgstr "デバッグオプション"
+
+#: Settings.ui.h:35 Settings4.ui.h:35
+msgid "New wallpaper images everyday from Bing"
+msgstr "Bingから毎日新しい壁紙を取得する拡張機能"
+
+#: Settings.ui.h:36 Settings4.ui.h:36
+msgid "Gnome shell extension version "
+msgstr "Gnome shell 拡張機能のバージョン "
+
+#: Settings.ui.h:37 Settings4.ui.h:37
+msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#: Settings.ui.h:38 Settings4.ui.h:38
+msgid "Maintained by Michael Carroll"
+msgstr "Michael Carroll によってメンテナンスされています"
+
+#: Settings.ui.h:39 Settings4.ui.h:39
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+
+#: Settings.ui.h:40 Settings4.ui.h:40
+msgid "Changes since last version"
+msgstr "前回のバージョンからの変更"
+
+#: Settings.ui.h:41 Settings4.ui.h:41
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr ""
+
+#: Settings.ui.h:42 Settings4.ui.h:42
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+
+#: Settings.ui.h:44 Settings4.ui.h:44
+msgid "About"
+msgstr ""
+
+#: extension.js:117
+msgid "<No refresh scheduled>"
+msgstr ""
+
+#: extension.js:119 extension.js:121 extension.js:123
+msgid "Awaiting refresh..."
+msgstr "更新を待っています..."
+
+#: extension.js:126
+msgid "Copy image to clipboard"
+msgstr "壁紙をクリップボードにコピー"
+
+#: extension.js:127
+msgid "Copy image URL to clipboard"
+msgstr "壁紙のURLをコピー"
+
+#: extension.js:128
+msgid "Open image folder"
+msgstr "壁紙のフォルダを開く"
+
+#: extension.js:131
+msgid "Refresh Now"
+msgstr "今すぐ更新"
+
+#: extension.js:137
+msgid "Thumbnail disabled on Wayland"
+msgstr "Waylandではサムネイルが無効です"
+
+#: extension.js:210
+msgid "Next refresh"
+msgstr "次の更新"
+
+#: extension.js:515 extension.js:552
+msgid "Bing Wallpaper of the Day for"
+msgstr "Bing日替わり壁紙"
+
+#: extension.js:525
+msgid "More info on Bing.com"
+msgstr "詳細は Bing.com を参照してください"
+
+#: extension.js:579
+msgid "No wallpaper available"
+msgstr "利用可能な壁紙はありません"
+
+#: extension.js:580
+msgid "No picture for today 😞."
+msgstr "今日の壁紙はありません😞."
+
+#: prefs.js:181
+msgid "Most recent image"
+msgstr "最新の画像"
+
+#: prefs.js:182
+msgid "Random image"
+msgstr "ランダムな画像"
+
+#: prefs.js:197 prefs.js:213
+msgid "Disabled on current GNOME version"
+msgstr "現在のGNOMEバージョンでは無効です"
+
+#: utils.js:146
+msgid "Fetching data..."
+msgstr "データを取得しています..."
+
+#: utils.js:157
+msgid "Market not available in your region"
+msgstr "お住まいの地域ではご利用いただけません"
+
+#: utils.js:161
+msgid "A network error occured"
+msgstr "ネットワークエラーが発生しました"
+
+#: utils.js:166
+msgid "Too many requests in 5 seconds"
+msgstr "5秒間に送信されたリクエストが多すぎます"
+
+#: utils.js:193
+msgid "No change log found for this release"
+msgstr "このリリースの変更ログは見つかりませんでした"
+
+#: utils.js:388 utils.js:391
+msgid "minutes"
+msgstr "分"
+
+#: utils.js:394
+msgid "days"
+msgstr "日"
+
+#: utils.js:397
+msgid "hours"
+msgstr "時間"
