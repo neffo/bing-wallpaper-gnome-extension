@@ -64,8 +64,8 @@ var marketName = [
     "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
 ];
 
-var randomIntervals = [ 300, 3600, 86400];
-var randomIntervalsTitle = [ '00:05:00', '01:00:00', '24:00:00'];
+var randomIntervals = [300, 3600, 86400];
+var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
 
 var BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
 

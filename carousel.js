@@ -38,8 +38,13 @@ var Carousel = class Carousel {
             this.window.show();
         this.window.connect('destroy', function () {
             // re-enable the button
-            if (button)
+            if (button) {
+                // enable the button again
                 button.set_sensitive(true);
+            }
+            else {
+                log('No button specified!');
+            }
             log('Window destroyed...');
         });
         this._create_gallery();

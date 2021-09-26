@@ -114,9 +114,7 @@ function buildPrefsWidget() {
         Utils.openImageFolder(settings);
     });
     galleryButton.connect('clicked', function(widget) {
-        //create_gallery(widget, settings);
         carousel = new Carousel.Carousel(settings, widget);
-        //carousel.create_gallery(widget, settings);
     });
 
     //download folder
