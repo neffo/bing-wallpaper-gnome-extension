@@ -20,7 +20,6 @@ const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
 const Thumbnail = Me.imports.thumbnail;
 const BWClipboard = Me.imports.BWClipboard;
-//const Carousel = Me.imports.carousel;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
@@ -69,9 +68,6 @@ function doSetBackground(uri, schema) {
     return (prev != uri); // return true if background uri has changed
 }
 
-let httpSession = new Soup.SessionAsync();
-Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
-
 const BingWallpaperIndicator = GObject.registerClass(
 class BingWallpaperIndicator extends PanelMenu.Button {
     _init(params = {}) {
@@ -100,6 +96,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = Utils.getSettings();
+
+        this.httpSession = new Soup.SessionAsync();
+        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault());
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -430,7 +429,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
 
         // queue the http request
-        httpSession.queue_message(request, function(httpSession, message) {
+        this.httpSession.queue_message(request, function(httpSession, message) {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 log("Recieved " + data.length + " bytes ");
@@ -653,7 +652,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         });
 
         // queue the http request
-        httpSession.queue_message(request, function(httpSession, message) {
+        this.httpSession.queue_message(request, function(httpSession, message) {
             // request completed
             fstream.close(null);
             that._updatePending = false;

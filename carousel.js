@@ -10,7 +10,6 @@
 const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
-const Lang = imports.lang;
 
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');

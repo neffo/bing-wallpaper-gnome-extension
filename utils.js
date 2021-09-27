@@ -17,9 +17,6 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
-let httpSession = new Soup.SessionAsync();
-Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
-
 var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
 var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; 
@@ -130,7 +127,7 @@ function validate_imagename(settings) {
     }
 }
 
-function validate_market(settings, marketDescription = null, lastreq = null) {
+function validate_market(settings, marketDescription = null, lastreq = null, httpSession) {
     let market = settings.get_string('market');
     if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
         settings.reset('market');
@@ -175,7 +172,7 @@ function get_current_bg(schema) {
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 
-function fetch_change_log(version, label) {
+function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);

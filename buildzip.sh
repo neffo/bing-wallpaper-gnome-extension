@@ -19,4 +19,4 @@ rm BingWallpaper@ineffable-gmail.com.zip
 
 zip -r BingWallpaper@ineffable-gmail.com.zip *
 
-zip -d BingWallpaper@ineffable-gmail.com.zip screenshot/* screenshot buildzip.sh npm-debug.log icons/original/* .* translations.txt *.h package.json
+zip -d BingWallpaper@ineffable-gmail.com.zip screenshot/* screenshot *.sh npm-debug.log icons/original/* .* translations.txt *.h package.json *.po *.pot

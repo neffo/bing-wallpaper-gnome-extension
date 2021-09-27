@@ -7,11 +7,9 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const Gtk = imports.gi.Gtk;
-const Gdk = imports.gi.Gdk;
-const GdkPixbuf = imports.gi.GdkPixbuf;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
+imports.gi.versions.Soup = '2.4';
+
+const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Convenience = Me.imports.convenience;
@@ -27,11 +25,11 @@ let lastreq = null;
 let provider = new Gtk.CssProvider();
 
 let carousel = null;
+let httpSession = null;
 
 const BingImageURL = Utils.BingImageURL;
 
 function init() {
-    settings = Utils.getSettings(Me);
     Convenience.initTranslations("BingWallpaper");
 }
 
@@ -83,6 +81,10 @@ function buildPrefsWidget() {
     let buttonGDMdefault = buildable.get_object('button_default_gnome');
     let buttonnoblur = buildable.get_object('button_no_blur');
     let buttonslightblur = buildable.get_object('button_slight_blur');
+    
+    settings = Utils.getSettings(Me);
+    httpSession = new Soup.SessionAsync();
+    Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
     // check that these are valid (can be edited through dconf-editor)
     //Utils.validate_market(settings, marketDescription);
@@ -230,7 +232,7 @@ function buildPrefsWidget() {
         box.show_all();
 
     // fetch
-    Utils.fetch_change_log(Me.metadata.version.toString(), change_log);
+    Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
     lastreq = GLib.DateTime.new_now_utc();
 
     return box;
