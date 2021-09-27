@@ -232,7 +232,7 @@ function buildPrefsWidget() {
         box.show_all();
 
     // fetch
-    Utils.fetch_change_log(Me.metadata.version.toString(), change_log);
+    Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
     lastreq = GLib.DateTime.new_now_utc();
 
     return box;

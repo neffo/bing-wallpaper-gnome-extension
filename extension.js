@@ -20,7 +20,6 @@ const Utils = Me.imports.utils;
 const Blur = Me.imports.blur;
 const Thumbnail = Me.imports.thumbnail;
 const BWClipboard = Me.imports.BWClipboard;
-//const Carousel = Me.imports.carousel;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
