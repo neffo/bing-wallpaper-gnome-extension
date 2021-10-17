@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 22:23+1000\n"
-"PO-Revision-Date: 2021-06-03 23:11+1000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2021-10-17 08:37+0200\n"
+"Last-Translator: Isak Bergdahl <isak.bergdahl@yahoo.com>\n"
+"Language-Team: Swedish <>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
@@ -47,7 +47,6 @@ msgid "Bing Wallpaper pictures folder"
 msgstr "Bing Wallpaper nedladdningsmapp"
 
 #: Settings.ui.h:8 Settings4.ui.h:8
-#, fuzzy
 #| msgid "Download folder"
 msgid "Open folder"
 msgstr "Öppna mapp"
@@ -122,29 +121,29 @@ msgstr "Låsskärm"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
 msgid "Debug logging"
-msgstr ""
+msgstr "Felsökningsloggning"
 
 #: Settings.ui.h:27 Settings4.ui.h:26
 msgid "Enable logging to system journal"
-msgstr ""
+msgstr "Aktiva loggning till systemets journal"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "Always show new images"
-msgstr ""
+msgstr "Visa alltid nya bilder"
 
 #: Settings.ui.h:29 Settings4.ui.h:28
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
+"Byt till nya bilder så snart de är tillgängliga (utom i slumpmässigt läge)"
 
 #: Settings.ui.h:30 Settings4.ui.h:31
-#, fuzzy
 #| msgid "Thumbnail disabled on Wayland"
 msgid "Enable all features on Wayland"
-msgstr "Miniatyrbild är inaktiverad på Wayland"
+msgstr "Aktivera alla funktioner med Wayland"
 
 #: Settings.ui.h:31 Settings4.ui.h:30
 msgid "Some newer features may be unstable on Wayland"
-msgstr ""
+msgstr "Vissa nyare funktioner kan vara ostabila med Wayland"
 
 #: Settings.ui.h:32 Settings4.ui.h:32
 msgid "Screen resolution"
@@ -156,7 +155,7 @@ msgstr "Åsidosätt automatiskt skärmupplösningsval"
 
 #: Settings.ui.h:34 Settings4.ui.h:34
 msgid "Debug options"
-msgstr ""
+msgstr "Felsökningsalternativ"
 
 #: Settings.ui.h:35 Settings4.ui.h:35
 msgid "New wallpaper images everyday from Bing"
@@ -189,7 +188,7 @@ msgstr "Nyheter sedan förra versionen"
 
 #: Settings.ui.h:41 Settings4.ui.h:41
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baserat på \\\"NASA APOD Gnome shell extensions\\\" av Elia Argentieri"
+msgstr "Baserat på NASA APOD Gnome shell extensions av Elia Argentieri"
 
 #: Settings.ui.h:42 Settings4.ui.h:42
 msgid ""
@@ -222,7 +221,6 @@ msgid "Copy image URL to clipboard"
 msgstr "Kopiera bildlänk till urklipp"
 
 #: extension.js:128
-#, fuzzy
 msgid "Open image folder"
 msgstr "Öppna bildmapp"
 
@@ -244,7 +242,7 @@ msgstr "Bings dagliga bakgrundsbild för"
 
 #: extension.js:525
 msgid "More info on Bing.com"
-msgstr ""
+msgstr "Mer information på Bing.com"
 
 #: extension.js:579
 msgid "No wallpaper available"
@@ -252,7 +250,7 @@ msgstr "Inga skrivbordsbakgrunder tillgängliga"
 
 #: extension.js:580
 msgid "No picture for today 😞."
-msgstr "Inga nya bilder idag 😞."
+msgstr "Ingen ny bild idag 😞."
 
 #: prefs.js:181
 msgid "Most recent image"
