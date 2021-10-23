@@ -47,6 +47,7 @@ or install directly to your GNOME extensions directory (useful if you want to ha
 mkdir ~/Desktop/source
 cd ~/Desktop/source
 git clone https://github.com/neffo/bing-wallpaper-gnome-extension.git
+cd bing-wallpaper-gnome-extension
 sh install.sh
 ```
 
