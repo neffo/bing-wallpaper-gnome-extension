@@ -58,7 +58,6 @@ function buildPrefsWidget() {
     let iconEntry = buildable.get_object('icon');
     let notifySwitch = buildable.get_object('notify');
     let bgSwitch = buildable.get_object('background');
-    let lsSwitch = buildable.get_object('lock_screen');
     let fileChooserBtn = buildable.get_object('download_folder');
     let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
     let folderOpenBtn = buildable.get_object('button_open_download_folder');
@@ -106,7 +105,6 @@ function buildPrefsWidget() {
     iconEntry.set_active_id(settings.get_string('icon-name'));
 
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    settings.bind('set-lock-screen', lsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -200,9 +198,6 @@ function buildPrefsWidget() {
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     if (Convenience.currentVersionGreaterEqual("3.36")) {
-        // lockscreen and desktop wallpaper are shared in GNOME 3.36+
-        lsSwitch.set_sensitive(false);
-        buildable.get_object('lock_screen_listboxrow').set_tooltip_text(_("Disabled on current GNOME version"));
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);

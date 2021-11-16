@@ -367,12 +367,17 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function dump(object) {
+// Utility function
+function dump(object, level = 0) {
     let output = '';
     for (let property in object) {
-        output += property + ': ' + object[property] + '; ';
+        output += " - ".repeat(level)+property + ': ' + object[property]+'\n ';
+		if ( typeof object[property] === 'object' )
+			output += dump(object[property], level+1);
     }
-    log(output);
+	if (level == 0)
+		log(output);
+    return(output);
 }
 
 function friendly_time_diff(time, short = true) {
