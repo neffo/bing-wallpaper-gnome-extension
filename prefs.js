@@ -94,12 +94,12 @@ function buildPrefsWidget() {
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
-    Utils.icon_list.forEach(function (iconname, index) { // add markets to dropdown list (aka a GtkComboText)
+    Utils.icon_list.forEach((iconname, index) => { // add markets to dropdown list (aka a GtkComboText)
         iconEntry.append(iconname, iconname);
     });
     settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
-    settings.connect('changed::icon-name', function() {
+    settings.connect('changed::icon-name', () => {
         Utils.validate_icon(settings, icon_image);
     });
     iconEntry.set_active_id(settings.get_string('icon-name'));
@@ -110,10 +110,10 @@ function buildPrefsWidget() {
     settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-    folderOpenBtn.connect('clicked', function(widget) {
+    folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
-    galleryButton.connect('clicked', function(widget) {
+    galleryButton.connect('clicked', (widget) => {
         carousel = new Carousel.Carousel(settings, widget);
     });
 
@@ -121,13 +121,13 @@ function buildPrefsWidget() {
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
         fileChooserBtn.set_label(settings.get_string('download-folder'));
         fileChooser.set_current_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)).get_parent());
-        fileChooserBtn.connect('clicked', function(widget) {
+        fileChooserBtn.connect('clicked', (widget) => {
             let parent = widget.get_root();
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
             fileChooser.set_transient_for(parent);
             fileChooser.show();
         });
-        fileChooser.connect('response', function(widget, response) {
+        fileChooser.connect('response', (widget, response) => {
             if (response !== Gtk.ResponseType.ACCEPT) {
                 return;
             }
@@ -142,12 +142,12 @@ function buildPrefsWidget() {
         marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
         marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
         market_grid.attach(marketEntry, 1, 0, 1, 2);
-        marketEntry.connect('notify::selected-item', function() {
+        marketEntry.connect('notify::selected-item', () => {
             let id = marketEntry.get_selected();
             settings.set_string('market', Utils.markets[id]);
             log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
-        settings.connect('changed::market', function() {
+        settings.connect('changed::market', () => {
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
@@ -157,28 +157,28 @@ function buildPrefsWidget() {
         fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-        fileChooserBtn.connect('file-set', function(widget) {      
+        fileChooserBtn.connect('file-set', (widget) => {      
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
             settings.set_string('download-folder', widget.get_filename());
         });
-        Utils.markets.forEach(function (bingmarket, index) { // add markets to dropdown list (aka a GtkComboText)
+        Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
         });
         //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-        settings.connect('changed::market', function() {
+        settings.connect('changed::market', () => {
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
         });
     }
 
     // Resolution
-    Utils.resolutions.forEach(function (res) { // add res to dropdown list (aka a GtkComboText)
+    Utils.resolutions.forEach((res) => { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);
     });
     settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-    settings.connect('changed::resolution', function() {
+    settings.connect('changed::resolution', () => {
         Utils.validate_resolution(settings);
     });
 
@@ -186,11 +186,11 @@ function buildPrefsWidget() {
     let imageList = Utils.getImageList(settings);
     historyEntry.append('current', _('Most recent image'));
     historyEntry.append('random', _('Random image'));
-    imageList.forEach(function (image) {
+    imageList.forEach((image) => {
         historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
     });
     settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-    settings.connect('changed::selected-image', function() {
+    settings.connect('changed::selected-image', () => {
         Utils.validate_imagename(settings);
     });
 
@@ -202,13 +202,13 @@ function buildPrefsWidget() {
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        buttonGDMdefault.connect('clicked', function(widget) {
+        buttonGDMdefault.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
         });
-        buttonnoblur.connect('clicked', function(widget) {
+        buttonnoblur.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
         });
-        buttonslightblur.connect('clicked', function(widget) {
+        buttonslightblur.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
     } else {
