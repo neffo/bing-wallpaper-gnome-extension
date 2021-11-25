@@ -166,7 +166,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.refreshDueItem.setSensitive(false);
         this.thumbnailItem.setSensitive(false);
         this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
-        this.titleItem.connect('activate', function() {
+        this.titleItem.connect('activate', () => {
             if (this.imageinfolink)
                 Util.spawn(["xdg-open", this.imageinfolink]);
         });
@@ -185,7 +185,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         // listen for configuration changes
         _setConnections() {
-            this._settings.connect('changed::hide', function() {
+            this._settings.connect('changed::hide', () => {
                 getActorCompat(this).visible = !this._settings.get_boolean('hide');
             });
             this._setIcon(this._settings.get_string('icon-name'));
@@ -414,7 +414,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // download Bing metadata
     _refresh() {
-        const that = this;
         if (this._updatePending)
             return;
         this._updatePending = true;
@@ -429,21 +428,21 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
 
         // queue the http request
-        this.httpSession.queue_message(request, function(httpSession, message) {
+        this.httpSession.queue_message(request, (httpSession, message) => {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 log("Recieved " + data.length + " bytes ");
-                that._parseData(data);
-                if (that.selected_image != 'random' /*|| !forced*/)
-                that._selectImage();
+                this._parseData(data);
+                if (this.selected_image != 'random' /*|| !forced*/)
+                this._selectImage();
             } else if (message.status_code == 403) {
                 log("Access denied: " + message.status_code);
-                that._updatePending = false;
-                that._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+                this._updatePending = false;
+                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             } else {
                 log("Network error occured: " + message.status_code);
-                that._updatePending = false;
-                that._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+                this._updatePending = false;
+                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             }
         });
     }
@@ -485,10 +484,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 this._settings.set_string('selected-image', 'current');
             }
             if (this._settings.get_boolean('notify')) {
-                const that = this;
-                newImages.forEach(function(image, index) {
+                newImages.forEach((image, index) => {
                     log('New image to notify: ' + Utils.getImageTitle(image));
-                    that._createNotification(image);
+                    this._createNotification(image);
                 });
             }
 
@@ -628,7 +626,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // download and process new image
     // FIXME: improve error handling
     _downloadImage(url, file) {
-        const that = this;
         log("Downloading " + url + " to " + file.get_uri());
 
         // open the Gfile
@@ -636,12 +633,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // create an http message
         let request = Soup.Message.new('GET', url);
         // got_headers event
-        request.connect('got_headers', function(message) {
+        request.connect('got_headers', (message) => {
             log("got_headers, status: " + message.status_code);
         });
 
         // got_chunk event
-        request.connect('got_chunk', function(message, chunk) {
+        request.connect('got_chunk', (message, chunk) => {
             //log("got_chuck, status: "+message.status_code);
             if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
                 fstream.write(chunk.get_data(), null);
@@ -652,14 +649,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         });
 
         // queue the http request
-        this.httpSession.queue_message(request, function(httpSession, message) {
+        this.httpSession.queue_message(request, (httpSession, message) => {
             // request completed
             fstream.close(null);
-            that._updatePending = false;
+            this._updatePending = false;
             if (message.status_code == 200) {
                 log('Download successful');
-                that._setBackground();
-                that._addToPreviousQueue(that.filename);
+                this._setBackground();
+                this._addToPreviousQueue(this.filename);
             } else {
                 log("Couldn't fetch image from " + url);
                 file.delete(null);
