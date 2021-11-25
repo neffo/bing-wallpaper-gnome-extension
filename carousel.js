@@ -65,25 +65,23 @@ var Carousel = class Carousel {
     }
 
     _create_gallery() {
-        let that = this;
-        Utils.randomIntervals.forEach(function (seconds, i) {
-            let item = that._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
+        Utils.randomIntervals.forEach((seconds, i) => {
+            let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
             if (Gtk.get_major_version() < 4)
-                that.flowBox.add(item);
+                this.flowBox.add(item);
             else 
-                that.flowBox.insert(item, -1);
+                this.flowBox.insert(item, -1);
         });
-        this.imageList.forEach(function (image) {
-            let item = that._create_gallery_item(image);
+        this.imageList.forEach((image) => {
+            let item = this._create_gallery_item(image);
             if (Gtk.get_major_version() < 4)
-                that.flowBox.add(item);
+                this.flowBox.add(item);
             else 
-                that.flowBox.insert(item, -1);
+                this.flowBox.insert(item, -1);
         });
     }
 
     _create_gallery_item(image) {
-        let that = this;
         let buildable = new Gtk.Builder();
         if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
@@ -113,17 +111,18 @@ var Carousel = class Carousel {
         /*galleryImage.connect('clicked', function (widget) {
             Utils.openInSystemViewer(filename);
         });*/
-        applyButton.connect('clicked', function(widget) {
-            that.settings.set_string('selected-image', Utils.getImageUrlBase(image));
+        applyButton.connect('clicked', (widget) => {
+            this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
             log('gallery selected '+Utils.getImageUrlBase(image));
         });
-        deleteButton.connect('clicked', function(widget) {
+        deleteButton.connect('clicked', (widget) => {
             log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            Utils.cleanupImageList(that.settings);
-            widget.get_parent().get_parent().destroy(); // bit of a hack
-            if (that.callbackfunc)
-                that.callbackfunc();
+            Utils.cleanupImageList(this.settings);
+            //widget.get_parent().get_parent().destroy(); // bit of a hack
+            widget.get_parent().destroy(); // bit of a hack
+            if (this.callbackfunc)
+                this.callbackfunc();
         });
         //deleteButton.set_sensitive(false);
         let item = buildable.get_object('flowBoxChild');
@@ -131,7 +130,6 @@ var Carousel = class Carousel {
     }
 
     _create_random_item(seconds, title) {
-        let that = this;
         let buildable = new Gtk.Builder();
         if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
@@ -142,9 +140,9 @@ var Carousel = class Carousel {
         let filename = 'random';
         let applyButton = buildable.get_object('randomButton');
 
-        applyButton.connect('clicked', function(widget) {
-            that.settings.set_string('selected-image', filename);
-            that.settings.set_int('random-interval', seconds);
+        applyButton.connect('clicked', (widget) => {
+            this.settings.set_string('selected-image', filename);
+            this.settings.set_int('random-interval', seconds);
             log('gallery selected random with interval '+seconds);
         });
         let item = buildable.get_object('flowBoxRandom');
