@@ -14,7 +14,7 @@ const Utils = Me.imports.utils;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
-const default_dimensions = [30, 30, 1500, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
+const default_dimensions = [30, 30, 1600, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
@@ -90,6 +90,7 @@ var Carousel = class Carousel {
         let galleryImage = buildable.get_object('galleryImage');
         let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
+        let viewButton = buildable.get_object('viewButton');
         let applyButton = buildable.get_object('applyButton');
         let deleteButton = buildable.get_object('deleteButton');
         try {
@@ -108,9 +109,9 @@ var Carousel = class Carousel {
         galleryImage.set_tooltip_text(Utils.getImageTitle(image));
         imageLabel.set_width_chars(60);
         imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
-        /*galleryImage.connect('clicked', function (widget) {
+        viewButton.connect('clicked',  (widget) => {
             Utils.openInSystemViewer(filename);
-        });*/
+        });
         applyButton.connect('clicked', (widget) => {
             this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
             log('gallery selected '+Utils.getImageUrlBase(image));
@@ -119,8 +120,7 @@ var Carousel = class Carousel {
             log('Delete requested for '+filename);
             Utils.deleteImage(filename);
             Utils.cleanupImageList(this.settings);
-            //widget.get_parent().get_parent().destroy(); // bit of a hack
-            widget.get_parent().destroy(); // bit of a hack
+            widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
         });
