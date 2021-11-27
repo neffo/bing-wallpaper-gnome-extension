@@ -106,7 +106,7 @@ var Carousel = class Carousel {
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             log('create_gallery_image: '+e);
         }
-        galleryImage.set_tooltip_text(Utils.getImageTitle(image));
+        galleryImage.set_tooltip_text(image.copyright);
         imageLabel.set_width_chars(60);
         imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
         viewButton.connect('clicked',  (widget) => {

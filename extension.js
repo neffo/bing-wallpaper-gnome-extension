@@ -199,6 +199,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this._setBlur();
             this._settings.connect('changed::selected-image', this._setImage.bind(this));
             this._setImage();
+            this._settings.connect('changed::delete-previous', this._cleanUpImages.bind(this));
+            this._cleanUpImages();
         }
     
 
@@ -478,7 +480,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             if (datamarket != prefmarket && prefmarket != 'auto')
                 log('WARNING: Bing returning market data for ' + datamarket + ' rather than selected ' + prefmarket);
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
-            Utils.purgeImages(this._settings);
+            Utils.purgeImages(this._settings); // delete older images if enabled
             Utils.cleanupImageList(this._settings);
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
                 // user wants to switch to the new image when it arrives
@@ -496,6 +498,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
         catch (error) {
             log('_parseData() failed with error ' + error);
+        }
+    }
+
+    _cleanUpImages() {
+        if (this._settings.get_boolean('delete-previous')) {
+            Utils.purgeImages(this._settings);
         }
     }
 
