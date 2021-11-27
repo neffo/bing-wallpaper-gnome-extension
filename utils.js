@@ -510,7 +510,7 @@ function purgeImages(settings) {
         var to_delete = imagelist.shift(); // get the first (oldest item from the list)
         log("image: " + to_delete.copyright);
         if (deletepictures && to_delete != '') {
-            imageFilename = imageToFilename(settings, to_delete);
+            let imageFilename = imageToFilename(settings, to_delete);
             log('deleting '+imageFilename);
             //Utils.deleteImage(imageFilename);
         }

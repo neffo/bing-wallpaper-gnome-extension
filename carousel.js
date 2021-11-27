@@ -26,7 +26,7 @@ var Carousel = class Carousel {
         this.settings = settings;
         this.button = button;
         this.callbackfunc = callbackfunc;
-        this.imageList = Utils.getImageList(this.settings).reverse(); // get images and reverse order
+        this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         // disable the button
         //if (this.button)
         //    this.button.set_sensitive(false);
