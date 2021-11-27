@@ -203,7 +203,7 @@ function is_x11() {
 }
 
 function enabled_unsafe() {
-    log("User override, enabling unsafe Wayland functionality");
+    //log("User override, enabling unsafe Wayland functionality");
     return true;
 }
 
@@ -495,6 +495,29 @@ function deleteImage(to_delete) {
             log("an error occured deleting " + to_delete + " : " + error);
         }
     }
+}
+
+// add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
+function purgeImages(settings) {
+    let imagelist = imageListSortByDate(getImageList(settings));
+    let maxpictures = this._settings.get_int('previous-days');
+    let deletepictures = this._settings.get_boolean('delete-previous');
+
+    log("Settings: delete:" + (deletepictures ? "yes" : "no") + " max: " + maxpictures);
+    imagelist.push(filename); // add current to end of list
+
+    while (imagelist.length > maxpictures + 1) {
+        var to_delete = imagelist.shift(); // get the first (oldest item from the list)
+        log("image: " + to_delete.copyright);
+        if (deletepictures && to_delete != '') {
+            imageFilename = imageToFilename(settings, to_delete);
+            log('deleting '+imageFilename);
+            //Utils.deleteImage(imageFilename);
+        }
+    }
+
+    // put it back together and send back to settings
+    cleanupImageList(settings)
 }
 
 function openInSystemViewer(filename) {

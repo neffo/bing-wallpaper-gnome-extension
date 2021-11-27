@@ -478,6 +478,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             if (datamarket != prefmarket && prefmarket != 'auto')
                 log('WARNING: Bing returning market data for ' + datamarket + ' rather than selected ' + prefmarket);
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
+            Utils.purgeImages(this._settings);
             Utils.cleanupImageList(this._settings);
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
                 // user wants to switch to the new image when it arrives
@@ -656,35 +657,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             if (message.status_code == 200) {
                 log('Download successful');
                 this._setBackground();
-                this._addToPreviousQueue(this.filename);
             } else {
                 log("Couldn't fetch image from " + url);
                 file.delete(null);
             }
         });
-    }
-
-    // add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
-    _addToPreviousQueue(filename) {
-        let rawimagelist = this._settings.get_string('previous');
-        let imagelist = rawimagelist.split(',');
-        let maxpictures = this._settings.get_int('previous-days');
-        let deletepictures = this._settings.get_boolean('delete-previous');
-
-        log("Settings: delete:" + (deletepictures ? "yes" : "no") + " max: " + maxpictures);
-        imagelist.push(filename); // add current to end of list
-
-        while (imagelist.length > maxpictures + 1) {
-            var to_delete = imagelist.shift(); // get the first (oldest item from the list)
-            log("image: " + to_delete);
-            if (deletepictures && to_delete != '') {
-                Utils.deleteImage(to_delete);
-            }
-        }
-
-        // put it back together and send back to settings
-        rawimagelist = imagelist.join();
-        this._settings.set_string('previous', rawimagelist);
     }
 
     // open image in default image view
