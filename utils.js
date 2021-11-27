@@ -510,7 +510,7 @@ function purgeImages(settings) {
         if (deletepictures && to_delete != '') {
             let imageFilename = imageToFilename(settings, to_delete);
             log('deleting '+imageFilename);
-            Utils.deleteImage(imageFilename);
+            deleteImage(imageFilename);
         }
     }
     log('cleaned up image list, count was '+imagelist.length+' now '+origlength);
