@@ -710,8 +710,8 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">No blur, slight dim</property>
                                 <property name="receives_default">1</property>
                                 <layout>
-                                  <property name="column">1</property>
-                                  <property name="row">1</property>
+                                  <property name="column">2</property>
+                                  <property name="row">0</property>
                                 </layout>
                               </object>
                             </child>
@@ -720,8 +720,8 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">GNOME default</property>
                                 <property name="receives_default">1</property>
                                 <layout>
-                                  <property name="column">1</property>
-                                  <property name="row">0</property>
+                                  <property name="column">2</property>
+                                  <property name="row">1</property>
                                 </layout>
                               </object>
                             </child>
@@ -730,7 +730,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">Slight blur, slight dim</property>
                                 <property name="receives_default">1</property>
                                 <layout>
-                                  <property name="column">1</property>
+                                  <property name="column">2</property>
                                   <property name="row">2</property>
                                 </layout>
                               </object>
@@ -1114,16 +1114,14 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <property name="halign">center</property>
                 <property name="margin_bottom">12</property>
                 <child>
-                  <object class="GtkLabel" id="extension_version_label">
-                    <property name="visible">0</property>
+                  <object class="GtkLabel" id="extension_version_label">    
                     <property name="can_focus">0</property>
                     <property name="halign">end</property>
-                    <property name="label" translatable="yes">Gnome shell extension version </property>
+                    <property name="label" translatable="no">GNOME shell extension version </property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="extension_version">
-                    <property name="visible">0</property>
                     <property name="can_focus">0</property>
                     <property name="halign">start</property>
                     <property name="label">...</property>
@@ -1148,14 +1146,12 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="maintainer_label">
-                    <property name="visible">0</property>
                     <property name="can_focus">0</property>
                     <property name="label" translatable="yes">Maintained by Michael Carroll</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="email_label">
-                    <property name="visible">0</property>
                     <property name="can_focus">0</property>
                     <property name="label">ineffable@gmail.com</property>
                     <property name="use_markup">1</property>
