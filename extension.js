@@ -531,16 +531,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let details = Utils.getImageTitle(image); //image.copyright.replace(/\s*\(.*?\)\s*/g, "");
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
-        // Add action to open Bing website with default browser, this is unfortunately very hacky
-        notification.addAction(_("More info on Bing.com"), () => {
-            this._notificationOpenLink(notification, image);
-        });
         source.showNotification(notification);
-    }
-
-    _notificationOpenLink(notification, image) {
-        log("Open :" + notification.bannerBodyText);
-        Util.spawn(["xdg-open", image.copyrightlink]);
     }
 
     _selectImage() {
