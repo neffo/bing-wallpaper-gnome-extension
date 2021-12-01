@@ -1117,7 +1117,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                   <object class="GtkLabel" id="extension_version_label">    
                     <property name="can_focus">0</property>
                     <property name="halign">end</property>
-                    <property name="label" translatable="no">GNOME shell extension version </property>
+                    <property name="label" translatable="yes">GNOME shell extension version </property>
                   </object>
                 </child>
                 <child>
@@ -1131,7 +1131,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </child>
             <child>
               <object class="GtkLinkButton" id="homepage_link">
-                <property name="label" translatable="yes">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
+                <property name="label" translatable="no">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
                 <property name="can_focus">0</property>
                 <property name="receives_default">1</property>
                 <property name="halign">center</property>

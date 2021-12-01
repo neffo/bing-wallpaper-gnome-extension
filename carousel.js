@@ -92,6 +92,7 @@ var Carousel = class Carousel {
         let filename = Utils.imageToFilename(this.settings, image);
         let viewButton = buildable.get_object('viewButton');
         let applyButton = buildable.get_object('applyButton');
+        let infoButton = buildable.get_object('infoButton');
         let deleteButton = buildable.get_object('deleteButton');
         try {
             this._load_image(galleryImage, filename);
@@ -115,6 +116,10 @@ var Carousel = class Carousel {
         applyButton.connect('clicked', (widget) => {
             this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
             log('gallery selected '+Utils.getImageUrlBase(image));
+        });
+        viewButton.connect('clicked', (widget) => {
+            Utils.openInSystemViewer(image.copyrightlink);
+            log('info page link opened '+image.copyrightlink);
         });
         deleteButton.connect('clicked', (widget) => {
             log('Delete requested for '+filename);
