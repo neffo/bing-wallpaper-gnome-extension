@@ -32,7 +32,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = true;
+let debug = false;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
@@ -514,7 +514,7 @@ function purgeImages(settings) {
             deleteImage(imageFilename);
         }
     }
-    log('cleaned up image list, count was '+imagelist.length+' now '+origlength);
+    log('cleaned up image list, count was '+origlength+' now '+imagelist.length);
     cleanupImageList(settings);
 }
 
