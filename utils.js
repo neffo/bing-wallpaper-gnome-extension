@@ -31,6 +31,7 @@ var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[
 var vertical_blur = null;
 var horizontal_blur = null;
 
+let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 let debug = true;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
@@ -170,7 +171,7 @@ function get_current_bg(schema) {
     return (cur);
 }
 
-let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
+
 
 function fetch_change_log(version, label, httpSession) {
     // create an http message
@@ -517,7 +518,7 @@ function purgeImages(settings) {
     cleanupImageList(settings);
 }
 
-function openInSystemViewer(filename) {
+function openInSystemViewer(filename, is_file = true) {
     let context;
     try {
         context = global.create_app_launch_context(0, -1);
@@ -525,6 +526,6 @@ function openInSystemViewer(filename) {
     catch (error) {
         context = null;
     }
-    Gio.AppInfo.launch_default_for_uri('file://' + filename, context);
+    Gio.AppInfo.launch_default_for_uri(is_file? 'file://':'' + filename, context);
 }
   

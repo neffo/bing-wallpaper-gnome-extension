@@ -10,7 +10,8 @@
 imports.gi.versions.Soup = '2.4';
 
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+const extensionUtils = imports.misc.extensionUtils;
+const Me = extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -30,7 +31,7 @@ let httpSession = null;
 const BingImageURL = Utils.BingImageURL;
 
 function init() {
-    Convenience.initTranslations("BingWallpaper");
+    Convenience.initTranslations("BingWallpaper"); // this is now included in extensionUtils, but we still need it for now (for older GNOME versions)
 }
 
 function buildPrefsWidget() {

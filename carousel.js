@@ -22,11 +22,11 @@ const GALLERY_THUMB_HEIGHT = 180;
 var Carousel = class Carousel {
     constructor(settings, button = null, callbackfunc = null) {
         //create_gallery(widget, settings);
-        log('create carousel...');
         this.settings = settings;
         this.button = button;
         this.callbackfunc = callbackfunc;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
+        this.log('create carousel...');
         // disable the button
         //if (this.button)
         //    this.button.set_sensitive(false);
@@ -105,24 +105,24 @@ var Carousel = class Carousel {
                 galleryImage.set_from_icon_name('image-missing');
             }
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
-            log('create_gallery_image: '+e);
+            this.log('create_gallery_image: '+e);
         }
         galleryImage.set_tooltip_text(image.copyright);
         imageLabel.set_width_chars(60);
         imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
-        viewButton.connect('clicked',  (widget) => {
+        viewButton.connect('clicked',  () => {
             Utils.openInSystemViewer(filename);
         });
-        applyButton.connect('clicked', (widget) => {
+        applyButton.connect('clicked', () => {
             this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
-            log('gallery selected '+Utils.getImageUrlBase(image));
+            this.log('gallery selected '+Utils.getImageUrlBase(image));
         });
-        viewButton.connect('clicked', (widget) => {
-            Utils.openInSystemViewer(image.copyrightlink);
-            log('info page link opened '+image.copyrightlink);
+        infoButton.connect('clicked', () => {
+            Utils.openInSystemViewer(image.copyrightlink, false);
+            this.log('info page link opened '+image.copyrightlink);
         });
         deleteButton.connect('clicked', (widget) => {
-            log('Delete requested for '+filename);
+            this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
             Utils.cleanupImageList(this.settings);
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
@@ -148,7 +148,7 @@ var Carousel = class Carousel {
         applyButton.connect('clicked', (widget) => {
             this.settings.set_string('selected-image', filename);
             this.settings.set_int('random-interval', seconds);
-            log('gallery selected random with interval '+seconds);
+            this.log('gallery selected random with interval '+seconds);
         });
         let item = buildable.get_object('flowBoxRandom');
         return item;
@@ -161,7 +161,7 @@ var Carousel = class Carousel {
             thumb_dir.make_directory_with_parents(null);
         }
         let image_file = Gio.file_new_for_path(filename);
-        //log('thumbpath -> '+ thumb_path);
+        //this.log('thumbpath -> '+ thumb_path);
         if (!image_file.query_exists(null)){
             this._set_blank_image(galleryImage);
         }
@@ -187,7 +187,7 @@ var Carousel = class Carousel {
             }
             catch (e) {
                 this._set_blank_image(galleryImage);
-                log('create_gallery_image: '+e);
+                this.log('create_gallery_image: '+e);
             }
         }
     }
@@ -202,5 +202,10 @@ var Carousel = class Carousel {
             //galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
         }
         
+    }
+
+    log(msg) {
+        if (this.settings.get_boolean('debug-logging'))
+            print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
     }
 };

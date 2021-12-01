@@ -168,7 +168,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         this.titleItem.connect('activate', () => {
             if (this.imageinfolink)
-                Util.spawn(["xdg-open", this.imageinfolink]);
+                Utils.openInSystemViewer(this.imageinfolink, false);
         });
         this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
         this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
