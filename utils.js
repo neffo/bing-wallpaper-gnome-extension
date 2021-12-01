@@ -526,6 +526,8 @@ function openInSystemViewer(filename, is_file = true) {
     catch (error) {
         context = null;
     }
-    Gio.AppInfo.launch_default_for_uri(is_file? 'file://':'' + filename, context);
+    if (is_file)
+        filename = 'file://'+filename;
+    Gio.AppInfo.launch_default_for_uri(filename, context);
 }
   

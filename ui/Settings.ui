@@ -1249,7 +1249,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
         <property name="spacing">5</property>
-        <child>
+        <!-- <child>
           <object class="GtkImage" id="logo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -1262,6 +1262,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             <property name="position">0</property>
           </packing>
         </child>
+        -->
         <child>
           <object class="GtkLabel" id="extension_name">
             <property name="visible">True</property>

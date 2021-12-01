@@ -183,25 +183,26 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-        // listen for configuration changes
-        _setConnections() {
-            this._settings.connect('changed::hide', () => {
-                getActorCompat(this).visible = !this._settings.get_boolean('hide');
-            });
-            this._setIcon(this._settings.get_string('icon-name'));
-            this._settings.connect('changed::icon-name', this._setIcon.bind(this, this._settings.get_string('icon-name')));
-            this._settings.connect('changed::market', this._refresh.bind(this));
-            this._settings.connect('changed::set-background', this._setBackground.bind(this));
-            this._settings.connect('changed::set-lockscreen', this._setBackground.bind(this));
-            this._settings.connect('changed::override-lockscreen-blur', this._setBlur.bind(this));
-            this._settings.connect('changed::lockscreen-blur-strength', blur.set_blur_strength.bind(this, this._settings.get_int('lockscreen-blur-strength')));
-            this._settings.connect('changed::lockscreen-blur-brightness', blur.set_blur_brightness.bind(this, this._settings.get_int('lockscreen-blur-brightness')));
-            this._setBlur();
-            this._settings.connect('changed::selected-image', this._setImage.bind(this));
-            this._setImage();
-            this._settings.connect('changed::delete-previous', this._cleanUpImages.bind(this));
-            this._cleanUpImages();
-        }
+    // listen for configuration changes
+    _setConnections() {
+        this._settings.connect('changed::hide', () => {
+            getActorCompat(this).visible = !this._settings.get_boolean('hide');
+        });
+        this._setIcon(this._settings.get_string('icon-name'));
+        this._settings.connect('changed::icon-name', this._setIcon.bind(this, this._settings.get_string('icon-name')));
+        this._settings.connect('changed::market', this._refresh.bind(this));
+        this._settings.connect('changed::set-background', this._setBackground.bind(this));
+        this._settings.connect('changed::set-lockscreen', this._setBackground.bind(this));
+        this._settings.connect('changed::override-lockscreen-blur', this._setBlur.bind(this));
+        this._settings.connect('changed::lockscreen-blur-strength', blur.set_blur_strength.bind(this, this._settings.get_int('lockscreen-blur-strength')));
+        this._settings.connect('changed::lockscreen-blur-brightness', blur.set_blur_brightness.bind(this, this._settings.get_int('lockscreen-blur-brightness')));
+        this._setBlur();
+        this._settings.connect('changed::selected-image', this._setImage.bind(this));
+        this._setImage();
+        this._settings.connect('changed::delete-previous', this._cleanUpImages.bind(this));
+        this._settings.connect('changed::notify', this._notifyCurrentImage.bind(this));
+        this._cleanUpImages();
+    }
     
 
     _openPrefs() {
@@ -244,6 +245,15 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.selected_image = this._settings.get_string('selected-image');
         log('selected image changed to :' + this.selected_image);
         this._selectImage();
+    }
+
+    _notifyCurrentImage() {
+        if (this._settings.get_boolean('notify')) {
+            let image = this._getCurrentImage();
+            if (image) {
+                this._createNotification(image);
+            }
+        }
     }
 
     // set indicator icon (tray icon)
@@ -414,6 +424,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this._settings.set_string('selected-image', newImage.urlbase.replace('/th?id=OHR.', ''));
     }
 
+    _getCurrentImage() {
+        let imageList = Utils.getImageList(this._settings);
+        let curIndex = Utils.getCurrentImageIndex(imageList);
+        return Utils.getImageByIndex(imageList, curIndex);
+    }
+
     // download Bing metadata
     _refresh() {
         if (this._updatePending)
@@ -516,14 +532,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
         // Add action to open Bing website with default browser, this is unfortunately very hacky
-        notification.addAction(_("More info on Bing.com"), this._notificationOpenLink().bind(this, notification));
+        notification.addAction(_("More info on Bing.com"), () => {
+            this._notificationOpenLink(notification, image);
+        });
         source.showNotification(notification);
     }
 
-    _notificationOpenLink(notification) {
+    _notificationOpenLink(notification, image) {
         log("Open :" + notification.bannerBodyText);
-        let imageList = Utils.getImageList(this._settings);
-        let image = Utils.inImageListByTitle(imageList, notification.bannerBodyText);
         Util.spawn(["xdg-open", image.copyrightlink]);
     }
 
