@@ -81,6 +81,8 @@ function buildPrefsWidget() {
     let buttonGDMdefault = buildable.get_object('button_default_gnome');
     let buttonnoblur = buildable.get_object('button_no_blur');
     let buttonslightblur = buildable.get_object('button_slight_blur');
+    let buttonImportData = buildable.get_object('button_json_import');
+    let buttonExportData = buildable.get_object('button_json_export');
     
     settings = Utils.getSettings(Me);
     httpSession = new Soup.SessionAsync();
@@ -116,6 +118,12 @@ function buildPrefsWidget() {
     });
     galleryButton.connect('clicked', (widget) => {
         carousel = new Carousel.Carousel(settings, widget);
+    });
+    buttonImportData.connect('clicked', () => {
+        Utils.importBingJSON(settings);
+    });
+    buttonExportData.connect('clicked', () => {
+        Utils.exportBingJSON(settings);
     });
 
     //download folder

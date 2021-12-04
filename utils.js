@@ -307,7 +307,7 @@ function mergeImageLists(settings, imageList) {
             newList.unshift(x); 
         }
     });
-    setImageList(settings, curList);
+    setImageList(settings, imageListSortByDate(curList)); // sort then save back to settings
     return newList; // return this to caller for notifications
 }
 
@@ -529,5 +529,35 @@ function openInSystemViewer(filename, is_file = true) {
     if (is_file)
         filename = 'file://'+filename;
     Gio.AppInfo.launch_default_for_uri(filename, context);
+}
+
+function exportBingJSON(settings) {
+    let json = settings.get_string('bing-json');
+    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let file = Gio.file_new_for_path(filepath);
+    let [success, error] = file.replace_contents(json, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
+    if (!success) {
+        log('error saving bing-json from '+filepath+': '+error);
+    }
+}
+
+function importBingJSON(settings) {
+    
+    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let file = Gio.file_new_for_path(filepath);
+    if (file.query_exists(null)) {
+        let [success, contents, etag_out] = file.load_contents(null);
+        if (!success) {
+            log('error loading bing-json '+filepath);
+        }
+        else {
+            log('JSON import success');
+            let parsed = JSON.parse(contents);
+            mergeImageLists(settings, parsed);
+        }
+    }
+    else {
+        log('JSON import file not found');
+    }
 }
   
