@@ -16,6 +16,7 @@ const Config = imports.misc.config;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
+const ByteArray = imports.byteArray;
 
 var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
@@ -552,7 +553,7 @@ function importBingJSON(settings) {
         }
         else {
             log('JSON import success');
-            let parsed = JSON.parse(contents);
+            let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             mergeImageLists(settings, parsed);
         }
     }
