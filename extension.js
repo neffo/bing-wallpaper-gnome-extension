@@ -334,7 +334,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         clutter_text.set_line_wrap(true);
         clutter_text.set_ellipsize(0);
         clutter_text.set_max_length(0);
-        menuItem.label.set_style("max-width: 480px;");
+        menuItem.label.set_style("max-width: 420px;");
     }
 
     _newMenuIcon(icon_name, parent, fn) {
