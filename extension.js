@@ -330,8 +330,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _wrapLabelItem(menuItem) {
-        menuItem.label.get_clutter_text().set_line_wrap(true);
-        menuItem.label.set_style("max-width: 350px;");
+        let clutter_text = menuItem.label.get_clutter_text();
+        clutter_text.set_line_wrap(true);
+        clutter_text.set_ellipsize(0);
+        clutter_text.set_max_length(0);
+        menuItem.label.set_style("max-width: 480px;");
     }
 
     _newMenuIcon(icon_name, parent, fn) {
