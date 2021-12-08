@@ -1331,6 +1331,25 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="top_attach">2</property>
                           </packing>
                         </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="always_export_row">
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="always_export_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
                         <child>
                           <object class="GtkLabel" id="always_export_title">
                             <property name="visible">True</property>
@@ -1342,7 +1361,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             </object>
                             <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">2</property>
+                            <property name="top_attach">1</property>
                             </packing>
                           </child>
                           <child>
@@ -1358,7 +1377,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             </object>
                             <packing>
                             <property name="left_attach">0</property>
-                            <property name="top_attach">3</property>
+                            <property name="top_attach">1</property>
                             </packing>
                           </child>
                           <child>
@@ -1369,7 +1388,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             </object>
                             <packing>
                             <property name="left_attach">1</property>
-                            <property name="top_attach">3</property>
+                            <property name="top_attach">1</property>
                             </packing>
                           </child>
                       </object>
