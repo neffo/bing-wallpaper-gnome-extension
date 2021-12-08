@@ -555,6 +555,7 @@ function importBingJSON(settings) {
             log('JSON import success');
             let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             mergeImageLists(settings, parsed);
+            cleanupImageList(settings);
         }
     }
     else {
