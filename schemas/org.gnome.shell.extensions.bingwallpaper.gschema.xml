@@ -150,5 +150,11 @@
       <description>Enables features which may or may not be unstable or untested in all cases</description>
     </key>
 
+    <key name="always-export-bing-json" type="b">
+      <default>true</default>
+      <summary>Save backup copy of Bing JSON to wallpaper directory</summary>
+      <description>Enables migration to new install or restoration from back up</description>
+    </key>
+
   </schema>
 </schemalist>

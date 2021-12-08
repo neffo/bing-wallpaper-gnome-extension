@@ -172,8 +172,6 @@ function get_current_bg(schema) {
     return (cur);
 }
 
-
-
 function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
@@ -554,8 +552,9 @@ function importBingJSON(settings) {
         else {
             log('JSON import success');
             let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+            // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
-            cleanupImageList(settings);
+            cleanupImageList(settings); // remove the older missing images
         }
     }
     else {

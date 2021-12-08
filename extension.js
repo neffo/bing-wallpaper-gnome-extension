@@ -511,6 +511,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                     this._createNotification(image);
                 });
             }
+            if (this._settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
+                Utils.exportJSON(this._settings);
+            }
 
             this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
             this._updatePending = false;
