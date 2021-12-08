@@ -1245,7 +1245,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Import JSON data from wallpaper directory</property>
+                            <property name="label" translatable="yes">Import previously exported JSON data from wallpaper directory</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -1309,7 +1309,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Export JSON data to wallpaper directory</property>
+                            <property name="label" translatable="yes">Export JSON data to wallpaper dir for backup or data migration</property>
                             <style>
                               <class name="dim-label"/>
                             </style>
@@ -1332,8 +1332,46 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           </packing>
                         </child>
                         <child>
-                          <placeholder/>
-                        </child>
+                          <object class="GtkLabel" id="always_export_title">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Always export Bing data</property>
+                            <property name="wrap">True</property>
+                            </object>
+                            <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
+                            </packing>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="always_export_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Export Bing JSON whenever data changes</property>
+                            <style>
+                                <class name="dim-label"/>
+                            </style>
+                            </object>
+                            <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">3</property>
+                            </packing>
+                          </child>
+                          <child>
+                            <object class="GtkSwitch" id="always_export_switch">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">end</property>
+                            </object>
+                            <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">3</property>
+                            </packing>
+                          </child>
                       </object>
                     </child>
                   </object>

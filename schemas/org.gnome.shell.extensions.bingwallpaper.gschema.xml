@@ -150,8 +150,14 @@
       <description>Enables features which may or may not be unstable or untested in all cases</description>
     </key>
 
-    <key name="always-export-bing-json" type="b">
+    <key name="create-thumbs" type="b">
       <default>true</default>
+      <summary>Create thumbnails to speed up image gallery loading</summary>
+      <description>Speeds up subsequent loads, but requires some additional disk space</description>
+    </key>
+
+    <key name="always-export-bing-json" type="b">
+      <default>false</default>
       <summary>Save backup copy of Bing JSON to wallpaper directory</summary>
       <description>Enables migration to new install or restoration from back up</description>
     </key>

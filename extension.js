@@ -201,9 +201,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._setImage();
         this._settings.connect('changed::delete-previous', this._cleanUpImages.bind(this));
         this._settings.connect('changed::notify', this._notifyCurrentImage.bind(this));
+        this._settings.connect('changed::always-export-bing-json', this._exportData.bind(this));
+        this._settings.connect('changed::bing-json', this._exportData.bind(this));
         this._cleanUpImages();
-    }
-    
+    }  
 
     _openPrefs() {
         try {
@@ -490,6 +491,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log('next shuffle in ' + seconds + ' seconds');
     }
 
+    // auto export Bing data to JSON file if requested
+    _exportData() {
+        if (this._settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
+            Utils.exportBingJSON(this._settings);
+        }
+    }
+
     // process Bing metadata
     _parseData(data) {
         try {
@@ -510,9 +518,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                     log('New image to notify: ' + Utils.getImageTitle(image));
                     this._createNotification(image);
                 });
-            }
-            if (this._settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
-                Utils.exportJSON(this._settings);
             }
 
             this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market

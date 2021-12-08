@@ -157,7 +157,7 @@ var Carousel = class Carousel {
     _load_image(galleryImage, filename) {
         let thumb_path = Utils.getWallpaperDir(this.settings)+'.thumbs/';
         let thumb_dir = Gio.file_new_for_path(thumb_path);
-        let save_thumbs = !this.settings.get_boolean('delete-previous');
+        let save_thumbs = !this.settings.get_boolean('delete-previous') && this.settings.get_boolean('create-thumbs'); // create thumbs only if not deleting previous and thumbs are enabled
         if (!thumb_dir.query_exists(null)) {
             thumb_dir.make_directory_with_parents(null);
         }
@@ -174,7 +174,7 @@ var Carousel = class Carousel {
                 if (image_thumb.query_exists(null)) { // use thumbnail if available
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
-                else if (save_thumbs) { // create thumbnail if not available and user doesn't want previous wallpapers deleted
+                else if (save_thumbs) { // significantly speeds up gallery loading, but costs some addtional disk space
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
                     pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }

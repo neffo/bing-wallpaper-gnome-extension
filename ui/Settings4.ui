@@ -1084,7 +1084,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Import JSON data from wallpaper directory</property>
+                                <property name="label" translatable="yes">Import previously exported JSON data from wallpaper directory</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -1099,7 +1099,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">Import</property>
                                 <property name="receives_default">1</property>
                                 <layout>
-                                  <property name="column">2</property>
+                                  <property name="column">1</property>
                                   <property name="row">1</property>
                                 </layout>
                               </object>
@@ -1141,7 +1141,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Export JSON data to wallpaper directory</property>
+                                <property name="label" translatable="yes">Export JSON data to wallpaper dir for backup or data migration</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -1156,8 +1156,65 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="label" translatable="yes">Export</property>
                                 <property name="receives_default">1</property>
                                 <layout>
-                                  <property name="column">2</property>
+                                  <property name="column">1</property>
                                   <property name="row">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="always_export_row">
+                        <property name="width_request">100</property>
+                        <property name="height_request">80</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="always_export_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="always_export_title">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Always export Bing data</property>
+                                <property name="wrap">1</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">2</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="always_export_descripton">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Export Bing JSON whenever data changes</property>
+                                
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">3</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="always_export_switch">
+                                <property name="halign">end</property>
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">3</property>
                                 </layout>
                               </object>
                             </child>

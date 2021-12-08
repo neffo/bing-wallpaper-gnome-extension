@@ -83,6 +83,7 @@ function buildPrefsWidget() {
     let buttonslightblur = buildable.get_object('button_slight_blur');
     let buttonImportData = buildable.get_object('button_json_import');
     let buttonExportData = buildable.get_object('button_json_export');
+    let switchAlwaysExport = buildable.get_object('always_export_switch');
     
     settings = Utils.getSettings(Me);
     httpSession = new Soup.SessionAsync();
@@ -112,6 +113,7 @@ function buildPrefsWidget() {
     settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('always-export-bing-json', switchAlwaysExport, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
