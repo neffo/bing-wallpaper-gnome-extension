@@ -549,7 +549,7 @@ function importBingJSON(settings) {
     if (file.query_exists(null)) {
         let [success, contents, etag_out] = file.load_contents(null);
         if (!success) {
-            log('error loading bing-json '+filepath);
+            log('error loading bing-json '+filepath+' - '+etag_out);
         }
         else {
             log('JSON import success');

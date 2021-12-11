@@ -19,6 +19,7 @@ const _ = Gettext.gettext;
 const Carousel = Me.imports.carousel;
 
 let settings;
+let desktop_settings;
 
 let marketDescription = null;
 let icon_image = null;
