@@ -25,8 +25,8 @@ const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 
 const BingImageURL = Utils.BingImageURL;
-const BingURL = "https://www.bing.com";
-const IndicatorName = "BingWallpaperIndicator";
+const BingURL = 'https://www.bing.com';
+const IndicatorName = 'BingWallpaperIndicator';
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
 const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
@@ -34,10 +34,7 @@ const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
 const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
 
-let validresolutions = ['800x600', '1024x768', '1280x720', '1280x768', '1366x768', '1920x1080', '1920x1200', 'UHD'];
-
 let autores; // automatically selected resolution
-
 let bingWallpaperIndicator = null;
 let blur = null;
 let blur_brightness = 0.55;
@@ -46,11 +43,11 @@ let carousel = null;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
+    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 function log(msg) {
     if (bingWallpaperIndicator == null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
-        print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+        print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
 }
 
 function notifyError(msg) {
@@ -154,7 +151,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         this.menu.addMenuItem(this.folderItem);
         this.menu.addMenuItem(this.dwallpaperItem);
-        if (!Convenience.currentVersionGreaterEqual("3.36")) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
+        if (!Convenience.currentVersionGreaterEqual('3.36')) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
             this.menu.addMenuItem(this.swallpaperItem);
             this.swallpaperItem.connect('activate', this._setBackgroundScreensaver.bind(this));
         }
@@ -206,16 +203,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }  
 
     _openPrefs() {
-        try {
-            ExtensionUtils.openPrefs();
-        }
-        catch (e) {
-            log('Falling back to Util.spawn to launch extensions...');
-            if (Convenience.currentVersionSmaller("3.36"))
-                Util.spawn(['gnome-shell-extension-prefs', Me.metadata.uuid]); // fall back for older gnome versions
-            else 
-                Util.spawn(["gnome-extensions", "prefs", Me.metadata.uuid]);
-        }
+        ExtensionUtils.openPrefs();
     }
 
     _openMenu() {
@@ -261,7 +249,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         //log('Icon set to : '+icon_name)
         Utils.validate_icon(this._settings);
         let icon_name = this._settings.get_string('icon-name');
-        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
+        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         log('Replace icon set to : ' + icon_name);
         getActorCompat(this).remove_all_children();
@@ -270,7 +258,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // set backgrounds as requested and set preview image in menu
     _setBackground() {
-        if (this.filename == "")
+        if (this.filename == '')
             return;
         if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
             this.thumbnail = new Thumbnail.Thumbnail(this.filename);
@@ -304,13 +292,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _restartTimeoutFromLongDate(longdate) {
         // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
-        let timezone = GLib.TimeZone.new_local();
-        let now = GLib.DateTime.new_now(timezone);
         let difference = refreshDue.difference(now) / 1000000;
-
-        log("Next refresh due @ " + refreshDue.format('%F %R %z') + " = " + difference + " seconds from now (" + now.format('%F %R %z') + ")");
-
-        if (difference < 60 || difference > 86400) // something wierd happened
+        log('Next refresh due ' + difference + ' seconds from now');
+        if (difference < 60 || difference > 86400) // clamp to a reasonable range
             difference = 60;
 
         difference = difference + 300; // 5 minute fudge offset in case of inaccurate local clock
@@ -335,7 +319,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         clutter_text.set_line_wrap(true);
         clutter_text.set_ellipsize(0);
         clutter_text.set_max_length(0);
-        menuItem.label.set_style("max-width: 420px;");
+        menuItem.label.set_style('max-width: 420px;');
     }
 
     _newMenuIcon(icon_name, parent, fn) {
@@ -438,30 +422,27 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (this._updatePending)
             return;
         this._updatePending = true;
-
         this._restartTimeout();
-
         let market = this._settings.get_string('market');
-        log("market: " + market);
-
         // create an http message
-        let request = Soup.Message.new('GET', BingImageURL + (market != 'auto' ? market : '')); // + market
-        log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
+        let url = BingImageURL + (market != 'auto' ? market : '');
+        let request = Soup.Message.new('GET', url);
+        log('fetching: ' + url);
 
         // queue the http request
         this.httpSession.queue_message(request, (httpSession, message) => {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
-                log("Recieved " + data.length + " bytes ");
+                log('Recieved ' + data.length + ' bytes');
                 this._parseData(data);
-                if (this.selected_image != 'random' /*|| !forced*/)
+                if (this.selected_image != 'random')
                 this._selectImage();
             } else if (message.status_code == 403) {
-                log("Access denied: " + message.status_code);
+                log('Access denied: ' + message.status_code);
                 this._updatePending = false;
                 this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             } else {
-                log("Network error occured: " + message.status_code);
+                log('Network error occured: ' + message.status_code);
                 this._updatePending = false;
                 this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
             }
@@ -535,10 +516,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _createNotification(image) {
         // set notifications icon
-        let source = new MessageTray.Source("Bing Wallpaper", "preferences-desktop-wallpaper-symbolic");
+        let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
-        let msg = _("Bing Wallpaper of the Day for") + ' ' + this._localeDate(image.startdate);
-        let details = Utils.getImageTitle(image); //image.copyright.replace(/\s*\(.*?\)\s*/g, "");
+        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
+        let details = Utils.getImageTitle(image);
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
         source.showNotification(notification);
@@ -556,7 +537,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             image = Utils.getCurrentImage(imageList);
         } else {
             image = Utils.inImageList(imageList, this.selected_image);
-            log('_selectImage: ' + this.selected_image + ' = ' + image ? image.urlbase : "not found");
+            log('_selectImage: ' + this.selected_image + ' = ' + image ? image.urlbase : 'not found');
             if (!image) // if we didn't find it, try for current
                 image = Utils.getCurrentImage(imageList);
         }
@@ -564,14 +545,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             return; // could force, image = imageList[0] or perhaps force refresh
 
         if (image.url != '') {
-            this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, "");
-            this.explanation = _("Bing Wallpaper of the Day for") + ' ' + this._localeDate(image.startdate);
+            this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
+            this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             let resolution = Utils.getResolution(this._settings, image);
             let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
-            this.imageURL = BingURL + image.urlbase + "_" + resolution + ".jpg"; // generate image url for user's resolution
+            this.imageURL = BingURL + image.urlbase + '_' + resolution + '.jpg'; // generate image url for user's resolution
             this.filename = toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             
             let file = Gio.file_new_for_path(this.filename);
@@ -585,11 +566,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 }
                 this._downloadImage(this.imageURL, file);
             } else {
-                log("Image already downloaded");
                 this._setBackground();
                 this._updatePending = false;
             }
-            //this._createNotification(image); // for testing
         } 
         else {
             this.title = _("No wallpaper available");
@@ -654,23 +633,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _downloadImage(url, file) {
         log("Downloading " + url + " to " + file.get_uri());
 
-        // open the Gfile
         let fstream = file.replace(null, false, Gio.FileCreateFlags.NONE, null);
-        // create an http message
         let request = Soup.Message.new('GET', url);
-        // got_headers event
-        request.connect('got_headers', (message) => {
-            log("got_headers, status: " + message.status_code);
-        });
 
         // got_chunk event
         request.connect('got_chunk', (message, chunk) => {
-            //log("got_chuck, status: "+message.status_code);
             if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
                 fstream.write(chunk.get_data(), null);
-            }
-            else {
-                log("got_chuck, status: " + message.status_code);
             }
         });
 
@@ -683,7 +652,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 log('Download successful');
                 this._setBackground();
             } else {
-                log("Couldn't fetch image from " + url);
+                log('Couldn\'t fetch image from ' + url);
                 file.delete(null);
             }
         });
@@ -729,6 +698,6 @@ function disable() {
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {
-    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + "_" + resolution + ".jpg";
+    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
 }
 

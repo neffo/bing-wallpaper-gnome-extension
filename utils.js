@@ -38,7 +38,7 @@ let debug = false;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
+    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -49,30 +49,30 @@ var markets = ['auto', 'ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en
     'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
     'zh-CN', 'zh-HK', 'zh-TW'];
 var marketName = [
-    "auto", "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
-    "Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
-    "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
-    "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
-    "English (International)", "English (Arabia)", "English (South Africa)", "español (Argentina)", "español (Chile)",
-    "español (España)", "español (México)", "español (Estados Unidos)", "español (Latinoamérica)", "eesti (Eesti)",
-    "suomi (Suomi)", "français (Belgique)", "français (Canada)", "français (Suisse)", "français (France)",
-    "(עברית (ישראל", "hrvatski (Hrvatska)", "magyar (Magyarország)", "italiano (Italia)", "日本語 (日本)", "한국어(대한민국)",
-    "lietuvių (Lietuva)", "latviešu (Latvija)", "norsk bokmål (Norge)", "Nederlands (België)", "Nederlands (Nederland)",
-    "polski (Polska)", "português (Brasil)", "português (Portugal)", "română (România)", "русский (Россия)",
-    "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
-    "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
+    'auto', '(شبه الجزيرة العربية‎) العربية', 'dansk (Danmark)', 'Deutsch (Österreich)',
+    'Deutsch (Schweiz)', 'Deutsch (Deutschland)', 'English (Australia)', 'English (Canada)',
+    'English (United Kingdom)', 'English (Indonesia)', 'English (Ireland)', 'English (India)', 'English (Malaysia)',
+    'English (New Zealand)', 'English (Philippines)', 'English (Singapore)', 'English (United States)',
+    'English (International)', 'English (Arabia)', 'English (South Africa)', 'español (Argentina)', 'español (Chile)',
+    'español (España)', 'español (México)', 'español (Estados Unidos)', 'español (Latinoamérica)', 'eesti (Eesti)',
+    'suomi (Suomi)', 'français (Belgique)', 'français (Canada)', 'français (Suisse)', 'français (France)',
+    '(עברית (ישראל', 'hrvatski (Hrvatska)', 'magyar (Magyarország)', 'italiano (Italia)', '日本語 (日本)', '한국어(대한민국)',
+    'lietuvių (Lietuva)', 'latviešu (Latvija)', 'norsk bokmål (Norge)', 'Nederlands (België)', 'Nederlands (Nederland)',
+    'polski (Polska)', 'português (Brasil)', 'português (Portugal)', 'română (România)', 'русский (Россия)',
+    'slovenčina (Slovensko)', 'slovenščina (Slovenija)', 'svenska (Sverige)', 'ไทย (ไทย)', 'Türkçe (Türkiye)',
+    'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
-var backgroundStyle = ["none", "wallpaper", "centered", "scaled", "stretched", "zoom", "spanned"];
+var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
 var randomIntervals = [300, 3600, 86400];
 var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
 
-var BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
+var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
 
 function validate_icon(settings, icon_image = null) {
     log('validate_icon()');
     let icon_name = settings.get_string('icon-name');
-    if (icon_name == "" || icon_list.indexOf(icon_name) == -1) {
+    if (icon_name == '' || icon_list.indexOf(icon_name) == -1) {
         settings.reset('icon-name');
         icon_name = settings.get_string('icon-name');
     }
@@ -86,7 +86,7 @@ function validate_icon(settings, icon_image = null) {
 
 function validate_resolution(settings) {
     let resolution = settings.get_string('resolution');
-    if (resolution == "" || resolutions.indexOf(resolution) == -1) // if not a valid resolution
+    if (resolution == '' || resolutions.indexOf(resolution) == -1) // if not a valid resolution
         settings.reset('resolution');
 }
 
@@ -103,7 +103,7 @@ function validate_imagename(settings) {
 
 function validate_market(settings, marketDescription = null, lastreq = null, httpSession) {
     let market = settings.get_string('market');
-    if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
+    if (market == '' || markets.indexOf(market) == -1) { // if not a valid market
         settings.reset('market');
     }
     // only run this check if called from prefs
@@ -314,7 +314,7 @@ function getWallpaperDir(settings) {
     let BingWallpaperDir = settings.get_string('download-folder');
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     if (BingWallpaperDir == '') {
-        BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
+        BingWallpaperDir = userPicturesDir + '/BingWallpaper/';
         settings.set_string('download-folder', BingWallpaperDir);
     }
     else if (!BingWallpaperDir.endsWith('/')) {
@@ -331,8 +331,8 @@ function getWallpaperDir(settings) {
 
 function imageToFilename(settings, image, resolution = null) {
     return getWallpaperDir(settings) + image.startdate + '-' +
-		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + "_"
-		+ (resolution ? resolution : getResolution(settings, image)) + ".jpg";
+		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_'
+		+ (resolution ? resolution : getResolution(settings, image)) + '.jpg';
 }
 
 function getRandomInt(max) {
@@ -343,7 +343,7 @@ function getRandomInt(max) {
 function dump(object, level = 0) {
     let output = '';
     for (let property in object) {
-        output += " - ".repeat(level)+property + ': ' + object[property]+'\n ';
+        output += ' - '.repeat(level)+property + ': ' + object[property]+'\n ';
 		if ( typeof object[property] === 'object' )
 			output += dump(object[property], level+1);
     }
@@ -378,9 +378,9 @@ function friendly_time_diff(time, short = true) {
 function getResolution(settings, image) {
     let resolution = settings.get_string('resolution');
     if (resolutions.indexOf(resolution) == -1 || (image ? image.wp == false : true) || // wp == false when background is animated
-		settings.get_string('resolution') == "auto" ) {
+		settings.get_string('resolution') == 'auto' ) {
         // resolution invalid, animated background or autoselected
-        resolution = "UHD";
+        resolution = 'UHD';
     }
     return resolution;
 }
@@ -409,7 +409,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
     // possible race condition here, need to think about how to fix it
     //let BingWallpaperDir = settings.get_string('download-folder');
     let dir = Gio.file_new_for_path(oldPath);
-    let dirIter = dir.enumerate_children("", Gio.FileQueryInfoFlags.NONE, null );
+    let dirIter = dir.enumerate_children('', Gio.FileQueryInfoFlags.NONE, null );
     let newDir = Gio.file_new_for_path(newPath);
     if (!newDir.query_exists(null)) {
         newDir.make_directory_with_parents(null);
@@ -421,7 +421,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
             log('file: ' + slash(oldPath) + filename + ' -> ' + slash(newPath) + filename);
             let cur = Gio.file_new_for_path(slash(oldPath) + filename);
             let dest = Gio.file_new_for_path(slash(newPath) + filename);
-            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ("...moved"); });
+            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ('...moved'); });
         }
     }
     // fix filenames in previous queue
@@ -429,7 +429,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
     // correct filenames for GNOME backgrounds
     if (settings.get_boolean('set-background'))
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller("3.36"))
+    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller('3.36'))
         moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
