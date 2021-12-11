@@ -267,8 +267,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="style_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -302,7 +300,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">1</property>
                           </packing>
                         </child>
                       </object>
@@ -487,7 +484,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">1</property>
                           </packing>
                         </child>
                       </object>
@@ -568,7 +564,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">2</property>
                           </packing>
                         </child>
                       </object>
@@ -683,8 +678,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_intensity_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -747,8 +740,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_brightness_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -811,8 +802,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_presets_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1070,8 +1059,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="unsafe_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1133,8 +1120,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="resolution_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1183,7 +1168,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">2</property>
                           </packing>
                         </child>
                       </object>
@@ -1192,8 +1176,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="random_interval_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1256,8 +1238,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="json_import_tool">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1320,8 +1300,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="json_export_tool">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1381,8 +1359,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="always_export_row">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
