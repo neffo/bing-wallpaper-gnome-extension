@@ -11,7 +11,6 @@ const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 const default_dimensions = [30, 30, 1600, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok

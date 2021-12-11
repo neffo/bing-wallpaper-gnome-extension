@@ -62,7 +62,6 @@ function doSetBackground(uri, schema) {
     let prev = gsettings.get_string('picture-uri');
     uri = 'file://' + uri;
     gsettings.set_string('picture-uri', uri);
-    gsettings.set_string('picture-options', 'zoom');
     Gio.Settings.sync();
     gsettings.apply();
     return (prev != uri); // return true if background uri has changed
@@ -95,7 +94,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         blur.blur_brightness = 0.55;
 
         // take a variety of actions when the gsettings values are modified by prefs
-        this._settings = Utils.getSettings();
+        this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
         this.httpSession = new Soup.SessionAsync();
         Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault());
@@ -707,7 +706,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 });
 
 function init(extensionMeta) {
-    Convenience.initTranslations("BingWallpaper");
+    try { // this is part of GNOME 41 maybe earlier, use if possible
+        ExtensionUtils.initTranslations("BingWallpaper");
+    }
+    catch (e) {
+        Convenience.initTranslations("BingWallpaper");
+    }
 }
 
 function enable() {
