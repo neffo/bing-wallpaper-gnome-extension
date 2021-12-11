@@ -22,6 +22,7 @@ var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
 var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; 
 
+var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
@@ -61,6 +62,7 @@ var marketName = [
     "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
     "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
 ];
+var backgroundStyle = ["none", "wallpaper", "centered", "scaled", "stretched", "zoom", "spanned"];
 
 var randomIntervals = [300, 3600, 86400];
 var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];

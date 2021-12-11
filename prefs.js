@@ -10,8 +10,8 @@
 imports.gi.versions.Soup = '2.4';
 
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
-const extensionUtils = imports.misc.extensionUtils;
-const Me = extensionUtils.getCurrentExtension();
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
@@ -30,8 +30,10 @@ let httpSession = null;
 
 const BingImageURL = Utils.BingImageURL;
 
+var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
+
 function init() {
-    Convenience.initTranslations("BingWallpaper"); // this is now included in extensionUtils, but we still need it for now (for older GNOME versions)
+    Convenience.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
 }
 
 function buildPrefsWidget() {
@@ -59,6 +61,7 @@ function buildPrefsWidget() {
     let iconEntry = buildable.get_object('icon');
     let notifySwitch = buildable.get_object('notify');
     let bgSwitch = buildable.get_object('background');
+    let styleEntry = buildable.get_object('background_style');
     let fileChooserBtn = buildable.get_object('download_folder');
     let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
     let folderOpenBtn = buildable.get_object('button_open_download_folder');
@@ -85,7 +88,8 @@ function buildPrefsWidget() {
     let buttonExportData = buildable.get_object('button_json_export');
     let switchAlwaysExport = buildable.get_object('always_export_switch');
     
-    settings = Utils.getSettings(Me);
+    settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
+    desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
     httpSession = new Soup.SessionAsync();
     Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
 
@@ -204,7 +208,10 @@ function buildPrefsWidget() {
     settings.connect('changed::selected-image', () => {
         Utils.validate_imagename(settings);
     });
-
+    Utils.backgroundStyle.forEach((style) => {
+        styleEntry.append(style, style);
+    });
+    desktop_settings.bind('picture-options', styleEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
