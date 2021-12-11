@@ -187,8 +187,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::hide', () => {
             getActorCompat(this).visible = !this._settings.get_boolean('hide');
         });
-        this._setIcon(this._settings.get_string('icon-name'));
-        this._settings.connect('changed::icon-name', this._setIcon.bind(this, this._settings.get_string('icon-name')));
+        this._setIcon();
+        this._settings.connect('changed::icon-name', this._setIcon.bind(this));
         this._settings.connect('changed::market', this._refresh.bind(this));
         this._settings.connect('changed::set-background', this._setBackground.bind(this));
         this._settings.connect('changed::set-lockscreen', this._setBackground.bind(this));
@@ -257,9 +257,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     // set indicator icon (tray icon)
-    _setIcon(icon_name) {
+    _setIcon() {
         //log('Icon set to : '+icon_name)
         Utils.validate_icon(this._settings);
+        let icon_name = this._settings.get_string('icon-name');
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + "/" + icon_name + ".svg");
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         log('Replace icon set to : ' + icon_name);
@@ -353,7 +354,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             x_expand: true,
             y_expand: true
         });
-
         getActorCompat(parent).add_child(iconBtn);
         iconBtn.connect('button-press-event', fn.bind(this));
         return iconBtn;

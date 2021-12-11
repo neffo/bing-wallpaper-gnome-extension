@@ -527,7 +527,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             <property name="spacing">12</property>
             <child>
               <object class="GtkFrame" id="lockscreen_frame">
-                <property name="vexpand">1</property>
+                <property name="vexpand">0</property>
                 <property name="can_focus">0</property>
                 <property name="child">
                   <object class="GtkListBox" id="lockscreen_listbox">
@@ -590,8 +590,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="blur_intensity_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="lockscreen__grid1">
                             <property name="can_focus">0</property>
@@ -647,8 +645,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="blur_brightness_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="lockscreen__grid2">
                             <property name="can_focus">0</property>
@@ -704,8 +700,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="blur_presets_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="preview_grid">
                             <property name="can_focus">0</property>
@@ -810,7 +804,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             <property name="spacing">12</property>
             <child>
               <object class="GtkFrame" id="debug_frame">
-                <property name="vexpand">1</property>
+                <property name="vexpand">0</property>
                 <property name="can_focus">0</property>
                 <property name="child">
                   <object class="GtkListBox" id="debug_listbox">
@@ -873,8 +867,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="revert_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="revert_grid">
                             <property name="can_focus">0</property>
@@ -929,8 +921,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="unsafe_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="unsafe_grid">
                             <property name="can_focus">0</property>
@@ -1036,8 +1026,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="random_interval_listboxrow">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="lrandom_interval_grid">
                             <property name="can_focus">0</property>
@@ -1093,8 +1081,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="json_import_tool">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="json_import_grid">
                             <property name="can_focus">0</property>
@@ -1150,8 +1136,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="json_export_tool">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="json_export_grid">
                             <property name="can_focus">0</property>
@@ -1207,8 +1191,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </child>
                     <child>
                       <object class="GtkListBoxRow" id="always_export_row">
-                        <property name="width_request">100</property>
-                        <property name="height_request">80</property>
                         <property name="child">
                           <object class="GtkGrid" id="always_export_grid">
                             <property name="can_focus">0</property>
@@ -1404,7 +1386,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </child>
             <child>
               <object class="GtkLabel" id="GNU_label">
-                <property name="vexpand">1</property>
+                <property name="vexpand">0</property>
                 <property name="can_focus">0</property>
                 <property name="valign">end</property>
                 <property name="label" translatable="yes">&lt;span size=&quot;small&quot;&gt;This program comes with ABSOLUTELY NO WARRANTY.
