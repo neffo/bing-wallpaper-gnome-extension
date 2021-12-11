@@ -98,6 +98,7 @@ function validate_imagename(settings) {
     if (!inImageList(getImageList(settings), filename)) {
         log('invalid image selected');
         //settings.reset('selected-image');
+        settings.set_string('selected-image', 'current');
     }
 }
 
@@ -220,7 +221,7 @@ function setImageList(settings, imageList) {
 }
 
 function getImageTitle(image_data) {
-    return image_data.copyright.replace(/\s*\(.*?\)\s*/g, "");
+    return image_data.copyright.replace(/\s*\(.*?\)\s*/g, '');
 }
 
 function getImageUrlBase(image_data) {
@@ -405,7 +406,6 @@ function shortenName(string, limit) {
 }
 
 function moveImagesToNewFolder(settings, oldPath, newPath) {
-    log('moveImagesToNewFolder(): stub function');
     // possible race condition here, need to think about how to fix it
     //let BingWallpaperDir = settings.get_string('download-folder');
     let dir = Gio.file_new_for_path(oldPath);
@@ -487,6 +487,7 @@ function purgeImages(settings) {
     }
     log('cleaned up image list, count was '+origlength+' now '+imagelist.length);
     cleanupImageList(settings);
+    validate_imagename(settings); // if we deleted our current image, we want to reset it to something valid
 }
 
 function openInSystemViewer(filename, is_file = true) {
