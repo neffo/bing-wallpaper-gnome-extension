@@ -161,7 +161,6 @@ var Carousel = class Carousel {
             thumb_dir.make_directory_with_parents(null);
         }
         let image_file = Gio.file_new_for_path(filename);
-        //this.log('thumbpath -> '+ thumb_path);
         if (!image_file.query_exists(null)){
             this._set_blank_image(galleryImage);
         }

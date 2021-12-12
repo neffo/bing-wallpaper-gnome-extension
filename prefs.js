@@ -180,7 +180,6 @@ function buildPrefsWidget() {
         Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
         });
-        //marketEntry.set_active_id(settings.get_string('market')); // set to current
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
         settings.connect('changed::market', () => {
@@ -209,37 +208,28 @@ function buildPrefsWidget() {
     settings.connect('changed::selected-image', () => {
         Utils.validate_imagename(settings);
     });
+    
+    // background styles (e.g. zoom or span)
     Utils.backgroundStyle.forEach((style) => {
         styleEntry.append(style, style);
     });
     desktop_settings.bind('picture-options', styleEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
     settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-
-    if (Convenience.currentVersionGreaterEqual("3.36")) {
-        // GDM3 lockscreen blur override
-        settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        buttonGDMdefault.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
-        });
-        buttonnoblur.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
-        });
-        buttonslightblur.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
-        });
-    } else {
-        // older version of GNOME
-        buildable.get_object('lockscreen_box').set_tooltip_text(_("Disabled on current GNOME version"));
-        overrideSwitch.set_sensitive(false);
-        strengthEntry.set_sensitive(false);
-        brightnessEntry.set_sensitive(false);
-        buttonGDMdefault.set_sensitive(false);
-        buttonnoblur.set_sensitive(false);
-        buttonslightblur.set_sensitive(false);
-    }
+   
+    // GDM3 lockscreen blur override
+    settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    buttonGDMdefault.connect('clicked', (widget) => {
+        Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
+    });
+    buttonnoblur.connect('clicked', (widget) => {
+        Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
+    });
+    buttonslightblur.connect('clicked', (widget) => {
+        Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
+    });
 
     // not required in GTK4 as widgets are displayed by default
     if (Gtk.get_major_version() < 4)

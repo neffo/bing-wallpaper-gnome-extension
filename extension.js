@@ -98,7 +98,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
-        // enable unsafe features on Wayland if the user overrides it
+        // enable testing potentially unsafe features on Wayland if the user overrides it
         if (!Utils.is_x11() && this._settings.get_boolean('override-unsafe-wayland')) {
             Utils.is_x11 = Utils.enabled_unsafe;
         }
@@ -112,7 +112,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.controlItem = new PopupMenu.PopupMenuItem(""); // blank
         this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
         this._wrapLabelItem(this.copyrightItem);
-        this.separator = new PopupMenu.PopupSeparatorMenuItem();
         this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
         this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
         this.folderItem = new PopupMenu.PopupMenuItem(_("Open image folder"));
@@ -120,15 +119,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        if (Utils.is_x11()) { // causes crashes when XWayland is not available, ref github #82, now fixed
-            this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); 
-        }
-        else {
-            this.thumbnailItem = new PopupMenu.PopupMenuItem(_("Thumbnail disabled on Wayland"));
-            log('X11 not detected, disabling some unsafe features');
-        }
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); 
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addMenuItem(this.explainItem);
         this.menu.addMenuItem(this.controlItem);
         this.prevBtn = this._newMenuIcon(ICON_PREVIOUS_BUTTON, this.controlItem, this._prevImage);
@@ -138,29 +132,23 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.titleItem);
         this.menu.addMenuItem(this.copyrightItem);
-        //this.menu.addMenuItem(this.showItem);
-        this.menu.addMenuItem(this.separator);
-        this._setConnections();
-        if (Utils.is_x11() && this.clipboard.clipboard) { // these may not work on Wayland atm, check to see if it's working
-            // currently non functional
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        if (this.clipboard.clipboard) { // only if we have a clipboard
             this.menu.addMenuItem(this.clipboardImageItem);
             this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
             this.menu.addMenuItem(this.clipboardURLItem);
             this.clipboardURLItem.connect('activate', this._copyURLToClipboard.bind(this));
         }
-
         this.menu.addMenuItem(this.folderItem);
         this.menu.addMenuItem(this.dwallpaperItem);
-        if (!Convenience.currentVersionGreaterEqual('3.36')) { // lockscreen and desktop wallpaper are the same in GNOME 3.36+
-            this.menu.addMenuItem(this.swallpaperItem);
-            this.swallpaperItem.connect('activate', this._setBackgroundScreensaver.bind(this));
-        }
-            
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addMenuItem(this.settingsItem);
         this.explainItem.setSensitive(false);
         this.copyrightItem.setSensitive(false);
         this.refreshDueItem.setSensitive(false);
         this.thumbnailItem.setSensitive(false);
+        
+        this._setConnections();
         this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         this.titleItem.connect('activate', () => {
             if (this.imageinfolink)
@@ -246,7 +234,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // set indicator icon (tray icon)
     _setIcon() {
-        //log('Icon set to : '+icon_name)
         Utils.validate_icon(this._settings);
         let icon_name = this._settings.get_string('icon-name');
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
@@ -260,11 +247,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _setBackground() {
         if (this.filename == '')
             return;
-        if (Utils.is_x11()) { // wayland - only if we are sure it's safe to do so, we can't know if xwayland is running
-            this.thumbnail = new Thumbnail.Thumbnail(this.filename);
-            this._setThumbnailImage();
-        }
-
+        this.thumbnail = new Thumbnail.Thumbnail(this.filename); // historically thumbnails were a bit unsafe on Wayland, but now fixed
+        this._setThumbnailImage();
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();
 
@@ -532,7 +516,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (this.selected_image == 'random') {
             image = imageList[Utils.getRandomInt(imageList.length)];
             this._restartShuffleTimeout();
-            //this._restartTimeout(this._settings.get_int('random-interval')); // we update image every hour by default
         } else if (this.selected_image == 'current') {
             image = Utils.getCurrentImage(imageList);
         } else {
