@@ -276,6 +276,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _restartTimeoutFromLongDate(longdate) {
         // all bing times are in UTC (+0)
         let refreshDue = Utils.dateFromLongDate(longdate, 86400);
+        let now = GLib.DateTime.new_now_local();
         let difference = refreshDue.difference(now) / 1000000;
         log('Next refresh due ' + difference + ' seconds from now');
         if (difference < 60 || difference > 86400) // clamp to a reasonable range
@@ -440,8 +441,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (seconds == null)
             seconds = TIMEOUT_SECONDS;
         this._timeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, seconds, this._refresh.bind(this));
-        let timezone = GLib.TimeZone.new_local();
-        let localTime = GLib.DateTime.new_now(timezone).add_seconds(seconds);
+        let localTime = GLib.DateTime.new_now_local().add_seconds(seconds);
         this.refreshdue = localTime;
         log('next check in ' + seconds + ' seconds @ local time ' + localTime.format('%F %R %z'));
     }
