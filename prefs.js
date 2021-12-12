@@ -34,7 +34,7 @@ const BingImageURL = Utils.BingImageURL;
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
 function init() {
-    Convenience.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
+    ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
 }
 
 function buildPrefsWidget() {

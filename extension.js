@@ -675,12 +675,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 });
 
 function init(extensionMeta) {
-    try { // this is part of GNOME 41 maybe earlier, use if possible
-        ExtensionUtils.initTranslations("BingWallpaper");
-    }
-    catch (e) {
-        Convenience.initTranslations("BingWallpaper");
-    }
+    ExtensionUtils.initTranslations("BingWallpaper");
 }
 
 function enable() {
