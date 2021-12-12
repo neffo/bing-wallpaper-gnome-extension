@@ -172,9 +172,10 @@ var Carousel = class Carousel {
                 if (image_thumb.query_exists(null)) { // use thumbnail if available
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
-                else if (save_thumbs) { // significantly speeds up gallery loading, but costs some addtional disk space
+                else { // significantly speeds up gallery loading, but costs some addtional disk space
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
-                    pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
+                    if (save_thumbs)
+                        pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
                 if (Gtk.get_major_version() < 4) {
                     galleryImage.set_from_pixbuf(pixbuf);
