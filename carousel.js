@@ -13,7 +13,7 @@ const Utils = Me.imports.utils;
 
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
-const default_dimensions = [30, 30, 1600, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
+const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
