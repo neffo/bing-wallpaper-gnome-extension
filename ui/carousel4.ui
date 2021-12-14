@@ -56,7 +56,7 @@ Author: Michael Carroll
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>
-              <property name="column-span">2</property>
+              <property name="column-span">4</property>
             </layout>
           </object>
         </child>
@@ -65,9 +65,10 @@ Author: Michael Carroll
             <property name="can-focus">0</property>
             <property name="label" translatable="yes">&lt;image name here&gt;</property>
             <layout>
+              
               <property name="column">0</property>
               <property name="row">1</property>
-              <property name="column-span">2</property>
+              <property name="column-span">4</property>
             </layout>
           </object>
         </child>
@@ -84,13 +85,37 @@ Author: Michael Carroll
           </object>
         </child>
         <child>
+          <object class="GtkButton" id="viewButton">
+            <property name="label" translatable="yes">View</property>
+            <property name="receives-default">1</property>
+            <property name="hexpand">0</property>
+            <property name="halign">center</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="infoButton">
+            <property name="label" translatable="yes">Info</property>
+            <property name="receives-default">1</property>
+            <property name="hexpand">0</property>
+            <property name="halign">center</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="GtkButton" id="deleteButton">
             <property name="label" translatable="yes">Delete</property>
             <property name="receives-default">1</property>
             <property name="hexpand">0</property>
             <property name="halign">center</property>
             <layout>
-              <property name="column">1</property>
+              <property name="column">3</property>
               <property name="row">2</property>
             </layout>
           </object>

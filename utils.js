@@ -16,11 +16,13 @@ const Config = imports.misc.config;
 const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
+const ByteArray = imports.byteArray;
 
 var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
 var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; 
 
+var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
@@ -31,11 +33,12 @@ var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[
 var vertical_blur = null;
 var horizontal_blur = null;
 
-let debug = true;
+let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
+let debug = false;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual("3.33") ? obj : obj.actor;
+    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -46,59 +49,30 @@ var markets = ['auto', 'ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en
     'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
     'zh-CN', 'zh-HK', 'zh-TW'];
 var marketName = [
-    "auto", "(شبه الجزيرة العربية‎) العربية", "dansk (Danmark)", "Deutsch (Österreich)",
-    "Deutsch (Schweiz)", "Deutsch (Deutschland)", "English (Australia)", "English (Canada)",
-    "English (United Kingdom)", "English (Indonesia)", "English (Ireland)", "English (India)", "English (Malaysia)",
-    "English (New Zealand)", "English (Philippines)", "English (Singapore)", "English (United States)",
-    "English (International)", "English (Arabia)", "English (South Africa)", "español (Argentina)", "español (Chile)",
-    "español (España)", "español (México)", "español (Estados Unidos)", "español (Latinoamérica)", "eesti (Eesti)",
-    "suomi (Suomi)", "français (Belgique)", "français (Canada)", "français (Suisse)", "français (France)",
-    "(עברית (ישראל", "hrvatski (Hrvatska)", "magyar (Magyarország)", "italiano (Italia)", "日本語 (日本)", "한국어(대한민국)",
-    "lietuvių (Lietuva)", "latviešu (Latvija)", "norsk bokmål (Norge)", "Nederlands (België)", "Nederlands (Nederland)",
-    "polski (Polska)", "português (Brasil)", "português (Portugal)", "română (România)", "русский (Россия)",
-    "slovenčina (Slovensko)", "slovenščina (Slovenija)", "svenska (Sverige)", "ไทย (ไทย)", "Türkçe (Türkiye)",
-    "українська (Україна)", "中文（中国）", "中文（中國香港特別行政區）", "中文（台灣）"
+    'auto', '(شبه الجزيرة العربية‎) العربية', 'dansk (Danmark)', 'Deutsch (Österreich)',
+    'Deutsch (Schweiz)', 'Deutsch (Deutschland)', 'English (Australia)', 'English (Canada)',
+    'English (United Kingdom)', 'English (Indonesia)', 'English (Ireland)', 'English (India)', 'English (Malaysia)',
+    'English (New Zealand)', 'English (Philippines)', 'English (Singapore)', 'English (United States)',
+    'English (International)', 'English (Arabia)', 'English (South Africa)', 'español (Argentina)', 'español (Chile)',
+    'español (España)', 'español (México)', 'español (Estados Unidos)', 'español (Latinoamérica)', 'eesti (Eesti)',
+    'suomi (Suomi)', 'français (Belgique)', 'français (Canada)', 'français (Suisse)', 'français (France)',
+    '(עברית (ישראל', 'hrvatski (Hrvatska)', 'magyar (Magyarország)', 'italiano (Italia)', '日本語 (日本)', '한국어(대한민국)',
+    'lietuvių (Lietuva)', 'latviešu (Latvija)', 'norsk bokmål (Norge)', 'Nederlands (België)', 'Nederlands (Nederland)',
+    'polski (Polska)', 'português (Brasil)', 'português (Portugal)', 'română (România)', 'русский (Россия)',
+    'slovenčina (Slovensko)', 'slovenščina (Slovenija)', 'svenska (Sverige)', 'ไทย (ไทย)', 'Türkçe (Türkiye)',
+    'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
+var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
 var randomIntervals = [300, 3600, 86400];
 var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
 
-var BingImageURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=";
-
-function getSettings() {
-    let extension = ExtensionUtils.getCurrentExtension();
-    let schema = 'org.gnome.shell.extensions.bingwallpaper';
-
-    const GioSSS = Gio.SettingsSchemaSource;
-
-    // check if this extension was built with "make zip-file", and thus
-    // has the schema files in a subfolder
-    // otherwise assume that extension has been installed in the
-    // same prefix as gnome-shell (and therefore schemas are available
-    // in the standard folders)
-    let schemaDir = extension.dir.get_child('schemas');
-    let schemaSource;
-    if (schemaDir.query_exists(null)) {
-        schemaSource = GioSSS.new_from_directory(schemaDir.get_path(),
-                                                 GioSSS.get_default(),
-                                                 false);
-    } else {
-        schemaSource = GioSSS.get_default();
-    }
-
-    let schemaObj = schemaSource.lookup(schema, true);
-    if (!schemaObj) {
-        throw new Error('Schema ' + schema + ' could not be found for extension ' +
-				extension.metadata.uuid + '. Please check your installation.');
-    }
-
-    return new Gio.Settings({settings_schema: schemaObj});
-}
+var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
 
 function validate_icon(settings, icon_image = null) {
     log('validate_icon()');
     let icon_name = settings.get_string('icon-name');
-    if (icon_name == "" || icon_list.indexOf(icon_name) == -1) {
+    if (icon_name == '' || icon_list.indexOf(icon_name) == -1) {
         settings.reset('icon-name');
         icon_name = settings.get_string('icon-name');
     }
@@ -112,7 +86,7 @@ function validate_icon(settings, icon_image = null) {
 
 function validate_resolution(settings) {
     let resolution = settings.get_string('resolution');
-    if (resolution == "" || resolutions.indexOf(resolution) == -1) // if not a valid resolution
+    if (resolution == '' || resolutions.indexOf(resolution) == -1) // if not a valid resolution
         settings.reset('resolution');
 }
 
@@ -124,12 +98,13 @@ function validate_imagename(settings) {
     if (!inImageList(getImageList(settings), filename)) {
         log('invalid image selected');
         //settings.reset('selected-image');
+        settings.set_string('selected-image', 'current');
     }
 }
 
 function validate_market(settings, marketDescription = null, lastreq = null, httpSession) {
     let market = settings.get_string('market');
-    if (market == "" || markets.indexOf(market) == -1) { // if not a valid market
+    if (market == '' || markets.indexOf(market) == -1) { // if not a valid market
         settings.reset('market');
     }
     // only run this check if called from prefs
@@ -170,8 +145,6 @@ function get_current_bg(schema) {
     return (cur);
 }
 
-let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-
 function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
@@ -203,7 +176,7 @@ function is_x11() {
 }
 
 function enabled_unsafe() {
-    log("User override, enabling unsafe Wayland functionality");
+    //log("User override, enabling unsafe Wayland functionality");
     return true;
 }
 
@@ -248,7 +221,7 @@ function setImageList(settings, imageList) {
 }
 
 function getImageTitle(image_data) {
-    return image_data.copyright.replace(/\s*\(.*?\)\s*/g, "");
+    return image_data.copyright.replace(/\s*\(.*?\)\s*/g, '');
 }
 
 function getImageUrlBase(image_data) {
@@ -306,7 +279,7 @@ function mergeImageLists(settings, imageList) {
             newList.unshift(x); 
         }
     });
-    setImageList(settings, curList);
+    setImageList(settings, imageListSortByDate(curList)); // sort then save back to settings
     return newList; // return this to caller for notifications
 }
 
@@ -342,7 +315,7 @@ function getWallpaperDir(settings) {
     let BingWallpaperDir = settings.get_string('download-folder');
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     if (BingWallpaperDir == '') {
-        BingWallpaperDir = userPicturesDir + "/BingWallpaper/";
+        BingWallpaperDir = userPicturesDir + '/BingWallpaper/';
         settings.set_string('download-folder', BingWallpaperDir);
     }
     else if (!BingWallpaperDir.endsWith('/')) {
@@ -359,20 +332,25 @@ function getWallpaperDir(settings) {
 
 function imageToFilename(settings, image, resolution = null) {
     return getWallpaperDir(settings) + image.startdate + '-' +
-		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + "_"
-		+ (resolution ? resolution : getResolution(settings, image)) + ".jpg";
+		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_'
+		+ (resolution ? resolution : getResolution(settings, image)) + '.jpg';
 }
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function dump(object) {
+// Utility function
+function dump(object, level = 0) {
     let output = '';
     for (let property in object) {
-        output += property + ': ' + object[property] + '; ';
+        output += ' - '.repeat(level)+property + ': ' + object[property]+'\n ';
+		if ( typeof object[property] === 'object' )
+			output += dump(object[property], level+1);
     }
-    log(output);
+	if (level == 0)
+		log(output);
+    return(output);
 }
 
 function friendly_time_diff(time, short = true) {
@@ -401,9 +379,9 @@ function friendly_time_diff(time, short = true) {
 function getResolution(settings, image) {
     let resolution = settings.get_string('resolution');
     if (resolutions.indexOf(resolution) == -1 || (image ? image.wp == false : true) || // wp == false when background is animated
-		settings.get_string('resolution') == "auto" ) {
+		settings.get_string('resolution') == 'auto' ) {
         // resolution invalid, animated background or autoselected
-        resolution = "UHD";
+        resolution = 'UHD';
     }
     return resolution;
 }
@@ -428,11 +406,10 @@ function shortenName(string, limit) {
 }
 
 function moveImagesToNewFolder(settings, oldPath, newPath) {
-    log('moveImagesToNewFolder(): stub function');
     // possible race condition here, need to think about how to fix it
     //let BingWallpaperDir = settings.get_string('download-folder');
     let dir = Gio.file_new_for_path(oldPath);
-    let dirIter = dir.enumerate_children("", Gio.FileQueryInfoFlags.NONE, null );
+    let dirIter = dir.enumerate_children('', Gio.FileQueryInfoFlags.NONE, null );
     let newDir = Gio.file_new_for_path(newPath);
     if (!newDir.query_exists(null)) {
         newDir.make_directory_with_parents(null);
@@ -444,7 +421,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
             log('file: ' + slash(oldPath) + filename + ' -> ' + slash(newPath) + filename);
             let cur = Gio.file_new_for_path(slash(oldPath) + filename);
             let dest = Gio.file_new_for_path(slash(newPath) + filename);
-            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ("...moved"); });
+            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ('...moved'); });
         }
     }
     // fix filenames in previous queue
@@ -452,7 +429,7 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
     // correct filenames for GNOME backgrounds
     if (settings.get_boolean('set-background'))
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller("3.36"))
+    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller('3.36'))
         moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
@@ -492,8 +469,69 @@ function deleteImage(to_delete) {
     }
 }
 
-function openInSystemViewer(filename) {
-    const context = global.create_app_launch_context(0, -1);
-    Gio.AppInfo.launch_default_for_uri('file://' + filename, context);
+// add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
+function purgeImages(settings) {
+    let deletepictures = settings.get_boolean('delete-previous');
+    if (deletepictures === false)
+        return;
+    let imagelist = imageListSortByDate(getImageList(settings));
+    let maxpictures = settings.get_int('previous-days');
+    let origlength = imagelist.length;
+    while (imagelist.length > maxpictures) {
+        var to_delete = imagelist.shift(); // get the first (oldest item from the list)
+        if (deletepictures && to_delete != '') {
+            let imageFilename = imageToFilename(settings, to_delete);
+            log('deleting '+imageFilename);
+            deleteImage(imageFilename);
+        }
+    }
+    log('cleaned up image list, count was '+origlength+' now '+imagelist.length);
+    cleanupImageList(settings);
+    validate_imagename(settings); // if we deleted our current image, we want to reset it to something valid
+}
+
+function openInSystemViewer(filename, is_file = true) {
+    let context;
+    try {
+        context = global.create_app_launch_context(0, -1);
+    }
+    catch (error) {
+        context = null;
+    }
+    if (is_file)
+        filename = 'file://'+filename;
+    Gio.AppInfo.launch_default_for_uri(filename, context);
+}
+
+function exportBingJSON(settings) {
+    let json = settings.get_string('bing-json');
+    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let file = Gio.file_new_for_path(filepath);
+    let [success, error] = file.replace_contents(json, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
+    if (!success) {
+        log('error saving bing-json from '+filepath+': '+error);
+    }
+}
+
+function importBingJSON(settings) {
+    
+    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let file = Gio.file_new_for_path(filepath);
+    if (file.query_exists(null)) {
+        let [success, contents, etag_out] = file.load_contents(null);
+        if (!success) {
+            log('error loading bing-json '+filepath+' - '+etag_out);
+        }
+        else {
+            log('JSON import success');
+            let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+            // need to implement some checks for validity here
+            mergeImageLists(settings, parsed);
+            cleanupImageList(settings); // remove the older missing images
+        }
+    }
+    else {
+        log('JSON import file not found');
+    }
 }
   

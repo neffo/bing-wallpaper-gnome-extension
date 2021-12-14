@@ -13,16 +13,15 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Features
 
-* Fetches the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) and sets as both lock screen and desktop wallpaper
+* Automatically sets the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) as both lock screen and desktop wallpapers
 * Only attempts to download wallpapers when they have been updated - doesn't poll continuously
-* Optionally delete old images after a week, or keep them forever
-* Optionally force a specific region (i.e. what Bing calls a "market", some Wallpapers may relate to local holidays or locations)
+* Shuffle/randomise wallpapers at adjustable intervals (including from your stored Bing images)
+* Image gallery to view, select and curate stored images
+* Optionally delete old images after a week, or you can keep (and curate) them forever
+* Override the lockscreen blur
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN), French (fr_FR), Portuguese (pt, pt_BR), Russian (ru_RU), Spanish (es), Korean (ko, ko_KR, ko_KP), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (ni), Swedish (sv), Arabic (ar), Hungarian (hu) and Japanese (ja) - a HUGE thanks to the translators
 * Image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
 * A selection of different theme-aware indicator (tray) icons to choose (or hide it completely)
-* Override the lockscreen blur
-* NEW: shuffle/randomise wallpapers at adjustable intervals (including from your stored Bing images)
-* NEW: image gallery to view, select and manage stored images #115
 
 ## TODO
 
@@ -36,7 +35,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Requirements
 
-GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported). Blur control requires GNOME 3.36+, and may be unreliable on 3.36.3 or below. GNOME 40+ is still beta quality.
+GNOME 3.36+ or 40+ (Ubuntu 20.04 LTS or later, older versions of the extension work with 3.18+, but are no longer supported).
 
 ## Install
 
@@ -45,22 +44,16 @@ GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension wo
 or install directly to your GNOME extensions directory (useful if you want to hack on it)
 
 ```
-git clone https://github.com/neffo/bing-wallpaper-gnome-extension.git $HOME/.local/share/gnome-shell/extensions/BingWallpaper@ineffable-gmail.com
-```
-
-or create a zip file by doing this
-
-```
+mkdir ~/Desktop/source
+cd ~/Desktop/source
 git clone https://github.com/neffo/bing-wallpaper-gnome-extension.git
 cd bing-wallpaper-gnome-extension
-sh buildzip.sh
+sh install.sh
 ```
-
-You can then install this file using the GNOME Tweak Tool. Please note to install an extension correctly the zip must have the metadata.json file in the base directory (not in a sub-directory), so you can't use the Github zip file to do this.
 
 ## Enable debug logging
 
-If you run into problems, you can enable debugging using dconf-editor with this command:
+Enable debug logging through the exptension preferences 'Debug options' tab or if unable to open preferences you can enable debugging using dconf-editor with this command:
 ```
 GSETTINGS_SCHEMA_DIR=$HOME/.local/share/gnome-shell/extensions/BingWallpaper@ineffable-gmail.com/schemas dconf-editor /org/gnome/shell/extensions/bingwallpaper/
 ```
@@ -69,16 +62,23 @@ Please include logs from your journal when submitting bug notices (make sure not
 
 ## Screenshots
 
-Image gallery:
+### Image gallery
+
 ![Settings](/screenshot/settings5.png)
 
-Preferences:
-![Settings](/screenshot/settings.png)![Settings](/screenshot/settings2.png)
-![Settings](/screenshot/settings3.png)![Settings](/screenshot/settings4.png)
+### Preferences
+
+![Settings](/screenshot/settings.png)
+![Settings](/screenshot/settings2.png)
+![Settings](/screenshot/settings3.png)
+![Settings](/screenshot/settings4.png)
 
 
-Examples of adjustable blur on the lockscreen:
-(from left to right: no blur/no dimming, slight blur/default dimming, default blur/default dimming)
+### Lockscreen blur control
+From left to right: 
+* no blur/no dimming
+* slight blur/default dimming
+* default blur/default dimming
 ![Blur example](/screenshot/blurexample.jpg)
 
 ## Toss a coin to your coder
