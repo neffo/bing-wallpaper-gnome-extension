@@ -63,12 +63,6 @@
         <description>Save disk space</description>
     </key>
 
-    <key name="previous" type="s">
-      <default>""</default>
-      <summary>Previous wallpapers</summary>
-      <description>Used to delete wallpapers after a set number of days</description>
-    </key>
-
     <key name="previous-days" type="i">
       <default>8</default>
       <summary>Number of days to keep wallpapers</summary>
@@ -149,6 +143,48 @@
       <summary>Override safe defaults for Wayland desktop</summary>
       <description>Enables features which may or may not be unstable or untested in all cases</description>
     </key>
+
+    <key name="create-thumbs" type="b">
+      <default>true</default>
+      <summary>Create thumbnails to speed up image gallery loading</summary>
+      <description>Speeds up subsequent loads, but requires some additional disk space</description>
+    </key>
+
+    <key name="always-export-bing-json" type="b">
+      <default>false</default>
+      <summary>Save backup copy of Bing JSON to wallpaper directory</summary>
+      <description>Enables migration to new install or restoration from back up</description>
+    </key>
+    
+    <!-- not currently used
+    <key name="gallery-width" type="i">
+      <range min="1000" max="9600" />
+      <default>1600</default>
+      <summary>Gallery window width</summary>
+      <description></description>
+    </key>
+
+    <key name="gallery-height" type="i">
+      <range min="700" max="9600" />
+      <default>800</default>
+      <summary>Gallery window height</summary>
+      <description></description>
+    </key>
+
+    <key name="gallery-top" type="i">
+      <range min="0" max="9600" />
+      <default>30</default>
+      <summary>Gallery window x-pos</summary>
+      <description></description>
+    </key>
+
+    <key name="gallery-left" type="i">
+      <range min="0" max="9600" />
+      <default>30</default>
+      <summary>Gallery window y-pos</summary>
+      <description></description>
+    </key>
+    -->
 
   </schema>
 </schemalist>

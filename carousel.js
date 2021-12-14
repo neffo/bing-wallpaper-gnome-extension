@@ -11,10 +11,9 @@ const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
-const default_dimensions = [30, 30, 1500, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
+const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
@@ -22,11 +21,11 @@ const GALLERY_THUMB_HEIGHT = 180;
 var Carousel = class Carousel {
     constructor(settings, button = null, callbackfunc = null) {
         //create_gallery(widget, settings);
-        log('create carousel...');
         this.settings = settings;
         this.button = button;
         this.callbackfunc = callbackfunc;
-        this.imageList = Utils.getImageList(this.settings).reverse(); // get images and reverse order
+        this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
+        this.log('create carousel...');
         // disable the button
         //if (this.button)
         //    this.button.set_sensitive(false);
@@ -65,25 +64,23 @@ var Carousel = class Carousel {
     }
 
     _create_gallery() {
-        let that = this;
-        Utils.randomIntervals.forEach(function (seconds, i) {
-            let item = that._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
+        Utils.randomIntervals.forEach((seconds, i) => {
+            let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
             if (Gtk.get_major_version() < 4)
-                that.flowBox.add(item);
+                this.flowBox.add(item);
             else 
-                that.flowBox.insert(item, -1);
+                this.flowBox.insert(item, -1);
         });
-        this.imageList.forEach(function (image) {
-            let item = that._create_gallery_item(image);
+        this.imageList.forEach((image) => {
+            let item = this._create_gallery_item(image);
             if (Gtk.get_major_version() < 4)
-                that.flowBox.add(item);
+                this.flowBox.add(item);
             else 
-                that.flowBox.insert(item, -1);
+                this.flowBox.insert(item, -1);
         });
     }
 
     _create_gallery_item(image) {
-        let that = this;
         let buildable = new Gtk.Builder();
         if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
@@ -92,7 +89,9 @@ var Carousel = class Carousel {
         let galleryImage = buildable.get_object('galleryImage');
         let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
+        let viewButton = buildable.get_object('viewButton');
         let applyButton = buildable.get_object('applyButton');
+        let infoButton = buildable.get_object('infoButton');
         let deleteButton = buildable.get_object('deleteButton');
         try {
             this._load_image(galleryImage, filename);
@@ -105,25 +104,29 @@ var Carousel = class Carousel {
                 galleryImage.set_from_icon_name('image-missing');
             }
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
-            log('create_gallery_image: '+e);
+            this.log('create_gallery_image: '+e);
         }
-        galleryImage.set_tooltip_text(Utils.getImageTitle(image));
+        galleryImage.set_tooltip_text(image.copyright);
         imageLabel.set_width_chars(60);
         imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
-        /*galleryImage.connect('clicked', function (widget) {
+        viewButton.connect('clicked',  () => {
             Utils.openInSystemViewer(filename);
-        });*/
-        applyButton.connect('clicked', function(widget) {
-            that.settings.set_string('selected-image', Utils.getImageUrlBase(image));
-            log('gallery selected '+Utils.getImageUrlBase(image));
         });
-        deleteButton.connect('clicked', function(widget) {
-            log('Delete requested for '+filename);
+        applyButton.connect('clicked', () => {
+            this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
+            this.log('gallery selected '+Utils.getImageUrlBase(image));
+        });
+        infoButton.connect('clicked', () => {
+            Utils.openInSystemViewer(image.copyrightlink, false);
+            this.log('info page link opened '+image.copyrightlink);
+        });
+        deleteButton.connect('clicked', (widget) => {
+            this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            Utils.cleanupImageList(that.settings);
-            widget.get_parent().get_parent().destroy(); // bit of a hack
-            if (that.callbackfunc)
-                that.callbackfunc();
+            Utils.cleanupImageList(this.settings);
+            widget.get_parent().get_parent().set_visible(false); // bit of a hack
+            if (this.callbackfunc)
+                this.callbackfunc();
         });
         //deleteButton.set_sensitive(false);
         let item = buildable.get_object('flowBoxChild');
@@ -131,7 +134,6 @@ var Carousel = class Carousel {
     }
 
     _create_random_item(seconds, title) {
-        let that = this;
         let buildable = new Gtk.Builder();
         if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
@@ -142,10 +144,10 @@ var Carousel = class Carousel {
         let filename = 'random';
         let applyButton = buildable.get_object('randomButton');
 
-        applyButton.connect('clicked', function(widget) {
-            that.settings.set_string('selected-image', filename);
-            that.settings.set_int('random-interval', seconds);
-            log('gallery selected random with interval '+seconds);
+        applyButton.connect('clicked', (widget) => {
+            this.settings.set_string('selected-image', filename);
+            this.settings.set_int('random-interval', seconds);
+            this.log('gallery selected random with interval '+seconds);
         });
         let item = buildable.get_object('flowBoxRandom');
         return item;
@@ -154,11 +156,11 @@ var Carousel = class Carousel {
     _load_image(galleryImage, filename) {
         let thumb_path = Utils.getWallpaperDir(this.settings)+'.thumbs/';
         let thumb_dir = Gio.file_new_for_path(thumb_path);
+        let save_thumbs = !this.settings.get_boolean('delete-previous') && this.settings.get_boolean('create-thumbs'); // create thumbs only if not deleting previous and thumbs are enabled
         if (!thumb_dir.query_exists(null)) {
             thumb_dir.make_directory_with_parents(null);
         }
         let image_file = Gio.file_new_for_path(filename);
-        //log('thumbpath -> '+ thumb_path);
         if (!image_file.query_exists(null)){
             this._set_blank_image(galleryImage);
         }
@@ -170,9 +172,10 @@ var Carousel = class Carousel {
                 if (image_thumb.query_exists(null)) { // use thumbnail if available
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
-                else {
+                else { // significantly speeds up gallery loading, but costs some addtional disk space
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
-                    pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
+                    if (save_thumbs)
+                        pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
                 if (Gtk.get_major_version() < 4) {
                     galleryImage.set_from_pixbuf(pixbuf);
@@ -184,7 +187,7 @@ var Carousel = class Carousel {
             }
             catch (e) {
                 this._set_blank_image(galleryImage);
-                log('create_gallery_image: '+e);
+                this.log('create_gallery_image: '+e);
             }
         }
     }
@@ -199,5 +202,10 @@ var Carousel = class Carousel {
             //galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
         }
         
+    }
+
+    log(msg) {
+        if (this.settings.get_boolean('debug-logging'))
+            print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
     }
 };

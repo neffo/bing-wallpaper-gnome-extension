@@ -6,4 +6,6 @@ ZIP_NAME=BingWallpaper@ineffable-gmail.com.zip
 
 ./buildzip.sh
 
+mkdir -p $INSTALL_PATH/$EXTENSION_NAME
+
 unzip -o $ZIP_NAME -d $INSTALL_PATH/$EXTENSION_NAME/
