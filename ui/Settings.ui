@@ -151,7 +151,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
-                            <property name="pixbuf">icons/bing-symbolic.svg</property>
+                            <property name="pixbuf">../icons/bing-symbolic.svg</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -255,6 +255,47 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
                             <property name="hexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="style_listboxrow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="style_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="style_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Background style option</property>
+                            <property name="wrap">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="background_style">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -443,7 +484,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">1</property>
                           </packing>
                         </child>
                       </object>
@@ -524,7 +564,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">2</property>
                           </packing>
                         </child>
                       </object>
@@ -639,8 +678,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_intensity_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -703,8 +740,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_brightness_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -767,8 +802,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="blur_presets_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1026,8 +1059,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="unsafe_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1089,8 +1120,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="resolution_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1139,7 +1168,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">0</property>
-                            <property name="height">2</property>
                           </packing>
                         </child>
                       </object>
@@ -1148,8 +1176,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                   <object class="GtkListBoxRow" id="random_interval_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
@@ -1206,6 +1232,185 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                         <child>
                           <placeholder/>
                         </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="json_import_tool">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="json_import_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="import_title">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Import Bing Wallpaper data</property>
+                            <property name="wrap">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="import_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Import previously exported JSON data from wallpaper directory</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_json_import">
+                            <property name="label" translatable="yes">Import</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="json_export_tool">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="json_export_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="export_title">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Export Bing Wallpaper data</property>
+                            <property name="wrap">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="export_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Export JSON data to wallpaper dir for backup or data migration</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_json_export">
+                            <property name="label" translatable="yes">Export</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBoxRow" id="always_export_row">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkGrid" id="always_export_grid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="column_spacing">32</property>
+                        <child>
+                          <object class="GtkLabel" id="always_export_title">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Always export Bing data</property>
+                            <property name="wrap">True</property>
+                            </object>
+                            <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                            </packing>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="always_export_description">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="label" translatable="yes">Export Bing JSON whenever data changes</property>
+                            <style>
+                                <class name="dim-label"/>
+                            </style>
+                            </object>
+                            <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                            </packing>
+                          </child>
+                          <child>
+                            <object class="GtkSwitch" id="always_export_switch">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">end</property>
+                            </object>
+                            <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                            </packing>
+                          </child>
                       </object>
                     </child>
                   </object>

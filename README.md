@@ -35,7 +35,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Requirements
 
-GNOME 3.28+ (Ubuntu Gnome 18.04+, Fedora 23+, older versions of the extension work with 3.18+, but are no longer supported). Blur control requires GNOME 3.36+, and may be unreliable on 3.36.3 or below. GNOME 40+ is still beta quality.
+GNOME 3.36+ or 40+ (Ubuntu 20.04 LTS or later, older versions of the extension work with 3.18+, but are no longer supported).
 
 ## Install
 
@@ -50,16 +50,6 @@ git clone https://github.com/neffo/bing-wallpaper-gnome-extension.git
 cd bing-wallpaper-gnome-extension
 sh install.sh
 ```
-
-or create a zip file by doing this:
-
-```
-git clone https://github.com/neffo/bing-wallpaper-gnome-extension.git
-cd bing-wallpaper-gnome-extension
-sh buildzip.sh
-```
-
-You can then install this file using the GNOME Tweak Tool.
 
 ## Enable debug logging
 

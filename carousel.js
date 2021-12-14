@@ -11,10 +11,9 @@ const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
-const default_dimensions = [30, 30, 1600, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
+const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
@@ -157,12 +156,11 @@ var Carousel = class Carousel {
     _load_image(galleryImage, filename) {
         let thumb_path = Utils.getWallpaperDir(this.settings)+'.thumbs/';
         let thumb_dir = Gio.file_new_for_path(thumb_path);
-        let save_thumbs = !this.settings.get_boolean('delete-previous');
+        let save_thumbs = !this.settings.get_boolean('delete-previous') && this.settings.get_boolean('create-thumbs'); // create thumbs only if not deleting previous and thumbs are enabled
         if (!thumb_dir.query_exists(null)) {
             thumb_dir.make_directory_with_parents(null);
         }
         let image_file = Gio.file_new_for_path(filename);
-        //this.log('thumbpath -> '+ thumb_path);
         if (!image_file.query_exists(null)){
             this._set_blank_image(galleryImage);
         }
@@ -174,9 +172,10 @@ var Carousel = class Carousel {
                 if (image_thumb.query_exists(null)) { // use thumbnail if available
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
-                else if (save_thumbs) { // create thumbnail if not available and user doesn't want previous wallpapers deleted
+                else { // significantly speeds up gallery loading, but costs some addtional disk space
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
-                    pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
+                    if (save_thumbs)
+                        pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
                 if (Gtk.get_major_version() < 4) {
                     galleryImage.set_from_pixbuf(pixbuf);
