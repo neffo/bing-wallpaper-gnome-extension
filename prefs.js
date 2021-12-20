@@ -33,6 +33,9 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
+var PREFS_DEFAULT_WIDTH = 500;
+var PREFS_DEFAULT_HEIGHT = 600;
+
 function init() {
     ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
 }
@@ -54,6 +57,15 @@ function buildPrefsWidget() {
     }
     
     let box = buildable.get_object('prefs_widget');
+
+    // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
+    if (Convenience.currentVersionGreaterEqual('40')) {
+        box.connect('realize', () => {
+            let window = box.get_root();
+            window.default_width = PREFS_DEFAULT_WIDTH;
+            window.default_height = PREFS_DEFAULT_HEIGHT;
+        });
+    }
 
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
