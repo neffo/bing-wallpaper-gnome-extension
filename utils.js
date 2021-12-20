@@ -424,13 +424,9 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
             cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ('...moved'); });
         }
     }
-    // fix filenames in previous queue
-    settings.set_string('previous', settings.get_string('previous').replaceAll(oldPath, newPath));
     // correct filenames for GNOME backgrounds
     if (settings.get_boolean('set-background'))
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller('3.36'))
-        moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
 function dirname(path) {
@@ -514,7 +510,6 @@ function exportBingJSON(settings) {
 }
 
 function importBingJSON(settings) {
-    
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {
