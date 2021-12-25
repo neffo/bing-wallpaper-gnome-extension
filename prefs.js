@@ -59,13 +59,14 @@ function buildPrefsWidget() {
     let box = buildable.get_object('prefs_widget');
 
     // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
+    /*
     if (Convenience.currentVersionGreaterEqual('40')) {
         box.connect('realize', () => {
             let window = box.get_root();
             window.default_width = PREFS_DEFAULT_WIDTH;
             window.default_height = PREFS_DEFAULT_HEIGHT;
         });
-    }
+    }*/
 
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
@@ -148,11 +149,14 @@ function buildPrefsWidget() {
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
         fileChooserBtn.set_label(settings.get_string('download-folder'));
-        fileChooser.set_current_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)).get_parent());
+                
         fileChooserBtn.connect('clicked', (widget) => {
             let parent = widget.get_root();
+            let curWallpaperDir = Gio.File.new_for_path(Utils.getWallpaperDir(settings));
+            fileChooser.set_current_folder(curWallpaperDir.get_parent());
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
             fileChooser.set_transient_for(parent);
+            fileChooser.set_accept_label(_('Select folder'));
             fileChooser.show();
         });
         fileChooser.connect('response', (widget, response) => {
