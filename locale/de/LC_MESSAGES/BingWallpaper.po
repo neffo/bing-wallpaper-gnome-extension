@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 18:32+1000\n"
-"PO-Revision-Date: 2021-12-28 10:21+0100\n"
+"PO-Revision-Date: 2021-12-28 10:34+0100\n"
 "Last-Translator: Jannick Kuhr\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -309,7 +309,7 @@ msgstr "Kein Hintergrundbild verfügbar"
 
 #: extension.js:559
 msgid "No picture for today ."
-msgstr "Heute kein Bild ."
+msgstr "Heute kein Bild."
 
 #: prefs.js:159
 msgid "Select folder"
