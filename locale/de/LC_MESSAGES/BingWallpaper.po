@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 18:32+1000\n"
-"PO-Revision-Date: 2021-12-14 10:56+0100\n"
+"PO-Revision-Date: 2021-12-28 10:21+0100\n"
 "Last-Translator: Jannick Kuhr\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -29,7 +29,7 @@ msgstr "Indikator-Symbol"
 msgid "Enable desktop notifications"
 msgstr "Desktop-Benachrichtigungen aktivieren"
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:118
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:119
 msgid "Set background image"
 msgstr "Als Hintergrundbild verwenden"
 
@@ -65,7 +65,7 @@ msgstr "Aus Bildergalerie auswählen"
 msgid "Bing locale"
 msgstr "Bing-Region"
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:121
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:122
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -267,55 +267,59 @@ msgstr "Zufallsmodus festlegen"
 msgid "<image name here>"
 msgstr "<Name des Bildes>"
 
-#: extension.js:106
+#: extension.js:107
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
-#: extension.js:108 extension.js:110 extension.js:113
+#: extension.js:109 extension.js:111 extension.js:114
 msgid "Awaiting refresh..."
 msgstr "Warten auf Aktualisierung ..."
 
-#: extension.js:115
+#: extension.js:116
 msgid "Copy image to clipboard"
 msgstr "Bild in Zwischenablage kopieren"
 
-#: extension.js:116
+#: extension.js:117
 msgid "Copy image URL to clipboard"
 msgstr "Bildadresse in Zwischenablage kopieren"
 
-#: extension.js:117
+#: extension.js:118
 msgid "Open image folder"
 msgstr "Bilderordner öffnen"
 
-#: extension.js:119
+#: extension.js:120
 msgid "Set lock screen image"
 msgstr "Für Sperrbildschirm verwenden"
 
-#: extension.js:120
+#: extension.js:121
 msgid "Refresh Now"
 msgstr "Jetzt aktualisieren"
 
-#: extension.js:209
+#: extension.js:210
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
-#: extension.js:505 extension.js:532
+#: extension.js:506 extension.js:533
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing-Hintergrundbild des Tages für"
 
-#: extension.js:557
+#: extension.js:558
 msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
-#: extension.js:558
-msgid "No picture for today 😞."
-msgstr "Heute kein Bild 😞."
+#: extension.js:559
+msgid "No picture for today ."
+msgstr "Heute kein Bild ."
 
-#: prefs.js:202
+#: prefs.js:159
+msgid "Select folder"
+msgstr "Ordner auswählen"
+
+#: prefs.js:218
 msgid "Most recent image"
 msgstr "Aktuellstes Bild"
 
-#: prefs.js:203
+#: prefs.js:219
 msgid "Random image"
 msgstr "Zufälliges Bild"
 
