@@ -167,7 +167,7 @@ function buildPrefsWidget() {
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), fileURI);
-            settings.set_string('download-folder', fileURI);
+            Utils.setWallpaperDir(settings, fileURI);
         });
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
         let market_grid = buildable.get_object('market_grid');
@@ -191,7 +191,7 @@ function buildPrefsWidget() {
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
         fileChooserBtn.connect('file-set', (widget) => {      
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
-            settings.set_string('download-folder', widget.get_filename());
+            Utils.setWallpaperDir(settings,widget.get_filename());
         });
         Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);

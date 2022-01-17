@@ -312,7 +312,8 @@ function cleanupImageList(settings) {
 }
 
 function getWallpaperDir(settings) {
-    let BingWallpaperDir = settings.get_string('download-folder');
+    let homeDir =  GLib.get_home_dir(); 
+    let BingWallpaperDir = settings.get_string('download-folder').replace('$HOME', homeDir);
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     if (BingWallpaperDir == '') {
         BingWallpaperDir = userPicturesDir + '/BingWallpaper/';
@@ -328,6 +329,12 @@ function getWallpaperDir(settings) {
     }
     //FIXME: test if dir is good and writable
     return BingWallpaperDir;
+}
+
+function setWallpaperDir(settings, uri) {
+    let homeDir =  GLib.get_home_dir();
+    let relUri = uri.replace(homeDir, '$HOME');
+    settings.set_string('download-folder', relUri);
 }
 
 function imageToFilename(settings, image, resolution = null) {
