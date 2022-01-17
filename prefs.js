@@ -7,8 +7,6 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-imports.gi.versions.Soup = '2.4';
-
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -104,8 +102,7 @@ function buildPrefsWidget() {
     
     settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
-    httpSession = new Soup.SessionAsync();
-    Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
+    httpSession = new Soup.Session();
 
     // check that these are valid (can be edited through dconf-editor)
     //Utils.validate_market(settings, marketDescription);
@@ -191,7 +188,7 @@ function buildPrefsWidget() {
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
         fileChooserBtn.connect('file-set', (widget) => {      
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
-            Utils.setWallpaperDir(settings,widget.get_filename());
+            Utils.setWallpaperDir(settings, widget.get_filename());
         });
         Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);

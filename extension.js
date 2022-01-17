@@ -94,8 +94,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
-        this.httpSession = new Soup.SessionAsync();
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault());
+        this.httpSession = new Soup.Session();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
