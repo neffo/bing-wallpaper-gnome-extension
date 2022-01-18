@@ -102,7 +102,12 @@ function buildPrefsWidget() {
     
     settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
-    httpSession = new Soup.Session();
+    try {
+        httpSession = new Soup.Session();
+    }
+    catch (e) {
+        log("Error creating httpSession: " + e);
+    }
 
     // check that these are valid (can be edited through dconf-editor)
     //Utils.validate_market(settings, marketDescription);
@@ -249,7 +254,8 @@ function buildPrefsWidget() {
         box.show_all();
 
     // fetch
-    Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
+    if (httpSession)
+        Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
     lastreq = GLib.DateTime.new_now_utc();
 
     return box;
