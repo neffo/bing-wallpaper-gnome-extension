@@ -150,17 +150,23 @@ function fetch_change_log(version, label, httpSession) {
     httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
     log("Fetching " + url);
     // queue the http request
-    httpSession.queue_message(request, function (httpSession, message) {
-        if (message.status_code == 200) {
-            let data = message.response_body.data;
-            let text = JSON.parse(data).body;
-            label.set_label(text);
-        } 
-        else {
-            log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
-            label.set_label(_("No change log found for this release") + ": " + message.status_code);
-        }
-    });
+    try {
+        httpSession.queue_message(request, (httpSession, message) => {
+            if (message.status_code == 200) {
+                let data = message.response_body.data;
+                let text = JSON.parse(data).body;
+                label.set_label(text);
+            } 
+            else {
+                log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
+                label.set_label(_("No change log found for this release") + ": " + message.status_code);
+            }
+        });
+    }
+    catch (e) {
+        log("Error fetching change log: " + e);
+        label.set_label(_("Error fetching change log"));
+    }
 }
 
 function set_blur_preset(settings, preset) {
