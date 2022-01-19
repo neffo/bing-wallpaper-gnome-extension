@@ -311,6 +311,10 @@ msgstr "Kein Hintergrundbild verfügbar"
 msgid "No picture for today 😞."
 msgstr "Heute kein Bild 😞."
 
+#: prefs.js:159
+msgid "Select folder"
+msgstr "Ordner auswählen"
+
 #: prefs.js:202
 msgid "Most recent image"
 msgstr "Aktuellstes Bild"
