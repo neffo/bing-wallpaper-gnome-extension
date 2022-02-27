@@ -230,7 +230,7 @@ msgstr "沒有可以使用的桌布"
 
 #: extension.js:554
 msgid "No picture for today."
-msgstr "今天沒有影像 😞"
+msgstr "今天沒有影像"
 
 #: prefs.js:173
 msgid "Most recent image"

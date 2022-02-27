@@ -231,7 +231,7 @@ msgstr "Taustakuvaa ei saatavilla"
 
 #: extension.js:554
 msgid "No picture for today."
-msgstr "Ei kuvaa tälle päivälle 😞"
+msgstr "Ei kuvaa tälle päivälle"
 
 #: prefs.js:173
 #, fuzzy

@@ -248,7 +248,7 @@ msgstr "利用可能な壁紙はありません"
 
 #: extension.js:577
 msgid "No picture for today."
-msgstr "今日の壁紙はありません😞."
+msgstr "今日の壁紙はありません."
 
 #: prefs.js:188
 msgid "Most recent image"
