@@ -308,8 +308,8 @@ msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
 #: extension.js:558
-msgid "No picture for today 😞."
-msgstr "Heute kein Bild 😞."
+msgid "No picture for today."
+msgstr "Heute kein Bild."
 
 #: prefs.js:159
 msgid "Select folder"

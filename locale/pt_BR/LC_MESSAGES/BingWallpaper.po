@@ -227,8 +227,8 @@ msgid "No wallpaper available"
 msgstr "Nenhum papel de parede disponível"
 
 #: extension.js:554
-msgid "No picture for today 😞."
-msgstr "Nenhuma imagem para hoje 😞."
+msgid "No picture for today."
+msgstr "Nenhuma imagem para hoje."
 
 #: prefs.js:173
 msgid "Most recent image"

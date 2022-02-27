@@ -235,8 +235,8 @@ msgid "No wallpaper available"
 msgstr "Geen achtergrond beschikbaar"
 
 #: extension.js:554
-msgid "No picture for today 😞."
-msgstr "Geen afbeelding voor vandaag 😞."
+msgid "No picture for today."
+msgstr "Geen afbeelding voor vandaag."
 
 #: prefs.js:173
 #, fuzzy

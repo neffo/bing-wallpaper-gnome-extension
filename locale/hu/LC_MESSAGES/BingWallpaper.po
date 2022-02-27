@@ -235,8 +235,8 @@ msgid "No wallpaper available"
 msgstr "Nincs elérhető háttérkép"
 
 #: extension.js:554
-msgid "No picture for today 😞."
-msgstr "Nincs elérhető kép ma 😞."
+msgid "No picture for today."
+msgstr "Nincs elérhető kép ma."
 
 #: prefs.js:173
 msgid "Most recent image"

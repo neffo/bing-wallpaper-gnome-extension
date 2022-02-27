@@ -555,7 +555,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         } 
         else {
             this.title = _("No wallpaper available");
-            this.explanation = _("No picture for today 😞.");
+            this.explanation = _("No picture for today.");
             this.filename = "";
             this._updatePending = false;
         }

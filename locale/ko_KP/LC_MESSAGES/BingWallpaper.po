@@ -239,8 +239,8 @@ msgid "No wallpaper available"
 msgstr "리용 가능한 배경화면 없음"
 
 #: extension.js:554
-msgid "No picture for today 😞."
-msgstr "오늘은 화상이 없네요 😞."
+msgid "No picture for today."
+msgstr "오늘은 화상이 없네요."
 
 #: prefs.js:173
 msgid "Most recent image"

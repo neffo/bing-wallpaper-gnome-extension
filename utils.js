@@ -319,9 +319,11 @@ function getWallpaperDir(settings) {
     let homeDir =  GLib.get_home_dir(); 
     let BingWallpaperDir = settings.get_string('download-folder').replace('$HOME', homeDir);
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
+    let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
-        BingWallpaperDir = userPicturesDir + '/BingWallpaper/';
-        settings.set_string('download-folder', BingWallpaperDir);
+        BingWallpaperDir = (userPicturesDir?userPicturesDir:userDesktopDir) + '/BingWallpaper/';
+        log('Using default download folder: ' + BingWallpaperDir);
+        setWallpaperDir(settings, BingWallpaperDir);
     }
     else if (!BingWallpaperDir.endsWith('/')) {
         BingWallpaperDir += '/';
