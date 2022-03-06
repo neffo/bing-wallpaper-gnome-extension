@@ -35,7 +35,7 @@ var PREFS_DEFAULT_WIDTH = 500;
 var PREFS_DEFAULT_HEIGHT = 600;
 
 function init() {
-    ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
+    ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils
 }
 
 function buildPrefsWidget() {
@@ -150,7 +150,7 @@ function buildPrefsWidget() {
 
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
-        fileChooserBtn.set_label(settings.get_string('download-folder'));
+        fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
                 
         fileChooserBtn.connect('clicked', (widget) => {
             let parent = widget.get_root();
@@ -168,7 +168,7 @@ function buildPrefsWidget() {
             let fileURI = fileChooser.get_file().get_uri().replace('file://', '');
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
-            Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), fileURI);
+            Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
             Utils.setWallpaperDir(settings, fileURI);
         });
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
@@ -185,6 +185,9 @@ function buildPrefsWidget() {
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+        settings.connect('changed::download-folder', () => {
+            fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
         });
     }
     else { // Gtk 3
@@ -203,6 +206,9 @@ function buildPrefsWidget() {
         settings.connect('changed::market', () => {
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
+        });
+        settings.connect('changed::download-folder', () => {
+            fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         });
     }
 

@@ -288,11 +288,11 @@ msgstr ""
 msgid "Select folder"
 msgstr ""
 
-#: prefs.js:220
+#: prefs.js:226
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:221
+#: prefs.js:227
 msgid "Random image"
 msgstr ""
 
