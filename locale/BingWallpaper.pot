@@ -10,7 +10,7 @@ msgstr ""
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:118
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:124
 msgid "Set background image"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:121
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:127
 msgid "Settings"
 msgstr ""
 
@@ -240,47 +240,47 @@ msgstr ""
 msgid "<image name here>"
 msgstr ""
 
-#: extension.js:106
+#: extension.js:112
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:108 extension.js:110 extension.js:113
+#: extension.js:114 extension.js:116 extension.js:119
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:115
+#: extension.js:121
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:116
+#: extension.js:122
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:117
+#: extension.js:123
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:119
+#: extension.js:125
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:120
+#: extension.js:126
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:209
+#: extension.js:215
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:505 extension.js:532
+#: extension.js:511 extension.js:538
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:557
+#: extension.js:563
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:558
+#: extension.js:564
 msgid "No picture for today."
 msgstr ""
 

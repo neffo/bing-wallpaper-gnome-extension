@@ -60,6 +60,12 @@ function doSetBackground(uri, schema) {
     let prev = gsettings.get_string('picture-uri');
     uri = 'file://' + uri;
     gsettings.set_string('picture-uri', uri);
+    try {
+        gsettings.set_string('picture-uri-dark', uri);
+    }
+    catch (e) {
+        log("unable to set dark background for : " + e);
+    }
     Gio.Settings.sync();
     gsettings.apply();
     return (prev != uri); // return true if background uri has changed

@@ -28,7 +28,7 @@
     </key>
 
     <key name="set-lock-screen" type="b">
-      <default>true</default>
+      <default>false</default>
         <summary>Set lock screen</summary>
         <description>Set lock screen to Bing's background</description>
     </key>
