@@ -284,15 +284,15 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:161
+#: prefs.js:169
 msgid "Select folder"
 msgstr ""
 
-#: prefs.js:226
+#: prefs.js:234
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:227
+#: prefs.js:235
 msgid "Random image"
 msgstr ""
 

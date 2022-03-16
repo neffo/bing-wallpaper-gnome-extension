@@ -138,9 +138,17 @@ function buildPrefsWidget() {
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
-    galleryButton.connect('clicked', (widget) => {
-        carousel = new Carousel.Carousel(settings, widget);
-    });
+    if (Convenience.currentVersionGreaterEqual('42.0'))  {
+        log('Gallery button disabled for version: ' + Convenience.currentVersion());
+        galleryButton.set_sensitive(false);
+        galleryButton.set_tooltip_text('Gallery not available in this version of GNOME Shell');
+    } 
+    else {
+        galleryButton.connect('clicked', (widget) => {
+            carousel = new Carousel.Carousel(settings, widget);
+        });
+    }
+    
     buttonImportData.connect('clicked', () => {
         Utils.importBingJSON(settings);
     });
