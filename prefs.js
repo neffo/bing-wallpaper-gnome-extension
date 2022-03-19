@@ -7,8 +7,6 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-imports.gi.versions.Soup = '2.4';
-
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -33,8 +31,11 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
+var PREFS_DEFAULT_WIDTH = 650;
+var PREFS_DEFAULT_HEIGHT = 650;
+
 function init() {
-    ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils, but we still need it for now (for older GNOME versions)
+    ExtensionUtils.initTranslations("BingWallpaper"); // this is now included in ExtensionUtils
 }
 
 function buildPrefsWidget() {
@@ -54,6 +55,16 @@ function buildPrefsWidget() {
     }
     
     let box = buildable.get_object('prefs_widget');
+
+    // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
+    
+    if (Convenience.currentVersionGreaterEqual('40')) {
+        box.connect('realize', () => {
+            let window = box.get_root();
+            //window.default_width = PREFS_DEFAULT_WIDTH;
+            window.default_height = PREFS_DEFAULT_HEIGHT;
+        });
+    }
 
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
@@ -91,8 +102,12 @@ function buildPrefsWidget() {
     
     settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
-    httpSession = new Soup.SessionAsync();
-    Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault());
+    try {
+        httpSession = new Soup.Session();
+    }
+    catch (e) {
+        log("Error creating httpSession: " + e);
+    }
 
     // check that these are valid (can be edited through dconf-editor)
     //Utils.validate_market(settings, marketDescription);
@@ -123,9 +138,20 @@ function buildPrefsWidget() {
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
-    galleryButton.connect('clicked', (widget) => {
-        carousel = new Carousel.Carousel(settings, widget);
-    });
+    if (Convenience.currentVersionGreaterEqual('42.0'))  {
+        log('Gallery button disabled for version: ' + Convenience.currentVersion());
+        //galleryButton.set_sensitive(false);
+        galleryButton.set_tooltip_text('Gallery not available in this version of GNOME Shell');
+        galleryButton.connect('clicked', (widget) => {
+            Utils.openImageFolder(settings); // fall back to just opening the folder
+        });
+    } 
+    else {
+        galleryButton.connect('clicked', (widget) => {
+            carousel = new Carousel.Carousel(settings, widget);
+        });
+    }
+    
     buttonImportData.connect('clicked', () => {
         Utils.importBingJSON(settings);
     });
@@ -135,12 +161,15 @@ function buildPrefsWidget() {
 
     //download folder
     if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
-        fileChooserBtn.set_label(settings.get_string('download-folder'));
-        fileChooser.set_current_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)).get_parent());
+        fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
+                
         fileChooserBtn.connect('clicked', (widget) => {
             let parent = widget.get_root();
+            let curWallpaperDir = Gio.File.new_for_path(Utils.getWallpaperDir(settings));
+            fileChooser.set_current_folder(curWallpaperDir.get_parent());
             fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
             fileChooser.set_transient_for(parent);
+            fileChooser.set_accept_label(_('Select folder'));
             fileChooser.show();
         });
         fileChooser.connect('response', (widget, response) => {
@@ -150,8 +179,8 @@ function buildPrefsWidget() {
             let fileURI = fileChooser.get_file().get_uri().replace('file://', '');
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
-            Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), fileURI);
-            settings.set_string('download-folder', fileURI);
+            Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
+            Utils.setWallpaperDir(settings, fileURI);
         });
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
         let market_grid = buildable.get_object('market_grid');
@@ -164,9 +193,12 @@ function buildPrefsWidget() {
             log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
         settings.connect('changed::market', () => {
-            Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();
+            /*Utils.validate_market(settings, marketDescription, lastreq);
+            lastreq = GLib.DateTime.new_now_utc();*/
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+        settings.connect('changed::download-folder', () => {
+            fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
         });
     }
     else { // Gtk 3
@@ -175,16 +207,19 @@ function buildPrefsWidget() {
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
         fileChooserBtn.connect('file-set', (widget) => {      
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
-            settings.set_string('download-folder', widget.get_filename());
+            Utils.setWallpaperDir(settings, widget.get_filename());
         });
         Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
         });
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-        settings.connect('changed::market', () => {
+        /*settings.connect('changed::market', () => {
             Utils.validate_market(settings, marketDescription, lastreq);
             lastreq = GLib.DateTime.new_now_utc();
+        });*/
+        settings.connect('changed::download-folder', () => {
+            fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         });
     }
 
@@ -236,7 +271,8 @@ function buildPrefsWidget() {
         box.show_all();
 
     // fetch
-    Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
+    if (httpSession)
+        Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
     lastreq = GLib.DateTime.new_now_utc();
 
     return box;

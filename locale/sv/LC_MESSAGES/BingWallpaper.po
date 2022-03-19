@@ -249,8 +249,8 @@ msgid "No wallpaper available"
 msgstr "Inga skrivbordsbakgrunder tillgängliga"
 
 #: extension.js:580
-msgid "No picture for today 😞."
-msgstr "Ingen ny bild idag 😞."
+msgid "No picture for today."
+msgstr "Ingen ny bild idag."
 
 #: prefs.js:181
 msgid "Most recent image"

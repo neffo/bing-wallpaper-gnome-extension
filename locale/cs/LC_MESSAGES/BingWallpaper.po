@@ -238,8 +238,8 @@ msgid "No wallpaper available"
 msgstr "Žádná tapeta není dostupná"
 
 #: extension.js:554
-msgid "No picture for today 😞."
-msgstr "Dnes není žádný obrázek k dispozici 😞."
+msgid "No picture for today."
+msgstr "Dnes není žádný obrázek k dispozici."
 
 #: prefs.js:173
 #, fuzzy

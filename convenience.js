@@ -58,7 +58,7 @@ function versionSmaller(a, b) {
 }
 
 function currentVersion() {
-    return Config.PACKAGE_VERSION;
+    return ''+Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0');
 }
 
 function currentVersionEqual(v) {

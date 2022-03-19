@@ -7,8 +7,6 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-imports.gi.versions.Soup = '2.4';
-
 const {Gio, GLib, Soup, GdkPixbuf} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -152,17 +150,23 @@ function fetch_change_log(version, label, httpSession) {
     httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
     log("Fetching " + url);
     // queue the http request
-    httpSession.queue_message(request, function (httpSession, message) {
-        if (message.status_code == 200) {
-            let data = message.response_body.data;
-            let text = JSON.parse(data).body;
-            label.set_label(text);
-        } 
-        else {
-            log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
-            label.set_label(_("No change log found for this release") + ": " + message.status_code);
-        }
-    });
+    try {
+        httpSession.queue_message(request, (httpSession, message) => {
+            if (message.status_code == 200) {
+                let data = message.response_body.data;
+                let text = JSON.parse(data).body;
+                label.set_label(text);
+            } 
+            else {
+                log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
+                label.set_label(_("No change log found for this release") + ": " + message.status_code);
+            }
+        });
+    }
+    catch (e) {
+        log("Error fetching change log: " + e);
+        label.set_label(_("Error fetching change log"));
+    }
 }
 
 function set_blur_preset(settings, preset) {
@@ -312,11 +316,14 @@ function cleanupImageList(settings) {
 }
 
 function getWallpaperDir(settings) {
-    let BingWallpaperDir = settings.get_string('download-folder');
+    let homeDir =  GLib.get_home_dir(); 
+    let BingWallpaperDir = settings.get_string('download-folder').replace('$HOME', homeDir);
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
+    let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
-        BingWallpaperDir = userPicturesDir + '/BingWallpaper/';
-        settings.set_string('download-folder', BingWallpaperDir);
+        BingWallpaperDir = (userPicturesDir?userPicturesDir:userDesktopDir) + '/BingWallpaper/';
+        log('Using default download folder: ' + BingWallpaperDir);
+        setWallpaperDir(settings, BingWallpaperDir);
     }
     else if (!BingWallpaperDir.endsWith('/')) {
         BingWallpaperDir += '/';
@@ -328,6 +335,12 @@ function getWallpaperDir(settings) {
     }
     //FIXME: test if dir is good and writable
     return BingWallpaperDir;
+}
+
+function setWallpaperDir(settings, uri) {
+    let homeDir =  GLib.get_home_dir();
+    let relUri = uri.replace(homeDir, '$HOME');
+    settings.set_string('download-folder', relUri);
 }
 
 function imageToFilename(settings, image, resolution = null) {
@@ -424,13 +437,9 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
             cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ('...moved'); });
         }
     }
-    // fix filenames in previous queue
-    settings.set_string('previous', settings.get_string('previous').replaceAll(oldPath, newPath));
     // correct filenames for GNOME backgrounds
     if (settings.get_boolean('set-background'))
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
-    if (settings.get_boolean('set-lock-screen') && Convenience.currentVersionSmaller('3.36'))
-        moveBackground(oldPath, newPath, LOCKSCREEN_SCHEMA);
 }
 
 function dirname(path) {
@@ -514,7 +523,6 @@ function exportBingJSON(settings) {
 }
 
 function importBingJSON(settings) {
-    
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {

@@ -13,6 +13,7 @@ const MessageTray = imports.ui.messageTray;
 const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const ByteArray = imports.byteArray;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -59,6 +60,12 @@ function doSetBackground(uri, schema) {
     let prev = gsettings.get_string('picture-uri');
     uri = 'file://' + uri;
     gsettings.set_string('picture-uri', uri);
+    try {
+        gsettings.set_string('picture-uri-dark', uri);
+    }
+    catch (e) {
+        log("unable to set dark background for : " + e);
+    }
     Gio.Settings.sync();
     gsettings.apply();
     return (prev != uri); // return true if background uri has changed
@@ -93,8 +100,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
-        this.httpSession = new Soup.SessionAsync();
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault());
+        this.httpSession = new Soup.Session();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -219,7 +225,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _setImage() {
         Utils.validate_imagename(this._settings);
         this.selected_image = this._settings.get_string('selected-image');
-        log('selected image changed to :' + this.selected_image);
+        log('selected image changed to: ' + this.selected_image);
         this._selectImage();
     }
 
@@ -238,7 +244,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let icon_name = this._settings.get_string('icon-name');
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
-        log('Replace icon set to : ' + icon_name);
+        log('Replace icon set to: ' + icon_name);
         getActorCompat(this).remove_all_children();
         getActorCompat(this).add_child(this.icon);
     }
@@ -555,7 +561,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         } 
         else {
             this.title = _("No wallpaper available");
-            this.explanation = _("No picture for today 😞.");
+            this.explanation = _("No picture for today.");
             this.filename = "";
             this._updatePending = false;
         }
@@ -614,26 +620,30 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // download and process new image
     // FIXME: improve error handling
     _downloadImage(url, file) {
-        log("Downloading " + url + " to " + file.get_uri());
-
-        let fstream = file.replace(null, false, Gio.FileCreateFlags.NONE, null);
+        log("Downloading " + url + " to " + file.get_uri());  
         let request = Soup.Message.new('GET', url);
-
-        // got_chunk event
-        request.connect('got_chunk', (message, chunk) => {
-            if (message.status_code == 200) { // only save the data we want, not content of 301 redirect page
-                fstream.write(chunk.get_data(), null);
-            }
-        });
 
         // queue the http request
         this.httpSession.queue_message(request, (httpSession, message) => {
             // request completed
-            fstream.close(null);
             this._updatePending = false;
             if (message.status_code == 200) {
-                log('Download successful');
-                this._setBackground();
+                file.replace_contents_bytes_async(
+                    message.response_body.flatten().get_as_bytes(),
+                    null,
+                    false,
+                    Gio.FileCreateFlags.REPLACE_DESTINATION,
+                    null,
+                    (file, res) => {
+                        try {
+                            file.replace_contents_finish(res);
+                            this._setBackground();
+                            log('Download successful');
+                        } catch(e) {
+                            log('Error writing file: ' + e);
+                        }
+                    }
+                );
             } else {
                 log('Couldn\'t fetch image from ' + url);
                 file.delete(null);
