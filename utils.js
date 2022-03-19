@@ -317,7 +317,7 @@ function cleanupImageList(settings) {
 
 function getWallpaperDir(settings) {
     let homeDir =  GLib.get_home_dir(); 
-    let BingWallpaperDir = settings.get_string('download-folder').replace('$HOME', homeDir);
+    let BingWallpaperDir = settings.get_string('download-folder').replace('$HOME', '~').replace('~', homeDir); // replace $HOME (legacy) and ~ with actual home dir
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
@@ -339,7 +339,7 @@ function getWallpaperDir(settings) {
 
 function setWallpaperDir(settings, uri) {
     let homeDir =  GLib.get_home_dir();
-    let relUri = uri.replace(homeDir, '$HOME');
+    let relUri = uri.replace(homeDir, '~');
     settings.set_string('download-folder', relUri);
 }
 
