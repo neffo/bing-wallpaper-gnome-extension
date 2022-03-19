@@ -140,8 +140,11 @@ function buildPrefsWidget() {
     });
     if (Convenience.currentVersionGreaterEqual('42.0'))  {
         log('Gallery button disabled for version: ' + Convenience.currentVersion());
-        galleryButton.set_sensitive(false);
+        //galleryButton.set_sensitive(false);
         galleryButton.set_tooltip_text('Gallery not available in this version of GNOME Shell');
+        galleryButton.connect('clicked', (widget) => {
+            Utils.openImageFolder(settings); // fall back to just opening the folder
+        });
     } 
     else {
         galleryButton.connect('clicked', (widget) => {
