@@ -199,6 +199,8 @@ function imageHasBasename(image_item, i, b) {
 }
 
 function dateFromLongDate(longdate, add_seconds) {
+    if (typeof longdate === 'number')
+        longdate = longdate.toString();
     return GLib.DateTime.new(GLib.TimeZone.new_utc(),
                              parseInt(longdate.substr(0, 4)), // year
                              parseInt(longdate.substr(4, 2)), // month
@@ -209,6 +211,8 @@ function dateFromLongDate(longdate, add_seconds) {
 }
 
 function dateFromShortDate(shortdate) {
+    if (typeof shortdate === 'number')
+        shortdate = shortdate.toString();
     return GLib.DateTime.new(GLib.TimeZone.new_utc(),
                              parseInt(shortdate.substr(0, 4)), // year
                              parseInt(shortdate.substr(4, 2)), // month

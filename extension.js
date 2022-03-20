@@ -585,7 +585,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         try {
             log('restoring state...');
             // patch for relative paths, ensures that users don't end up with broken state - see EGO review for version 38 https://extensions.gnome.org/review/30299
-            this._settings.set_string('download-folder')(this._settings.get_string('download-folder').replace('$HOME', '~'));
+            this._settings.set_string('download-folder', this._settings.get_string('download-folder').replace('$HOME', '~'));
             let stateJSON = this._settings.get_string('state');
             let state = JSON.parse(stateJSON);
             let maxLongDate = null;
@@ -614,7 +614,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             return;
         }
         catch (error) {
-            log('bad state - refreshing...');
+            log('bad state - refreshing... error was ' + error);
         }
         this._restartTimeout(60);
     }
