@@ -137,7 +137,7 @@ var Blur = class Blur {
 };
 
 function whichVersion() {
-    if ((shellVersionMajor == 3 && shellVersionMinor >= 36) || shellVersionMajor == 40) {
+    if ((shellVersionMajor == 3 && shellVersionMinor >= 36) || shellVersionMajor >= 40) {
         if (shellVersionMajor == 3 && shellVersionMinor == 36 && shellVersionPoint <= 3) {
             return 1;
         }
