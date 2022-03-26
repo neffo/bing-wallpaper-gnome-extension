@@ -460,6 +460,13 @@ function moveBackground(oldPath, newPath, schema) {
     let gsettings = new Gio.Settings({schema: schema});
     let uri = gsettings.get_string('picture-uri');
     gsettings.set_string('picture-uri', uri.replace(oldPath, newPath));
+    try {
+        let dark_uri = gsettings.get_string('picture-uri-dark');
+		gsettings.set_string('picture-uri-dark', dark_uri.replace(oldPath, newPath));
+	}
+	catch (e) {
+		log('no dark background gsettings key found ('+e+')');
+	}
     Gio.Settings.sync();
     gsettings.apply();
 }
