@@ -260,7 +260,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
                                 <property name="label" translatable="yes">Background style option</property>
-                                <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -395,7 +394,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
                                 <property name="label" translatable="yes">Selected image</property>
-                                <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -619,7 +617,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
                                 <property name="label" translatable="yes">Background blur intensity</property>
-                                <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -674,7 +671,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
                                 <property name="label" translatable="yes">Background brightness</property>
-                                <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
@@ -1040,7 +1036,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
                                 <property name="label" translatable="yes">Random interval</property>
-                                <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">0</property>
