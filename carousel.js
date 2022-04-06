@@ -96,10 +96,14 @@ var Carousel = class Carousel {
         let galleryImage = buildable.get_object('galleryImage');
         // let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
+        /*let applyButton = buildable.get_object('applyButton');
         let viewButton = buildable.get_object('viewButton');
-        let applyButton = buildable.get_object('applyButton');
         let infoButton = buildable.get_object('infoButton');
-        let deleteButton = buildable.get_object('deleteButton');
+        let deleteButton = buildable.get_object('deleteButton');*/
+        let applyButton = Gtk.Button.new_from_icon_name('preferences-desktop-wallpaper', 2);
+        let viewButton = Gtk.Button.new_from_icon_name('view-reveal', 2);
+        let infoButton = Gtk.Button.new_from_icon_name('preferences-system-details', 2);
+        let deleteButton = Gtk.Button.new_from_icon_name('edit-delete', 2);
         try {
             this._load_image(galleryImage, filename);
         }
@@ -135,6 +139,11 @@ var Carousel = class Carousel {
             if (this.callbackfunc)
                 this.callbackfunc();
         });
+        let box = buildable.get_object('buttonBar');
+        box.pack_end(applyButton, false, false, 5);
+        box.pack_end(viewButton, false, false, 5);
+        box.pack_end(infoButton, false, false, 5);
+        box.pack_end(deleteButton, false, false, 5);
         //deleteButton.set_sensitive(false);
         let item = buildable.get_object('flowBoxChild');
         return item;
