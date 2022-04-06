@@ -19,22 +19,29 @@ const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
 
 var Carousel = class Carousel {
-    constructor(settings, button = null, callbackfunc = null) {
+    constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null) {
         //create_gallery(widget, settings);
         this.settings = settings;
         this.button = button;
         this.callbackfunc = callbackfunc;
+        this.flowBox = null;
+        this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         this.log('create carousel...');
         // disable the button
         //if (this.button)
         //    this.button.set_sensitive(false);
-        [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
-        if (Gtk.get_major_version() < 4)
-            this.window.show_all();
-        else
-            this.window.show();
-        //this.window.connect('destroy', this._enable_button);
+        if (!prefs_flowbox) {    
+            [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
+            if (Gtk.get_major_version() < 4)
+                this.window.show_all();
+            else
+                this.window.show();
+            //this.window.connect('destroy', this._enable_button);
+        }
+        else {
+            this.flowBox = prefs_flowbox;
+        }
         this._create_gallery();
     }
 
@@ -56,7 +63,7 @@ var Carousel = class Carousel {
             win.add(buildable.get_object('carouselScrollable'));
         }
         else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselScrollable']);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselViewPort']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.set_child(buildable.get_object('carouselScrollable'));
         }
@@ -64,13 +71,14 @@ var Carousel = class Carousel {
     }
 
     _create_gallery() {
+        /*
         Utils.randomIntervals.forEach((seconds, i) => {
             let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
             if (Gtk.get_major_version() < 4)
                 this.flowBox.add(item);
             else 
                 this.flowBox.insert(item, -1);
-        });
+        });*/
         this.imageList.forEach((image) => {
             let item = this._create_gallery_item(image);
             if (Gtk.get_major_version() < 4)
@@ -107,8 +115,8 @@ var Carousel = class Carousel {
             this.log('create_gallery_image: '+e);
         }
         galleryImage.set_tooltip_text(image.copyright);
-        imageLabel.set_width_chars(60);
-        imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
+        /*imageLabel.set_width_chars(60);
+        imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));*/
         viewButton.connect('clicked',  () => {
             Utils.openInSystemViewer(filename);
         });

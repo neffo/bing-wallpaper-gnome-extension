@@ -99,6 +99,7 @@ function buildPrefsWidget() {
     let buttonImportData = buildable.get_object('button_json_import');
     let buttonExportData = buildable.get_object('button_json_export');
     let switchAlwaysExport = buildable.get_object('always_export_switch');
+    let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
     
     settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
@@ -138,19 +139,15 @@ function buildPrefsWidget() {
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
-    if (Convenience.currentVersionGreaterEqual('42.0'))  {
-        log('Gallery button disabled for version: ' + Convenience.currentVersion());
-        //galleryButton.set_sensitive(false);
-        galleryButton.set_tooltip_text('Gallery not available in this version of GNOME Shell');
-        galleryButton.connect('clicked', (widget) => {
-            Utils.openImageFolder(settings); // fall back to just opening the folder
-        });
-    } 
+    if (Gtk.get_major_version() == 4) {
+        carousel = new Carousel.Carousel(settings, null, null, carouselFlowBox); // auto load carousel
+    }
     else {
         galleryButton.connect('clicked', (widget) => {
-            carousel = new Carousel.Carousel(settings, widget);
+            carousel = new Carousel.Carousel(settings, widget, null, carouselFlowBox);
         });
     }
+    
     
     buttonImportData.connect('clicked', () => {
         Utils.importBingJSON(settings);

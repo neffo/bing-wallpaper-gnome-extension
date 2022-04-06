@@ -38,43 +38,43 @@ msgstr ""
 msgid "Selected image"
 msgstr ""
 
-#: ui/Settings.ui.h:11 ui/Settings4.ui.h:11
+#: ui/Settings.ui.h:11
 msgid "Select from image gallery"
 msgstr ""
 
-#: ui/Settings.ui.h:12 ui/Settings4.ui.h:12
+#: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:134
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:134
 msgid "Settings"
 msgstr ""
 
-#: ui/Settings.ui.h:14 ui/Settings4.ui.h:14
+#: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
 msgid "Use custom blur and brightness"
 msgstr ""
 
-#: ui/Settings.ui.h:15 ui/Settings4.ui.h:15
+#: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
 msgid "Override GDM3 lockscreen effects"
 msgstr ""
 
-#: ui/Settings.ui.h:16 ui/Settings4.ui.h:16
+#: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
 msgid "Blur can improve readability of login prompt"
 msgstr ""
 
-#: ui/Settings.ui.h:17 ui/Settings4.ui.h:17
+#: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
 msgid "Background blur intensity"
 msgstr ""
 
-#: ui/Settings.ui.h:18 ui/Settings4.ui.h:18
+#: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
 msgid "Can improve contrast of login prompt"
 msgstr ""
 
-#: ui/Settings.ui.h:19 ui/Settings4.ui.h:19
+#: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
 msgid "Background brightness"
 msgstr ""
 
-#: ui/Settings.ui.h:20 ui/Settings4.ui.h:20
+#: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
 msgid "Presets"
 msgstr ""
 
@@ -82,95 +82,95 @@ msgstr ""
 msgid "Commonly used presets"
 msgstr ""
 
-#: ui/Settings.ui.h:22 ui/Settings4.ui.h:21
+#: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
 msgid "No blur, slight dim"
 msgstr ""
 
-#: ui/Settings.ui.h:23 ui/Settings4.ui.h:22
+#: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
 msgid "GNOME default"
 msgstr ""
 
-#: ui/Settings.ui.h:24 ui/Settings4.ui.h:23
+#: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
 msgid "Slight blur, slight dim"
 msgstr ""
 
-#: ui/Settings.ui.h:25 ui/Settings4.ui.h:24
+#: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
 msgid "Lock Screen"
 msgstr ""
 
-#: ui/Settings.ui.h:26 ui/Settings4.ui.h:26
+#: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
 msgid "Debug logging"
 msgstr ""
 
-#: ui/Settings.ui.h:27 ui/Settings4.ui.h:25
+#: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:28
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27
 msgid "Always show new images"
 msgstr ""
 
-#: ui/Settings.ui.h:29 ui/Settings4.ui.h:27
+#: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
-#: ui/Settings.ui.h:30 ui/Settings4.ui.h:30
+#: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
 msgid "Enable all features on Wayland"
 msgstr ""
 
-#: ui/Settings.ui.h:31 ui/Settings4.ui.h:29
+#: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
 msgid "Some newer features may be unstable on Wayland"
 msgstr ""
 
-#: ui/Settings.ui.h:32 ui/Settings4.ui.h:31
+#: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
 msgid "Screen resolution"
 msgstr ""
 
-#: ui/Settings.ui.h:33 ui/Settings4.ui.h:32
+#: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: ui/Settings.ui.h:34 ui/Settings4.ui.h:33
+#: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
 msgid "Manually adjust random interval (seconds)"
 msgstr ""
 
-#: ui/Settings.ui.h:35 ui/Settings4.ui.h:34
+#: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
 msgid "Random interval"
 msgstr ""
 
-#: ui/Settings.ui.h:36 ui/Settings4.ui.h:35
+#: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
 msgid "Import Bing Wallpaper data"
 msgstr ""
 
-#: ui/Settings.ui.h:37 ui/Settings4.ui.h:36
+#: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
 msgid "Import previously exported JSON data from wallpaper directory"
 msgstr ""
 
-#: ui/Settings.ui.h:38 ui/Settings4.ui.h:37
+#: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
 msgid "Import"
 msgstr ""
 
-#: ui/Settings.ui.h:39 ui/Settings4.ui.h:38
+#: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
 msgid "Export Bing Wallpaper data"
 msgstr ""
 
-#: ui/Settings.ui.h:40 ui/Settings4.ui.h:39
+#: ui/Settings.ui.h:40 ui/Settings4.ui.h:38
 msgid "Export JSON data to wallpaper dir for backup or data migration"
 msgstr ""
 
-#: ui/Settings.ui.h:41 ui/Settings4.ui.h:40
+#: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
 msgid "Export"
 msgstr ""
 
-#: ui/Settings.ui.h:42 ui/Settings4.ui.h:41
+#: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
 msgid "Always export Bing data"
 msgstr ""
 
-#: ui/Settings.ui.h:43 ui/Settings4.ui.h:42
+#: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
 msgid "Export Bing JSON whenever data changes"
 msgstr ""
 
-#: ui/Settings.ui.h:44 ui/Settings4.ui.h:43
+#: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
 msgid "Debug options"
 msgstr ""
 
@@ -210,6 +210,10 @@ msgstr ""
 
 #: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
 msgid "About"
+msgstr ""
+
+#: ui/Settings4.ui.h:43
+msgid "Gallery"
 msgstr ""
 
 #: ui/Settings4.ui.h:45
@@ -284,15 +288,15 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:172
+#: prefs.js:169
 msgid "Select folder"
 msgstr ""
 
-#: prefs.js:237
+#: prefs.js:234
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:238
+#: prefs.js:235
 msgid "Random image"
 msgstr ""
 

@@ -53,6 +53,9 @@ Bing Wallpaper GNOME extension by: Michael Carroll
   </object>
   <object class="GtkNotebook" id="prefs_widget">
     <property name="can_focus">0</property>
+    <property name="scrollable">0</property>
+    <property name="vexpand">0</property>
+    <property name="height_request">500</property>
     <child>
       <object class="GtkNotebookPage">
         <property name="child">
@@ -64,6 +67,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             <property name="margin_bottom">12</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
+            <property name="vexpand">0</property>
             <child>
               <object class="GtkFrame" id="gui_frame">
                 <property name="can_focus">0</property>
@@ -411,16 +415,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <layout>
                                   <property name="column">0</property>
                                   <property name="row">1</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="button_open_gallery">
-                                <property name="label" translatable="yes">Select from image gallery</property>
-                                <layout>
-                                  <property name="column">1</property>
-                                  <property name="row">2</property>
-                                  <property name="row-span">1</property>
                                 </layout>
                               </object>
                             </child>
@@ -773,7 +767,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     </child>
     <child>
       <object class="GtkNotebookPage">
-        <property name="position">1</property>
+        <property name="position">2</property>
         <property name="child">
           <object class="GtkBox" id="debug_box">
             <property name="can_focus">0</property>
@@ -1243,24 +1237,50 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     </child>
     <child>
       <object class="GtkNotebookPage">
-        <property name="position">2</property>
+        <property name="position">3</property>
+        <property name="child">
+        <object class="GtkViewport" id="carouselViewPort">
+          <property name="can-focus">0</property>
+          <property name="height_request">500</property>
+            <property name="child">
+              <object class="GtkFlowBox" id="carouselFlowBox">
+                <property name="can-focus">0</property>
+                <property name="halign">center</property>
+                <property name="homogeneous">1</property>
+                <property name="max-children-per-line">5</property>
+                <property name="min-children-per-line">2</property>
+                <property name="row-spacing">2</property>
+                <property name="column-spacing">2</property>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="tab">
+          <object class="GtkLabel" id="Gallery Label">
+            <property name="can_focus">0</property>
+            <property name="label" translatable="yes">Gallery</property>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkNotebookPage">
+        <property name="position">4</property>
         <property name="child">
           <object class="GtkBox" id="about_box">
             <property name="can_focus">0</property>
-            <property name="margin_top">12</property>
-            <property name="margin_bottom">12</property>
+            <!-- <property name="margin_top">12</property> -->
+            <!-- <property name="margin_bottom">12</property> -->
             <property name="hexpand">1</property>
-            <property name="vexpand">1</property>
+            <property name="vexpand">0</property>
             <property name="orientation">vertical</property>
             <property name="spacing">5</property>
-            <child>
-            <!--
+            <!-- <child>
               <object class="GtkImage" id="logo">
                 <property name="can_focus">0</property>
                 <property name="file">../icons/bing-symbolic.svg</property>
               </object>
-              -->
-            </child>
+            </child> -->
             <child>
               <object class="GtkLabel" id="extension_name">
                 <property name="can_focus">0</property>
@@ -1282,7 +1302,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               <object class="GtkBox" id="version_box">
                 <property name="can_focus">0</property>
                 <property name="halign">center</property>
-                <property name="margin_bottom">12</property>
+                <!-- <property name="margin_bottom">12</property> -->
                 <child>
                   <object class="GtkLabel" id="extension_version_label">    
                     <property name="can_focus">0</property>
@@ -1330,23 +1350,18 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <child>
                   <object class="GtkLabel">
                     <property name="can_focus">0</property>
+                    <property name="margin-start">36</property>
                     <property name="label" translatable="yes">Show your support to the author on &lt;a href=&quot;https://flattr.com/@neffo&quot;&gt;Flattr&lt;/a&gt; or &lt;a href=&quot;https://github.com/sponsors/neffo&quot;&gt;Github Sponsors&lt;/a&gt;.</property>
                     <property name="use_markup">1</property>
                   </object>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="can_focus">0</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel" id="change_log">
                     <property name="can_focus">0</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
+                    <property name="margin-start">36</property>
+                    <!-- <property name="margin-end">12</property> -->
                     <property name="hexpand">1</property>
-                    <property name="vexpand">1</property>
+                    <!-- <property name="vexpand">1</property> -->
                     <property name="label" translatable="yes">Changes since last version</property>
                     <property name="wrap">1</property>
                   </object>
@@ -1354,6 +1369,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <child>
                   <object class="GtkLabel">
                     <property name="can_focus">0</property>
+                    <property name="margin-start">36</property>
                     <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
                     <property name="justify">center</property>
                     <property name="wrap">1</property>
@@ -1368,7 +1384,6 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               <object class="GtkLabel" id="GNU_label">
                 <property name="vexpand">0</property>
                 <property name="can_focus">0</property>
-                <property name="valign">end</property>
                 <property name="label" translatable="yes">&lt;span size=&quot;small&quot;&gt;This program comes with ABSOLUTELY NO WARRANTY.
 See the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GNU General Public License, version 3 or later&lt;/a&gt; for details.&lt;/span&gt;</property>
                 <property name="use_markup">1</property>
