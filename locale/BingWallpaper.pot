@@ -220,19 +220,19 @@ msgstr ""
 msgid "GNOME shell extension version "
 msgstr ""
 
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:2
+#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
 msgid "Apply"
 msgstr ""
 
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:3
+#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
 msgid "View"
 msgstr ""
 
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:4
+#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
 msgid "Info"
 msgstr ""
 
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:5
+#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
 msgid "Delete"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Set random mode"
 msgstr ""
 
-#: ui/carousel4.ui.h:1
+#: ui/carousel4.ui.h:5
 msgid "<image name here>"
 msgstr ""
 
