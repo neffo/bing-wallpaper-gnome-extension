@@ -62,8 +62,8 @@ var marketName = [
 ];
 var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-var randomIntervals = [300, 3600, 86400];
-var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
+var randomIntervals = [300, 3600, 86400, 604800];
+var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
 
 var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
 
