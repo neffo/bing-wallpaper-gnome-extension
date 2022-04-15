@@ -30,6 +30,7 @@ Author: Michael Carroll
       <object class="GtkViewport" id="carouselViewPort">
         <property name="can-focus">0</property>
         <property name="vexpand">0</property>
+        <property name="height-request">500</property>
         <property name="child">
           <object class="GtkFlowBox" id="carouselFlowBox">
             <property name="can-focus">0</property>
@@ -147,6 +148,38 @@ Author: Michael Carroll
               <property name="column">0</property>
               <property name="row">2</property>
               <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="GtkFlowBoxChild" id="flowBoxPlaceholder">
+    <property name="can-focus">0</property>
+    <property name="child">
+      <object class="GtkGrid" id="loadGrid">
+        <property name="can-focus">0</property>
+        <property name="halign">center</property>
+        <child>
+          <object class="GtkImage" id="loadImage">
+            <property name="width-request">320</property>
+            <property name="height-request">120</property>
+            <property name="can-focus">0</property>
+            <property name="icon-name">preferences-desktop-wallpaper-symbolic</property>
+            <property name="icon_size">3</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="loadButton">
+            <property name="label" translatable="yes">Load image gallery</property>
+            <property name="receives-default">1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
             </layout>
           </object>
         </child>

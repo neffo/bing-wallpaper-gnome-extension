@@ -42,7 +42,12 @@ var Carousel = class Carousel {
         else {
             this.flowBox = prefs_flowbox;
         }
-        this._create_gallery();
+        if (Gtk.get_major_version() < 4) {
+            this._create_gallery();
+        }
+        else {
+            this.flowBox.insert(this._create_placeholder_item(), -1);
+        }
     }
 
     _enable_button() {
@@ -159,6 +164,25 @@ var Carousel = class Carousel {
             this.log('gallery selected random with interval '+seconds);
         });
         let item = buildable.get_object('flowBoxRandom');
+        return item;
+    }
+
+    _create_placeholder_item() {
+        let buildable = new Gtk.Builder();
+        if (Gtk.get_major_version() >= 4) {// grab appropriate object from UI file {}
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
+        }
+        else {
+            return null;
+        }
+
+        let loadButton = buildable.get_object('loadButton');
+
+        loadButton.connect('clicked', (widget) => {
+            this.flowBox.remove(widget.get_parent());
+            this._create_gallery();
+        });
+        let item = buildable.get_object('flowBoxPlaceholder');
         return item;
     }
 
