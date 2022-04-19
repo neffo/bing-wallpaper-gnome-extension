@@ -374,7 +374,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // set menu thumbnail
     _setThumbnailImage() {
         let pixbuf = this.thumbnail.pixbuf;
-        let scale_factor = 1;
         if (pixbuf == null)
             return;
         const {width, height} = pixbuf;
@@ -396,7 +395,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-        scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        let scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
         log('scale factor: ' + scale_factor);
         getActorCompat(this.thumbnailItem).set_size(480*scale_factor, 270*scale_factor);
         this.thumbnailItem.setSensitive(true);
