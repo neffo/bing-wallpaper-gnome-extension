@@ -43,12 +43,11 @@ function buildPrefsWidget() {
     let buildable = new Gtk.Builder();
     if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
         buildable.add_from_file( Me.dir.get_path() + '/ui/Settings4.ui' );
-        /* // CSS not yet used
-        provider.load_from_path(Me.dir.get_path() + '/prefs.css'); 
+        provider.load_from_path(Me.dir.get_path() + '/ui/prefs.css'); 
         Gtk.StyleContext.add_provider_for_display(
         Gdk.Display.get_default(),
         provider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION); */
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
     else {
         buildable.add_from_file( Me.dir.get_path() + '/ui/Settings.ui' );

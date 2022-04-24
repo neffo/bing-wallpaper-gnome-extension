@@ -280,27 +280,27 @@ msgstr ""
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:567 extension.js:597
+#: extension.js:569 extension.js:599
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:624
+#: extension.js:626
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:625
+#: extension.js:627
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:169
+#: prefs.js:168
 msgid "Select folder"
 msgstr ""
 
-#: prefs.js:234
+#: prefs.js:233
 msgid "Most recent image"
 msgstr ""
 
-#: prefs.js:235
+#: prefs.js:234
 msgid "Random image"
 msgstr ""
 

@@ -153,6 +153,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="halign">end</property>
                                 <property name="hexpand">1</property>
                                 <property name="file">../icons/bing-symbolic.svg</property>
+                                <property name="css_classes">icon_image_black_bg</property>
                                 <layout>
                                   <property name="column">1</property>
                                   <property name="row">0</property>
