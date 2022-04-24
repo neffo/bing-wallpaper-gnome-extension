@@ -169,6 +169,7 @@ var Carousel = class Carousel {
 
     _create_placeholder_item() {
         let buildable = new Gtk.Builder();
+        this.flowBox.set_max_children_per_line(1);
         if (Gtk.get_major_version() >= 4) {// grab appropriate object from UI file {}
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
         }
@@ -180,6 +181,7 @@ var Carousel = class Carousel {
 
         loadButton.connect('clicked', (widget) => {
             this.flowBox.remove(widget.get_parent());
+            this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
         });
         let item = buildable.get_object('flowBoxPlaceholder');
