@@ -62,8 +62,8 @@ var marketName = [
 ];
 var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-var randomIntervals = [300, 3600, 86400];
-var randomIntervalsTitle = ['00:05:00', '01:00:00', '24:00:00'];
+var randomIntervals = [300, 3600, 86400, 604800];
+var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
 
 var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
 
@@ -460,6 +460,13 @@ function moveBackground(oldPath, newPath, schema) {
     let gsettings = new Gio.Settings({schema: schema});
     let uri = gsettings.get_string('picture-uri');
     gsettings.set_string('picture-uri', uri.replace(oldPath, newPath));
+    try {
+        let dark_uri = gsettings.get_string('picture-uri-dark');
+		gsettings.set_string('picture-uri-dark', dark_uri.replace(oldPath, newPath));
+	}
+	catch (e) {
+		log('no dark background gsettings key found ('+e+')');
+	}
     Gio.Settings.sync();
     gsettings.apply();
 }

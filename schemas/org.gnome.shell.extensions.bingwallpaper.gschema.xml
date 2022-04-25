@@ -155,6 +155,11 @@
       <summary>Save backup copy of Bing JSON to wallpaper directory</summary>
       <description>Enables migration to new install or restoration from back up</description>
     </key>
+
+    <key name="show-count-in-image-title" type="b">
+      <default>false</default>
+      <summary>Include current index and total image count in image title</summary>
+    </key>
     
     <!-- not currently used
     <key name="gallery-width" type="i">

@@ -32,8 +32,14 @@ const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from t
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
 const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
 const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
+const ICON_CONSEC_BUTTON = 'media-playlist-consecutive-symbolic';
 const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
+const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
+const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
+const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
+const ICON_REFRESH = 'view-refresh-symbolic';
+
 
 let autores; // automatically selected resolution
 let bingWallpaperIndicator = null;
@@ -93,6 +99,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.thumbnailItem = null;
         this.selected_image = "current";
         this.clipboard = new BWClipboard.BWClipboard();
+        this.imageIndex = null;
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -130,11 +137,35 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addMenuItem(this.explainItem);
+
+        // build the button bar
         this.menu.addMenuItem(this.controlItem);
-        this.prevBtn = this._newMenuIcon(ICON_PREVIOUS_BUTTON, this.controlItem, this._prevImage);
-        this.randomBtn = this._newMenuIcon(ICON_SHUFFLE_BUTTON, this.controlItem, this._setRandom);
-        this.nextBtn = this._newMenuIcon(ICON_NEXT_BUTTON, this.controlItem, this._nextImage);
-        this.curBtn = this._newMenuIcon(ICON_CURRENT_BUTTON, this.controlItem, this._curImage);
+        this.prevBtn = this._newMenuIcon(
+            ICON_PREVIOUS_BUTTON, 
+            this.controlItem, 
+            this._prevImage);
+        this.refreshBtn = this._newMenuIcon(
+            ICON_REFRESH, 
+            this.controlItem, 
+            this._shuffleImage); 
+        this.nextBtn = this._newMenuIcon(
+            ICON_NEXT_BUTTON, 
+            this.controlItem, 
+            this._nextImage);
+        this.curBtn = this._newMenuIcon(
+            ICON_CURRENT_BUTTON, 
+            this.controlItem, 
+            this._curImage);
+        this.randomBtn = this._newMenuIcon(
+            this._settings.get_string('selected-image') == 'random' ? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
+            this.controlItem, 
+            this._toggleShuffle, 
+            6);
+        this.modeBtn = this._newMenuIcon(
+            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
+            this.controlItem, 
+            this._togglePause);
+        
         this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.titleItem);
         this.menu.addMenuItem(this.copyrightItem);
@@ -313,7 +344,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         menuItem.label.set_style('max-width: 420px;');
     }
 
-    _newMenuIcon(icon_name, parent, fn) {
+    _newMenuIcon(icon_name, parent, fn, position = null) {
         let icon = new St.Icon({
             icon_name: icon_name,
             style_class: 'popup-menu-icon',
@@ -329,7 +360,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             x_expand: true,
             y_expand: true
         });
-        getActorCompat(parent).add_child(iconBtn);
+        if (position) {
+            getActorCompat(parent).insert_child_at_index(iconBtn, position);
+        }
+        else {
+            getActorCompat(parent).add_child(iconBtn);
+        }
+            
         iconBtn.connect('button-press-event', fn.bind(this));
         return iconBtn;
     }
@@ -358,7 +395,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         getActorCompat(this.thumbnailItem).hexpand = false;
         getActorCompat(this.thumbnailItem).vexpand = false;
         getActorCompat(this.thumbnailItem).content = image;
-        getActorCompat(this.thumbnailItem).set_size(480, 270);    
+        let scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        log('scale factor: ' + scale_factor);
+        getActorCompat(this.thumbnailItem).set_size(480*scale_factor, 270*scale_factor);
         this.thumbnailItem.setSensitive(true);
     }
 
@@ -375,15 +414,34 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._gotoImage(0);
     }
 
-    _setRandom() {
+    _shuffleImage() {
+        this._selectImage(true);
+    }
+
+    _togglePause() {
+        this._settings.set_boolean('revert-to-current-image', !this._settings.get_boolean('revert-to-current-image'));
+        getActorCompat(this.controlItem.remove_child(this.modeBtn));
+        this.modeBtn = this._newMenuIcon(
+            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
+            this.controlItem, 
+            this._togglePause);
+        log('switched mode to ' + this._settings.get_boolean('revert-to-current-image'));
+    }
+
+    _toggleShuffle() {
         if (this._settings.get_string('selected-image') == 'random') {
-            // already set to random, so just roll the dice once more
-            this._selectImage();
+            this._settings.set_string('selected-image', 'current');
         }
         else {
-            // setting this will force a new image selection
             this._settings.set_string('selected-image', 'random');
         }
+        getActorCompat(this.controlItem.remove_child(this.randomBtn));
+        this.randomBtn = this._newMenuIcon(
+            this._settings.get_string('selected-image') == 'random'? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
+            this.controlItem, 
+            this._toggleShuffle, 
+            6);
+        log('switched mode to ' + this._settings.get_boolean('revert-to-current-image'));
     }
 
     _gotoImage(relativePos) {
@@ -515,20 +573,23 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         source.showNotification(notification);
     }
 
-    _selectImage() {
+    _selectImage(force_shuffle = false) {
         let imageList = JSON.parse(this._settings.get_string('bing-json'));
         let image = null;
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
-        if (this.selected_image == 'random') {
-            image = imageList[Utils.getRandomInt(imageList.length)];
+        if (this.selected_image == 'random' || force_shuffle) {
+            this.imageIndex = Utils.getRandomInt(imageList.length);
+            image = imageList[this.imageIndex];
             this._restartShuffleTimeout();
         } else if (this.selected_image == 'current') {
             image = Utils.getCurrentImage(imageList);
+            this.imageIndex = Utils.getCurrentImageIndex(imageList);
         } else {
             image = Utils.inImageList(imageList, this.selected_image);
             log('_selectImage: ' + this.selected_image + ' = ' + image ? image.urlbase : 'not found');
             if (!image) // if we didn't find it, try for current
                 image = Utils.getCurrentImage(imageList);
+            this.imageIndex = Utils.imageIndex(imageList, image.urlbase);
         }
         if (!image)
             return; // could force, image = imageList[0] or perhaps force refresh
@@ -536,6 +597,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (image.url != '') {
             this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
             this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
+            if (this._settings.get_boolean('show-count-in-image-title'))
+                this.explanation += ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']';
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');

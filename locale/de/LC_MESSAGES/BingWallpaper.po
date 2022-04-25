@@ -155,7 +155,7 @@ msgstr "Intervall für Zufallsbilder manuell anpassen (Sekunden)"
 
 #: ui/Settings.ui.h:35 ui/Settings4.ui.h:34
 msgid "Random interval"
-msgstr "Zufallsufallsbilder"
+msgstr "Zufallsbilder"
 
 #: ui/Settings.ui.h:36 ui/Settings4.ui.h:35
 msgid "Import Bing Wallpaper data"

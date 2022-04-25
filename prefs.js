@@ -43,12 +43,11 @@ function buildPrefsWidget() {
     let buildable = new Gtk.Builder();
     if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
         buildable.add_from_file( Me.dir.get_path() + '/ui/Settings4.ui' );
-        /* // CSS not yet used
-        provider.load_from_path(Me.dir.get_path() + '/prefs.css'); 
+        provider.load_from_path(Me.dir.get_path() + '/ui/prefs.css'); 
         Gtk.StyleContext.add_provider_for_display(
         Gdk.Display.get_default(),
         provider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION); */
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
     else {
         buildable.add_from_file( Me.dir.get_path() + '/ui/Settings.ui' );
@@ -99,6 +98,7 @@ function buildPrefsWidget() {
     let buttonImportData = buildable.get_object('button_json_import');
     let buttonExportData = buildable.get_object('button_json_export');
     let switchAlwaysExport = buildable.get_object('always_export_switch');
+    let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
     
     settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
@@ -138,19 +138,15 @@ function buildPrefsWidget() {
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
-    if (Convenience.currentVersionGreaterEqual('42.0'))  {
-        log('Gallery button disabled for version: ' + Convenience.currentVersion());
-        //galleryButton.set_sensitive(false);
-        galleryButton.set_tooltip_text('Gallery not available in this version of GNOME Shell');
-        galleryButton.connect('clicked', (widget) => {
-            Utils.openImageFolder(settings); // fall back to just opening the folder
-        });
-    } 
+    if (Gtk.get_major_version() == 4) {
+        carousel = new Carousel.Carousel(settings, null, null, carouselFlowBox); // auto load carousel
+    }
     else {
         galleryButton.connect('clicked', (widget) => {
-            carousel = new Carousel.Carousel(settings, widget);
+            carousel = new Carousel.Carousel(settings, widget, null, carouselFlowBox);
         });
     }
+    
     
     buttonImportData.connect('clicked', () => {
         Utils.importBingJSON(settings);

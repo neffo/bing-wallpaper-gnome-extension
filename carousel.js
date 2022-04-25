@@ -19,23 +19,35 @@ const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
 
 var Carousel = class Carousel {
-    constructor(settings, button = null, callbackfunc = null) {
+    constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null) {
         //create_gallery(widget, settings);
         this.settings = settings;
         this.button = button;
         this.callbackfunc = callbackfunc;
+        this.flowBox = null;
+        this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         this.log('create carousel...');
         // disable the button
         //if (this.button)
         //    this.button.set_sensitive(false);
-        [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
-        if (Gtk.get_major_version() < 4)
-            this.window.show_all();
-        else
-            this.window.show();
-        //this.window.connect('destroy', this._enable_button);
-        this._create_gallery();
+        if (!prefs_flowbox) {    
+            [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
+            if (Gtk.get_major_version() < 4)
+                this.window.show_all();
+            else
+                this.window.show();
+            //this.window.connect('destroy', this._enable_button);
+        }
+        else {
+            this.flowBox = prefs_flowbox;
+        }
+        if (Gtk.get_major_version() < 4) {
+            this._create_gallery();
+        }
+        else {
+            this.flowBox.insert(this._create_placeholder_item(), -1);
+        }
     }
 
     _enable_button() {
@@ -56,7 +68,7 @@ var Carousel = class Carousel {
             win.add(buildable.get_object('carouselScrollable'));
         }
         else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselScrollable']);
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselViewPort']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.set_child(buildable.get_object('carouselScrollable'));
         }
@@ -87,7 +99,7 @@ var Carousel = class Carousel {
         else
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxChild"]);
         let galleryImage = buildable.get_object('galleryImage');
-        let imageLabel = buildable.get_object('imageLabel');
+        // let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
         let viewButton = buildable.get_object('viewButton');
         let applyButton = buildable.get_object('applyButton');
@@ -107,8 +119,8 @@ var Carousel = class Carousel {
             this.log('create_gallery_image: '+e);
         }
         galleryImage.set_tooltip_text(image.copyright);
-        imageLabel.set_width_chars(60);
-        imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));
+        /*imageLabel.set_width_chars(60);
+        imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));*/
         viewButton.connect('clicked',  () => {
             Utils.openInSystemViewer(filename);
         });
@@ -135,12 +147,14 @@ var Carousel = class Carousel {
 
     _create_random_item(seconds, title) {
         let buildable = new Gtk.Builder();
-        if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
+        if (Gtk.get_major_version() < 4) {// grab appropriate object from UI file {}
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
-        else
+        }
+        else {
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxRandom"]);
+        }
         let randomLabel = buildable.get_object('randomLabel');
-        randomLabel.set_label(title);
+        randomLabel.set_text(title);
         let filename = 'random';
         let applyButton = buildable.get_object('randomButton');
 
@@ -150,6 +164,27 @@ var Carousel = class Carousel {
             this.log('gallery selected random with interval '+seconds);
         });
         let item = buildable.get_object('flowBoxRandom');
+        return item;
+    }
+
+    _create_placeholder_item() {
+        let buildable = new Gtk.Builder();
+        this.flowBox.set_max_children_per_line(1);
+        if (Gtk.get_major_version() >= 4) {// grab appropriate object from UI file {}
+            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
+        }
+        else {
+            return null;
+        }
+
+        let loadButton = buildable.get_object('loadButton');
+
+        loadButton.connect('clicked', (widget) => {
+            this.flowBox.remove(widget.get_parent());
+            this.flowBox.set_max_children_per_line(2);
+            this._create_gallery();
+        });
+        let item = buildable.get_object('flowBoxPlaceholder');
         return item;
     }
 

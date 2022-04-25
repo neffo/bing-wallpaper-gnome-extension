@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.38.2 
-
 Copyright (C) 2017-2021
-
 This file is part of Bing Wallpaper.
-
 Bing Wallpaper is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 Bing Wallpaper is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with Bing Wallpaper.  If not, see <http://www.gnu.org/licenses/>.
-
 Author: Michael Carroll
-
 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
@@ -71,18 +64,6 @@ Author: Michael Carroll
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="imageLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label">&lt;image name here&gt;</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">1</property>
-            <property name="width">4</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="applyButton">
             <property name="label" translatable="yes">Apply</property>
             <property name="visible">True</property>
@@ -91,7 +72,7 @@ Author: Michael Carroll
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">2</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
         <child>
@@ -103,7 +84,7 @@ Author: Michael Carroll
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="top-attach">2</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
         <child>
@@ -115,7 +96,7 @@ Author: Michael Carroll
           </object>
           <packing>
             <property name="left-attach">2</property>
-            <property name="top-attach">2</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
         <child>
@@ -127,7 +108,7 @@ Author: Michael Carroll
           </object>
           <packing>
             <property name="left-attach">3</property>
-            <property name="top-attach">2</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
       </object>
@@ -146,7 +127,7 @@ Author: Michael Carroll
         <child>
           <object class="GtkImage" id="randomImage">
             <property name="width-request">320</property>
-            <property name="height-request">180</property>
+            <property name="height-request">150</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="icon-name">media-playlist-shuffle</property>
