@@ -57,6 +57,13 @@ function log(msg) {
         print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
 }
 
+// pinched from here https://github.com/Odyseus/CinnamonTools (/extensions/MultiTranslatorExtension/js_modules/utils.js)
+function soupPrinter(aLog, aLevel = null, aDirection = null, aData = null) {
+    if (aLevel && aDirection && aData) {
+        log('Soup: '+String(aData));
+    }
+}
+
 function notifyError(msg) {
     Main.notifyError("BingWallpaper extension error", msg);
 }
@@ -100,6 +107,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.selected_image = "current";
         this.clipboard = new BWClipboard.BWClipboard();
         this.imageIndex = null;
+        this.logger = null;
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -109,6 +117,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         this.httpSession = new Soup.Session();
         Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+        if (this._settings.get_boolean('debug-logging')) {
+            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
+            this.logger.attach(this.httpSession);
+            this.logger.set_printer(soupPrinter);
+        }
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
