@@ -53,7 +53,7 @@ const getActorCompat = (obj) =>
     Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 function log(msg) {
-    if (bingWallpaperIndicator == null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
+    if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
         print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
 }
 
@@ -108,6 +108,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
         this.httpSession = new Soup.Session();
+        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
