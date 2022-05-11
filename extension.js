@@ -115,13 +115,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
-        this.httpSession = new Soup.Session();
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
-        if (this._settings.get_boolean('debug-logging')) {
-            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
-            this.logger.attach(this.httpSession);
-            this.logger.set_printer(soupPrinter);
-        }
+        this._initSoup();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -215,6 +209,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
         else {
             this._restartTimeout(60); // wait 60 seconds before performing refresh
+        }
+    }
+
+    _initSoup() {
+        this.httpSession = new Soup.Session();
+        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+        if (this._settings.get_boolean('debug-logging')) {
+            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
+            this.logger.attach(this.httpSession);
+            this.logger.set_printer(soupPrinter);
         }
     }
 
@@ -487,6 +491,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._updatePending = true;
         this._restartTimeout();
         let market = this._settings.get_string('market');
+        this._initSoup(); // get new session, incase we aren't detecting proxy changes
         // create an http message
         let url = BingImageURL + (market != 'auto' ? market : '');
         let request = Soup.Message.new('GET', url);
