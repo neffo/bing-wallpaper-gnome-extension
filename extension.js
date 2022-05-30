@@ -212,6 +212,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
+    // create soup Session, set proxy resolver and hook up the logger
     _initSoup() {
         this.httpSession = new Soup.Session();
         Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
@@ -343,7 +344,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // convert shortdate format into human friendly format
     _localeDate(shortdate) {
-        let date = Utils.dateFromShortDate(shortdate);
+        let date = this._settings.get_boolean('date-rollover') ? 
+            Utils.dateFromLongDate(shortdate, 43200): // add 12 hours to displayed date
+            Utils.dateFromLongDate(shortdate); // date at update
         return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
     }
 
