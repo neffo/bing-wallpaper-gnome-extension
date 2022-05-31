@@ -160,11 +160,6 @@
       <default>false</default>
       <summary>Include current index and total image count in image title</summary>
     </key>
-
-    <key name="date-rollover" type="b">
-      <default>true</default>
-      <summary>Add 12 hours to date of wallpaper (displayed only)</summary>
-    </key>
     
     <!-- not currently used
     <key name="gallery-width" type="i">

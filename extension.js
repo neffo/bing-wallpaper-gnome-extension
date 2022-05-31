@@ -262,7 +262,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-        this.refreshduetext = _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
+        let maxlongdate = Utils.getMaxLongDate(this._settings);
+        this.refreshduetext = 
+            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + "), " + 
+            _("Last updated") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
@@ -331,7 +334,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // set a timer on when the current image is going to expire
     _restartTimeoutFromLongDate(longdate) {
         // all bing times are in UTC (+0)
-        let refreshDue = Utils.dateFromLongDate(longdate, 86400);
+        let refreshDue = Utils.dateFromLongDate(longdate, 86400).to_local();
         let now = GLib.DateTime.new_now_local();
         let difference = refreshDue.difference(now) / 1000000;
         log('Next refresh due ' + difference + ' seconds from now');
@@ -342,12 +345,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout(difference);
     }
 
-    // convert shortdate format into human friendly format
-    _localeDate(shortdate) {
-        let date = this._settings.get_boolean('date-rollover') ? 
-            Utils.dateFromLongDate(shortdate, 43200): // add 12 hours to displayed date
-            Utils.dateFromLongDate(shortdate); // date at update
-        return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
+    // convert longdate format into human friendly format
+    _localeDate(longdate, include_time = false) {
+        let date = Utils.dateFromLongDate(longdate, 300); // date at update
+        return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
     }
 
     // set menu text in lieu of a notification/popup
@@ -588,7 +589,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // set notifications icon
         let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
+        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.longstartdate);
         let details = Utils.getImageTitle(image);
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
