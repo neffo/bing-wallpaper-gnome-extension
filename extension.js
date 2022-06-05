@@ -140,7 +140,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); 
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'}); 
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
