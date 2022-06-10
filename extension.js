@@ -215,17 +215,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session, set proxy resolver and hook up the logger
     _initSoup() {
         this.httpSession = new Soup.Session();
-        if (this._settings.get_boolean('proxy-uri') != "") {
-            this.httpSession.proxy_uri = this._settings.get_boolean('proxy-uri');
-        }
-        /* else {
-            Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
-        }*/
         if (this._settings.get_boolean('debug-logging')) {
             this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
             this.logger.attach(this.httpSession);
             this.logger.set_printer(soupPrinter);
         }
+        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
     }
 
     // listen for configuration changes

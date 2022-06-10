@@ -160,12 +160,6 @@
       <default>false</default>
       <summary>Include current index and total image count in image title</summary>
     </key>
-
-    <key name="proxy-uri" type="s">
-      <default>""</default>
-      <summary>Override GNOME defaults proxy</summary>
-      <description></description>
-    </key>
     
     <!-- not currently used
     <key name="gallery-width" type="i">
