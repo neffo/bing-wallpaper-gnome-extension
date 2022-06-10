@@ -215,7 +215,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session, set proxy resolver and hook up the logger
     _initSoup() {
         this.httpSession = new Soup.Session();
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+        if (this._settings.get_boolean('proxy-uri') != "") {
+            this.httpSession.proxy_uri = this._settings.get_boolean('proxy-uri');
+        }
+        /* else {
+            Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+        }*/
         if (this._settings.get_boolean('debug-logging')) {
             this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
             this.logger.attach(this.httpSession);
@@ -243,6 +248,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::notify', this._notifyCurrentImage.bind(this));
         this._settings.connect('changed::always-export-bing-json', this._exportData.bind(this));
         this._settings.connect('changed::bing-json', this._exportData.bind(this));
+        this._settings.connect('changed::proxy-uri', this._initSoup.bind(this));
         this._cleanUpImages();
     }  
 
