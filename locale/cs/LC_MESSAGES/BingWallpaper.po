@@ -7,168 +7,225 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bing-wallpaper-gnome-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 13:26+1000\n"
-"Last-Translator: Matěj Cepl <mcepl@cepl.eu>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-05-26 15:25+0200\n"
+"Last-Translator: Ludek Vydra <lvtran@u.k2.cz>\n"
 "Language-Team: \n"
-"Language: cs\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
+#: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
 msgid "Hide the indicator"
-msgstr "Skryj ukazatel"
+msgstr "Skryj ikonu"
 
-#: Settings.ui.h:2 Settings4.ui.h:3
-#, fuzzy
+#: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
 msgid "Indicator icon"
-msgstr "Ukazatel"
+msgstr "Ikona indikátoru"
 
-#: Settings.ui.h:3 Settings4.ui.h:4
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Povolit oznámení na ploše"
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:131
 msgid "Set background image"
 msgstr "Nastav obrázek pozadí"
 
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Nastav obrázek při uzamčení obrazovky"
+#: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
+msgid "Background style option"
+msgstr "Možnost stylu pozadí"
 
-#: Settings.ui.h:6 Settings4.ui.h:7
+#: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
 msgid "Download folder"
 msgstr "Složka pro stažení souborů"
 
-#: Settings.ui.h:7 Settings4.ui.h:1
+#: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
 msgstr "Složka tapet z Bing"
 
-#: Settings.ui.h:8 Settings4.ui.h:9
+#: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
+msgid "Open folder"
+msgstr "Otevři složku"
+
+#: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers"
 msgstr "Smaž tapety, které jste dříve stáhli"
 
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "Počet dní před tím, nežli jsou tapety smazány"
+#: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
+msgid "Selected image"
+msgstr "Vybraný obrázek"
 
-#: Settings.ui.h:10 Settings4.ui.h:11
+#: ui/Settings.ui.h:11
+msgid "Select from image gallery"
+msgstr "Vyber z galerie obrázků"
+
+#: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
 msgid "Bing locale"
 msgstr "Národní nastavení Bing"
 
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Výchozí je angličtina Spojených států"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Rozlišení obrazovky"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "Přebít automatický výběr rozlišení obrazovky"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
-#, fuzzy
-msgid "Selected image"
-msgstr "Obraz"
-
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:134
 msgid "Settings"
 msgstr "Nastavení"
 
-#: Settings.ui.h:16 Settings4.ui.h:17
+#: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
 msgid "Use custom blur and brightness"
-msgstr ""
+msgstr "Použij vlastního rozostření a jas"
 
-#: Settings.ui.h:17 Settings4.ui.h:18
+#: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
 msgid "Override GDM3 lockscreen effects"
-msgstr ""
+msgstr "Zruš GDM3 efekty zamykací obrazovky"
 
-#: Settings.ui.h:18 Settings4.ui.h:19
+#: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
 msgid "Blur can improve readability of login prompt"
-msgstr ""
+msgstr "Rozostření může zlepšit čitelnost výzvy k přihlášení"
 
-#: Settings.ui.h:19 Settings4.ui.h:20
+#: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
 msgid "Background blur intensity"
-msgstr ""
+msgstr "Intenzita rozostření pozadí"
 
-#: Settings.ui.h:20 Settings4.ui.h:21
+#: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
 msgid "Can improve contrast of login prompt"
-msgstr ""
+msgstr "Může zlepšit kontrast výzvy k přihlášení"
 
-#: Settings.ui.h:21 Settings4.ui.h:22
-#, fuzzy
-#| msgid "Set background image"
+#: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
 msgid "Background brightness"
-msgstr "Nastav obrázek pozadí"
+msgstr "Jas pozadí"
 
-#: Settings.ui.h:22 Settings4.ui.h:23
+#: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
 msgid "Presets"
-msgstr ""
+msgstr "Předvolby"
 
-#: Settings.ui.h:23 Settings4.ui.h:24
+#: ui/Settings.ui.h:21
 msgid "Commonly used presets"
-msgstr ""
+msgstr "Obvykle používané předvolby"
 
-#: Settings.ui.h:24 Settings4.ui.h:25
+#: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
 msgid "No blur, slight dim"
-msgstr ""
+msgstr "Žádné rozostření, mírné ztmavení"
 
-#: Settings.ui.h:25 Settings4.ui.h:26
+#: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
 msgid "GNOME default"
-msgstr ""
+msgstr "Výchozí GNOME"
 
-#: Settings.ui.h:26 Settings4.ui.h:27
+#: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
 msgid "Slight blur, slight dim"
-msgstr ""
+msgstr "Mírné rozostření, mírné ztmavení"
 
-#: Settings.ui.h:27 Settings4.ui.h:28
+#: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
 msgid "Lock Screen"
-msgstr ""
+msgstr "Uzamčení obrazovky"
 
-#: Settings.ui.h:28 Settings4.ui.h:29
+#: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
+msgid "Debug logging"
+msgstr "Debug logging"
+
+#: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
+msgid "Enable logging to system journal"
+msgstr "Povolit logování do systémového žurnálu"
+
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27
+msgid "Always show new images"
+msgstr "Vždy zobrazit nové obrázky"
+
+#: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+"Přepínání na nové obrázky, jakmile jsou k dispozici (pokud není zapnutý "
+"náhodný režim)."
+
+#: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
+msgid "Enable all features on Wayland"
+msgstr "Povolení všech funkcí v systému Wayland"
+
+#: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
+msgid "Some newer features may be unstable on Wayland"
+msgstr "Některé novější funkce mohou být na systému Wayland nestabilní"
+
+#: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
+msgid "Screen resolution"
+msgstr "Rozlišení obrazovky"
+
+#: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
+msgid "Override automatic resolution selection"
+msgstr "Přebít automatický výběr rozlišení obrazovky"
+
+#: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
+msgid "Manually adjust random interval (seconds)"
+msgstr "Nastav ručně náhodný interval (sekundy)"
+
+#: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
+msgid "Random interval"
+msgstr "Náhodný interval"
+
+#: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
+msgid "Import Bing Wallpaper data"
+msgstr "Importuj data Bing Wallpaper"
+
+#: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
+msgid "Import previously exported JSON data from wallpaper directory"
+msgstr "Importuj předtím exportovaná data JSON z adresáře tapet"
+
+#: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
+msgid "Import"
+msgstr "Import"
+
+#: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
+msgid "Export Bing Wallpaper data"
+msgstr "Exmportuj data Bing Wallpaper"
+
+#: ui/Settings.ui.h:40 ui/Settings4.ui.h:38
+msgid "Export JSON data to wallpaper dir for backup or data migration"
+msgstr "Exportuj JSON data do adresáře tapet pro zálohování nebo migraci"
+
+#: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
+msgid "Export"
+msgstr "Export"
+
+#: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
+msgid "Always export Bing data"
+msgstr "Vždy exportuj Bing data"
+
+#: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
+msgid "Export Bing JSON whenever data changes"
+msgstr "Exportuj Bing JSON kdykoli se data změní"
+
+#: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
+msgid "Debug options"
+msgstr "Ladicí možnosti"
+
+#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
 msgid "New wallpaper images everyday from Bing"
-msgstr ""
+msgstr "Nové Bing obrázky tapet každý den"
 
-#: Settings.ui.h:29 Settings4.ui.h:30
-#, fuzzy
-#| msgid "Gnome shell extension version: "
+#: ui/Settings.ui.h:46
 msgid "Gnome shell extension version "
 msgstr "Verze rozšíření Gnome Shell "
 
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
+#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
 msgid "Maintained by Michael Carroll"
 msgstr "Správcem je Michael Carroll"
 
-#: Settings.ui.h:32 Settings4.ui.h:33
+#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
 msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Show your support to the author on <a href=\"https://flattr.com/"
+"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
+"Podpořte autora na <a href=\"https://flattr.com/@neffo\">Flattr</a> nebo <a "
+"href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
-#: Settings.ui.h:33 Settings4.ui.h:34
+#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
 msgid "Changes since last version"
-msgstr ""
+msgstr "Změny od poslední verze"
 
-#: Settings.ui.h:34 Settings4.ui.h:35
+#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr "Založeno na Gnome rozšíření NASA APOD od Elia Argentieriho"
 
-#: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
+#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -176,117 +233,154 @@ msgid ""
 msgstr ""
 "<span size=\"small\">Tento program je ABSOLUTNĚ BEZ ZÁRUKY.\n"
 "Podrobnosti se dozvíte na <a href=\"https://www.gnu.org/licenses/old-"
-"licenses/gpl-2.0.html\">Obecná veřejná licence GNU v.3 nebo pozdější</a>.</"
+"licenses/gpl-2.0.html\">Obecná veřejná licence GNU v.3</a> nebo pozdější.</"
 "span>"
 
-#: Settings.ui.h:37 Settings4.ui.h:38
+#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
 msgid "About"
 msgstr "O rozšíření"
 
-#: Settings4.ui.h:8
-msgid "Open folder"
-msgstr ""
+#: ui/Settings4.ui.h:43
+msgid "Gallery"
+msgstr "Galerie"
 
-#: extension.js:117
+#: ui/Settings4.ui.h:45
+msgid "GNOME shell extension version "
+msgstr "Verze rozšíření Gnome Shell "
+
+#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
+msgid "Apply"
+msgstr "Použij"
+
+#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
+msgid "View"
+msgstr "Zobrazit"
+
+#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
+msgid "Info"
+msgstr "Info"
+
+#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
+msgid "Delete"
+msgstr "Vymaž"
+
+#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
+msgid "Set random mode"
+msgstr "Nastav náhodný mód"
+
+#: ui/carousel4.ui.h:5
+msgid "<image name here>"
+msgstr "<zde jméno obrázku>"
+
+#: ui/carousel4.ui.h:7
+msgid "Load image gallery"
+msgstr "Nahrej galerii obrázků"
+
+#: extension.js:119
 msgid "<No refresh scheduled>"
 msgstr "<Není plánovaná obnova>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:121 extension.js:123 extension.js:126
 msgid "Awaiting refresh..."
 msgstr "Čekám na obnovu..."
 
-#: extension.js:126
+#: extension.js:128
 msgid "Copy image to clipboard"
-msgstr "Kopíruj obrázku do schránky"
+msgstr "Kopíruj obrázek do schránky"
 
-#: extension.js:127
+#: extension.js:129
 msgid "Copy image URL to clipboard"
 msgstr "Kopíruj URL obrázku do schránky"
 
-#: extension.js:128
+#: extension.js:130
 msgid "Open image folder"
-msgstr ""
+msgstr "Otevři adresář s obrázky"
 
-#: extension.js:131
+#: extension.js:132
+msgid "Set lock screen image"
+msgstr "Nastav obrázek při uzamčení obrazovky"
+
+#: extension.js:133
 msgid "Refresh Now"
 msgstr "Obnov teď"
 
-#: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr ""
-
-#: extension.js:203
+#: extension.js:246
 msgid "Next refresh"
 msgstr "Příští obnova"
 
-#: extension.js:490 extension.js:527
+#: extension.js:569 extension.js:599
 msgid "Bing Wallpaper of the Day for"
 msgstr "Tapeta z Bing pro den"
 
-#: extension.js:495
-#, fuzzy
-#| msgid "Set wallpaper"
-msgid "Set as wallpaper"
-msgstr "Nastav tapety"
-
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr ""
-
-#: extension.js:553
+#: extension.js:626
 msgid "No wallpaper available"
 msgstr "Žádná tapeta není dostupná"
 
-#: extension.js:554
+#: extension.js:627
 msgid "No picture for today."
 msgstr "Dnes není žádný obrázek k dispozici."
 
-#: prefs.js:173
-#, fuzzy
+#: prefs.js:168
+msgid "Select folder"
+msgstr "Vyber adresář"
+
+#: prefs.js:233
 msgid "Most recent image"
 msgstr "Dnešní obrázek"
 
-#: prefs.js:174
-#, fuzzy
+#: prefs.js:234
 msgid "Random image"
 msgstr "Náhodný obrázek"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
-msgstr ""
-
-#: utils.js:139
+#: utils.js:116
 msgid "Fetching data..."
 msgstr "Stahuji data..."
 
-#: utils.js:150
+#: utils.js:127
 msgid "Market not available in your region"
 msgstr "Nabídka není k dispozici na vašem území"
 
-#: utils.js:154
+#: utils.js:131
 msgid "A network error occured"
 msgstr "Nastala síťová chyba"
 
-#: utils.js:159
-#, fuzzy
+#: utils.js:136
 msgid "Too many requests in 5 seconds"
-msgstr "Příliš mnoho požadavků"
+msgstr "Příliš mnoho požadavků během posledních 5 sekund"
 
-#: utils.js:186
+#: utils.js:162
 msgid "No change log found for this release"
-msgstr ""
+msgstr "V tomto vydání nebyl nalezen protokol změn"
 
-#: utils.js:366 utils.js:369
+#: utils.js:168
+msgid "Error fetching change log"
+msgstr "Chyba stahování protokolu změn"
+
+#: utils.js:383 utils.js:386
 msgid "minutes"
 msgstr "minut"
 
-#: utils.js:372
+#: utils.js:389
 msgid "days"
 msgstr "dnů"
 
-#: utils.js:375
+#: utils.js:392
 msgid "hours"
 msgstr "hodin"
+
+#~ msgid "Days to store wallpapers before deleting"
+#~ msgstr "Počet dní před tím, nežli jsou tapety smazány"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "Výchozí je angličtina Spojených států"
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#, fuzzy
+#~| msgid "Set wallpaper"
+#~ msgid "Set as wallpaper"
+#~ msgstr "Nastav tapety"
 
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "

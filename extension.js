@@ -53,8 +53,15 @@ const getActorCompat = (obj) =>
     Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 function log(msg) {
-    if (bingWallpaperIndicator == null || bingWallpaperIndicator._settings.get_boolean('debug-logging'))
+    if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
         print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
+}
+
+// pinched from here https://github.com/Odyseus/CinnamonTools (/extensions/MultiTranslatorExtension/js_modules/utils.js)
+function soupPrinter(aLog, aLevel = null, aDirection = null, aData = null) {
+    if (aLevel && aDirection && aData) {
+        log('Soup: '+String(aData));
+    }
 }
 
 function notifyError(msg) {
@@ -100,6 +107,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.selected_image = "current";
         this.clipboard = new BWClipboard.BWClipboard();
         this.imageIndex = null;
+        this.logger = null;
         blur = new Blur.Blur();
         blur.blur_strength = 30;
         blur.blur_brightness = 0.55;
@@ -107,7 +115,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
-        this.httpSession = new Soup.Session();
+        this._initSoup();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -132,7 +140,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
         this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
         this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem(); 
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'}); 
         this.menu.addMenuItem(this.refreshItem);
         this.menu.addMenuItem(this.refreshDueItem);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -204,6 +212,17 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
+    // create soup Session, set proxy resolver and hook up the logger
+    _initSoup() {
+        this.httpSession = new Soup.Session();
+        if (this._settings.get_boolean('debug-logging')) {
+            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
+            this.logger.attach(this.httpSession);
+            this.logger.set_printer(soupPrinter);
+        }
+        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+    }
+
     // listen for configuration changes
     _setConnections() {
         this._settings.connect('changed::hide', () => {
@@ -243,7 +262,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
-        this.refreshduetext = _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")";
+        let maxlongdate = Utils.getMaxLongDate(this._settings);
+        this.refreshduetext = 
+            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + "), " + 
+            _("Last updated") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
@@ -312,7 +334,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // set a timer on when the current image is going to expire
     _restartTimeoutFromLongDate(longdate) {
         // all bing times are in UTC (+0)
-        let refreshDue = Utils.dateFromLongDate(longdate, 86400);
+        let refreshDue = Utils.dateFromLongDate(longdate, 86400).to_local();
         let now = GLib.DateTime.new_now_local();
         let difference = refreshDue.difference(now) / 1000000;
         log('Next refresh due ' + difference + ' seconds from now');
@@ -323,10 +345,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout(difference);
     }
 
-    // convert shortdate format into human friendly format
-    _localeDate(shortdate) {
-        let date = Utils.dateFromShortDate(shortdate);
-        return date.format('%Y-%m-%d'); // ISO 8601 - https://xkcd.com/1179/
+    // convert longdate format into human friendly format
+    _localeDate(longdate, include_time = false) {
+        let date = Utils.dateFromLongDate(longdate, 300); // date at update
+        return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
     }
 
     // set menu text in lieu of a notification/popup
@@ -473,6 +495,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._updatePending = true;
         this._restartTimeout();
         let market = this._settings.get_string('market');
+        //this._initSoup(); // get new session, incase we aren't detecting proxy changes
         // create an http message
         let url = BingImageURL + (market != 'auto' ? market : '');
         let request = Soup.Message.new('GET', url);
@@ -566,7 +589,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // set notifications icon
         let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
+        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.longstartdate);
         let details = Utils.getImageTitle(image);
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));

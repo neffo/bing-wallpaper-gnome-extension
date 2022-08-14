@@ -172,7 +172,7 @@ function buildPrefsWidget() {
             if (response !== Gtk.ResponseType.ACCEPT) {
                 return;
             }
-            let fileURI = fileChooser.get_file().get_uri().replace('file://', '');
+            let fileURI = fileChooser.get_file().get_path().replace('file://', '');
             log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
             Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
