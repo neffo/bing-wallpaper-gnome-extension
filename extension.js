@@ -243,7 +243,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::notify', this._notifyCurrentImage.bind(this));
         this._settings.connect('changed::always-export-bing-json', this._exportData.bind(this));
         this._settings.connect('changed::bing-json', this._exportData.bind(this));
-        this._settings.connect('changed::proxy-uri', this._initSoup.bind(this));
         this._cleanUpImages();
     }  
 
@@ -496,7 +495,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._updatePending = true;
         this._restartTimeout();
         let market = this._settings.get_string('market');
-        this._initSoup(); // get new session, incase we aren't detecting proxy changes
+        //this._initSoup(); // get new session, incase we aren't detecting proxy changes
         // create an http message
         let url = BingImageURL + (market != 'auto' ? market : '');
         let request = Soup.Message.new('GET', url);
