@@ -125,6 +125,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
+        this._wrapLabelItem(this.refreshDueItem);
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
         this._wrapLabelItem(this.titleItem);
@@ -265,7 +266,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let maxlongdate = Utils.getMaxLongDate(this._settings);
         this.refreshduetext = 
             _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + "), " + 
-            _("Last updated") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
+            _("Last") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
