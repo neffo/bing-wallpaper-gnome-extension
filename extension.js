@@ -7,9 +7,7 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-pkg.require({
-    'Soup': '2.4' // should be generally available, 3.0 may not be...
-});
+imports.gi.versions.Soup = "2.4";
 
 const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
 const Main = imports.ui.main;
