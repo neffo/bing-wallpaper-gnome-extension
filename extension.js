@@ -59,13 +59,6 @@ function log(msg) {
         print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
 }
 
-// pinched from here https://github.com/Odyseus/CinnamonTools (/extensions/MultiTranslatorExtension/js_modules/utils.js)
-function soupPrinter(aLog, aLevel = null, aDirection = null, aData = null) {
-    if (aLevel && aDirection && aData) {
-        log('Soup: '+String(aData));
-    }
-}
-
 function notifyError(msg) {
     Main.notifyError("BingWallpaper extension error", msg);
 }
@@ -215,18 +208,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    // create soup Session, set proxy resolver and hook up the logger
+    // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
-        if (this._settings.get_boolean('debug-logging')) {
-            if (Soup.MAJOR_VERSION >= 3)
-                this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS);
-            else {
-                this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
-                this.logger.attach(this.httpSession);
-            }
-            this.logger.set_printer(soupPrinter);
-        }
     }
 
     // listen for configuration changes
@@ -510,7 +494,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // queue the http request
         try {
             this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                this._process_message(message);
+                if (Soup.MAJOR_VERSION >= 3) {
+                    this._process_message_Soup3(message);
+                }   
+                else {
+                    this._process_message_Soup2(message);
+                }
             });
         }
         catch (error) {
@@ -518,7 +507,22 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    _process_message(message) {
+    _process_message_Soup3(message) {
+        try {
+            let data = this.httpSession.send_and_read_finish(message);
+            log('Recieved ' + data.length + ' bytes');
+            this._parseData(data);
+            if (this.selected_image != 'random')
+                this._selectImage();
+        }
+        catch (error) {
+            log('Network error occured: ' + error);
+            this._updatePending = false;
+            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+        }
+    }
+
+    _process_message_Soup2(message) {
         if (message.status_code == 200) {
             let data = message.response_body.data;
             log('Recieved ' + data.length + ' bytes');
@@ -731,31 +735,67 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 // request completed
                 this._updatePending = false;
-                if (message.status_code == 200) {
-                    file.replace_contents_bytes_async(
-                        message.response_body.flatten().get_as_bytes(),
-                        null,
-                        false,
-                        Gio.FileCreateFlags.REPLACE_DESTINATION,
-                        null,
-                        (file, res) => {
-                            try {
-                                file.replace_contents_finish(res);
-                                this._setBackground();
-                                log('Download successful');
-                            } catch(e) {
-                                log('Error writing file: ' + e);
-                            }
-                        }
-                    );
-                } else {
-                    log('Couldn\'t fetch image from ' + url);
-                    file.delete(null);
+                if (Soup.MAJOR_VERSION >= 3) {
+                    this._processFileDownload_Soup3(message, file);
+                }
+                else {
+                    this._processFileDownload_Soup2(message, file);
                 }
             });
         }
         catch (error) {
             log('error sending libsoup message '+error);
+        }
+    }
+
+    _processFileDownload_Soup3(message, file) {
+        try {
+            let data = this.httpSession.send_and_read_finish(message);
+            file.replace_contents_bytes_async(
+                data,
+                null,
+                false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION,
+                null,
+                (file, res) => {
+                    try {
+                        file.replace_contents_finish(res);
+                        this._setBackground();
+                        log('Download successful');
+                    } 
+                    catch(e) {
+                        log('Error writing file: ' + e);
+                    }
+                }
+            );
+        }
+        catch (e) {
+            log('Unable download image '+e);
+        }
+    }
+
+    _processFileDownload_soup2(message, file) {
+        if (message.status_code == 200) {
+            file.replace_contents_bytes_async(
+                message.response_body.flatten().get_as_bytes(),
+                null,
+                false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION,
+                null,
+                (file, res) => {
+                    try {
+                        file.replace_contents_finish(res);
+                        this._setBackground();
+                        log('Download successful');
+                    }
+                    catch(e) {
+                        log('Error writing file: ' + e);
+                    }
+                }
+            );
+        } else {
+            log('Couldn\'t fetch image from ' + url);
+            file.delete(null);
         }
     }
 
