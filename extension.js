@@ -7,6 +7,10 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
+pkg.require({
+    'Soup': '2.4' // should be generally available, 3.0 may not be...
+});
+
 const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
@@ -219,9 +223,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (this._settings.get_boolean('debug-logging')) {
             if (Soup.MAJOR_VERSION >= 3)
                 this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS);
-            else
+            else {
                 this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
-            this.logger.attach(this.httpSession);
+                this.logger.attach(this.httpSession);
+            }
             this.logger.set_printer(soupPrinter);
         }
     }
