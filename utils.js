@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -100,43 +100,6 @@ function validate_imagename(settings) {
     }
 }
 
-function validate_market(settings, marketDescription = null, lastreq = null, httpSession) {
-    let market = settings.get_string('market');
-    if (market == '' || markets.indexOf(market) == -1) { // if not a valid market
-        settings.reset('market');
-    }
-    // only run this check if called from prefs
-    let lastReqDiff = lastreq ? GLib.DateTime.new_now_utc().difference(lastreq) : null; // time diff in *micro*seconds
-    log("last check was " + lastReqDiff + " us ago");
-
-    if ((marketDescription && lastreq === null) || (lastReqDiff && lastReqDiff > 5000000)) { // rate limit no more than 1 request per 5 seconds
-        let request = Soup.Message.new('GET', BingImageURL + (market != 'auto' ? market : '')); // + market
-        log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
-	
-        marketDescription.set_label(_("Fetching data..."));
-        // queue the http request
-        httpSession.queue_message(request, function (httpSession, message) {
-            if (message.status_code == 200) {
-                let data = message.response_body.data;
-                log("Recieved " + data.length + " bytes");
-                let checkData = JSON.parse(data);
-                let checkStatus = checkData.market.mkt;
-                if (market == 'auto' || checkStatus == market) {
-                    marketDescription.set_label('Data OK, ' + data.length + ' bytes recieved');
-                } else {
-                    marketDescription.set_label(_("Market not available in your region"));
-                }
-            } else {
-                log("Network error occured: " + message.status_code);
-                marketDescription.set_label(_("A network error occured") + ": " + message.status_code);
-            }
-        });
-    }
-    else {
-        marketDescription.set_label(_("Too many requests in 5 seconds"));
-    }
-}
-
 function get_current_bg(schema) {
     let gsettings = new Gio.Settings({ schema: schema });
     let cur = gsettings.get_string('picture-uri');
@@ -151,7 +114,7 @@ function fetch_change_log(version, label, httpSession) {
     log("Fetching " + url);
     // queue the http request
     try {
-        httpSession.queue_message(request, (httpSession, message) => {
+        httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
             if (message.status_code == 200) {
                 let data = message.response_body.data;
                 let text = JSON.parse(data).body;

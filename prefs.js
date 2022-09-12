@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -8,7 +8,7 @@
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 pkg.require({
-    'Soup': '2.4'
+    'Soup': '2.4' // should be generally available, 3.0 may not be...
 });
 
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
@@ -114,7 +114,6 @@ function buildPrefsWidget() {
     }
 
     // check that these are valid (can be edited through dconf-editor)
-    //Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
     Utils.validate_icon(settings, icon_image);
 
@@ -193,8 +192,6 @@ function buildPrefsWidget() {
             log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
         settings.connect('changed::market', () => {
-            /*Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();*/
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
         });
         settings.connect('changed::download-folder', () => {
@@ -214,10 +211,6 @@ function buildPrefsWidget() {
         });
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-        /*settings.connect('changed::market', () => {
-            Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();
-        });*/
         settings.connect('changed::download-folder', () => {
             fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         });

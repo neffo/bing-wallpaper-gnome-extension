@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -712,11 +712,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // download and process new image
     // FIXME: improve error handling
     _downloadImage(url, file) {
-        log("Downloading " + url + " to " + file.get_uri());  
+        log("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
 
         // queue the http request
-        this.httpSession.queue_message(request, (httpSession, message) => {
+        this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
             // request completed
             this._updatePending = false;
             if (message.status_code == 200) {
