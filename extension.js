@@ -221,7 +221,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.logger.attach(this.httpSession);
             this.logger.set_printer(soupPrinter);
         }
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
     }
 
     // listen for configuration changes
