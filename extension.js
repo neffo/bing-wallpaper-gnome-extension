@@ -217,7 +217,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _initSoup() {
         this.httpSession = new Soup.Session();
         if (this._settings.get_boolean('debug-logging')) {
-            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
+            if (Soup.MAJOR_VERSION >= 3)
+                this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS);
+            else
+                this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
             this.logger.attach(this.httpSession);
             this.logger.set_printer(soupPrinter);
         }
