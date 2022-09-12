@@ -502,9 +502,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log('fetching: ' + url);
 
         // queue the http request
-        this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-            this._process_message(message);
-        });
+        try {
+            this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                this._process_message(message);
+            });
+        }
+        catch (error) {
+            log('unable to send libsoup json message '+error);
+        }
     }
 
     _process_message(message) {
@@ -716,31 +721,36 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let request = Soup.Message.new('GET', url);
 
         // queue the http request
-        this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-            // request completed
-            this._updatePending = false;
-            if (message.status_code == 200) {
-                file.replace_contents_bytes_async(
-                    message.response_body.flatten().get_as_bytes(),
-                    null,
-                    false,
-                    Gio.FileCreateFlags.REPLACE_DESTINATION,
-                    null,
-                    (file, res) => {
-                        try {
-                            file.replace_contents_finish(res);
-                            this._setBackground();
-                            log('Download successful');
-                        } catch(e) {
-                            log('Error writing file: ' + e);
+        try {
+            this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                // request completed
+                this._updatePending = false;
+                if (message.status_code == 200) {
+                    file.replace_contents_bytes_async(
+                        message.response_body.flatten().get_as_bytes(),
+                        null,
+                        false,
+                        Gio.FileCreateFlags.REPLACE_DESTINATION,
+                        null,
+                        (file, res) => {
+                            try {
+                                file.replace_contents_finish(res);
+                                this._setBackground();
+                                log('Download successful');
+                            } catch(e) {
+                                log('Error writing file: ' + e);
+                            }
                         }
-                    }
-                );
-            } else {
-                log('Couldn\'t fetch image from ' + url);
-                file.delete(null);
-            }
-        });
+                    );
+                } else {
+                    log('Couldn\'t fetch image from ' + url);
+                    file.delete(null);
+                }
+            });
+        }
+        catch (error) {
+            log('error sending libsoup message '+error);
+        }
     }
 
     // open image in default image view
