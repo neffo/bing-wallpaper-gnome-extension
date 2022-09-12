@@ -502,23 +502,27 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log('fetching: ' + url);
 
         // queue the http request
-        this.httpSession.queue_message(request, (httpSession, message) => {
-            if (message.status_code == 200) {
-                let data = message.response_body.data;
-                log('Recieved ' + data.length + ' bytes');
-                this._parseData(data);
-                if (this.selected_image != 'random')
-                this._selectImage();
-            } else if (message.status_code == 403) {
-                log('Access denied: ' + message.status_code);
-                this._updatePending = false;
-                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-            } else {
-                log('Network error occured: ' + message.status_code);
-                this._updatePending = false;
-                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-            }
+        this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+            this._process_message(message);
         });
+    }
+
+    _process_message(message) {
+        if (message.status_code == 200) {
+            let data = message.response_body.data;
+            log('Recieved ' + data.length + ' bytes');
+            this._parseData(data);
+            if (this.selected_image != 'random')
+                this._selectImage();
+        } else if (message.status_code == 403) {
+            log('Access denied: ' + message.status_code);
+            this._updatePending = false;
+            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+        } else {
+            log('Network error occured: ' + message.status_code);
+            this._updatePending = false;
+            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+        }
     }
 
     // sets a timer for next refresh of Bing metadata
