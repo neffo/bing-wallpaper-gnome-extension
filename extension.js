@@ -211,7 +211,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
-        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
 
     // listen for configuration changes
@@ -760,7 +760,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             log('Unable download image '+e);
         }
     }
-    
+
     // open image in default image view
     _openInSystemViewer() {
         Utils.openInSystemViewer(this.filename);
