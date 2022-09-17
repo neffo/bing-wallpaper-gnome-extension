@@ -496,12 +496,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // queue the http request
         try {
             this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                if (Soup.MAJOR_VERSION >= 3) {
-                    this._process_message_Soup3(message);
-                }   
-                else {
-                    this._process_message_Soup2(message);
-                }
+                this._processMessageRefresh(message);
             });
         }
         catch (error) {
@@ -509,34 +504,22 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    _process_message_Soup3(message) {
-        try {
-            let data = this.httpSession.send_and_read_finish(message).get_data();
+    _processMessageRefresh(message) {
+        let status_code = (Soup.MAJOR_VERSION >= 3) ? 
+            message.get_status(): // Soup3
+            message.status_code; // Soup2
+        
+        if (status_code == 200) {
+            let data = (Soup.MAJOR_VERSION >= 3) ? 
+                this.httpSession.send_and_read_finish(message).get_data(): // Soup3
+                message.response_body.data; // Soup 2
             log('Recieved ' + data.length + ' bytes');
             this._parseData(data);
             if (this.selected_image != 'random')
                 this._selectImage();
         }
-        catch (error) {
+        else {
             log('Network error occured: ' + error);
-            this._updatePending = false;
-            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-        }
-    }
-
-    _process_message_Soup2(message) {
-        if (message.status_code == 200) {
-            let data = message.response_body.data;
-            log('Recieved ' + data.length + ' bytes');
-            this._parseData(data);
-            if (this.selected_image != 'random')
-                this._selectImage();
-        } else if (message.status_code == 403) {
-            log('Access denied: ' + message.status_code);
-            this._updatePending = false;
-            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-        } else {
-            log('Network error occured: ' + message.status_code);
             this._updatePending = false;
             this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
         }
@@ -737,12 +720,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 // request completed
                 this._updatePending = false;
-                if (Soup.MAJOR_VERSION >= 3) {
-                    this._processFileDownload_Soup3(message, file);
-                }
-                else {
-                    this._processFileDownload_Soup2(message, file);
-                }
+                this._processFileDownload(message, file);
             });
         }
         catch (error) {
@@ -750,9 +728,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    _processFileDownload_Soup3(message, file) {
-        try {
-            let data = this.httpSession.send_and_read_finish(message).get_data();
+    _processFileDownload(message, file) {
+        let status_code = (Soup.MAJOR_VERSION >= 3) ? 
+            message.get_status(): // Soup3
+            message.status_code; // Soup2
+        
+        if (status_code == 200) {
+            let data = (Soup.MAJOR_VERSION >= 3) ? 
+                this.httpSession.send_and_read_finish(message).get_data():
+                message.response_body.flatten().get_as_bytes();
+
             file.replace_contents_bytes_async(
                 data,
                 null,
@@ -771,36 +756,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 }
             );
         }
-        catch (e) {
+        else {
             log('Unable download image '+e);
         }
     }
-
-    _processFileDownload_soup2(message, file) {
-        if (message.status_code == 200) {
-            file.replace_contents_bytes_async(
-                message.response_body.flatten().get_as_bytes(),
-                null,
-                false,
-                Gio.FileCreateFlags.REPLACE_DESTINATION,
-                null,
-                (file, res) => {
-                    try {
-                        file.replace_contents_finish(res);
-                        this._setBackground();
-                        log('Download successful');
-                    }
-                    catch(e) {
-                        log('Error writing file: ' + e);
-                    }
-                }
-            );
-        } else {
-            log('Couldn\'t fetch image from ' + url);
-            file.delete(null);
-        }
-    }
-
+    
     // open image in default image view
     _openInSystemViewer() {
         Utils.openInSystemViewer(this.filename);

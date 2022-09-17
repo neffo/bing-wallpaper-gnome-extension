@@ -115,14 +115,20 @@ function fetch_change_log(version, label, httpSession) {
     // queue the http request
     try {
         httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-            if (message.status_code == 200) {
-                let data = message.response_body.data;
+            let status_code = (Soup.MAJOR_VERSION >= 3) ? 
+                message.get_status(): // Soup3
+                message.status_code; // Soup2
+            
+            if (status_code == 200) {
+                let data = (Soup.MAJOR_VERSION >= 3) ? 
+                    this.httpSession.send_and_read_finish(message).get_data():
+                    message.response_body.flatten().get_as_bytes();
                 let text = JSON.parse(data).body;
                 label.set_label(text);
             } 
             else {
-                log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
-                label.set_label(_("No change log found for this release") + ": " + message.status_code);
+                log("Change log not found: " + status_code);
+                label.set_label(_("No change log found for this release") + ": " + status_code);
             }
         });
     }
