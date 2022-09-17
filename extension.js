@@ -485,17 +485,24 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             return;
         this._updatePending = true;
         this._restartTimeout();
+        
         let market = this._settings.get_string('market');
-        //this._initSoup(); // get new session, incase we aren't detecting proxy changes
+        let params = Utils.BingParams;
+        if (market != 'auto')
+            params['mkt'] = market;
+        log('-----------params: ' + JSON.stringify(params));
+        
         // create an http message
-        let url = BingImageURL + (market != 'auto' ? market : '');
-        let request = Soup.Message.new('GET', url);
-        request.request_headers.append('Accept', 'application/json');
-        log('fetching: ' + url);
+        let message = Soup.Message.new_from_encoded_form(
+            'GET', BingImageURL,
+            Soup.form_encode_hash(params)
+            );
+        message.request_headers.append('Accept', 'application/json');
+        log('fetching: ' + message.get_uri().to_string(false));
 
         // queue the http request
         try {
-            this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+            this.httpSession.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 this._processMessageRefresh(message);
             });
         }
@@ -511,7 +518,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         
         if (status_code == 200) {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
-                this.httpSession.send_and_read_finish(message).get_data(): // Soup3
+                ByteArray.toString(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
                 message.response_body.data; // Soup 2
             log('Recieved ' + data.length + ' bytes');
             this._parseData(data);
@@ -730,7 +737,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _processFileDownload(message, file) {
         let status_code = (Soup.MAJOR_VERSION >= 3) ? 
-            message.get_status(): // Soup3
+            message.status_code: // Soup3 should use get_status() but not implemented or missing from GIR xml??
             message.status_code; // Soup2
         
         if (status_code == 200) {

@@ -7,8 +7,6 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-imports.gi.versions.Soup = "2.4";
-
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -106,6 +104,7 @@ function buildPrefsWidget() {
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
     try {
         httpSession = new Soup.Session();
+        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
     catch (e) {
         log("Error creating httpSession: " + e);

@@ -65,7 +65,8 @@ var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', '
 var randomIntervals = [300, 3600, 86400, 604800];
 var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
 
-var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
+var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
+var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
 
 function validate_icon(settings, icon_image = null) {
     log('validate_icon()');
@@ -114,27 +115,42 @@ function fetch_change_log(version, label, httpSession) {
     log("Fetching " + url);
     // queue the http request
     try {
-        httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-            let status_code = (Soup.MAJOR_VERSION >= 3) ? 
-                message.get_status(): // Soup3
-                message.status_code; // Soup2
-            
-            if (status_code == 200) {
-                let data = (Soup.MAJOR_VERSION >= 3) ? 
-                    this.httpSession.send_and_read_finish(message).get_data():
-                    message.response_body.flatten().get_as_bytes();
-                let text = JSON.parse(data).body;
-                label.set_label(text);
-            } 
-            else {
-                log("Change log not found: " + status_code);
-                label.set_label(_("No change log found for this release") + ": " + status_code);
-            }
-        });
-    }
+        if (Soup.MAJOR_VERSION >= 3) {
+            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                let status_code = (Soup.MAJOR_VERSION >= 3) ?
+                    message.get_status(): // Soup3
+                    message.status_code; // Soup2
+                
+                if (status_code == 200) {
+                    let data = (Soup.MAJOR_VERSION >= 3) ? 
+                        ByteArray.toString(httpSession.send_and_read_finish(message).get_data()):
+                        ByteArray.toString(message.response_body.flatten().get_as_bytes());
+                    let text = JSON.parse(data).body;
+                    label.set_label(text);
+                } 
+                else {
+                    log("Change log not found: " + status_code);
+                    label.set_label(_("No change log found for this release") + ": " + status_code);
+                }
+            });
+        }
+        else { // Soup 2.x
+            httpSession.queue_message(request, (httpSession, message) => {
+                if (message.status_code == 200) {
+                    let data = message.response_body.data;
+                    let text = JSON.parse(data).body;
+                    label.set_label(text);
+                } 
+                else {
+                    log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
+                    label.set_label(_("No change log found for this release") + ": " + message.status_code);
+                }
+            });
+        }
+    } 
     catch (e) {
         log("Error fetching change log: " + e);
-        label.set_label(_("Error fetching change log"));
+        label.set_label(_("Error fetching change log: "+e));
     }
 }
 
