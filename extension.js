@@ -498,7 +498,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             Soup.form_encode_hash(params)
             );
         message.request_headers.append('Accept', 'application/json');
-        log('fetching: ' + message.get_uri().to_string(false));
+        //log('fetching: ' + message.get_uri().to_string(false));
 
         // queue the http request
         try {
@@ -513,7 +513,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _processMessageRefresh(message) {
         let status_code = (Soup.MAJOR_VERSION >= 3) ? 
-            message.get_status(): // Soup3
+            message.status_code: // Soup3
             message.status_code; // Soup2
         
         if (status_code == 200) {
@@ -526,7 +526,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 this._selectImage();
         }
         else {
-            log('Network error occured: ' + error);
+            log('Network error occured: ' + status_code);
             this._updatePending = false;
             this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
         }
@@ -764,7 +764,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             );
         }
         else {
-            log('Unable download image '+e);
+            log('Unable download image '+status_code);
         }
     }
 

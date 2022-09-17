@@ -118,7 +118,7 @@ function fetch_change_log(version, label, httpSession) {
         if (Soup.MAJOR_VERSION >= 3) {
             httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 let status_code = (Soup.MAJOR_VERSION >= 3) ?
-                    message.get_status(): // Soup3
+                    message.status_code: // Soup3 SHOULD use get_status()...
                     message.status_code; // Soup2
                 
                 if (status_code == 200) {
