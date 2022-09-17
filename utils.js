@@ -110,7 +110,7 @@ function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);
-    httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
+    request.request_headers.append('Accept', 'application/json');
     log("Fetching " + url);
     // queue the http request
     try {

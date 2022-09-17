@@ -211,6 +211,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
+        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
 
     // listen for configuration changes
@@ -489,6 +490,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // create an http message
         let url = BingImageURL + (market != 'auto' ? market : '');
         let request = Soup.Message.new('GET', url);
+        request.request_headers.append('Accept', 'application/json');
         log('fetching: ' + url);
 
         // queue the http request
@@ -509,7 +511,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _process_message_Soup3(message) {
         try {
-            let data = this.httpSession.send_and_read_finish(message);
+            let data = this.httpSession.send_and_read_finish(message).get_data();
             log('Recieved ' + data.length + ' bytes');
             this._parseData(data);
             if (this.selected_image != 'random')
@@ -750,7 +752,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _processFileDownload_Soup3(message, file) {
         try {
-            let data = this.httpSession.send_and_read_finish(message);
+            let data = this.httpSession.send_and_read_finish(message).get_data();
             file.replace_contents_bytes_async(
                 data,
                 null,
