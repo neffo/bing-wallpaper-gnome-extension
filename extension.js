@@ -512,11 +512,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _processMessageRefresh(message) {
-        let status_code = (Soup.MAJOR_VERSION >= 3) ? 
-            message.status_code: // Soup3
-            message.status_code; // Soup2
-        
-        if (status_code == 200) {
+        try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
                 ByteArray.toString(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
                 message.response_body.data; // Soup 2
@@ -525,8 +521,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             if (this.selected_image != 'random')
                 this._selectImage();
         }
-        else {
-            log('Network error occured: ' + status_code);
+        catch (error) {
+            log('Network error occured: ' + error);
             this._updatePending = false;
             this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
         }
@@ -735,12 +731,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    _processFileDownload(message, file) {
-        let status_code = (Soup.MAJOR_VERSION >= 3) ? 
-            message.status_code: // Soup3 should use get_status() but not implemented or missing from GIR xml??
-            message.status_code; // Soup2
-        
-        if (status_code == 200) {
+    _processFileDownload(message, file) {      
+        try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
@@ -763,8 +755,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 }
             );
         }
-        else {
-            log('Unable download image '+status_code);
+        catch (error) {
+            log('Unable download image '+error);
         }
     }
 

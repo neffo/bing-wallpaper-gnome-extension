@@ -115,41 +115,16 @@ function fetch_change_log(version, label, httpSession) {
     log("Fetching " + url);
     // queue the http request
     try {
-        if (Soup.MAJOR_VERSION >= 3) {
-            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                let status_code = (Soup.MAJOR_VERSION >= 3) ?
-                    message.status_code: // Soup3 SHOULD use get_status()...
-                    message.status_code; // Soup2
-                
-                if (status_code == 200) {
-                    let data = (Soup.MAJOR_VERSION >= 3) ? 
-                        ByteArray.toString(httpSession.send_and_read_finish(message).get_data()):
-                        ByteArray.toString(message.response_body.flatten().get_as_bytes());
-                    let text = JSON.parse(data).body;
-                    label.set_label(text);
-                } 
-                else {
-                    log("Change log not found: " + status_code);
-                    label.set_label(_("No change log found for this release") + ": " + status_code);
-                }
-            });
-        }
-        else { // Soup 2.x
-            httpSession.queue_message(request, (httpSession, message) => {
-                if (message.status_code == 200) {
-                    let data = message.response_body.data;
-                    let text = JSON.parse(data).body;
-                    label.set_label(text);
-                } 
-                else {
-                    log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
-                    label.set_label(_("No change log found for this release") + ": " + message.status_code);
-                }
-            });
-        }
+        httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+            let data = (Soup.MAJOR_VERSION >= 3) ? 
+                ByteArray.toString(httpSession.send_and_read_finish(message).get_data()):
+                ByteArray.toString(message.response_body.flatten().get_as_bytes());
+            let text = JSON.parse(data).body;
+            label.set_label(text);
+        });
     } 
-    catch (e) {
-        log("Error fetching change log: " + e);
+    catch (error) {
+        log("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+e));
     }
 }
