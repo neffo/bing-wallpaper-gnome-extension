@@ -115,17 +115,24 @@ function fetch_change_log(version, label, httpSession) {
     log("Fetching " + url);
     // queue the http request
     try {
-        httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-            let data = (Soup.MAJOR_VERSION >= 3) ? 
-                ByteArray.toString(httpSession.send_and_read_finish(message).get_data()):
-                ByteArray.toString(message.response_body.flatten().get_as_bytes());
-            let text = JSON.parse(data).body;
-            label.set_label(text);
-        });
+        if (Soup.MAJOR_VERSION >= 3) {
+            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                let data = ByteArray.toString(httpSession.send_and_read_finish(message).get_data());
+                let text = JSON.parse(data).body;
+                label.set_label(text);
+            });
+        }
+        else {
+            httpSession.queue_message(request, (httpSession, message) => {
+                let data = message.response_body.data;
+                let text = JSON.parse(data).body;
+                label.set_label(text);
+            });
+        }
     } 
     catch (error) {
         log("Error fetching change log: " + error);
-        label.set_label(_("Error fetching change log: "+e));
+        label.set_label(_("Error fetching change log: "+error));
     }
 }
 
