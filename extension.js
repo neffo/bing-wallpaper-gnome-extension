@@ -487,24 +487,23 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout();
         
         let market = this._settings.get_string('market');
-        let params = Utils.BingParams;
-        if (market != 'auto')
-            params['mkt'] = market;
-        log('-----------params: ' + JSON.stringify(params));
-        
-        // create an http message
-        let message = Soup.Message.new_from_encoded_form(
-            'GET', BingImageURL,
-            Soup.form_encode_hash(params)
-            );
+        let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
+        let request = Soup.Message.new('GET', url);
         message.request_headers.append('Accept', 'application/json');
         //log('fetching: ' + message.get_uri().to_string(false));
 
         // queue the http request
         try {
-            this.httpSession.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                this._processMessageRefresh(message);
-            });
+            if (Soup.MAJOR_VERSION >= 3) {
+                this.httpSession.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                    this._processMessageRefresh(message);
+                });
+            }
+            else {
+                this.httpSession.queue_message(request, (httpSession, message) => {
+                    this._processMessageRefresh(message);
+                });
+            }
         }
         catch (error) {
             log('unable to send libsoup json message '+error);
@@ -720,11 +719,21 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         // queue the http request
         try {
-            this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                // request completed
-                this._updatePending = false;
-                this._processFileDownload(message, file);
-            });
+            if (Soup.MAJOR_VERSION >= 3) {
+                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                    // request completed
+                    this._updatePending = false;
+                    this._processFileDownload(message, file);
+                });
+            }
+            else {
+                this.httpSession.queue_message(request, (httpSession, message) => {
+                    // request completed
+                    this._updatePending = false;
+                    this._processFileDownload(message, file);
+                });
+            }
+
         }
         catch (error) {
             log('error sending libsoup message '+error);
