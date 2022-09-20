@@ -255,8 +255,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
         let maxlongdate = Utils.getMaxLongDate(this._settings);
         this.refreshduetext = 
-            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + "), " + 
-            _("Last") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
+            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")\n" + 
+            _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
