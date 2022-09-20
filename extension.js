@@ -492,26 +492,38 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout();
         
         let market = this._settings.get_string('market');
-        let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
-        let request = Soup.Message.new('GET', url);
-        request.request_headers.append('Accept', 'application/json');
-        //log('fetching: ' + message.get_uri().to_string(false));
+        if (Soup.MAJOR_VERSION >= 3) {
+            let url = BingImageURL;
+            let params = Utils.BingParams;
+            params['mkt'] = ( market != 'auto' ? market : '' );
 
-        // queue the http request
-        try {
-            if (Soup.MAJOR_VERSION >= 3) {
+            let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
+            request.request_headers.append('Accept', 'application/json');
+
+            try {
                 this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processMessageRefresh(message);
                 });
             }
-            else {
+            catch(error) {
+                log('unable to send libsoup json message '+error);
+            }
+        }
+        else {
+            let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
+            let request = Soup.Message.new('GET', url);
+            request.request_headers.append('Accept', 'application/json');
+            //log('fetching: ' + message.get_uri().to_string(false));
+
+            // queue the http request
+            try {
                 this.httpSession.queue_message(request, (httpSession, message) => {
                     this._processMessageRefresh(message);
                 });
             }
-        }
-        catch (error) {
-            log('unable to send libsoup json message '+error);
+            catch (error) {
+                log('unable to send libsoup json message '+error);
+            }
         }
     }
 
