@@ -500,7 +500,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // queue the http request
         try {
             if (Soup.MAJOR_VERSION >= 3) {
-                this.httpSession.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processMessageRefresh(message);
                 });
             }
