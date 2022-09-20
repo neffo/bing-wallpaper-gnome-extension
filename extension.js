@@ -338,8 +338,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // convert longdate format into human friendly format
     _localeDate(longdate, include_time = false) {
-        let date = Utils.dateFromLongDate(longdate, 300); // date at update
-        return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
+        try {
+            let date = Utils.dateFromLongDate(longdate, 300); // date at update
+            return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
+        }
+        catch (e) {
+            return 'none';
+        }
     }
 
     // set menu text in lieu of a notification/popup
@@ -489,7 +494,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let market = this._settings.get_string('market');
         let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
         let request = Soup.Message.new('GET', url);
-        message.request_headers.append('Accept', 'application/json');
+        request.request_headers.append('Accept', 'application/json');
         //log('fetching: ' + message.get_uri().to_string(false));
 
         // queue the http request
