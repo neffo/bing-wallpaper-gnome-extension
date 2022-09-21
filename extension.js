@@ -7,8 +7,6 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-imports.gi.versions.Soup = "2.4";
-
 const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
@@ -43,12 +41,10 @@ const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
 
 
-let autores; // automatically selected resolution
 let bingWallpaperIndicator = null;
 let blur = null;
 let blur_brightness = 0.55;
 let blur_strength = 30;
-let carousel = null;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
@@ -809,7 +805,6 @@ function init(extensionMeta) {
 function enable() {
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
-    autores = "UHD"; // remove monitor size checks
 }
 
 function disable() { 

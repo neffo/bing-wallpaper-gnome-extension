@@ -18,17 +18,6 @@ const Gettext = imports.gettext.domain('BingWallpaper');
 const _ = Gettext.gettext;
 const Carousel = Me.imports.carousel;
 
-let settings;
-let desktop_settings;
-
-let marketDescription = null;
-let icon_image = null;
-let lastreq = null;
-let provider = new Gtk.CssProvider();
-
-let carousel = null;
-let httpSession = null;
-
 const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
@@ -41,6 +30,17 @@ function init() {
 }
 
 function buildPrefsWidget() {
+    // formally globals
+    let settings;
+    let desktop_settings;
+
+    let marketDescription = null;
+    let icon_image = null;
+    let provider = new Gtk.CssProvider();
+
+    let carousel = null;
+    let httpSession = null;
+
     // Prepare labels and controls
     let buildable = new Gtk.Builder();
     if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
@@ -265,7 +265,6 @@ function buildPrefsWidget() {
     // fetch
     if (httpSession)
         Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
-    lastreq = GLib.DateTime.new_now_utc();
 
     return box;
 }
