@@ -2,13 +2,13 @@
 
 Bring some color to your GNOME desktop by syncing your desktop and lockscreen wallpapers with today's Microsoft Bing image of the day (the image you see when you visit Bing.com) with this extension. The intention of this extension is to just do what it needs to do and stay out of your way, with a few optional features to improve quality-of-life.
 
+[![Get it on GNOME extensions](/screenshot/get_it_on_gnome_extensions.png)](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/) [![<3 Sponsor this project on GitHub <3](/screenshot/sponsor.png)](https://github.com/sponsors/neffo)
+
 ![Screenshot](/screenshot/notification.png)
 
-As featured on [OMG! Ubuntu](https://www.omgubuntu.co.uk/2017/07/bing-wallpaper-changer-gnome-extension). Lockscreen blur code is based on [Pratap-Kumar's extension.](https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen)
+As featured on [OMG! Ubuntu](https://www.omgubuntu.co.uk/2017/07/bing-wallpaper-changer-gnome-extension). 
 
-Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon](https://github.com/Starcross/bing-wallpaper-cinnamon) by Starcross.
-
-[![Get it on GNOME extensions](/screenshot/get_it_on_gnome_extensions.png)](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/) [![<3 Sponsor this project on GitHub <3](/screenshot/sponsor.png)](https://github.com/sponsors/neffo)
+Also, check out my related [Google Earth View wallpaper extension](https://github.com/neffo/earth-view-wallpaper-gnome-extension) and the partially-derived [Bing Desktop Wallpaper for Cinnamon](https://cinnamon-spices.linuxmint.com/applets/view/320) applet by Starcross.
 
 ## Features
 
@@ -91,7 +91,7 @@ This extension is unofficial and not affiliated with Bing or Microsoft in any wa
 ## Special Thanks
 
 This extension is based on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
-and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements. Also, thanks to Microsoft for this great API and wallpaper collection.
+and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). Lockscreen blur code is based on [Pratap-Kumar's extension](https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen). I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements. Also, thanks to Microsoft for this great API and wallpaper collection.
 
 ## License
 
