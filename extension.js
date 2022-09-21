@@ -1,11 +1,13 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
+
+imports.gi.versions.Soup = "2.4";
 
 const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
 const Main = imports.ui.main;
@@ -55,13 +57,6 @@ const getActorCompat = (obj) =>
 function log(msg) {
     if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
         print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
-}
-
-// pinched from here https://github.com/Odyseus/CinnamonTools (/extensions/MultiTranslatorExtension/js_modules/utils.js)
-function soupPrinter(aLog, aLevel = null, aDirection = null, aData = null) {
-    if (aLevel && aDirection && aData) {
-        log('Soup: '+String(aData));
-    }
 }
 
 function notifyError(msg) {
@@ -125,6 +120,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
 
         this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
+        this._wrapLabelItem(this.refreshDueItem);
         //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
         this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
         this._wrapLabelItem(this.titleItem);
@@ -212,15 +208,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-    // create soup Session, set proxy resolver and hook up the logger
+    // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
-        if (this._settings.get_boolean('debug-logging')) {
-            this.logger = Soup.Logger.new(Soup.LoggerLogLevel.HEADERS, -1);
-            this.logger.attach(this.httpSession);
-            this.logger.set_printer(soupPrinter);
-        }
-        Soup.Session.prototype.add_feature.call(this.httpSession, new Soup.ProxyResolverDefault()); // unclear if this is necessary
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
 
     // listen for configuration changes
@@ -264,8 +255,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
         let maxlongdate = Utils.getMaxLongDate(this._settings);
         this.refreshduetext = 
-            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + "), " + 
-            _("Last updated") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
+            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")\n" + 
+            _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
@@ -347,8 +338,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // convert longdate format into human friendly format
     _localeDate(longdate, include_time = false) {
-        let date = Utils.dateFromLongDate(longdate, 300); // date at update
-        return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
+        try {
+            let date = Utils.dateFromLongDate(longdate, 300); // date at update
+            return date.to_local().format('%Y-%m-%d' + (include_time? ' %X' : '')); // ISO 8601 - https://xkcd.com/1179/
+        }
+        catch (e) {
+            return 'none';
+        }
     }
 
     // set menu text in lieu of a notification/popup
@@ -494,31 +490,58 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             return;
         this._updatePending = true;
         this._restartTimeout();
+        
         let market = this._settings.get_string('market');
-        //this._initSoup(); // get new session, incase we aren't detecting proxy changes
-        // create an http message
-        let url = BingImageURL + (market != 'auto' ? market : '');
-        let request = Soup.Message.new('GET', url);
-        log('fetching: ' + url);
+        if (Soup.MAJOR_VERSION >= 3) {
+            let url = BingImageURL;
+            let params = Utils.BingParams;
+            params['mkt'] = ( market != 'auto' ? market : '' );
 
-        // queue the http request
-        this.httpSession.queue_message(request, (httpSession, message) => {
-            if (message.status_code == 200) {
-                let data = message.response_body.data;
-                log('Recieved ' + data.length + ' bytes');
-                this._parseData(data);
-                if (this.selected_image != 'random')
-                this._selectImage();
-            } else if (message.status_code == 403) {
-                log('Access denied: ' + message.status_code);
-                this._updatePending = false;
-                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-            } else {
-                log('Network error occured: ' + message.status_code);
-                this._updatePending = false;
-                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+            let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
+            request.request_headers.append('Accept', 'application/json');
+
+            try {
+                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                    this._processMessageRefresh(message);
+                });
             }
-        });
+            catch(error) {
+                log('unable to send libsoup json message '+error);
+            }
+        }
+        else {
+            let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
+            let request = Soup.Message.new('GET', url);
+            request.request_headers.append('Accept', 'application/json');
+            //log('fetching: ' + message.get_uri().to_string(false));
+
+            // queue the http request
+            try {
+                this.httpSession.queue_message(request, (httpSession, message) => {
+                    this._processMessageRefresh(message);
+                });
+            }
+            catch (error) {
+                log('unable to send libsoup json message '+error);
+            }
+        }
+    }
+
+    _processMessageRefresh(message) {
+        try {
+            let data = (Soup.MAJOR_VERSION >= 3) ? 
+                ByteArray.toString(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
+                message.response_body.data; // Soup 2
+            log('Recieved ' + data.length + ' bytes');
+            this._parseData(data);
+            if (this.selected_image != 'random')
+                this._selectImage();
+        }
+        catch (error) {
+            log('Network error occured: ' + error);
+            this._updatePending = false;
+            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+        }
     }
 
     // sets a timer for next refresh of Bing metadata
@@ -708,35 +731,59 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // download and process new image
     // FIXME: improve error handling
     _downloadImage(url, file) {
-        log("Downloading " + url + " to " + file.get_uri());  
+        log("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
 
         // queue the http request
-        this.httpSession.queue_message(request, (httpSession, message) => {
-            // request completed
-            this._updatePending = false;
-            if (message.status_code == 200) {
-                file.replace_contents_bytes_async(
-                    message.response_body.flatten().get_as_bytes(),
-                    null,
-                    false,
-                    Gio.FileCreateFlags.REPLACE_DESTINATION,
-                    null,
-                    (file, res) => {
-                        try {
-                            file.replace_contents_finish(res);
-                            this._setBackground();
-                            log('Download successful');
-                        } catch(e) {
-                            log('Error writing file: ' + e);
-                        }
-                    }
-                );
-            } else {
-                log('Couldn\'t fetch image from ' + url);
-                file.delete(null);
+        try {
+            if (Soup.MAJOR_VERSION >= 3) {
+                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                    // request completed
+                    this._updatePending = false;
+                    this._processFileDownload(message, file);
+                });
             }
-        });
+            else {
+                this.httpSession.queue_message(request, (httpSession, message) => {
+                    // request completed
+                    this._updatePending = false;
+                    this._processFileDownload(message, file);
+                });
+            }
+
+        }
+        catch (error) {
+            log('error sending libsoup message '+error);
+        }
+    }
+
+    _processFileDownload(message, file) {      
+        try {
+            let data = (Soup.MAJOR_VERSION >= 3) ? 
+                this.httpSession.send_and_read_finish(message).get_data():
+                message.response_body.flatten().get_as_bytes();
+
+            file.replace_contents_bytes_async(
+                data,
+                null,
+                false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION,
+                null,
+                (file, res) => {
+                    try {
+                        file.replace_contents_finish(res);
+                        this._setBackground();
+                        log('Download successful');
+                    } 
+                    catch(e) {
+                        log('Error writing file: ' + e);
+                    }
+                }
+            );
+        }
+        catch (error) {
+            log('Unable download image '+error);
+        }
     }
 
     // open image in default image view

@@ -1,11 +1,13 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
+
+imports.gi.versions.Soup = "2.4";
 
 const {Gtk, Gdk, GdkPixbuf, Gio, GLib, Soup} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -104,13 +106,13 @@ function buildPrefsWidget() {
     desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
     try {
         httpSession = new Soup.Session();
+        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
     catch (e) {
         log("Error creating httpSession: " + e);
     }
 
     // check that these are valid (can be edited through dconf-editor)
-    //Utils.validate_market(settings, marketDescription);
     Utils.validate_resolution(settings);
     Utils.validate_icon(settings, icon_image);
 
@@ -189,8 +191,6 @@ function buildPrefsWidget() {
             log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
         settings.connect('changed::market', () => {
-            /*Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();*/
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
         });
         settings.connect('changed::download-folder', () => {
@@ -210,10 +210,6 @@ function buildPrefsWidget() {
         });
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-        /*settings.connect('changed::market', () => {
-            Utils.validate_market(settings, marketDescription, lastreq);
-            lastreq = GLib.DateTime.new_now_utc();
-        });*/
         settings.connect('changed::download-folder', () => {
             fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         });

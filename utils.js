@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2021 Michael Carroll
+// Copyright (C) 2017-2022 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -65,7 +65,8 @@ var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', '
 var randomIntervals = [300, 3600, 86400, 604800];
 var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
 
-var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mbl=1&mkt=';
+var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
+var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
 
 function validate_icon(settings, icon_image = null) {
     log('validate_icon()');
@@ -100,43 +101,6 @@ function validate_imagename(settings) {
     }
 }
 
-function validate_market(settings, marketDescription = null, lastreq = null, httpSession) {
-    let market = settings.get_string('market');
-    if (market == '' || markets.indexOf(market) == -1) { // if not a valid market
-        settings.reset('market');
-    }
-    // only run this check if called from prefs
-    let lastReqDiff = lastreq ? GLib.DateTime.new_now_utc().difference(lastreq) : null; // time diff in *micro*seconds
-    log("last check was " + lastReqDiff + " us ago");
-
-    if ((marketDescription && lastreq === null) || (lastReqDiff && lastReqDiff > 5000000)) { // rate limit no more than 1 request per 5 seconds
-        let request = Soup.Message.new('GET', BingImageURL + (market != 'auto' ? market : '')); // + market
-        log("fetching: " + BingImageURL + (market != 'auto' ? market : ''));
-	
-        marketDescription.set_label(_("Fetching data..."));
-        // queue the http request
-        httpSession.queue_message(request, function (httpSession, message) {
-            if (message.status_code == 200) {
-                let data = message.response_body.data;
-                log("Recieved " + data.length + " bytes");
-                let checkData = JSON.parse(data);
-                let checkStatus = checkData.market.mkt;
-                if (market == 'auto' || checkStatus == market) {
-                    marketDescription.set_label('Data OK, ' + data.length + ' bytes recieved');
-                } else {
-                    marketDescription.set_label(_("Market not available in your region"));
-                }
-            } else {
-                log("Network error occured: " + message.status_code);
-                marketDescription.set_label(_("A network error occured") + ": " + message.status_code);
-            }
-        });
-    }
-    else {
-        marketDescription.set_label(_("Too many requests in 5 seconds"));
-    }
-}
-
 function get_current_bg(schema) {
     let gsettings = new Gio.Settings({ schema: schema });
     let cur = gsettings.get_string('picture-uri');
@@ -147,25 +111,28 @@ function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);
-    httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:' + version + ') BingWallpaper Gnome Extension';
+    request.request_headers.append('Accept', 'application/json');
     log("Fetching " + url);
     // queue the http request
     try {
-        httpSession.queue_message(request, (httpSession, message) => {
-            if (message.status_code == 200) {
+        if (Soup.MAJOR_VERSION >= 3) {
+            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                let data = ByteArray.toString(httpSession.send_and_read_finish(message).get_data());
+                let text = JSON.parse(data).body;
+                label.set_label(text);
+            });
+        }
+        else {
+            httpSession.queue_message(request, (httpSession, message) => {
                 let data = message.response_body.data;
                 let text = JSON.parse(data).body;
                 label.set_label(text);
-            } 
-            else {
-                log("Change log not found: " + message.status_code + "\n" + message.response_body.data);
-                label.set_label(_("No change log found for this release") + ": " + message.status_code);
-            }
-        });
-    }
-    catch (e) {
-        log("Error fetching change log: " + e);
-        label.set_label(_("Error fetching change log"));
+            });
+        }
+    } 
+    catch (error) {
+        log("Error fetching change log: " + error);
+        label.set_label(_("Error fetching change log: "+error));
     }
 }
 
