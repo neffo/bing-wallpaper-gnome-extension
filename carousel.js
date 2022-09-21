@@ -27,10 +27,9 @@ var Carousel = class Carousel {
         this.flowBox = null;
         this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
+        
         this.log('create carousel...');
-        // disable the button
-        //if (this.button)
-        //    this.button.set_sensitive(false);
+
         if (!prefs_flowbox) {    
             [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
             if (Gtk.get_major_version() < 4)
@@ -60,8 +59,10 @@ var Carousel = class Carousel {
         let buildable = new Gtk.Builder();
         let win = new Gtk.Window();
         let flowBox;
+
         win.set_default_size(dimensions[2], dimensions[3]);
         win.set_title(title);
+
         if (Gtk.get_major_version() < 4) {
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ['carouselScrollable']);
             flowBox = buildable.get_object('carouselFlowBox');
@@ -83,6 +84,7 @@ var Carousel = class Carousel {
             else 
                 this.flowBox.insert(item, -1);
         });
+
         this.imageList.forEach((image) => {
             let item = this._create_gallery_item(image);
             if (Gtk.get_major_version() < 4)
@@ -94,17 +96,21 @@ var Carousel = class Carousel {
 
     _create_gallery_item(image) {
         let buildable = new Gtk.Builder();
-        if (Gtk.get_major_version() < 4) // grab appropriate object from UI file
+
+        // grab appropriate object from UI file
+        if (Gtk.get_major_version() < 4)
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
         else
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxChild"]);
+        
+        // assign variables to the UI objects we've just loaded
         let galleryImage = buildable.get_object('galleryImage');
-        // let imageLabel = buildable.get_object('imageLabel');
         let filename = Utils.imageToFilename(this.settings, image);
         let viewButton = buildable.get_object('viewButton');
         let applyButton = buildable.get_object('applyButton');
         let infoButton = buildable.get_object('infoButton');
         let deleteButton = buildable.get_object('deleteButton');
+        
         try {
             this._load_image(galleryImage, filename);
         }
@@ -118,20 +124,24 @@ var Carousel = class Carousel {
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             this.log('create_gallery_image: '+e);
         }
+
         galleryImage.set_tooltip_text(image.copyright);
-        /*imageLabel.set_width_chars(60);
-        imageLabel.set_label(Utils.shortenName(Utils.getImageTitle(image), 60));*/
+        
+        // set up actions for when a image button is clicked
         viewButton.connect('clicked',  () => {
             Utils.openInSystemViewer(filename);
         });
+
         applyButton.connect('clicked', () => {
             this.settings.set_string('selected-image', Utils.getImageUrlBase(image));
             this.log('gallery selected '+Utils.getImageUrlBase(image));
         });
+
         infoButton.connect('clicked', () => {
             Utils.openInSystemViewer(image.copyrightlink, false);
             this.log('info page link opened '+image.copyrightlink);
         });
+
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
@@ -140,19 +150,22 @@ var Carousel = class Carousel {
             if (this.callbackfunc)
                 this.callbackfunc();
         });
-        //deleteButton.set_sensitive(false);
+        
         let item = buildable.get_object('flowBoxChild');
         return item;
     }
 
     _create_random_item(seconds, title) {
         let buildable = new Gtk.Builder();
-        if (Gtk.get_major_version() < 4) {// grab appropriate object from UI file {}
+
+        // grab appropriate object from UI file
+        if (Gtk.get_major_version() < 4) {
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
         }
         else {
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxRandom"]);
         }
+
         let randomLabel = buildable.get_object('randomLabel');
         randomLabel.set_text(title);
         let filename = 'random';
@@ -163,6 +176,7 @@ var Carousel = class Carousel {
             this.settings.set_int('random-interval', seconds);
             this.log('gallery selected random with interval '+seconds);
         });
+
         let item = buildable.get_object('flowBoxRandom');
         return item;
     }
@@ -170,7 +184,9 @@ var Carousel = class Carousel {
     _create_placeholder_item() {
         let buildable = new Gtk.Builder();
         this.flowBox.set_max_children_per_line(1);
-        if (Gtk.get_major_version() >= 4) {// grab appropriate object from UI file {}
+
+        // grab appropriate object from UI file
+        if (Gtk.get_major_version() >= 4) {
             buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
         }
         else {
@@ -184,6 +200,7 @@ var Carousel = class Carousel {
             this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
         });
+
         let item = buildable.get_object('flowBoxPlaceholder');
         return item;
     }
@@ -192,26 +209,34 @@ var Carousel = class Carousel {
         let thumb_path = Utils.getWallpaperDir(this.settings)+'.thumbs/';
         let thumb_dir = Gio.file_new_for_path(thumb_path);
         let save_thumbs = !this.settings.get_boolean('delete-previous') && this.settings.get_boolean('create-thumbs'); // create thumbs only if not deleting previous and thumbs are enabled
+        
         if (!thumb_dir.query_exists(null)) {
             thumb_dir.make_directory_with_parents(null);
         }
+
         let image_file = Gio.file_new_for_path(filename);
+        
+        // load gallery image or create new thumbnail if it doesn't
         if (!image_file.query_exists(null)){
             this._set_blank_image(galleryImage);
         }
         else {
             let image_thumb_path = thumb_path + image_file.get_basename();
             let image_thumb = Gio.file_new_for_path(image_thumb_path);
+
             try {
                 let pixbuf;
-                if (image_thumb.query_exists(null)) { // use thumbnail if available
+                
+                // use thumbnail if available
+                if (image_thumb.query_exists(null)) {
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(image_thumb_path);
                 }
-                else { // significantly speeds up gallery loading, but costs some addtional disk space
+                else { // save changed thumbnail significantly speeds up gallery loading, but costs some addtional disk space
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, GALLERY_THUMB_WIDTH, GALLERY_THUMB_HEIGHT);
                     if (save_thumbs)
                         pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
+
                 if (Gtk.get_major_version() < 4) {
                     galleryImage.set_from_pixbuf(pixbuf);
                 }

@@ -31,15 +31,19 @@ function init() {
 
 function buildPrefsWidget() {
     // formally globals
-    let settings;
-    let desktop_settings;
+    let settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
+    let desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
 
-    let marketDescription = null;
     let icon_image = null;
     let provider = new Gtk.CssProvider();
 
     let carousel = null;
     let httpSession = null;
+
+    let log = (msg) => { // avoids need for globals
+        if (settings.get_boolean('debug-logging'))
+            print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+    }
 
     // Prepare labels and controls
     let buildable = new Gtk.Builder();
@@ -58,7 +62,6 @@ function buildPrefsWidget() {
     let box = buildable.get_object('prefs_widget');
 
     // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
-    
     if (Convenience.currentVersionGreaterEqual('40')) {
         box.connect('realize', () => {
             let window = box.get_root();
@@ -70,6 +73,7 @@ function buildPrefsWidget() {
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
     buildable.get_object('extension_name').set_text(Me.metadata.name.toString());
 
+    // assign variables to UI objects we've loaded
     let hideSwitch = buildable.get_object('hide');
     let iconEntry = buildable.get_object('icon');
     let notifySwitch = buildable.get_object('notify');
@@ -83,7 +87,6 @@ function buildPrefsWidget() {
     let historyEntry = buildable.get_object('history');
     let galleryButton = buildable.get_object('button_open_gallery');
     let deleteSwitch = buildable.get_object('delete_previous');
-    marketDescription = buildable.get_object('market_description');
     icon_image = buildable.get_object('icon_image');
     let overrideSwitch = buildable.get_object('lockscreen_override');
     let strengthEntry = buildable.get_object('entry_strength');
@@ -93,7 +96,6 @@ function buildPrefsWidget() {
     let unsafeSwitch = buildable.get_object('unsafe_switch');
     let randomIntervalEntry = buildable.get_object('entry_random_interval');
     let change_log = buildable.get_object('change_log');
-
     let buttonGDMdefault = buildable.get_object('button_default_gnome');
     let buttonnoblur = buildable.get_object('button_no_blur');
     let buttonslightblur = buildable.get_object('button_slight_blur');
@@ -102,8 +104,6 @@ function buildPrefsWidget() {
     let switchAlwaysExport = buildable.get_object('always_export_switch');
     let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
     
-    settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
-    desktop_settings = ExtensionUtils.getSettings(Utils.DESKTOP_SCHEMA);
     try {
         httpSession = new Soup.Session();
         httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
@@ -120,16 +120,19 @@ function buildPrefsWidget() {
     settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
-    Utils.icon_list.forEach((iconname, index) => { // add markets to dropdown list (aka a GtkComboText)
+    // add markets to dropdown list (aka a GtkComboText)
+    Utils.icon_list.forEach((iconname, index) => {
         iconEntry.append(iconname, iconname);
     });
-    settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
+    // user selectable indicator icons
+    settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::icon-name', () => {
         Utils.validate_icon(settings, icon_image);
     });
     iconEntry.set_active_id(settings.get_string('icon-name'));
 
+    // connect switches to settings changes
     settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -137,9 +140,12 @@ function buildPrefsWidget() {
     settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('always-export-bing-json', switchAlwaysExport, 'active', Gio.SettingsBindFlags.DEFAULT);
 
+    // button opens Nautilus at our image folder
     folderOpenBtn.connect('clicked', (widget) => {
         Utils.openImageFolder(settings);
     });
+
+    // open image carousel (gallery) window (gtk3, gnome <40) or populate the tab (gtk4+, gnome 40+)
     if (Gtk.get_major_version() == 4) {
         carousel = new Carousel.Carousel(settings, null, null, carouselFlowBox); // auto load carousel
     }
@@ -149,7 +155,8 @@ function buildPrefsWidget() {
         });
     }
     
-    
+    // this is intended for migrating image folders between computers (or even sharing) or backups
+    // we export the Bing JSON data to the image directory, so this folder becomes portable
     buttonImportData.connect('clicked', () => {
         Utils.importBingJSON(settings);
     });
@@ -170,6 +177,7 @@ function buildPrefsWidget() {
             fileChooser.set_accept_label(_('Select folder'));
             fileChooser.show();
         });
+
         fileChooser.connect('response', (widget, response) => {
             if (response !== Gtk.ResponseType.ACCEPT) {
                 return;
@@ -180,6 +188,7 @@ function buildPrefsWidget() {
             Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
             Utils.setWallpaperDir(settings, fileURI);
         });
+
         // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
         let market_grid = buildable.get_object('market_grid');
         marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
@@ -190,9 +199,11 @@ function buildPrefsWidget() {
             settings.set_string('market', Utils.markets[id]);
             log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
+
         settings.connect('changed::market', () => {
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
         });
+
         settings.connect('changed::download-folder', () => {
             fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
         });
@@ -200,16 +211,19 @@ function buildPrefsWidget() {
     else { // Gtk 3
         fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
+        
         fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
         fileChooserBtn.connect('file-set', (widget) => {      
             Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
             Utils.setWallpaperDir(settings, widget.get_filename());
         });
+
         Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
             marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
         });
 
         settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        
         settings.connect('changed::download-folder', () => {
             fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
         });
@@ -219,7 +233,9 @@ function buildPrefsWidget() {
     Utils.resolutions.forEach((res) => { // add res to dropdown list (aka a GtkComboText)
         resolutionEntry.append(res, res);
     });
+    
     settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+    
     settings.connect('changed::resolution', () => {
         Utils.validate_resolution(settings);
     });
@@ -228,9 +244,12 @@ function buildPrefsWidget() {
     let imageList = Utils.getImageList(settings);
     historyEntry.append('current', _('Most recent image'));
     historyEntry.append('random', _('Random image'));
+    
     imageList.forEach((image) => {
         historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
     });
+
+    // selected image can also be changed through the menu or even dconf
     settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::selected-image', () => {
         Utils.validate_imagename(settings);
@@ -248,6 +267,8 @@ function buildPrefsWidget() {
     settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
     settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+    
+    // add a couple of preset buttons
     buttonGDMdefault.connect('clicked', (widget) => {
         Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
     });
@@ -267,10 +288,5 @@ function buildPrefsWidget() {
         Utils.fetch_change_log(Me.metadata.version.toString(), change_log, httpSession);
 
     return box;
-}
-
-function log(msg) {
-    if (settings.get_boolean('debug-logging'))
-        print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
