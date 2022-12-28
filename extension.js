@@ -363,8 +363,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let icon = new St.Icon({
             icon_name: icon_name,
             style_class: 'popup-menu-icon',
-            x_expand: false,
-            y_expand: false
+            x_expand: true,
+            y_expand: true,
+            icon_size: this._settings.get_int('controls-icon-size')
         });
 
         let iconBtn = new St.Button({
