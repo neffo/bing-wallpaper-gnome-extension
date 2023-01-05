@@ -34,11 +34,12 @@ var BLUR_BRIGHTNESS = 0.55;
 var BLUR_SIGMA = 60;
 var debug = false;
 
-var promptActive = false; // default GNOME method of testing this relies on state of transisiton, so be implicit here
+var promptActive = false;   // default GNOME method of testing this relies on state of a transisiton
+                            // so we are being explicit here (do not want any races, thanks)
 
 function log(msg) {
-    if (debug)
-        print("BingWallpaper extension/Blur: " + msg); // set 'debug' to false to keep the noise down in journal
+    if (debug) // set 'debug' above to false to keep the noise down in journal
+        print("BingWallpaper extension/Blur: " + msg); 
 }
 
 // we patch UnlockDialog._updateBackgroundEffects()
@@ -124,10 +125,13 @@ var Blur = class Blur {
             log("Blur._enable() called on GNOME "+imports.misc.config.PACKAGE_VERSION);
             UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects_BWP;
             // we override _showClock and _showPrompt to patch in updates to blur effect before calling the GNOME functions
-            UnlockDialog.prototype._showClock_GNOME = _showClock;
             UnlockDialog.prototype._showClock = _showClock_BWP;
-            UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
             UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
+
+            // this are the original functions which we call into from our versions above
+            UnlockDialog.prototype._showClock_GNOME = _showClock;
+            UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
+            
         }
         this.enabled = true;
     }
@@ -137,11 +141,15 @@ var Blur = class Blur {
             return;
         log("_lockscreen_blur_disable() called");
         if (supportedVersion()) {
+            // restore default functions
             UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
             UnlockDialog.prototype._showClock = _showClock;
-            UnlockDialog.prototype._showClock_GNOME = null;
             UnlockDialog.prototype._showPrompt = _showPrompt;
+            // clean up unused functions we created
+            UnlockDialog.prototype._showClock_GNOME = null;
+            delete UnlockDialog.prototype._showClock_GNOME;
             UnlockDialog.prototype._showPrompt_GNOME = null;
+            delete UnlockDialog.prototype._showPrompt_GNOME;
         }
         this.enabled = false;
     }
