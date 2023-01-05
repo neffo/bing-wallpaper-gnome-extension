@@ -16,8 +16,8 @@ const ScreenShield = imports.ui.screenShield;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
 const ExtensionUtils = imports.misc.extensionUtils;
 var _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects;
-var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
-var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
+var _showClock = UnlockDialog.prototype._showClock;
+var _showPrompt = UnlockDialog.prototype._showPrompt;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
@@ -25,15 +25,20 @@ var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[
 var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]);
 var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
 
+// default BWP mild blur
 var BWP_BLUR_SIGMA = 2;
 var BWP_BLUR_BRIGHTNESS = 55;
+// GNOME defaults
+var BLUR_BRIGHTNESS = 0.55;
+var BLUR_SIGMA = 60;
 var debug = false;
 
 let blurEnabled = false;
+var promptActive = false; // default GNOME method of testing this relies on state of transisiton, so be implicit here
 
 function log(msg) {
     if (debug)
-        print("BingWallpaper extension/Blur: " + msg); // disable to keep the noise down in journal
+        print("BingWallpaper extension/Blur: " + msg); // set 'debug' to false to keep the noise down in journal
 }
 
 function _updateBackgroundEffects_BWP(monitorIndex) {
@@ -41,41 +46,48 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
     log("_updateBackgroundEffects_BWP() called for shell >= 3.36.4");
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
     for (const widget of this._backgroundGroup.get_children()) {
-        let effects = widget.get_effects(); // first remove effects
-        if (effects.length > 0) {
-            widget.myEffect = effects[0];
-            widget.remove_effect(widget.myEffect);
-        }
-        // set blur effects
-        if (this._activePage === this._promptBox) { // default blur level for GNOME when prompt is active
-            widget.get_effect('blur').set({ // GNOME defaults
-                brightness: BLUR_BRIGHTNESS,
-                sigma: BLUR_SIGMA * themeContext.scale_factor,
-            });
+        // set blur effects, we have two modes in lockscreen: clock or login prompt
+        const effect = widget.get_effect('blur');
+        if (promptActive) { 
+            log('default blur active');
+            if (effect) {
+                effect.set({ // GNOME defaults when login prompt is visible
+                    brightness: BLUR_BRIGHTNESS,
+                    sigma: BLUR_SIGMA * themeContext.scale_factor,
+                });
+            }
         }
         else {
-            widget.get_effect('blur').set({ // adjustable blur
-                brightness: BWP_BLUR_BRIGHTNESS * 0.01, // we use 0-100 rather than 0-1, so divide by 100
-                sigma: BWP_BLUR_SIGMA * themeContext.scale_factor,
-            });
+            log('adjustable blur active');
+            if (effect) {
+                effect.set({ // adjustable blur when clock is visible
+                    brightness: BWP_BLUR_BRIGHTNESS * 0.01, // we use 0-100 rather than 0-1, so divide by 100
+                    sigma: BWP_BLUR_SIGMA * themeContext.scale_factor,
+                });
+            }
         }
     }
     blurEnabled = true;
 }
 
+// we patch both _showClock and _showPrompt to let us adjust blur in a Windows-like way (this ensures login prompt is readable)
 function _showClock_BWP() {
-    this._updateBackgrounds();
-    this._showClock_GNOME();
+    log('show clock');
+    promptActive = false;
+    this._showClock_GNOME(); // pass to default GNOME function
+    this._updateBackgroundEffects();
 }
 
 function _showPrompt_BWP() {
-    this._updateBackgrounds();
-    this._showPrompt_GNOME();
+    log('show prompt');
+    promptActive = true;
+    this._showPrompt_GNOME(); // pass to default GNOME function
+    this._updateBackgroundEffects();
 }
 
 var Blur = class Blur {
     constructor() {
-        log('Blur mode is '+blurMode);
+        log('Bing Wallpaper adjustable blur is '+supportedVersion()?'available':'not available');
     }
 
     set_blur_strength(value) {
@@ -110,10 +122,10 @@ var Blur = class Blur {
         if (supportedVersion()) {
             UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects_BWP;
             // we override _showClock and _showPrompt to patch in updates to blur effect before calling the GNOME functions
-            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock;
-            UnlockDialog.UnlockDialog.prototype._showClock = _showClock_BWP;
-            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
-            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
+            UnlockDialog.prototype._showClock_GNOME = _showClock;
+            UnlockDialog.prototype._showClock = _showClock_BWP;
+            UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
+            UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
         }
         else {
             log("shell version not supported, no overriding");
@@ -126,6 +138,8 @@ var Blur = class Blur {
         log("_lockscreen_blur_disable() called");
         if (supportedVersion()) {
             UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
+            UnlockDialog.prototype._showClock = _showClock;
+            UnlockDialog.prototype._showPrompt = _showPrompt;
         }
         else {
             log("shell version not supported, no overriding");

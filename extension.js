@@ -853,9 +853,11 @@ function disable() {
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
 
-    // disable blur override and cleanup
-    blur._disable();
-    blur = null;
+    // disable blur override and cleanup, remains active during lockscreen
+    if (!Main.sessionMode.isLocked) {
+        blur._disable();
+        blur = null;
+    }
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {
