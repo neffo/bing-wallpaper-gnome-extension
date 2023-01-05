@@ -43,8 +43,6 @@ const ICON_REFRESH = 'view-refresh-symbolic';
 
 let bingWallpaperIndicator = null;
 let blur = null;
-let blur_brightness = 0.55;
-let blur_strength = 30;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
@@ -100,8 +98,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.imageIndex = null;
         this.logger = null;
         blur = new Blur.Blur();
-        blur.blur_strength = 30;
-        blur.blur_brightness = 0.55;
+        blur.BWP_BLUR_BRIGHTNESS = 2;
+        blur.BWP_BLUR_SIGMA = 55;
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
