@@ -138,31 +138,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         // build the button bar
         this.menu.addMenuItem(this.controlItem);
-        this.prevBtn = this._newMenuIcon(
-            ICON_PREVIOUS_BUTTON, 
-            this.controlItem, 
-            this._prevImage);
-        this.refreshBtn = this._newMenuIcon(
-            ICON_REFRESH, 
-            this.controlItem, 
-            this._shuffleImage); 
-        this.nextBtn = this._newMenuIcon(
-            ICON_NEXT_BUTTON, 
-            this.controlItem, 
-            this._nextImage);
-        this.curBtn = this._newMenuIcon(
-            ICON_CURRENT_BUTTON, 
-            this.controlItem, 
-            this._curImage);
-        this.randomBtn = this._newMenuIcon(
-            this._settings.get_string('selected-image') == 'random' ? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
-            this.controlItem, 
-            this._toggleShuffle, 
-            6);
-        this.modeBtn = this._newMenuIcon(
-            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
-            this.controlItem, 
-            this._togglePause);
+        this._setControls();
         
         this.menu.addMenuItem(this.thumbnailItem);
         this.menu.addMenuItem(this.titleItem);
@@ -184,16 +160,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.thumbnailItem.setSensitive(false);
         
         this._setConnections();
-        this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
-        this.titleItem.connect('activate', () => {
-            if (this.imageinfolink)
-                Utils.openInSystemViewer(this.imageinfolink, false);
-        });
-        this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
-        this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
-        this.refreshItem.connect('activate', this._refresh.bind(this));
-        this.settingsItem.connect('activate', this._openPrefs.bind(this));
-        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
+        
         if (this._settings.get_string('state') != '[]') {
             this._reStoreState();
         }
@@ -229,6 +196,18 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::always-export-bing-json', this._exportData.bind(this));
         this._settings.connect('changed::bing-json', this._exportData.bind(this));
         this._cleanUpImages();
+
+        // menu connections 
+        this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
+        this.titleItem.connect('activate', () => {
+            if (this.imageinfolink)
+                Utils.openInSystemViewer(this.imageinfolink, false);
+        });
+        this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
+        this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        this.refreshItem.connect('activate', this._refresh.bind(this));
+        this.settingsItem.connect('activate', this._openPrefs.bind(this));
+        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
     }  
 
     _openPrefs() {
@@ -355,6 +334,34 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         clutter_text.set_ellipsize(0);
         clutter_text.set_max_length(0);
         menuItem.label.set_style('max-width: 420px;');
+    }
+
+    _setControls() {
+        this.prevBtn = this._newMenuIcon(
+            ICON_PREVIOUS_BUTTON, 
+            this.controlItem, 
+            this._prevImage);
+        this.refreshBtn = this._newMenuIcon(
+            ICON_REFRESH, 
+            this.controlItem, 
+            this._shuffleImage); 
+        this.nextBtn = this._newMenuIcon(
+            ICON_NEXT_BUTTON, 
+            this.controlItem, 
+            this._nextImage);
+        this.curBtn = this._newMenuIcon(
+            ICON_CURRENT_BUTTON, 
+            this.controlItem, 
+            this._curImage);
+        this.randomBtn = this._newMenuIcon(
+            this._settings.get_string('selected-image') == 'random' ? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
+            this.controlItem, 
+            this._toggleShuffle, 
+            6);
+        this.modeBtn = this._newMenuIcon(
+            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
+            this.controlItem, 
+            this._togglePause);
     }
 
     _newMenuIcon(icon_name, parent, fn, position = null) {
@@ -853,7 +860,8 @@ function disable() {
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
 
-    // disable blur override and cleanup, remains active during lockscreen
+    // disable blur (blur.js) override and cleanup, remains active during lockscreen
+    // this code ONLY modifies the background blur effects no web connectivity
     if (!Main.sessionMode.isLocked) {
         blur._disable();
         blur = null;
