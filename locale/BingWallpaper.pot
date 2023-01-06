@@ -6,11 +6,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:147
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:132 extension.js:144
 msgid "Set background image"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:135
 msgid "Settings"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:144
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:145
 msgid "Always show new images"
 msgstr ""
 
@@ -248,35 +248,67 @@ msgstr ""
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:126
+#: extension.js:125
+msgid "<No refresh scheduled>"
+msgstr ""
+
+#: extension.js:126 extension.js:127 extension.js:128
 msgid "Awaiting refresh..."
+msgstr ""
+
+#: extension.js:129
+msgid "Copy image to clipboard"
+msgstr ""
+
+#: extension.js:130
+msgid "Copy image URL to clipboard"
+msgstr ""
+
+#: extension.js:131
+msgid "Open image folder"
+msgstr ""
+
+#: extension.js:133
+msgid "Set lock screen image"
+msgstr ""
+
+#: extension.js:134
+msgid "Refresh Now"
+msgstr ""
+
+#: extension.js:136
+msgid "Open in image viewer"
+msgstr ""
+
+#: extension.js:137
+msgid "Open Bing image information page"
 msgstr ""
 
 #: extension.js:143
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:145
+#: extension.js:146
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:281
+#: extension.js:298
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:282
+#: extension.js:299
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:709 extension.js:745
+#: extension.js:687 extension.js:723
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:771
+#: extension.js:749
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:772
+#: extension.js:750
 msgid "No picture for today."
 msgstr ""
 
