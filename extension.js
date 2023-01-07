@@ -39,6 +39,7 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
+const ICON_RANDOM = Me.dir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
@@ -136,25 +137,27 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.openImageItem = newMenuItem(_("Open in image viewer"));
         this.openImageInfoLinkItem = newMenuItem(_("Open Bing image information page"));
 
-        [this.openImageInfoLinkItem, this.openImageItem, this.folderItem, this.dwallpaperItem, 
-            this.clipboardImageItem, this.clipboardURLItem]
+        [this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
+            this.clipboardImageItem, this.clipboardURLItem, this.dwallpaperItem]
                 .forEach(e => this.titleItem.menu.addMenuItem(e));
 
+        // quick settings submenu
         this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
-        this.toggleSetBackground = new PopupMenu.PopupSwitchMenuItem(_("Set background image"), true, {});
-        this.toggleSelectNew = new PopupMenu.PopupSwitchMenuItem(_("Always show new images"), true, {});
+        // toggles under the quick settings submenu
+        this.toggleSetBackground = new PopupMenu.PopupSwitchMenuItem(_("Set background image"), this._settings.get_boolean('set-background'), {});
+        this.toggleSelectNew = new PopupMenu.PopupSwitchMenuItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'), {});
         this.toggleShuffle = new PopupMenu.PopupSwitchMenuItem(_("Image shuffle mode"), true, {});
-        this.toggleNotifications = new PopupMenu.PopupSwitchMenuItem(_("Enable desktop notifications"), true, {});
+        this.toggleNotifications = new PopupMenu.PopupSwitchMenuItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'), {});
+        this.toggleImageCount = new PopupMenu.PopupSwitchMenuItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'), {});
         
-        [this.toggleSetBackground, this.toggleSelectNew, this.toggleShuffle, this.toggleNotifications]
-            .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
+        [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
+            this.toggleShuffle]
+                .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
-        // these items are a bit unique, we'll populate theem elsewhere
+        // these items are a bit unique, we'll populate them in _setControls()
         this.controlItem = newMenuItem("");
         this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});       
-
-        // build the button bar
-        this._setControls();
+        this._setControls(); // build the button bar
 
         // we need to word-wrap these menu items to not overflow menu in case of long lines of text
         [this.refreshDueItem, this.titleItem, this.explainItem, this.copyrightItem]
@@ -166,13 +169,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let allMenuItems = [ 
             this.refreshItem, 
             this.refreshDueItem, 
-            new PopupMenu.PopupSeparatorMenuItem(), 
+            new PopupMenu.PopupSeparatorMenuItem(),
+            this.controlItem,
+            new PopupMenu.PopupSeparatorMenuItem(),
             this.explainItem, 
             this.thumbnailItem, 
             this.titleItem, 
             this.copyrightItem,
-            new PopupMenu.PopupSeparatorMenuItem(),
-            this.controlItem,
             new PopupMenu.PopupSeparatorMenuItem(),
             this.settingsSubMenu,
             this.settingsItem
@@ -218,6 +221,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             {signal: 'changed::notify', call: this._notifyCurrentImage},
             {signal: 'changed::always-export-bing-json', call: this._exportData},
             {signal: 'changed::bing-json', call: this._exportData},
+            {signal: 'changed::controls-icon-size', call: this._setControls}
         ];
 
         // _setShuffleToggleState
@@ -247,6 +251,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.settingsItem.connect('activate', this._openPrefs.bind(this));
         
         // unfortunately we can't bind like we can with prefs here, so we handle toggles in two steps
+        // first, we listen for changes to these toggle settings and update toggles
         this._settings.connect('changed::set-background', () => { 
             this.toggleSetBackground.setToggleState(this._settings.get_boolean('set-background'));
         });
@@ -256,11 +261,25 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::notify', () => { 
             this.toggleNotifications.setToggleState(this._settings.get_boolean('notify'));
         });
+        this._settings.connect('changed::show-count-in-image-title', () => { 
+            this.toggleImageCount.setToggleState(this._settings.get_boolean('show-count-in-image-title'));
+            this._setMenuText();
+        });
 
-        // link settings to toggle state
-        this._settings.bind('set-background', this.toggleSetBackground, 'state', Gio.SettingsBindFlags.SET);
-        this._settings.bind('revert-to-current-image', this.toggleSelectNew, 'state', Gio.SettingsBindFlags.SET);
-        this._settings.bind('notify', this.toggleNotifications, 'state', Gio.SettingsBindFlags.SET);
+        // & then, link settings to toggle state (the other way)        
+        this.toggleSetBackground.connect('toggled', (item, state) => {
+            this._settings.set_boolean('set-background', state);
+        });
+        this.toggleSelectNew.connect('toggled', (item, state) => {
+            this._settings.set_boolean('revert-to-current-image', state);
+        });
+        this.toggleNotifications.connect('toggled', (item, state) => {
+            this._settings.set_boolean('notify', state);
+        });
+        this.toggleImageCount.connect('toggled', (item, state) => {
+            this._settings.set_boolean('show-count-in-image-title', state);
+            this._selectImage(false);
+        });
         
         // shuffle is a special case
         this._setShuffleToggleState();
@@ -391,9 +410,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // set menu text in lieu of a notification/popup
     _setMenuText() {
-        this.titleItem.label.set_text(this.title ? this.title : '');
-        this.explainItem.label.set_text(this.explanation ? this.explanation : '');
+        this.titleItem.label.set_text(this.title ? this.title : '');  
         this.copyrightItem.label.set_text(this.copyright ? this.copyright : '');
+        if (this._settings.get_boolean('show-count-in-image-title') && this.explanation) {
+            let imageList = JSON.parse(this._settings.get_string('bing-json'));
+            if (imageList.length > 0)
+                this.explainItem.label.set_text( this.explanation + ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']');
+        }
+        else {
+            this.explainItem.label.set_text(this.explanation ? this.explanation : '');
+        }
     }
 
     _wrapLabelItem(menuItem) {
@@ -409,10 +435,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             ICON_PREVIOUS_BUTTON, 
             this.controlItem, 
             this._prevImage);
-        this.refreshBtn = this._newMenuIcon(
-            ICON_REFRESH, 
-            this.controlItem, 
-            this._shuffleImage); 
         this.nextBtn = this._newMenuIcon(
             ICON_NEXT_BUTTON, 
             this.controlItem, 
@@ -421,11 +443,17 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             ICON_CURRENT_BUTTON, 
             this.controlItem, 
             this._curImage);
+        this.randomizeBtn = this._newMenuIcon(
+            ICON_RANDOM, 
+            this.controlItem, 
+            this._shuffleImage);
     }
 
     _newMenuIcon(icon_name, parent, fn, position = null) {
+        let gicon = Gio.icon_new_for_string(icon_name);
         let icon = new St.Icon({
-            icon_name: icon_name,
+            /*icon_name: icon_name,*/
+            gicon: gicon,
             style_class: 'popup-menu-icon',
             x_expand: true,
             y_expand: true,
@@ -517,7 +545,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this._settings.set_string('selected-image', 'random');
         }
         this._setShuffleToggleState();
-        log('switched mode to ' + this._settings.get_boolean('revert-to-current-image'));
+        log('switched mode to ' + this._settings.get_string('selected-image'));
     }
 
     _gotoImage(relativePos) {
@@ -721,8 +749,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             // set current image details at extension scope
             this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
             this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
-            if (this._settings.get_boolean('show-count-in-image-title'))
-                this.explanation += ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']';
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
