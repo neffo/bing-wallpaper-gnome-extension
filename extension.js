@@ -52,6 +52,15 @@ const newMenuItem = (label) => {
     return new PopupMenu.PopupMenuItem(label);
 }
 
+const newMenuSwitchItem = (label, state) => {
+    let switchItem = new PopupMenu.PopupSwitchMenuItem(
+        label, 
+        state, 
+        {});
+    switchItem.label.x_expand = true;
+    switchItem._statusBin.x_expand = false;
+    return switchItem;
+}
 
 function log(msg) {
     if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
@@ -144,11 +153,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // quick settings submenu
         this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
         // toggles under the quick settings submenu
-        this.toggleSetBackground = new PopupMenu.PopupSwitchMenuItem(_("Set background image"), this._settings.get_boolean('set-background'), {});
-        this.toggleSelectNew = new PopupMenu.PopupSwitchMenuItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'), {});
-        this.toggleShuffle = new PopupMenu.PopupSwitchMenuItem(_("Image shuffle mode"), true, {});
-        this.toggleNotifications = new PopupMenu.PopupSwitchMenuItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'), {});
-        this.toggleImageCount = new PopupMenu.PopupSwitchMenuItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'), {});
+        this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
+        this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
+        this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), true);
+        this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
+        this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         
         [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
             this.toggleShuffle]
