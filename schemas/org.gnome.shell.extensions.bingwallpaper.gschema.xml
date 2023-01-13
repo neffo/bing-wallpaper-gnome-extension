@@ -160,6 +160,12 @@
       <default>false</default>
       <summary>Include current index and total image count in image title</summary>
     </key>
+
+    <key name="controls-icon-size" type="i">
+      <range min="16" max="48" />
+      <default>32</default>
+      <summary>Size of icons for controls in popup menu</summary>
+    </key>
     
     <!-- not currently used
     <key name="gallery-width" type="i">

@@ -102,6 +102,8 @@ function buildPrefsWidget() {
     let buttonImportData = buildable.get_object('button_json_import');
     let buttonExportData = buildable.get_object('button_json_export');
     let switchAlwaysExport = buildable.get_object('always_export_switch');
+    /*let searchEntry = buildable.get_object('searchEntry');
+    let searchBuffer = buildable.get_object('searchBuffer');*/
     let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
     
     try {
@@ -148,11 +150,13 @@ function buildPrefsWidget() {
     // open image carousel (gallery) window (gtk3, gnome <40) or populate the tab (gtk4+, gnome 40+)
     if (Gtk.get_major_version() == 4) {
         carousel = new Carousel.Carousel(settings, null, null, carouselFlowBox); // auto load carousel
+        
     }
     else {
         galleryButton.connect('clicked', (widget) => {
             carousel = new Carousel.Carousel(settings, widget, null, carouselFlowBox);
         });
+        
     }
     
     // this is intended for migrating image folders between computers (or even sharing) or backups

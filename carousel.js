@@ -27,6 +27,7 @@ var Carousel = class Carousel {
         this.flowBox = null;
         this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
+        this.searchEntry = null;
         
         this.log('create carousel...');
 

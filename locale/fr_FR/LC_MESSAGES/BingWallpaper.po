@@ -28,7 +28,7 @@ msgstr "Icône d'indicateur"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Activer les notifications sur le bureau"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
@@ -83,55 +83,55 @@ msgstr "Paramètres"
 
 #: Settings.ui.h:16 Settings4.ui.h:17
 msgid "Use custom blur and brightness"
-msgstr ""
+msgstr "Personaliser le flou et la luminosité"
 
 #: Settings.ui.h:17 Settings4.ui.h:18
 msgid "Override GDM3 lockscreen effects"
-msgstr ""
+msgstr "Passer outre les effets de l'écran de verouillage GDM3"
 
 #: Settings.ui.h:18 Settings4.ui.h:19
 msgid "Blur can improve readability of login prompt"
-msgstr ""
+msgstr "Le flou peut améliorer la lisibilté sur l'invite de connexion"
 
 #: Settings.ui.h:19 Settings4.ui.h:20
 msgid "Background blur intensity"
-msgstr ""
+msgstr "Intensité du flou de l'arrière plan"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Can improve contrast of login prompt"
-msgstr ""
+msgstr "Peut améliorer le contraste de l'invite de connexion"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Background brightness"
-msgstr ""
+msgstr "Luminosité de l'arrière plan"
 
 #: Settings.ui.h:22 Settings4.ui.h:23
 msgid "Presets"
-msgstr ""
+msgstr "Pré-définis"
 
 #: Settings.ui.h:23 Settings4.ui.h:24
 msgid "Commonly used presets"
-msgstr ""
+msgstr "Pré-définis courrament utilisés"
 
 #: Settings.ui.h:24 Settings4.ui.h:25
 msgid "No blur, slight dim"
-msgstr ""
+msgstr "Pas de flou, léger dim"
 
 #: Settings.ui.h:25 Settings4.ui.h:26
 msgid "GNOME default"
-msgstr ""
+msgstr "GNOME par défaut"
 
 #: Settings.ui.h:26 Settings4.ui.h:27
 msgid "Slight blur, slight dim"
-msgstr ""
+msgstr "Léger flou, léger dim"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "Lock Screen"
-msgstr ""
+msgstr "Ecran de verouillage"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "New wallpaper images everyday from Bing"
-msgstr ""
+msgstr "Nouvelle image d'arrière plan chaque jour depuis Bing"
 
 #: Settings.ui.h:29 Settings4.ui.h:30
 msgid "Gnome shell extension version "
@@ -151,10 +151,13 @@ msgid ""
 "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
+"Montrer votre support pour l'auteur sur <a href=\"https://flattr.com/@neffo"
+"\">Flattr</a> ou sur <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
 
 #: Settings.ui.h:33 Settings4.ui.h:34
 msgid "Changes since last version"
-msgstr ""
+msgstr "Changements depuis la dernière version"
 
 #: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
@@ -215,7 +218,7 @@ msgstr "Actualiser maintenant"
 
 #: extension.js:137
 msgid "Thumbnail disabled on Wayland"
-msgstr ""
+msgstr "Vignette désactivé sur Wayland"
 
 #: extension.js:203
 msgid "Next refresh"
@@ -233,7 +236,7 @@ msgstr "Définir le fond d'écran"
 
 #: extension.js:498
 msgid "More info on Bing.com"
-msgstr ""
+msgstr "Plus d'info sur Bing.com"
 
 #: extension.js:553
 msgid "No wallpaper available"
@@ -255,7 +258,7 @@ msgstr "Image aléatoire"
 
 #: prefs.js:190 prefs.js:206
 msgid "Disabled on current GNOME version"
-msgstr ""
+msgstr "Désactiver la version actuelle de GNOME"
 
 #: utils.js:139
 msgid "Fetching data..."
@@ -271,11 +274,11 @@ msgstr "Une erreur de réseau est survenue"
 
 #: utils.js:159
 msgid "Too many requests in 5 seconds"
-msgstr ""
+msgstr "Trop de requêtes en 5 secondes"
 
 #: utils.js:186
 msgid "No change log found for this release"
-msgstr ""
+msgstr "Pas de changements trouvé pour cette version"
 
 #: utils.js:366 utils.js:369
 #, fuzzy

@@ -51,6 +51,9 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     <property name="modal">1</property>
     <!-- <signal name="response" handler="_onFileChooserResponse" swapped="no"/> -->
   </object>
+  <object class="GtkEntryBuffer" id="searchBuffer">
+    <property name="max-length">120</property>
+  </object>
   <object class="GtkNotebook" id="prefs_widget">
     <property name="can_focus">0</property>
     <property name="scrollable">0</property>
@@ -1237,25 +1240,41 @@ Bing Wallpaper GNOME extension by: Michael Carroll
       </object>
     </child>
     <child>
-      <object class="GtkNotebookPage">
+      <object class="GtkNotebookPage" id="galleryPage">
         <property name="position">3</property>
         <property name="child">
-        <object class="GtkViewport" id="carouselViewPort">
-          <property name="can-focus">0</property>
-          <property name="height_request">500</property>
-          <property name="hexpand">0</property>
-          <property name="vexpand">0</property>
-            <property name="child">
-              <object class="GtkFlowBox" id="carouselFlowBox">
-                <property name="can-focus">0</property>
-                <property name="halign">center</property>
-                <property name="homogeneous">1</property>
-                <property name="max-children-per-line">2</property>
-                <property name="min-children-per-line">2</property>
-                <property name="row-spacing">2</property>
-                <property name="column-spacing">2</property>
+          <object class="GtkBox" id="outerGrid">
+            <property name="homogeneous">0</property>            
+            <property name="orientation">vertical</property>
+            <!--<child>
+              <object class="GtkEntry" id="searchBar">
+                <property name="hexpand">True</property>
+                <property name="placeholder-text">Search for images by title or description</property>
+                <property name="buffer">searchBuffer</property>
+                <property name="editable">true</property>
+                <property name="width-chars">80</property>
+
               </object>
-            </property>
+            </child>-->
+            <child>
+              <object class="GtkViewport" id="carouselViewPort">
+                <property name="can-focus">0</property>
+                <property name="height_request">500</property>
+                <property name="hexpand">0</property>
+                <property name="vexpand">0</property>
+                <property name="child">
+                  <object class="GtkFlowBox" id="carouselFlowBox">
+                    <property name="can-focus">0</property>
+                    <property name="halign">center</property>
+                    <property name="homogeneous">1</property>
+                    <property name="max-children-per-line">2</property>
+                    <property name="min-children-per-line">2</property>
+                    <property name="row-spacing">2</property>
+                    <property name="column-spacing">2</property>
+                  </object>
+                </property>
+              </object>
+            </child>
           </object>
         </property>
         <property name="tab">

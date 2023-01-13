@@ -9,3 +9,5 @@ ZIP_NAME=BingWallpaper@ineffable-gmail.com.zip
 mkdir -p $INSTALL_PATH/$EXTENSION_NAME
 
 unzip -o $ZIP_NAME -d $INSTALL_PATH/$EXTENSION_NAME/
+
+gnome-extensions enable $EXTENSION_NAME

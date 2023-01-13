@@ -39,16 +39,28 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
-
+const ICON_RANDOM = Me.dir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
-let blur_brightness = 0.55;
-let blur_strength = 30;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
     Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
+
+const newMenuItem = (label) => {
+    return new PopupMenu.PopupMenuItem(label);
+}
+
+const newMenuSwitchItem = (label, state) => {
+    let switchItem = new PopupMenu.PopupSwitchMenuItem(
+        label, 
+        state, 
+        {});
+    switchItem.label.x_expand = true;
+    switchItem._statusBin.x_expand = false;
+    return switchItem;
+}
 
 function log(msg) {
     if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
@@ -99,9 +111,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.clipboard = new BWClipboard.BWClipboard();
         this.imageIndex = null;
         this.logger = null;
-        blur = new Blur.Blur();
-        blur.blur_strength = 30;
-        blur.blur_brightness = 0.55;
+        
+        if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
+            blur = new Blur.Blur();
+        
+        /*
+        blur.BWP_BLUR_BRIGHTNESS = 2;
+        blur.BWP_BLUR_SIGMA = 55;
+        */
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
@@ -115,88 +132,74 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             Utils.is_x11 = Utils.enabled_unsafe;
         }
 
-        this.refreshDueItem = new PopupMenu.PopupMenuItem(_("<No refresh scheduled>"));
-        this._wrapLabelItem(this.refreshDueItem);
-        //this.showItem = new PopupMenu.PopupMenuItem(_("Show description"));
-        this.titleItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh...")); //FIXME: clean this up
-        this._wrapLabelItem(this.titleItem);
-        this.explainItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this._wrapLabelItem(this.explainItem);
-        this.controlItem = new PopupMenu.PopupMenuItem(""); // blank
-        this.copyrightItem = new PopupMenu.PopupMenuItem(_("Awaiting refresh..."));
-        this._wrapLabelItem(this.copyrightItem);
-        this.clipboardImageItem = new PopupMenu.PopupMenuItem(_("Copy image to clipboard"));
-        this.clipboardURLItem = new PopupMenu.PopupMenuItem(_("Copy image URL to clipboard"));
-        this.folderItem = new PopupMenu.PopupMenuItem(_("Open image folder"));
-        this.dwallpaperItem = new PopupMenu.PopupMenuItem(_("Set background image"));
-        this.swallpaperItem = new PopupMenu.PopupMenuItem(_("Set lock screen image"));
-        this.refreshItem = new PopupMenu.PopupMenuItem(_("Refresh Now"));
-        this.settingsItem = new PopupMenu.PopupMenuItem(_("Settings"));
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'}); 
-        this.menu.addMenuItem(this.refreshItem);
-        this.menu.addMenuItem(this.refreshDueItem);
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addMenuItem(this.explainItem);
+        this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
+        this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
+        this.explainItem = newMenuItem(_("Awaiting refresh..."));
+        this.copyrightItem = newMenuItem(_("Awaiting refresh..."));
+        this.clipboardImageItem = newMenuItem(_("Copy image to clipboard"));
+        this.clipboardURLItem = newMenuItem(_("Copy image URL to clipboard"));
+        this.folderItem = newMenuItem(_("Open image folder"));
+        this.dwallpaperItem = newMenuItem(_("Set background image"));
+        this.swallpaperItem = newMenuItem(_("Set lock screen image"));
+        this.refreshItem = newMenuItem(_("Refresh Now"));
+        this.settingsItem = newMenuItem(_("Settings"));
+        this.openImageItem = newMenuItem(_("Open in image viewer"));
+        this.openImageInfoLinkItem = newMenuItem(_("Open Bing image information page"));
 
-        // build the button bar
-        this.menu.addMenuItem(this.controlItem);
-        this.prevBtn = this._newMenuIcon(
-            ICON_PREVIOUS_BUTTON, 
-            this.controlItem, 
-            this._prevImage);
-        this.refreshBtn = this._newMenuIcon(
-            ICON_REFRESH, 
-            this.controlItem, 
-            this._shuffleImage); 
-        this.nextBtn = this._newMenuIcon(
-            ICON_NEXT_BUTTON, 
-            this.controlItem, 
-            this._nextImage);
-        this.curBtn = this._newMenuIcon(
-            ICON_CURRENT_BUTTON, 
-            this.controlItem, 
-            this._curImage);
-        this.randomBtn = this._newMenuIcon(
-            this._settings.get_string('selected-image') == 'random' ? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
-            this.controlItem, 
-            this._toggleShuffle, 
-            6);
-        this.modeBtn = this._newMenuIcon(
-            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
-            this.controlItem, 
-            this._togglePause);
+        [this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
+            this.clipboardImageItem, this.clipboardURLItem, this.dwallpaperItem]
+                .forEach(e => this.titleItem.menu.addMenuItem(e));
+
+        // quick settings submenu
+        this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
+        // toggles under the quick settings submenu
+        this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
+        this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
+        this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), true);
+        this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
+        this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         
-        this.menu.addMenuItem(this.thumbnailItem);
-        this.menu.addMenuItem(this.titleItem);
-        this.menu.addMenuItem(this.copyrightItem);
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        if (this.clipboard.clipboard) { // only if we have a clipboard
-            this.menu.addMenuItem(this.clipboardImageItem);
-            this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
-            this.menu.addMenuItem(this.clipboardURLItem);
-            this.clipboardURLItem.connect('activate', this._copyURLToClipboard.bind(this));
-        }
-        this.menu.addMenuItem(this.folderItem);
-        this.menu.addMenuItem(this.dwallpaperItem);
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addMenuItem(this.settingsItem);
-        this.explainItem.setSensitive(false);
-        this.copyrightItem.setSensitive(false);
-        this.refreshDueItem.setSensitive(false);
-        this.thumbnailItem.setSensitive(false);
+        [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
+            this.toggleShuffle]
+                .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
+
+        // these items are a bit unique, we'll populate them in _setControls()
+        this.controlItem = newMenuItem("");
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});       
+        this._setControls(); // build the button bar
+
+        // we need to word-wrap these menu items to not overflow menu in case of long lines of text
+        [this.refreshDueItem, this.titleItem, this.explainItem, this.copyrightItem]
+            .forEach((e, i) => {
+                this._wrapLabelItem(e);
+            });
+        
+        // set the order of menu items (including separators)
+        let allMenuItems = [ 
+            this.refreshItem, 
+            this.refreshDueItem, 
+            new PopupMenu.PopupSeparatorMenuItem(),
+            this.controlItem,
+            new PopupMenu.PopupSeparatorMenuItem(),
+            this.explainItem, 
+            this.thumbnailItem, 
+            this.titleItem, 
+            this.copyrightItem,
+            new PopupMenu.PopupSeparatorMenuItem(),
+            this.settingsSubMenu,
+            this.settingsItem
+        ];
+        allMenuItems.forEach(e => this.menu.addMenuItem(e));
+
+        // non clickable information items
+        [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem]
+            .forEach((e) => {
+                e.setSensitive(false);
+            });
         
         this._setConnections();
-        this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
-        this.titleItem.connect('activate', () => {
-            if (this.imageinfolink)
-                Utils.openInSystemViewer(this.imageinfolink, false);
-        });
-        this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
-        this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
-        this.refreshItem.connect('activate', this._refresh.bind(this));
-        this.settingsItem.connect('activate', this._openPrefs.bind(this));
-        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
-        if (this._settings.get_string('state') != '[]') {
+        
+        if (this._settings.get_string('state') != '[]') { // setting state on reset or initial boot
             this._reStoreState();
         }
         else {
@@ -215,22 +218,91 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._settings.connect('changed::hide', () => {
             getActorCompat(this).visible = !this._settings.get_boolean('hide');
         });
-        this._setIcon();
-        this._settings.connect('changed::icon-name', this._setIcon.bind(this));
-        this._settings.connect('changed::market', this._refresh.bind(this));
-        this._settings.connect('changed::set-background', this._setBackground.bind(this));
-        this._settings.connect('changed::set-lockscreen', this._setBackground.bind(this));
-        this._settings.connect('changed::override-lockscreen-blur', this._setBlur.bind(this));
+        
+        let settingConnections = [
+            {signal: 'changed::icon-name', call: this._setIcon},
+            {signal: 'changed::market', call: this._refresh},
+            {signal: 'changed::set-background', call: this._setBackground},
+            /*{signal: 'changed::set-lockscreen', call: this._setBackground},*/
+            {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
+            {signal: 'changed::selected-image', call: this._setImage},
+            {signal: 'changed::delete-previous', call: this._cleanUpImages},
+            {signal: 'changed::notify', call: this._notifyCurrentImage},
+            {signal: 'changed::always-export-bing-json', call: this._exportData},
+            {signal: 'changed::bing-json', call: this._exportData},
+            {signal: 'changed::controls-icon-size', call: this._setControls}
+        ];
+
+        // _setShuffleToggleState
+        settingConnections.forEach((e) => {
+            this._settings.connect(e.signal, e.call.bind(this));
+        });
+
         this._settings.connect('changed::lockscreen-blur-strength', blur.set_blur_strength.bind(this, this._settings.get_int('lockscreen-blur-strength')));
-        this._settings.connect('changed::lockscreen-blur-brightness', blur.set_blur_brightness.bind(this, this._settings.get_int('lockscreen-blur-brightness')));
+        this._settings.connect('changed::lockscreen-blur-brightness', blur.set_blur_brightness.bind(this, this._settings.get_int('lockscreen-blur-brightness')));        
+        
+        // ensure we're in a sensible initial state
+        this._setIcon();
         this._setBlur();
-        this._settings.connect('changed::selected-image', this._setImage.bind(this));
         this._setImage();
-        this._settings.connect('changed::delete-previous', this._cleanUpImages.bind(this));
-        this._settings.connect('changed::notify', this._notifyCurrentImage.bind(this));
-        this._settings.connect('changed::always-export-bing-json', this._exportData.bind(this));
-        this._settings.connect('changed::bing-json', this._exportData.bind(this));
         this._cleanUpImages();
+
+        // menu connections 
+        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
+
+        // link menu items to functions
+        this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        this.openImageItem.connect('activate', this._openInSystemViewer.bind(this));
+        //this.titleItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        this.openImageInfoLinkItem.connect('activate', this._openImageInfoLink.bind(this)); 
+        this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        this.refreshItem.connect('activate', this._refresh.bind(this));
+        this.settingsItem.connect('activate', this._openPrefs.bind(this));
+        
+        // unfortunately we can't bind like we can with prefs here, so we handle toggles in two steps
+        // first, we listen for changes to these toggle settings and update toggles
+        this._settings.connect('changed::set-background', () => { 
+            this.toggleSetBackground.setToggleState(this._settings.get_boolean('set-background'));
+        });
+        this._settings.connect('changed::revert-to-current-image', () => { 
+            this.toggleSelectNew.setToggleState(this._settings.get_boolean('revert-to-current-image'));
+        });
+        this._settings.connect('changed::notify', () => { 
+            this.toggleNotifications.setToggleState(this._settings.get_boolean('notify'));
+        });
+        this._settings.connect('changed::show-count-in-image-title', () => { 
+            this.toggleImageCount.setToggleState(this._settings.get_boolean('show-count-in-image-title'));
+            this._setMenuText();
+        });
+
+        // & then, link settings to toggle state (the other way)        
+        this.toggleSetBackground.connect('toggled', (item, state) => {
+            this._settings.set_boolean('set-background', state);
+        });
+        this.toggleSelectNew.connect('toggled', (item, state) => {
+            this._settings.set_boolean('revert-to-current-image', state);
+        });
+        this.toggleNotifications.connect('toggled', (item, state) => {
+            this._settings.set_boolean('notify', state);
+        });
+        this.toggleImageCount.connect('toggled', (item, state) => {
+            this._settings.set_boolean('show-count-in-image-title', state);
+            this._selectImage(false);
+        });
+        
+        // shuffle is a special case
+        this._setShuffleToggleState();
+        this.toggleShuffle.connect('toggled', this._toggleShuffle.bind(this));
+        
+        this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
+        if (this.clipboard.clipboard) { // only if we have a clipboard           
+            this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
+            this.clipboardURLItem.connect('activate', this._copyURLToClipboard.bind(this));
+        }
+        else {
+            [this.clipboardImageItem, this.clipboardURLItem].
+                forEach(e => e.setSensitive(false));
+        }
     }  
 
     _openPrefs() {
@@ -267,6 +339,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.selected_image = this._settings.get_string('selected-image');
         log('selected image changed to: ' + this.selected_image);
         this._selectImage();
+        this._setShuffleToggleState();
     }
 
     _notifyCurrentImage() {
@@ -346,9 +419,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // set menu text in lieu of a notification/popup
     _setMenuText() {
-        this.titleItem.label.set_text(this.title ? this.title : '');
-        this.explainItem.label.set_text(this.explanation ? this.explanation : '');
+        this.titleItem.label.set_text(this.title ? this.title : '');  
         this.copyrightItem.label.set_text(this.copyright ? this.copyright : '');
+        if (this._settings.get_boolean('show-count-in-image-title') && this.explanation) {
+            let imageList = JSON.parse(this._settings.get_string('bing-json'));
+            if (imageList.length > 0)
+                this.explainItem.label.set_text( this.explanation + ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']');
+        }
+        else {
+            this.explainItem.label.set_text(this.explanation ? this.explanation : '');
+        }
     }
 
     _wrapLabelItem(menuItem) {
@@ -359,12 +439,34 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         menuItem.label.set_style('max-width: 420px;');
     }
 
+    _setControls() {
+        this.prevBtn = this._newMenuIcon(
+            ICON_PREVIOUS_BUTTON, 
+            this.controlItem, 
+            this._prevImage);
+        this.nextBtn = this._newMenuIcon(
+            ICON_NEXT_BUTTON, 
+            this.controlItem, 
+            this._nextImage);
+        this.curBtn = this._newMenuIcon(
+            ICON_CURRENT_BUTTON, 
+            this.controlItem, 
+            this._curImage);
+        this.randomizeBtn = this._newMenuIcon(
+            ICON_RANDOM, 
+            this.controlItem, 
+            this._shuffleImage);
+    }
+
     _newMenuIcon(icon_name, parent, fn, position = null) {
+        let gicon = Gio.icon_new_for_string(icon_name);
         let icon = new St.Icon({
-            icon_name: icon_name,
+            /*icon_name: icon_name,*/
+            gicon: gicon,
             style_class: 'popup-menu-icon',
-            x_expand: false,
-            y_expand: false
+            x_expand: true,
+            y_expand: true,
+            icon_size: this._settings.get_int('controls-icon-size')
         });
 
         let iconBtn = new St.Button({
@@ -440,16 +542,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._selectImage(true);
     }
 
-    _togglePause() {
-        this._settings.set_boolean('revert-to-current-image', !this._settings.get_boolean('revert-to-current-image'));
-        getActorCompat(this.controlItem.remove_child(this.modeBtn));
-        
-        this.modeBtn = this._newMenuIcon(
-            this._settings.get_boolean('revert-to-current-image') ? ICON_PLAY_MODE_BUTTON : ICON_PAUSE_MODE_BUTTON, 
-            this.controlItem, 
-            this._togglePause);
-
-        log('switched mode to ' + this._settings.get_boolean('revert-to-current-image'));
+    _setShuffleToggleState() {
+        this.toggleShuffle.setToggleState(this._settings.get_string('selected-image') == 'random');
     }
 
     _toggleShuffle() {
@@ -459,16 +553,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             this._settings.set_string('selected-image', 'random');
         }
-
-        getActorCompat(this.controlItem.remove_child(this.randomBtn));
-        
-        this.randomBtn = this._newMenuIcon(
-            this._settings.get_string('selected-image') == 'random'? ICON_SHUFFLE_BUTTON: ICON_CONSEC_BUTTON, 
-            this.controlItem, 
-            this._toggleShuffle, 
-            6);
-        
-        log('switched mode to ' + this._settings.get_boolean('revert-to-current-image'));
+        this._setShuffleToggleState();
+        log('switched mode to ' + this._settings.get_string('selected-image'));
     }
 
     _gotoImage(relativePos) {
@@ -478,7 +564,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (this.selected_image == 'random')
             return;
         
-            if (this.selected_image == 'current') {
+        if (this.selected_image == 'current') {
             curIndex = Utils.getCurrentImageIndex(imageList);
         }
         else {
@@ -527,7 +613,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
             let request = Soup.Message.new('GET', url);
             request.request_headers.append('Accept', 'application/json');
-            //log('fetching: ' + message.get_uri().to_string(false));
 
             // queue the http request
             try {
@@ -673,8 +758,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             // set current image details at extension scope
             this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
             this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
-            if (this._settings.get_boolean('show-count-in-image-title'))
-                this.explanation += ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']';
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
@@ -827,6 +910,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         Utils.openInSystemViewer(this.filename);
     }
 
+    // open Bing image information page
+    _openImageInfoLink() {
+        if (this.imageinfolink)
+            Utils.openInSystemViewer(this.imageinfolink, false);
+    }
+
     stop() {
         if (this._timeout)
             GLib.source_remove(this._timeout);
@@ -854,9 +943,13 @@ function disable() {
     bingWallpaperIndicator.destroy();
     bingWallpaperIndicator = null;
 
-    // disable blur override and cleanup
-    blur._disable();
-    blur = null;
+    // *** NOTE for EGO reviewers ***
+    // blur.js remains active during lockscreen, while the rest of the extension is disabled
+    // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
+    if (!Main.sessionMode.isLocked) {
+        blur._disable(); // disable blur (blur.js) override and cleanup
+        blur = null;
+    }
 }
 
 function toFilename(wallpaperDir, startdate, imageURL, resolution) {
