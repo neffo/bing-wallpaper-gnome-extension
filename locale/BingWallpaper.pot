@@ -6,11 +6,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:150
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:159
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:133 extension.js:147
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:142 extension.js:156
 msgid "Set background image"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:136
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:145
 msgid "Settings"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:148
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:157
 msgid "Always show new images"
 msgstr ""
 
@@ -248,71 +248,71 @@ msgstr ""
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:126
+#: extension.js:135
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:127 extension.js:128 extension.js:129
+#: extension.js:136 extension.js:137 extension.js:138
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:130
+#: extension.js:139
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:131
+#: extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:132
+#: extension.js:141
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:134
+#: extension.js:143
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:135
+#: extension.js:144
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:137
+#: extension.js:146
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:138
+#: extension.js:147
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:145
+#: extension.js:154
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:149
+#: extension.js:158
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:151
+#: extension.js:160
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:317
+#: extension.js:326
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:318
+#: extension.js:327
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:715 extension.js:751
+#: extension.js:724 extension.js:760
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:775
+#: extension.js:784
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:776
+#: extension.js:785
 msgid "No picture for today."
 msgstr ""
 

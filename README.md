@@ -31,6 +31,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 * In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry!)
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
+* GNOME Shell themes can break some GNOME popup menu elements (toggle switches for example). This impacts GNOME more generally, not just this extension. Double check you are running latest versions of your themes (or disable them).
 
 ## Requirements
 
