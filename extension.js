@@ -697,10 +697,21 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             }
 
             if (this._settings.get_boolean('notify')) {
-                newImages.forEach((image, index) => {
-                    log('New image to notify: ' + Utils.getImageTitle(image));
-                    this._createNotification(image);
-                });
+                if (!this._settings.get_boolean('notify-only-latest') {
+                    // notify all new images
+                    newImages.forEach((image, index) => {
+                            log('New image to notify: ' + Utils.getImageTitle(image));
+                            this._createNotification(image);
+                    });
+                }
+                else {
+                    // notify only the most recent image
+                    let last = newImages.pop();
+                    if (last) {
+                        log('New image to notify: ' + Utils.getImageTitle(last));
+                        this._createNotification(last);
+                    }
+                }
             }
 
             this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
@@ -721,7 +732,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // set notifications icon
         let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.longstartdate);
+        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.fullstartdate);
         let details = Utils.getImageTitle(image);
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));

@@ -15,6 +15,12 @@
         <description>Send a notification with explanation when a new image is available</description>
     </key>
 
+    <key name="notify-only-latest" type="b">
+      <default>true</default>
+        <summary>Send a notifications only on most recent image</summary>
+        <description>Notify only the most recent image, in combination with 'notify' setting</description>
+    </key>
+
     <key name="transient" type="b">
       <default>true</default>
         <summary>Use transient notifications (auto dismiss)</summary>

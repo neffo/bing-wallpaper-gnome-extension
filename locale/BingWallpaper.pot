@@ -304,15 +304,15 @@ msgstr ""
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:724 extension.js:760
+#: extension.js:735 extension.js:771
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:784
+#: extension.js:795
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:785
+#: extension.js:796
 msgid "No picture for today."
 msgstr ""
 
