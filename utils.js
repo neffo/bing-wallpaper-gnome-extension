@@ -32,7 +32,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = false;
+let debug = true;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
@@ -193,6 +193,9 @@ function getImageList(settings) {
 
 function setImageList(settings, imageList) {
     settings.set_string('bing-json', JSON.stringify(imageList));
+    if (settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
+        exportBingJSON(settings);
+    }
 }
 
 function getImageTitle(image_data) {
@@ -215,6 +218,19 @@ function getCurrentImageIndex (imageList) {
     let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
     log('getCurrentImageIndex for ' + maxLongDate + ': ' + index);
     return index;
+}
+
+function setImageFavouriteStatus(settings, imageURL, newState) {
+    log('set favourite status of '+imageURL+' to '+newState);
+    let imageList = getImageList(settings);
+    imageList.forEach(function(x, i) {
+        //log('testing: '+imageURL+' includes '+x.urlbase);
+        if (imageURL.includes(x.urlbase)) {
+            log('setting index '+i+' to '+newState?'true':'false');
+            imageList[i].favourite = newState;
+        }
+    });
+    setImageList(settings, imageList); // save back to settings
 }
 
 function getCurrentImage(imageList) {
@@ -260,6 +276,10 @@ function mergeImageLists(settings, imageList) {
 
 function imageIndex(imageList, urlbase) {
     return imageList.map(p => p.urlbase.replace('/th?id=OHR.', '')).indexOf(urlbase.replace('/th?id=OHR.', ''));
+}
+
+function isFavourite(image) {
+    return (image.favourite && image.favourite === true);
 }
 
 function getImageByIndex(imageList, index) {

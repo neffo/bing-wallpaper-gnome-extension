@@ -6,11 +6,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:159
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:163
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:142 extension.js:156
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:145 extension.js:159
 msgid "Set background image"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:145
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:148
 msgid "Settings"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:157
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:160
 msgid "Always show new images"
 msgstr ""
 
@@ -220,99 +220,107 @@ msgstr ""
 msgid "GNOME shell extension version "
 msgstr ""
 
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
+#: ui/carousel.ui.h:1 ui/carousel4.ui.h:2
 msgid "Apply"
 msgstr ""
 
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
+#: ui/carousel.ui.h:2 ui/carousel4.ui.h:3
 msgid "View"
 msgstr ""
 
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
+#: ui/carousel.ui.h:3 ui/carousel4.ui.h:4
 msgid "Info"
 msgstr ""
 
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
+#: ui/carousel.ui.h:4 ui/carousel4.ui.h:5
 msgid "Delete"
 msgstr ""
 
-#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
+#: ui/carousel.ui.h:5 ui/carousel4.ui.h:7
 msgid "Set random mode"
 msgstr ""
 
-#: ui/carousel4.ui.h:5
+#: ui/carousel4.ui.h:1
+msgid "Favorite"
+msgstr ""
+
+#: ui/carousel4.ui.h:6
 msgid "<image name here>"
 msgstr ""
 
-#: ui/carousel4.ui.h:7
+#: ui/carousel4.ui.h:8
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:135
+#: extension.js:138
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:136 extension.js:137 extension.js:138
+#: extension.js:139 extension.js:140 extension.js:141
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:139
+#: extension.js:142
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:140
+#: extension.js:143
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:141
+#: extension.js:144
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:146
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:147
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:146
+#: extension.js:149
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:150
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:154
+#: extension.js:157
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:158
+#: extension.js:161
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:160
+#: extension.js:162
+msgid "Image shuffle only favourites"
+msgstr ""
+
+#: extension.js:164
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:326
+#: extension.js:333
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:327
+#: extension.js:334
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:735 extension.js:771
+#: extension.js:765 extension.js:808
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:795
+#: extension.js:839
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:796
+#: extension.js:840
 msgid "No picture for today."
 msgstr ""
 
@@ -332,14 +340,14 @@ msgstr ""
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:350 utils.js:353
+#: utils.js:370 utils.js:373
 msgid "minutes"
 msgstr ""
 
-#: utils.js:356
+#: utils.js:376
 msgid "days"
 msgstr ""
 
-#: utils.js:359
+#: utils.js:379
 msgid "hours"
 msgstr ""

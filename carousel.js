@@ -111,6 +111,16 @@ var Carousel = class Carousel {
         let applyButton = buildable.get_object('applyButton');
         let infoButton = buildable.get_object('infoButton');
         let deleteButton = buildable.get_object('deleteButton');
+        let favButton = buildable.get_object('favButton');
+        let unfavButton = buildable.get_object('unfavButton');
+
+        if (Utils.isFavourite(image)) {
+            favButton.set_visible(false);
+            this.log('image is favourited');
+        }
+        else {
+            unfavButton.set_visible(false);
+        }
         
         try {
             this._load_image(galleryImage, filename);
@@ -150,6 +160,22 @@ var Carousel = class Carousel {
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
+        });
+
+        // button is unchecked, so we want to make the checked one visible
+        favButton.connect('clicked', (widget) => {
+            this.log('favourited '+Utils.getImageUrlBase(image));
+            widget.set_visible(false);
+            unfavButton.set_visible(true);
+            Utils.setImageFavouriteStatus(this.settings, image.urlbase, true);
+        });
+
+        // button is checked, so we want to make the unchecked one visible
+        unfavButton.connect('clicked', (widget) => {
+            this.log('unfavourited '+Utils.getImageUrlBase(image));
+            widget.set_visible(false);
+            favButton.set_visible(true);
+            Utils.setImageFavouriteStatus(this.settings, image.urlbase, false);
         });
         
         let item = buildable.get_object('flowBoxChild');
