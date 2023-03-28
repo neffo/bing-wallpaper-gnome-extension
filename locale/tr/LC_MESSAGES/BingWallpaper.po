@@ -1,156 +1,214 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-23 18:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Loco-Source-Locale: tr_TR\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Loco https://localise.biz/"
+
 #: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
+msgctxt "Göstergeyi gizle"
 msgid "Hide the indicator"
 msgstr ""
 
 #: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
+msgctxt "Gösterge simgesi"
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:163
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:159
+msgctxt "Masaüstü bildirimlerini etkinleştir"
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:145 extension.js:159
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:142 extension.js:156
+msgctxt "Arka plan resmi olarak ayarla"
 msgid "Set background image"
 msgstr ""
 
 #: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
+msgctxt "Arka plan stili seçeneği"
 msgid "Background style option"
 msgstr ""
 
 #: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
+msgctxt "Klasörü indir"
 msgid "Download folder"
 msgstr ""
 
 #: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
+msgctxt "Bing Wallpaper Fotoğraf klasörü"
 msgid "Bing Wallpaper pictures folder"
 msgstr ""
 
 #: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
+msgctxt "Klasörü aç"
 msgid "Open folder"
 msgstr ""
 
 #: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
+msgctxt "Daha önce indirilen duvar kağıtlarını sil"
 msgid "Delete previously downloaded wallpapers"
 msgstr ""
 
 #: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
+msgctxt "Seçili resim"
 msgid "Selected image"
 msgstr ""
 
 #: ui/Settings.ui.h:11
+msgctxt "Galeriden resim seç"
 msgid "Select from image gallery"
 msgstr ""
 
 #: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
+msgctxt "Bing konumu"
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:148
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:145
+msgctxt "Ayarlar"
 msgid "Settings"
 msgstr ""
 
 #: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
+msgctxt "Özel bulanıklık ve parlaklık kullan"
 msgid "Use custom blur and brightness"
 msgstr ""
 
 #: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
+msgctxt "GDM3 kilit ekranı efektlerini geçersiz kıl"
 msgid "Override GDM3 lockscreen effects"
 msgstr ""
 
 #: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
+msgctxt "Bulanıklaştırma, oturum açma isteminin okunabilirliğini artırabilir"
 msgid "Blur can improve readability of login prompt"
 msgstr ""
 
 #: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
+msgctxt "Arka plan bulanıklık yoğunluğu"
 msgid "Background blur intensity"
 msgstr ""
 
 #: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
+msgctxt "Oturum açma isteminin kontrastı iyileştirebilir"
 msgid "Can improve contrast of login prompt"
 msgstr ""
 
 #: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
+msgctxt "Arka plan parlaklığı"
 msgid "Background brightness"
 msgstr ""
 
 #: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
+msgctxt "Ön Ayarlar"
 msgid "Presets"
 msgstr ""
 
 #: ui/Settings.ui.h:21
+msgctxt "Yaygın olarak kullanılan ön ayarlar"
 msgid "Commonly used presets"
 msgstr ""
 
 #: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
+msgctxt "Bulanıklık yok, hafif loş"
 msgid "No blur, slight dim"
 msgstr ""
 
 #: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
+msgctxt "GNOME varsayılanı"
 msgid "GNOME default"
 msgstr ""
 
 #: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
+msgctxt "Hafif bulanıklık, hafif loşluk"
 msgid "Slight blur, slight dim"
 msgstr ""
 
 #: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
+msgctxt "Kilit Ekranı"
 msgid "Lock Screen"
 msgstr ""
 
 #: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
+msgctxt "Hata ayıklama günlüğü"
 msgid "Debug logging"
 msgstr ""
 
 #: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
+msgctxt "Sistem günlüğüne günlüğe kaydetmeyi etkinleştirme"
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:160
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:157
+msgctxt "Her zaman yeni görüntüler gösterin"
 msgid "Always show new images"
 msgstr ""
 
 #: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
+msgctxt "Mevcut olduğunda yeni görüntülere geçin (rastgele modda değilse)"
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
 #: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
+msgctxt "Wayland üzerindeki tüm özellikleri etkinleştirin"
 msgid "Enable all features on Wayland"
 msgstr ""
 
 #: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
+msgctxt "Bazı yeni özellikler Wayland üzerinde kararsız olabilir"
 msgid "Some newer features may be unstable on Wayland"
 msgstr ""
 
 #: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
+msgctxt "Ekran çözünürlüğü"
 msgid "Screen resolution"
 msgstr ""
 
 #: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
+msgctxt "Otomatik çözünürlük seçimini geçersiz kılma"
 msgid "Override automatic resolution selection"
 msgstr ""
 
 #: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
+msgctxt "Rastgele aralığı manuel olarak ayarlama (saniye)"
 msgid "Manually adjust random interval (seconds)"
 msgstr ""
 
 #: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
+msgctxt "Rastgele aralık"
 msgid "Random interval"
 msgstr ""
 
 #: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
+msgctxt "Bing Wallpaper verilerini içe aktarma"
 msgid "Import Bing Wallpaper data"
 msgstr ""
 
 #: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
+msgctxt ""
+"Duvar kağıdı dizininden önceden dışa aktarılmış JSON verilerini içe aktarma"
 msgid "Import previously exported JSON data from wallpaper directory"
 msgstr ""
 
 #: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
+msgctxt "İçe Aktar"
 msgid "Import"
 msgstr ""
 
 #: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
+msgctxt "Bing Wallpaper verilerini dışa aktarma"
 msgid "Export Bing Wallpaper data"
 msgstr ""
 
@@ -159,49 +217,66 @@ msgid "Export JSON data to wallpaper dir for backup or data migration"
 msgstr ""
 
 #: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
+msgctxt "Dışa Aktar"
 msgid "Export"
 msgstr ""
 
 #: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
+msgctxt "Bing verilerini her zaman dışa aktarın"
 msgid "Always export Bing data"
 msgstr ""
 
 #: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
+msgctxt "Veriler değiştiğinde Bing JSON'u dışa aktarın"
 msgid "Export Bing JSON whenever data changes"
 msgstr ""
 
 #: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
+msgctxt "Hata ayıklama seçenekleri"
 msgid "Debug options"
 msgstr ""
 
 #: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
+msgctxt "Bing'den her gün yeni duvar kağıdı görselleri"
 msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
 #: ui/Settings.ui.h:46
+msgctxt "GNOME kabuk uzantısı sürümü "
 msgid "Gnome shell extension version "
 msgstr ""
 
 #: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
+msgctxt "Michael Carroll tarafından geliştiriliyor"
 msgid "Maintained by Michael Carroll"
 msgstr ""
 
 #: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
+msgctxt ""
+"Yazara desteğinizi <a href=\"https://flattr.com/@neffo\">Flattr</a> veya <a "
+"href=\"https://github.com/sponsors/neffo\">GitHub Sponsors</a> üzerinden "
+"gösterin."
 msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/"
-"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Show your support to the author on <a href=\"https://flattr.com/@neffo\">"
+"Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
 
 #: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
+msgctxt "Son sürümden bu yana yapılan değişiklikler"
 msgid "Changes since last version"
 msgstr ""
 
 #: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
+msgctxt "Elia Argentieri'nin NASA APOD GNOME kabuk uzantısına dayanmaktadır"
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr ""
 
 #: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
+msgctxt ""
+"<span size=\"small\">Bu program KESİNLİKLE HİÇBİR GARANTİ vermez.\n"
+"Ayrıntılar için <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
+"Genel Kamu Lisansı, sürüm 3 veya sonrası</a>'na bakın.</span>"
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -209,145 +284,171 @@ msgid ""
 msgstr ""
 
 #: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
+msgctxt "Hakkında"
 msgid "About"
 msgstr ""
 
 #: ui/Settings4.ui.h:43
+msgctxt "Galeri"
 msgid "Gallery"
 msgstr ""
 
 #: ui/Settings4.ui.h:45
+msgctxt "GNOME kabuk uzantısı sürümü "
 msgid "GNOME shell extension version "
 msgstr ""
 
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:2
+#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
+msgctxt "Uygula"
 msgid "Apply"
 msgstr ""
 
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:3
+#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
+msgctxt "Görünüm"
 msgid "View"
 msgstr ""
 
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:4
+#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
+msgctxt "Bilgi"
 msgid "Info"
 msgstr ""
 
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:5
+#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
+msgctxt "Sil"
 msgid "Delete"
 msgstr ""
 
-#: ui/carousel.ui.h:5 ui/carousel4.ui.h:7
+#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
+msgctxt "Rastgele modu ayarla"
 msgid "Set random mode"
 msgstr ""
 
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr ""
-
-#: ui/carousel4.ui.h:6
+#: ui/carousel4.ui.h:5
+msgctxt "<resim adı buraya>"
 msgid "<image name here>"
 msgstr ""
 
-#: ui/carousel4.ui.h:8
+#: ui/carousel4.ui.h:7
+msgctxt "Resim galerisini yükle"
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:138
+#: extension.js:135
+msgctxt "<Yenileme planlanmadı>"
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:139 extension.js:140 extension.js:141
+#: extension.js:136 extension.js:137 extension.js:138
+msgctxt "Yenilenmeyi bekliyor..."
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:142
+#: extension.js:139
+msgctxt "Görüntüyü panoya kopyala"
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:140
+msgctxt "Görüntü URL'sini panoya kopyala"
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:141
+msgctxt "Görüntü klasörünü açın"
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:146
+#: extension.js:143
+msgctxt "Kilit ekranı görüntüsünü ayarla"
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:144
+msgctxt "Şimdi Yenile"
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:149
+#: extension.js:146
+msgctxt "Resim görüntüleyicide aç"
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:150
+#: extension.js:147
+msgctxt "Bing resim bilgi sayfasını açın"
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:157
+#: extension.js:154
+msgctxt "Hızlı ayarlar"
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:161
+#: extension.js:158
+msgctxt "Görüntü karıştırma modu"
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:162
-msgid "Image shuffle only favourites"
-msgstr ""
-
-#: extension.js:164
+#: extension.js:160
+msgctxt "Görüntü sayısını göster"
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:333
+#: extension.js:326
+msgctxt "Sonraki yenileme"
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:334
+#: extension.js:327
+msgctxt "Son yenileme"
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:765 extension.js:808
+#: extension.js:724 extension.js:760
+msgctxt "Bing için Günün Duvar Kağıdı"
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:839
+#: extension.js:784
+msgctxt "Duvar kağıdı mevcut değil"
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:840
+#: extension.js:785
+msgctxt "Bugün için fotoğraf yok."
 msgid "No picture for today."
 msgstr ""
 
 #: prefs.js:181
+msgctxt "Klasör seçin"
 msgid "Select folder"
 msgstr ""
 
 #: prefs.js:249
+msgctxt "En son görüntü"
 msgid "Most recent image"
 msgstr ""
 
 #: prefs.js:250
+msgctxt "Rastgele görüntü"
 msgid "Random image"
 msgstr ""
 
 #: utils.js:135
+msgctxt "Değişiklik günlüğü alınırken hata oluştu: "
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:370 utils.js:373
+#: utils.js:350 utils.js:353
+msgctxt "dakika"
 msgid "minutes"
 msgstr ""
 
-#: utils.js:376
+#: utils.js:356
+msgctxt "gün"
 msgid "days"
 msgstr ""
 
-#: utils.js:379
+#: utils.js:359
+msgctxt "saat"
 msgid "hours"
 msgstr ""

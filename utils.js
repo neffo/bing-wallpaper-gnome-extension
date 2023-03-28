@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2022 Michael Carroll
+// Copyright (C) 2017-2023 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -193,6 +193,9 @@ function getImageList(settings) {
 
 function setImageList(settings, imageList) {
     settings.set_string('bing-json', JSON.stringify(imageList));
+    if (settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
+        exportBingJSON(settings);
+    }
 }
 
 function getImageTitle(image_data) {
@@ -215,6 +218,19 @@ function getCurrentImageIndex (imageList) {
     let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
     log('getCurrentImageIndex for ' + maxLongDate + ': ' + index);
     return index;
+}
+
+function setImageFavouriteStatus(settings, imageURL, newState) {
+    log('set favourite status of '+imageURL+' to '+newState);
+    let imageList = getImageList(settings);
+    imageList.forEach(function(x, i) {
+        //log('testing: '+imageURL+' includes '+x.urlbase);
+        if (imageURL.includes(x.urlbase)) {
+            log('setting index '+i+' to '+newState?'true':'false');
+            imageList[i].favourite = newState;
+        }
+    });
+    setImageList(settings, imageList); // save back to settings
 }
 
 function getCurrentImage(imageList) {
@@ -260,6 +276,10 @@ function mergeImageLists(settings, imageList) {
 
 function imageIndex(imageList, urlbase) {
     return imageList.map(p => p.urlbase.replace('/th?id=OHR.', '')).indexOf(urlbase.replace('/th?id=OHR.', ''));
+}
+
+function isFavourite(image) {
+    return (image.favourite && image.favourite === true);
 }
 
 function getImageByIndex(imageList, index) {

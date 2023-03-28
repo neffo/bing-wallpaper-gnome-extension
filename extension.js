@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2022 Michael Carroll
+// Copyright (C) 2017-2023 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -40,6 +40,8 @@ const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
 const ICON_RANDOM = Me.dir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
+const ICON_FAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
+const ICON_UNFAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
@@ -111,6 +113,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.clipboard = new BWClipboard.BWClipboard();
         this.imageIndex = null;
         this.logger = null;
+        this.favourite_status = false;
         
         if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
             blur = new Blur.Blur();
@@ -156,11 +159,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
         this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
         this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), true);
+        this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
         this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
         this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         
         [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
-            this.toggleShuffle]
+            this.toggleShuffle, this.toggleShuffleOnlyFaves]
                 .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
         // these items are a bit unique, we'll populate them in _setControls()
@@ -289,11 +293,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this._settings.set_boolean('show-count-in-image-title', state);
             this._selectImage(false);
         });
+        this.toggleShuffleOnlyFaves.connect('toggled', (item, state) => {
+            this._settings.set_boolean('random-mode-include-only-favourites', state);
+        });
         
         // shuffle is a special case
         this._setShuffleToggleState();
         this.toggleShuffle.connect('toggled', this._toggleShuffle.bind(this));
-        
+
         this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
         if (this.clipboard.clipboard) { // only if we have a clipboard           
             this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
@@ -429,6 +436,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             this.explainItem.label.set_text(this.explanation ? this.explanation : '');
         }
+        this._setFavouriteIcon(this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON);
     }
 
     _wrapLabelItem(menuItem) {
@@ -440,6 +448,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _setControls() {
+        this.favouriteBtn = this._newMenuIcon(
+            this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON, 
+            this.controlItem, 
+            this._favouriteImage);
         this.prevBtn = this._newMenuIcon(
             ICON_PREVIOUS_BUTTON, 
             this.controlItem, 
@@ -478,7 +490,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             y_expand: true
         });
 
-        if (position) {
+        if (position !== null) {
             getActorCompat(parent).insert_child_at_index(iconBtn, position);
         }
         else {
@@ -546,6 +558,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.toggleShuffle.setToggleState(this._settings.get_string('selected-image') == 'random');
     }
 
+    _toggleShuffleOnlyFaves() {
+
+    }
+
     _toggleShuffle() {
         if (this._settings.get_string('selected-image') == 'random') {
             this._settings.set_string('selected-image', 'current');
@@ -555,6 +571,20 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
         this._setShuffleToggleState();
         log('switched mode to ' + this._settings.get_string('selected-image'));
+    }
+
+    _favouriteImage() {
+        log('favourite image '+this.imageURL+' status was '+this.favourite_status);
+        this.favourite_status = !this.favourite_status;
+        Utils.setImageFavouriteStatus(this._settings, this.imageURL, this.favourite_status);
+        this._setFavouriteIcon(this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON);
+    }
+
+    _setFavouriteIcon(icon_name) {
+        let gicon = Gio.icon_new_for_string(icon_name);
+        this.favouriteBtn.get_children().forEach( (x, i) => {
+            x.set_gicon(gicon);
+        });
     }
 
     _gotoImage(relativePos) {
@@ -697,10 +727,21 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             }
 
             if (this._settings.get_boolean('notify')) {
-                newImages.forEach((image, index) => {
-                    log('New image to notify: ' + Utils.getImageTitle(image));
-                    this._createNotification(image);
-                });
+                if (!this._settings.get_boolean('notify-only-latest')) {
+                    // notify all new images
+                    newImages.forEach((image, index) => {
+                            log('New image to notify: ' + Utils.getImageTitle(image));
+                            this._createNotification(image);
+                    });
+                }
+                else {
+                    // notify only the most recent image
+                    let last = newImages.pop();
+                    if (last) {
+                        log('New image to notify: ' + Utils.getImageTitle(last));
+                        this._createNotification(last);
+                    }
+                }
             }
 
             this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
@@ -721,7 +762,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // set notifications icon
         let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.longstartdate);
+        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.fullstartdate);
         let details = Utils.getImageTitle(image);
         let notification = new MessageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
@@ -729,11 +770,18 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _selectImage(force_shuffle = false) {
-        let imageList = JSON.parse(this._settings.get_string('bing-json'));
+        let imageList = Utils.getImageList(this._settings);
         let image = null;
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
         
         if (this.selected_image == 'random' || force_shuffle) {
+            if (this._settings.get_boolean('random-mode-include-only-favourites')) {
+                let favImageList = imageList.filter(Utils.isFavourite);
+                if (favImageList.length > 0)
+                    imageList = favImageList;
+                else
+                    log('not enough favourites available to shuffle');
+            }
             this.imageIndex = Utils.getRandomInt(imageList.length);
             image = imageList[this.imageIndex];
             this._restartShuffleTimeout();
@@ -763,6 +811,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
             this.imageURL = BingURL + image.urlbase + '_' + resolution + '.jpg'; // generate image url for user's resolution
             this.filename = toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
+
+            if (("favourite" in image) && image.favourite === true ) {
+                this.favourite_status = true;
+            }
+            else {
+                this.favourite_status = false;
+            }
             
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
@@ -796,7 +851,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent Bing image
             let state = {maxlongdate: maxLongDate, title: this.title, explanation: this.explanation, copyright: this.copyright,
                 longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
-                filename: this.filename};
+                filename: this.filename, favourite: this.favourite_status};
             let stateJSON = JSON.stringify(state);
             
             log('Storing state as JSON: ' + stateJSON);
@@ -822,6 +877,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.imageURL = state.imageURL;
             this.filename = state.filename;
             this._selected_image = this._settings.get_string('selected-image');
+            if ("favourite" in state && state.favourite === true) {
+                this.favourite_status = true;
+            }
+            else {
+                this.favourite_status = false;
+            }
             // update menus and thumbnail
             this._setMenuText();
             this._setBackground();
@@ -832,7 +893,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             } 
             
             if (this.selected_image == 'random') {
-                this._setRandom();
+                this._shuffleImage();
                 this._restartTimeoutFromLongDate(maxLongDate);
             }
             else {

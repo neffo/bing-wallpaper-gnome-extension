@@ -15,6 +15,12 @@
         <description>Send a notification with explanation when a new image is available</description>
     </key>
 
+    <key name="notify-only-latest" type="b">
+      <default>true</default>
+        <summary>Send a notifications only on most recent image</summary>
+        <description>Notify only the most recent image, in combination with 'notify' setting</description>
+    </key>
+
     <key name="transient" type="b">
       <default>true</default>
         <summary>Use transient notifications (auto dismiss)</summary>
@@ -135,6 +141,12 @@
       <range min="300" max="86400" />
       <default>3600</default>
       <summary>How frequently to change the wallpaper when on random mode</summary>
+      <description></description>
+    </key>
+
+    <key name="random-mode-include-only-favourites" type="b">
+      <default>false</default>
+      <summary>Only pick from favourites in random mode</summary>
       <description></description>
     </key>
 
