@@ -1,5 +1,5 @@
 // Bing Wallpaper GNOME extension
-// Copyright (C) 2017-2022 Michael Carroll
+// Copyright (C) 2017-2023 Michael Carroll
 // This extension is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = true;
+let debug = false;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
