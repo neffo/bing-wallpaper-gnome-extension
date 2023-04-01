@@ -257,6 +257,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // link menu items to functions
         this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
         this.openImageItem.connect('activate', this._openInSystemViewer.bind(this));
+        this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         //this.titleItem.connect('activate', this._setBackgroundDesktop.bind(this));
         this.openImageInfoLinkItem.connect('activate', this._openImageInfoLink.bind(this)); 
         this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
@@ -784,7 +785,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             }
             this.imageIndex = Utils.getRandomInt(imageList.length);
             image = imageList[this.imageIndex];
-            this._restartShuffleTimeout();
+            if (this.selected_image == 'random')
+                this._restartShuffleTimeout();
         } else if (this.selected_image == 'current') {
             image = Utils.getCurrentImage(imageList);
             this.imageIndex = Utils.getCurrentImageIndex(imageList);
