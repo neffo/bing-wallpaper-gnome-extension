@@ -721,6 +721,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             
             Utils.purgeImages(this._settings); // delete older images if enabled
             Utils.cleanupImageList(this._settings);
+            this._downloadAllImages(); // fetch missing images that are still available
             
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
                 // user wants to switch to the new image when it arrives
@@ -826,10 +827,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             let file_info = file_exists ? file.query_info ('*', Gio.FileQueryInfoFlags.NONE, null) : 0;
 
             if (!file_exists || file_info.get_size () == 0) { // file doesn't exist or is empty (probably due to a network error)
-                let dir = Gio.file_new_for_path(BingWallpaperDir);
-                if (!dir.query_exists(null)) {
-                    dir.make_directory_with_parents(null);
-                }
                 this._downloadImage(this.imageURL, file);
             }
             else {
@@ -846,6 +843,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         this._setMenuText();
         this._storeState();
+    }
+
+    _imageURL(urlbase, resolution) {
+        return BingURL + image.urlbase + '_' + resolution + '.jpg';
     }
 
     _storeState() {
@@ -910,9 +911,26 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout(60);
     }
 
+    _downloadAllImages() {
+        // fetch recent undownloaded images       
+        let imageList = Utils.getFetchableImageList(this._settings);
+        let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
+        imageList.forEach( image => {
+            let resolution = Utils.getResolution(this._settings, image);
+            let filename = toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
+            let url = this._imageURL(image.urlbase, resolution);
+            this._downloadImage(url, filename);
+        });
+    }
+
     // download and process new image
     // FIXME: improve error handling
     _downloadImage(url, file) {
+        let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
+        let dir = Gio.file_new_for_path(BingWallpaperDir);
+        if (!dir.query_exists(null)) {
+            dir.make_directory_with_parents(null);
+        }
         log("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
 
@@ -920,19 +938,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         try {
             if (Soup.MAJOR_VERSION >= 3) {
                 this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                    // request completed
-                    this._updatePending = false;
                     this._processFileDownload(message, file);
                 });
             }
             else {
                 this.httpSession.queue_message(request, (httpSession, message) => {
-                    // request completed
-                    this._updatePending = false;
                     this._processFileDownload(message, file);
                 });
             }
-
         }
         catch (error) {
             log('error sending libsoup message '+error);
