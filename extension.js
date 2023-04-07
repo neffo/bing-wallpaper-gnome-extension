@@ -731,7 +731,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             if (this._settings.get_boolean('notify')) {
                 if (!this._settings.get_boolean('notify-only-latest')) {
                     // notify all new images
-                    newImages.forEach((image, index) => {
+                    newImages.forEach(image => {
                             log('New image to notify: ' + Utils.getImageTitle(image));
                             this._createNotification(image);
                     });
@@ -750,7 +750,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this._updatePending = false;
         }
         catch (error) {
-            log('_parseData() failed with error ' + error);
+            log('_parseData() failed with error ' + error + ' @ '+error.lineNumber);
+            log(error.stack);
         }
     }
 
@@ -846,7 +847,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _imageURL(urlbase, resolution) {
-        return BingURL + image.urlbase + '_' + resolution + '.jpg';
+        return BingURL + urlbase + '_' + resolution + '.jpg';
     }
 
     _storeState() {
@@ -915,11 +916,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // fetch recent undownloaded images       
         let imageList = Utils.getFetchableImageList(this._settings);
         let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
-        imageList.forEach( image => {
+        imageList.forEach( (image) => {
             let resolution = Utils.getResolution(this._settings, image);
             let filename = toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             let url = this._imageURL(image.urlbase, resolution);
-            this._downloadImage(url, filename);
+            let file = Gio.file_new_for_path(filename);
+            this._downloadImage(url, file);
         });
     }
 
