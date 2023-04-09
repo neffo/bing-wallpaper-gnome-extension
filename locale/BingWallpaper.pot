@@ -6,11 +6,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:163
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:169
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:145 extension.js:159
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:149 extension.js:163
 msgid "Set background image"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:148
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:152
 msgid "Settings"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:160
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:164
 msgid "Always show new images"
 msgstr ""
 
@@ -252,75 +252,83 @@ msgstr ""
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:138
+#: extension.js:142
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:139 extension.js:140 extension.js:141
+#: extension.js:143 extension.js:144 extension.js:145
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:142
+#: extension.js:146
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:147
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:148
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:146
+#: extension.js:150
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:151
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:149
+#: extension.js:153
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:150
+#: extension.js:154
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:157
+#: extension.js:161
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:161
+#: extension.js:165
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:162
+#: extension.js:166
 msgid "Image shuffle only favourites"
 msgstr ""
 
-#: extension.js:164
+#: extension.js:167
+msgid "Image shuffle only unhidden"
+msgstr ""
+
+#: extension.js:168
+msgid "Image shuffle only UHD resolutions"
+msgstr ""
+
+#: extension.js:170
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:333
+#: extension.js:355
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:334
+#: extension.js:356
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:765 extension.js:808
+#: extension.js:808 extension.js:855
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:839
+#: extension.js:891
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:840
+#: extension.js:892
 msgid "No picture for today."
 msgstr ""
 
@@ -340,14 +348,14 @@ msgstr ""
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:370 utils.js:373
+#: utils.js:436 utils.js:439
 msgid "minutes"
 msgstr ""
 
-#: utils.js:376
+#: utils.js:442
 msgid "days"
 msgstr ""
 
-#: utils.js:379
+#: utils.js:445
 msgid "hours"
 msgstr ""

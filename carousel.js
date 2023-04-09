@@ -156,7 +156,8 @@ var Carousel = class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            Utils.cleanupImageList(this.settings);
+            //Utils.cleanupImageList(this.settings);
+            Utils.hideImage(this.settings, [image]);
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
@@ -223,9 +224,10 @@ var Carousel = class Carousel {
         let loadButton = buildable.get_object('loadButton');
 
         loadButton.connect('clicked', (widget) => {
-            this.flowBox.remove(widget.get_parent());
+            widget.set_label(_("Loading..."));
             this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
+            this.flowBox.remove(widget.get_parent());
         });
 
         let item = buildable.get_object('flowBoxPlaceholder');

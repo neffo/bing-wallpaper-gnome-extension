@@ -150,6 +150,18 @@
       <description></description>
     </key>
 
+    <key name="random-mode-include-only-uhd" type="b">
+      <default>false</default>
+      <summary>Only pick from UHD in random mode</summary>
+      <description></description>
+    </key>
+
+    <key name="random-mode-include-only-unhidden" type="b">
+      <default>true</default>
+      <summary>Only pick from unhidden in random mode</summary>
+      <description></description>
+    </key>
+
     <key name="override-unsafe-wayland" type="b">
       <default>true</default>
       <summary>Override safe defaults for Wayland desktop</summary>
@@ -160,6 +172,13 @@
       <default>true</default>
       <summary>Create thumbnails to speed up image gallery loading</summary>
       <description>Speeds up subsequent loads, but requires some additional disk space</description>
+    </key>
+
+    <key name="min-uhd-height" type="i">
+      <range min="1080" max="3000" />
+      <default>2160</default>
+      <summary>Minimum image height to be considered UHD</summary>
+      <description></description>
     </key>
 
     <key name="always-export-bing-json" type="b">

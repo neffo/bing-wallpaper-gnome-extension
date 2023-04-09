@@ -187,8 +187,27 @@ function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-function getImageList(settings) {
-    return JSON.parse(settings.get_string('bing-json'));
+function getImageList(settings, filter = null) {
+    let image_list = JSON.parse(settings.get_string('bing-json'));
+    if (!filter) {
+        return image_list;
+    }
+    else {
+        let filtered = [];
+        image_list.forEach(function(x, i) {
+            let ignore = false;
+            if (filter.faves && !x.favourite)
+                ignore = true;
+            if (filter.min_height && x.height < filter.min_height)
+                ignore = true;
+            if (filter.hidden && x.hidden)
+                ignore = true;
+            
+            if (!ignore)
+                filtered.push(x);
+        });
+        return filtered;
+    }
 }
 
 function setImageList(settings, imageList) {
@@ -231,6 +250,22 @@ function setImageFavouriteStatus(settings, imageURL, newState) {
         }
     });
     setImageList(settings, imageList); // save back to settings
+}
+
+function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+    // stub
+    // get current image list
+    let image_list = getImageList(settings);
+    image_list.forEach( (x, i) => {
+        hide_image_list.forEach(u => {
+            if (u.includes(x.urlbase)) {
+                // mark as hidden
+                x.hidden = hide_status;
+            }
+        });
+    });
+    // export image list back to settings
+    setImageList(settings, image_list);
 }
 
 function getCurrentImage(imageList) {
@@ -317,6 +352,22 @@ function cleanupImageList(settings) {
         else {
             log('Cleaning up: '+filename);
         }
+    });
+    setImageList(settings, newList);
+}
+
+function populateImageListResolutions(settings) {
+    let curList = imageListSortByDate(getImageList(settings));
+    let newList = [];
+    curList.forEach( function (x, i) {
+        let filename = imageToFilename(settings, x);
+        let width, height;
+        if (!x.width || !x.height) {
+            [width, height] = getFileDimensions(filename);
+            x.width = width;
+            x.height = height;
+        }
+        newList.push(x);
     });
     setImageList(settings, newList);
 }
@@ -555,4 +606,21 @@ function importBingJSON(settings) {
         log('JSON import file not found');
     }
 }
-  
+
+function getFileDimensions(filepath) {
+    let format, width, height;
+    try {
+        [format, width, height] = GdkPixbuf.Pixbuf.get_file_info(filepath);
+        return [width, height];
+    }
+    catch (e) {
+        log('unable to getFileDimensions('+filepath+') '+e);
+        return [null, null];
+    }
+
+}
+
+function toFilename(wallpaperDir, startdate, imageURL, resolution) {
+    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
+}
+
