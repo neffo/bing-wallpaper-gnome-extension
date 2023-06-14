@@ -150,6 +150,12 @@
       <description></description>
     </key>
 
+    <key name="random-mode-enabled" type="b">
+      <default>false</default>
+      <summary>Pick a random image at random-interval</summary>
+      <description></description>
+    </key>
+
     <key name="random-mode-include-only-uhd" type="b">
       <default>false</default>
       <summary>Only pick from UHD in random mode</summary>
