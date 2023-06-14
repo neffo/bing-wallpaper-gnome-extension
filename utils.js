@@ -193,20 +193,15 @@ function getImageList(settings, filter = null) {
         return image_list;
     }
     else {
-        let filtered = [];
-        image_list.forEach(function(x, i) {
-            let ignore = false;
+        return image_list.filter((x, i) => {
             if (filter.faves && !x.favourite)
-                ignore = true;
+                return false;
             if (filter.min_height && x.height < filter.min_height)
-                ignore = true;
+                return false;
             if (filter.hidden && x.hidden)
-                ignore = true;
-            
-            if (!ignore)
-                filtered.push(x);
+                return false;
+            return true;
         });
-        return filtered;
     }
 }
 
