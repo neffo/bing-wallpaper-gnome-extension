@@ -166,7 +166,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
         // toggles under the quick settings submenu
         this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
-        this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
+        this.toggleSelectNew = newMenuSwitchItem(_("Always switch to new images"), this._settings.get_boolean('revert-to-current-image'));
         this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), this._settings.get_boolean('random-mode-enabled'));
         this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
         this.toggleShuffleOnlyUnhidden = newMenuSwitchItem(_("Image shuffle only unhidden"), this._settings.get_boolean('random-mode-include-only-unhidden'));
@@ -207,8 +207,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         allMenuItems.forEach(e => this.menu.addMenuItem(e));
 
         // non clickable information items
-        [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem]
-            .forEach((e) => {
+        let nonclickable = [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem];
+        if (this._settings.get_boolean('random-mode-enabled'))
+            nonclickable.concat(this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD, this.toggleShuffleOnlyUnhidden);
+        nonclickable.forEach((e) => {
                 e.setSensitive(false);
             });
         
@@ -245,7 +247,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             {signal: 'changed::notify', call: this._notifyCurrentImage},
             {signal: 'changed::always-export-bing-json', call: this._exportData},
             {signal: 'changed::bing-json', call: this._exportData},
-            {signal: 'changed::controls-icon-size', call: this._setControls}
+            {signal: 'changed::controls-icon-size', call: this._setControls},
+            {signal: 'changed::random-mode-enabled', call: this._randomModeChanged},
+            {signal: 'changed::random-mode-include-only-favourites', call: this._randomModeChanged},
+            {signal: 'changed::random-mode-include-only-unhidden', call: this._randomModeChanged},
+            {signal: 'changed::random-mode-include-only-uhd', call: this._randomModeChanged},
         ];
 
         // _setShuffleToggleState
@@ -554,6 +560,22 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._gotoImage(0);
     }
 
+    _randomModeChanged() {
+        let randomEnabled = this._settings.get_boolean('random-mode-enabled');
+        [this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUnhidden, this.toggleShuffleOnlyUHD]
+            .forEach( x => {
+                x.setSensitive(randomEnabled);
+            });
+        if (randomEnabled) {
+            // enable shuffle mode, by setting a shuffe timer (5 seconds)
+            this._restartShuffleTimeout(5);
+        }
+        else {
+            // clear shuffle timer
+            if (this._shuffleTimeout)
+                GLib.source_remove(this._shuffleTimeout);
+        }
+    }
 
 
     _favouriteImage() {

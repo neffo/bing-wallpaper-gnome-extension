@@ -106,7 +106,7 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:169
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27
 msgid "Always show new images"
 msgstr ""
 
@@ -292,6 +292,10 @@ msgstr ""
 msgid "Quick settings"
 msgstr ""
 
+#: extension.js:169
+msgid "Always switch to new images"
+msgstr ""
+
 #: extension.js:170
 msgid "Image shuffle mode"
 msgstr ""
@@ -312,23 +316,23 @@ msgstr ""
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:329
+#: extension.js:335
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:330
+#: extension.js:336
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:767 extension.js:836
+#: extension.js:789 extension.js:858
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:872
+#: extension.js:894
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:873
+#: extension.js:895
 msgid "No picture for today."
 msgstr ""
 
