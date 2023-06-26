@@ -6,16 +6,20 @@
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 
-const Gio = imports.gi.Gio;
-const GdkPixbuf = imports.gi.GdkPixbuf;
+const {Gio, GdkPixbuf, St} = imports.gi;
+
+const THUMBNAIL_WIDTH = 480;
+const THUMBNAIL_HEIGHT = 270;
 
 var Thumbnail = class Thumbnail {
-    constructor(filePath) {
+    constructor(filePath, scale = 1.0) {
         if (!filePath) {
             throw new Error(`need argument ${filePath}`);
         }
         try {
-            this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, 480, 270);
+            let w = Math.round(THUMBNAIL_WIDTH * scale);
+            let h = Math.round(THUMBNAIL_HEIGHT * scale);
+            this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, w, h);
             this.srcFile = Gio.File.new_for_path(filePath);
         } catch (err) {
             log('Unable to create thumbnail for corrupt or incomplete file: ' + filePath + ' err: ' + err);

@@ -155,16 +155,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // quick settings submenu
         this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
         // toggles under the quick settings submenu
-        this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
+        /*this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));*/
         this.toggleSelectNew = newMenuSwitchItem(_("Always switch to new images"), this._settings.get_boolean('revert-to-current-image'));
-        this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), this._settings.get_boolean('random-mode-enabled'));
+        this.toggleShuffle = newMenuSwitchItem(_("Enable image shuffle mode"), this._settings.get_boolean('random-mode-enabled'));
         this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
         //this.toggleShuffleOnlyUnhidden = newMenuSwitchItem(_("Image shuffle only unhidden"), this._settings.get_boolean('random-mode-include-only-unhidden'));
         this.toggleShuffleOnlyUHD = newMenuSwitchItem(_("Image shuffle only UHD resolutions"), this._settings.get_boolean('random-mode-include-only-uhd'));
         this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
-        this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
+        /*this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));*/
         
-        [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
+        [this.toggleNotifications, /*this.toggleImageCount,*/ /*this.toggleSetBackground,*/ this.toggleSelectNew, 
             this.toggleShuffle, this.toggleShuffleOnlyFaves, /*this.toggleShuffleOnlyUnhidden,*/ this.toggleShuffleOnlyUHD]
                 .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
@@ -230,7 +230,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             {signal: 'changed::icon-name', call: this._setIcon},
             {signal: 'changed::market', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
-            /*{signal: 'changed::set-lockscreen', call: this._setBackground},*/
             {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
@@ -276,10 +275,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // first, we listen for changes to these toggle settings and update the status
         // & then, link settings to toggle state (the other way) 
 
-        let toggles = [ {key: 'set-background', toggle: this.toggleSetBackground},
+        let toggles = [ /*{key: 'set-background', toggle: this.toggleSetBackground},*/
                         {key: 'revert-to-current-image', toggle: this.toggleSelectNew},
                         {key: 'notify', toggle: this.toggleNotifications},
-                        {key: 'show-count-in-image-title', toggle: this.toggleImageCount},
+                        /*{key: 'show-count-in-image-title', toggle: this.toggleImageCount},*/
                         {key: 'random-mode-enabled', toggle: this.toggleShuffle},
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
                         /*{key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},*/
@@ -366,7 +365,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _setBackground() {
         if (this.filename == '')
             return;
-        this.thumbnail = new Thumbnail.Thumbnail(this.filename); // historically thumbnails were a bit unsafe on Wayland, but now fixed
+        this.thumbnail = new Thumbnail.Thumbnail(this.filename, St.ThemeContext.get_for_stage(global.stage).scale_factor); // use scale factor to make them look nicer
         if (!this.dimensions.width || !this.dimensions.height) // if dimensions aren't in image database yet
             [this.dimensions.width, this.dimensions.height] = Utils.getFileDimensions(this.filename);
         log('image set to : '+this.filename);
@@ -561,11 +560,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (randomEnabled) {
             // enable shuffle mode, by setting a shuffe timer (5 seconds)
             this._restartShuffleTimeout(5);
+            this._settings.set_boolean('revert-to-current-image', false);
         }
         else {
             // clear shuffle timer
             if (this._shuffleTimeout)
                 GLib.source_remove(this._shuffleTimeout);
+            this._settings.set_boolean('revert-to-current-image', true);
         }
     }
 
