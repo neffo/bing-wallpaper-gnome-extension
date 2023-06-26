@@ -137,6 +137,12 @@
       <description></description>
     </key>
 
+    <key name="random-interval-mode" type="s">
+      <default>"daily"</default>
+      <summary>Set to either 'daily', 'hourly', 'weekly', 'custom'</summary>
+      <description>Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or custom as defined by the 'random-interval'</description>
+    </key>
+
     <key name="random-interval" type="i">
       <range min="300" max="86400" />
       <default>3600</default>

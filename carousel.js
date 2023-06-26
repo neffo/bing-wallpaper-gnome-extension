@@ -78,8 +78,8 @@ var Carousel = class Carousel {
     }
 
     _create_gallery() {
-        Utils.randomIntervals.forEach((seconds, i) => {
-            let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
+        Utils.randomIntervals.forEach((x) => {
+            let item = this._create_random_item(x.value, x.title);
             if (Gtk.get_major_version() < 4)
                 this.flowBox.add(item);
             else 
@@ -183,7 +183,7 @@ var Carousel = class Carousel {
         return item;
     }
 
-    _create_random_item(seconds, title) {
+    _create_random_item(interval, title) {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file

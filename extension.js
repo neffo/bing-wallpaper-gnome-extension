@@ -169,13 +169,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.toggleSelectNew = newMenuSwitchItem(_("Always switch to new images"), this._settings.get_boolean('revert-to-current-image'));
         this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), this._settings.get_boolean('random-mode-enabled'));
         this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
-        this.toggleShuffleOnlyUnhidden = newMenuSwitchItem(_("Image shuffle only unhidden"), this._settings.get_boolean('random-mode-include-only-unhidden'));
+        //this.toggleShuffleOnlyUnhidden = newMenuSwitchItem(_("Image shuffle only unhidden"), this._settings.get_boolean('random-mode-include-only-unhidden'));
         this.toggleShuffleOnlyUHD = newMenuSwitchItem(_("Image shuffle only UHD resolutions"), this._settings.get_boolean('random-mode-include-only-uhd'));
         this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
         this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         
         [this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground, this.toggleSelectNew, 
-            this.toggleShuffle, this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUnhidden, this.toggleShuffleOnlyUHD]
+            this.toggleShuffle, this.toggleShuffleOnlyFaves, /*this.toggleShuffleOnlyUnhidden,*/ this.toggleShuffleOnlyUHD]
                 .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
         // these items are a bit unique, we'll populate them in _setControls()
@@ -209,7 +209,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // non clickable information items
         let nonclickable = [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem];
         if (this._settings.get_boolean('random-mode-enabled'))
-            nonclickable.concat(this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD, this.toggleShuffleOnlyUnhidden);
+            nonclickable.concat(this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD /*, this.toggleShuffleOnlyUnhidden*/);
         nonclickable.forEach((e) => {
                 e.setSensitive(false);
             });
@@ -291,7 +291,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                         {key: 'show-count-in-image-title', toggle: this.toggleImageCount},
                         {key: 'random-mode-enabled', toggle: this.toggleShuffle},
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
-                        {key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},
+                        /*{key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},*/
                         {key: 'random-mode-include-only-uhd', toggle: this.toggleShuffleOnlyUHD}];
         
         toggles.forEach( (e) => { 
@@ -562,7 +562,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _randomModeChanged() {
         let randomEnabled = this._settings.get_boolean('random-mode-enabled');
-        [this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUnhidden, this.toggleShuffleOnlyUHD]
+        [this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD /*, this.toggleShuffleOnlyUnhidden*/]
             .forEach( x => {
                 x.setSensitive(randomEnabled);
             });
@@ -713,8 +713,22 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         if (this._shuffleTimeout)
             GLib.source_remove(this._shuffleTimeout);
 
-        if (seconds == null)
-            seconds = this._settings.get_int('random-interval');
+        if (seconds == null) {
+            let diff = Math.floor(GLib.DateTime.new_now_local().difference(this.shuffledue)/1000000);
+            
+
+            log('shuffle ('+this.shuffledue.format_iso8601()+') diff = '+diff);
+
+            if (diff > 0) {
+                seconds = diff; // if not specified, we should maintain the existing shuffle timeout (i.e. we just restored from saved state)
+            }
+            else if (this._settings.get_string('random-interval-mode') != 'custom') {
+                seconds = Utils.seconds_until(this._settings.get_string('random-interval-mode')); // else we shuffle at specified interval (midnight default)
+            }
+            else {
+                seconds = this._settings.get_int('random-interval'); // or whatever the user has specified (as a timer)
+            }
+        }
 
         this._shuffleTimeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, seconds, this._selectImage.bind(this, true));
         this.shuffledue = GLib.DateTime.new_now_local().add_seconds(seconds);

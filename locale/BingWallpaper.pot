@@ -304,10 +304,6 @@ msgstr ""
 msgid "Image shuffle only favourites"
 msgstr ""
 
-#: extension.js:172
-msgid "Image shuffle only unhidden"
-msgstr ""
-
 #: extension.js:173
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
@@ -324,15 +320,15 @@ msgstr ""
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:789 extension.js:858
+#: extension.js:803 extension.js:872
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:894
+#: extension.js:908
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:895
+#: extension.js:909
 msgid "No picture for today."
 msgstr ""
 
@@ -348,7 +344,19 @@ msgstr ""
 msgid "Random image"
 msgstr ""
 
-#: utils.js:135
+#: utils.js:65
+msgid "on the hour"
+msgstr ""
+
+#: utils.js:66
+msgid "every day at midnight"
+msgstr ""
+
+#: utils.js:67
+msgid "every Sunday at midnight"
+msgstr ""
+
+#: utils.js:136
 msgid "Error fetching change log: "
 msgstr ""
 
