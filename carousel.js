@@ -196,13 +196,13 @@ var Carousel = class Carousel {
 
         let randomLabel = buildable.get_object('randomLabel');
         randomLabel.set_text(title);
-        let filename = 'random';
         let applyButton = buildable.get_object('randomButton');
 
         applyButton.connect('clicked', (widget) => {
-            this.settings.set_string('selected-image', filename);
-            this.settings.set_int('random-interval', seconds);
-            this.log('gallery selected random with interval '+seconds);
+            this.settings.set_string('random-interval-mode', interval);
+            //this.settings.set_int('random-interval', seconds);
+            this.settings.set_boolean('random-mode-enabled', true);
+            this.log('gallery selected random with interval '+interval+' ('+title+')');
         });
 
         let item = buildable.get_object('flowBoxRandom');

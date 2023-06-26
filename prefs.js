@@ -102,8 +102,8 @@ function buildPrefsWidget() {
     let buttonImportData = buildable.get_object('button_json_import');
     let buttonExportData = buildable.get_object('button_json_export');
     let switchAlwaysExport = buildable.get_object('always_export_switch');
-    /*let searchEntry = buildable.get_object('searchEntry');
-    let searchBuffer = buildable.get_object('searchBuffer');*/
+    let switchEnableShuffle = buildable.get_object('shuffle_enabled_switch');
+    let entryShuffleMode = buildable.get_object('shuffle_mode_combo');
     let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
     
     try {
@@ -244,17 +244,15 @@ function buildPrefsWidget() {
         Utils.validate_resolution(settings);
     });
 
-    // History
-    let imageList = Utils.getImageList(settings);
-    historyEntry.append('current', _('Most recent image'));
-    historyEntry.append('random', _('Random image'));
-    
-    imageList.forEach((image) => {
-        historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
+    // shuffle modes
+    settings.bind('random-mode-enabled', switchEnableShuffle, 'active', Gio.SettingsBindFlags.DEFAULT);
+    Utils.randomIntervals.forEach((x) => {
+        entryShuffleMode.append(x.value, _(x.title));
     });
-
-    // selected image can also be changed through the menu or even dconf
-    settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+    settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+    
+    // selected image can no longer be changed through a dropdown (didn't scale)
+    settings.bind('selected-image', historyEntry, 'label', Gio.SettingsBindFlags.DEFAULT);
     settings.connect('changed::selected-image', () => {
         Utils.validate_imagename(settings);
     });

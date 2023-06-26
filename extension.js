@@ -124,11 +124,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         
         if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
             blur = new Blur.Blur();
-        
-        /*
-        blur.BWP_BLUR_BRIGHTNESS = 2;
-        blur.BWP_BLUR_SIGMA = 55;
-        */
 
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
@@ -136,11 +131,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._initSoup();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
-
-        // enable testing potentially unsafe features on Wayland if the user overrides it
-        if (!Utils.is_x11() && this._settings.get_boolean('override-unsafe-wayland')) {
-            Utils.is_x11 = Utils.enabled_unsafe;
-        }
 
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
         
@@ -252,6 +242,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             {signal: 'changed::random-mode-include-only-favourites', call: this._randomModeChanged},
             {signal: 'changed::random-mode-include-only-unhidden', call: this._randomModeChanged},
             {signal: 'changed::random-mode-include-only-uhd', call: this._randomModeChanged},
+            {signal: 'changed::random-interval-mode', call: this._randomModeChanged}
         ];
 
         // _setShuffleToggleState
@@ -321,10 +312,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _openMenu() {
         // Grey out menu items if an update is pending
         this.refreshItem.setSensitive(!this._updatePending);
-        if (Utils.is_x11()) {
-            this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-            this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
-        }
+        this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+        this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
         //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -334,6 +323,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.refreshduetext = 
             _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + " (" + Utils.friendly_time_diff(this.refreshdue) + ")\n" + 
             _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
+        // also show when shuffle is next due
+        if (this._settings.get_boolean('random-mode-enabled'))
+            this.refreshduetext += "\n" + _("Next shuffle")+": "+(this.shuffledue ? this.shuffledue.format("%Y-%m-%d %X") : '-') + " (" + Utils.friendly_time_diff(this.shuffledue) + ")";
         this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
@@ -577,7 +569,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
     }
 
-
     _favouriteImage() {
         log('favourite image '+this.imageURL+' status was '+this.favourite_status);
         this.favourite_status = !this.favourite_status;
@@ -609,11 +600,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _gotoImage(relativePos) {
         let imageList = Utils.getImageList(this._settings);
         let curIndex = 0;
-        
-        /*
-        if (this.selected_image == 'random')
-            return;
-        */
         
         if (this.selected_image == 'current') {
             curIndex = Utils.getCurrentImageIndex(imageList);
@@ -822,6 +808,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             log('not enough filtered images available to shuffle');
         }
+
+        // shuffle could fail for a number of reasons
         try {
             this.imageIndex = Utils.getRandomInt(imageList.length);
             image = imageList[this.imageIndex];

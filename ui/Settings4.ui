@@ -409,21 +409,80 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="history_description">
+                              <object class="GtkLabel" id="history">
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                  <property name="row-span">1</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="history_shuffle_enabled_boxrow">
+                        <property name="can_focus">0</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="shuffle_enabled_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="shuffle_enabled_label">
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes"></property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Shuffle enabled</property>
                                 <layout>
                                   <property name="column">0</property>
-                                  <property name="row">1</property>
+                                  <property name="row">0</property>
                                 </layout>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="history">
+                              <object class="GtkSwitch" id="shuffle_enabled_switch">
+                                <property name="halign">end</property>
+                                <property name="hexpand">1</property>
+                                <layout>
+                                  <property name="column">1</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBoxRow" id="history_shufflemodeboxrow">
+                        <property name="can_focus">0</property>
+                        <property name="child">
+                          <object class="GtkGrid" id="shuffle_mode_grid">
+                            <property name="can_focus">0</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="column_spacing">32</property>
+                            <child>
+                              <object class="GtkLabel" id="shuffle_mode_label">
+                                <property name="can_focus">0</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">1</property>
+                                <property name="label" translatable="yes">Shuffle mode</property>
+                                <layout>
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="shuffle_mode_combo">
                                 <layout>
                                   <property name="column">1</property>
                                   <property name="row">0</property>
@@ -554,7 +613,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Use custom blur and brightness</property>
+                                <property name="label" translatable="yes">Dynamically switches blur on GDM3 lock screen</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -569,7 +628,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Override GDM3 lockscreen effects</property>
+                                <property name="label" translatable="yes">Enable dynamic lockscreen blur</property>
                                 <property name="wrap">1</property>
                                 <layout>
                                   <property name="column">0</property>
@@ -599,7 +658,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="can_focus">0</property>
                                 <property name="halign">start</property>
                                 <property name="hexpand">1</property>
-                                <property name="label" translatable="yes">Blur can improve readability of login prompt</property>
+                                <property name="label" translatable="yes">Blur can improve readability</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
