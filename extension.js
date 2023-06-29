@@ -128,7 +128,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
 
-        this._initSoup();
+        // create Soup session
+        this.httpSession = Utils.initSoup();
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
@@ -212,12 +213,6 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             this._restartTimeout(60); // wait 60 seconds before performing refresh
         }
-    }
-
-    // create soup Session
-    _initSoup() {
-        this.httpSession = new Soup.Session();
-        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
     }
 
     // listen for configuration changes
