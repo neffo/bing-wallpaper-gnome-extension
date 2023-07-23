@@ -209,6 +209,11 @@
       <default>32</default>
       <summary>Size of icons for controls in popup menu</summary>
     </key>
+
+    <key name="trash-deletes-images" type="b">
+      <default>false</default>
+      <summary>Trash deletes images or just marks as bad</summary>
+    </key>
     
     <!-- not currently used
     <key name="gallery-width" type="i">

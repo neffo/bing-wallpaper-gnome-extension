@@ -403,6 +403,16 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._restartTimeout(difference);
     }
 
+    _restartShuffleTimeoutFromDueDate(duedate) {
+        let now = GLib.DateTime.new_now_local();
+        let difference = duedate.difference(now) / 1000000;
+        if (difference < 60 || difference > 86400) // clamp to a reasonable range
+            difference = 60;
+        
+        log('Next shuffle due ' + difference + ' seconds from now');
+        this._restartShuffleTimeout(difference);
+    }
+
     // convert longdate format into human friendly format
     _localeDate(longdate, include_time = false) {
         try {
@@ -692,11 +702,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _restartShuffleTimeout(seconds = null) {
+        log('_restartShuffleTimeout('+seconds+')');
         if (this._shuffleTimeout)
             GLib.source_remove(this._shuffleTimeout);
 
         if (seconds == null) {
-            let diff = Math.floor(GLib.DateTime.new_now_local().difference(this.shuffledue)/1000000);
+            let diff = -Math.floor(GLib.DateTime.new_now_local().difference(this.shuffledue)/1000000);
             
 
             log('shuffle ('+this.shuffledue.format_iso8601()+') diff = '+diff);
@@ -705,7 +716,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 seconds = diff; // if not specified, we should maintain the existing shuffle timeout (i.e. we just restored from saved state)
             }
             else if (this._settings.get_string('random-interval-mode') != 'custom') {
-                seconds = Utils.seconds_until(this._settings.get_string('random-interval-mode')); // else we shuffle at specified interval (midnight default)
+                let random_mode = this._settings.get_string('random-interval-mode');
+                seconds = Utils.seconds_until(random_mode); // else we shuffle at specified interval (midnight default)
+                log('shuffle mode = '+random_mode+' = '+seconds+' from now');
             }
             else {
                 seconds = this._settings.get_int('random-interval'); // or whatever the user has specified (as a timer)
@@ -953,7 +966,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             } 
             
             if (this._settings.get_boolean('random-mode-enabled')) {
-                this._restartShuffleTimeout(60); // FIXME: use state value
+                log('random mode enabled, restarting random state');
+                this._restartShuffleTimeoutFromDueDate(this.shuffledue); // FIXME: use state value
                 this._restartTimeoutFromLongDate(maxLongDate);
             }
             else {
