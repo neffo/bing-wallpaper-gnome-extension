@@ -850,10 +850,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 this.imageIndex = Utils.getCurrentImageIndex(imageList);
             } else {
                 image = Utils.inImageList(imageList, this.selected_image);
-                //log('_selectImage: ' + this.selected_image + ' = ' + (image && image.urlbase) ? image.urlbase : 'not found');
+                
                 if (!image) // if we didn't find it, try for current
                     image = Utils.getCurrentImage(imageList);
-                this.imageIndex = Utils.imageIndex(imageList, image.urlbase);
+                
+                if (image)
+                    this.imageIndex = Utils.imageIndex(imageList, image.urlbase);
+                log('_selectImage: ' + this.selected_image + ' = ' + (image && image.urlbase) ? image.urlbase : 'not found');
             }
         }
 
@@ -874,6 +877,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.filename = Utils.toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             this.dimensions.width = image.width?image.width:null;
             this.dimensions.height = image.height?image.height:null;
+            this.selected_image = Util.getImageUrlBase(image);
 
             if (("favourite" in image) && image.favourite === true ) {
                 this.favourite_status = true;
