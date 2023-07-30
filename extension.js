@@ -877,7 +877,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.filename = Utils.toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             this.dimensions.width = image.width?image.width:null;
             this.dimensions.height = image.height?image.height:null;
-            this.selected_image = Util.getImageUrlBase(image);
+            this.selected_image = Utils.getImageUrlBase(image);
 
             if (("favourite" in image) && image.favourite === true ) {
                 this.favourite_status = true;
