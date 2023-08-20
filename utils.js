@@ -647,7 +647,7 @@ function toFilename(wallpaperDir, startdate, imageURL, resolution) {
 function initSoup() {
     try {
         let httpSession = new Soup.Session();
-        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
+        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper GNOME Extension/' + Me.metadata.version;
         return httpSession;
     }
     catch (e) {

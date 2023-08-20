@@ -1591,7 +1591,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               <object class="GtkLabel" id="extension_version_label">
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Gnome shell extension version </property>
+                <property name="label" translatable="yes">GNOME shell extension version </property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1712,7 +1712,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
+                <property name="label" translatable="yes">Based on NASA APOD GNOME shell extension by Elia Argentieri</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
                 <attributes>
