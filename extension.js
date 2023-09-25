@@ -563,7 +563,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 x.setSensitive(randomEnabled);
             });
         if (randomEnabled) {
-            // enable shuffle mode, by setting a shuffe timer (5 seconds)
+            log('enabled shuffle mode, by setting a shuffe timer (5 seconds)');
             this._restartShuffleTimeout(5);
             this._settings.set_boolean('revert-to-current-image', false);
         }
@@ -703,6 +703,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _restartShuffleTimeout(seconds = null) {
         log('_restartShuffleTimeout('+seconds+')');
+        console.trace();
         if (this._shuffleTimeout)
             GLib.source_remove(this._shuffleTimeout);
 
@@ -878,6 +879,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.dimensions.width = image.width?image.width:null;
             this.dimensions.height = image.height?image.height:null;
             this.selected_image = Utils.getImageUrlBase(image);
+            this._settings.set_string('selected-image', this.selected_image);
 
             if (("favourite" in image) && image.favourite === true ) {
                 this.favourite_status = true;
@@ -1089,6 +1091,7 @@ function init(extensionMeta) {
 function enable() {
     bingWallpaperIndicator = new BingWallpaperIndicator();
     Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
+    log('extension enabled');
 }
 
 function disable() { 
@@ -1103,6 +1106,7 @@ function disable() {
         blur._disable(); // disable blur (blur.js) override and cleanup
         blur = null;
     }
+    log('extension disabled');
 }
 
 
