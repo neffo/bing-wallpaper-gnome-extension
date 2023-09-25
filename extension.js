@@ -7,23 +7,38 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
-const Main = imports.ui.main;
-const MessageTray = imports.ui.messageTray;
-const Util = imports.misc.util;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const ByteArray = imports.byteArray;
+//const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
+import Soup from 'gi://Soup';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Cogl from 'gi://Cogl';
+//import Gdk from 'gi://Gdk';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
-const Blur = Me.imports.blur;
-const Thumbnail = Me.imports.thumbnail;
-const BWClipboard = Me.imports.BWClipboard;
-const Convenience = Me.imports.convenience;
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
+
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as messageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+import * as panelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as popupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+// import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+// import * as ExtensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
+
+
+// const ByteArray = imports.byteArray;
+// replaced with TextDecoder functions?
+
+
+
+/*const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();*/
+import {Extension, gettext as _, dir as myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Utils from './utils.js';
+//import * as Blur from './blur.js'; // disabled for initial GNOME-45 migration
+import * as Thumbnail from './Thumbnail.js';
+import * as BWClipboard from './BWClipboard.js';
+import * as Utils from './utils.js';
+import * as Convenience from './convenience.js';
 
 const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';
@@ -39,23 +54,19 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
-const ICON_RANDOM = Me.dir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
-const ICON_FAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
-const ICON_UNFAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
+const ICON_RANDOM = myDir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
+const ICON_FAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
+const ICON_UNFAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
 
-// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
-const getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
-
 const newMenuItem = (label) => {
-    return new PopupMenu.PopupMenuItem(label);
+    return new popupMenu.PopupMenuItem(label);
 }
 
 const newMenuSwitchItem = (label, state) => {
-    let switchItem = new PopupMenu.PopupSwitchMenuItem(
+    let switchItem = new popupMenu.PopupSwitchMenuItem(
         label, 
         state, 
         {});
@@ -90,7 +101,7 @@ function doSetBackground(uri, schema) {
 }
 
 const BingWallpaperIndicator = GObject.registerClass(
-class BingWallpaperIndicator extends PanelMenu.Button {
+class BingWallpaperIndicator extends panelMenu.Button {
     _init(params = {}) {
         super._init(0, IndicatorName, false);
 
@@ -115,20 +126,17 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.logger = null;
         this.favourite_status = false;
         
-        if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
-            blur = new Blur.Blur();
+        // disabled for initial GNOME-45 migration
+        //if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
+        //    blur = new Blur.Blur();
         
-        /*
-        blur.BWP_BLUR_BRIGHTNESS = 2;
-        blur.BWP_BLUR_SIGMA = 55;
-        */
 
         // take a variety of actions when the gsettings values are modified by prefs
-        this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
+        this._settings = Extension.getSettings();
 
         this._initSoup();
 
-        getActorCompat(this).visible = !this._settings.get_boolean('hide');
+        this.visible = !this._settings.get_boolean('hide');
 
         // enable testing potentially unsafe features on Wayland if the user overrides it
         if (!Utils.is_x11() && this._settings.get_boolean('override-unsafe-wayland')) {
@@ -136,7 +144,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         }
 
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
-        this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
+        this.titleItem = new popupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
         this.explainItem = newMenuItem(_("Awaiting refresh..."));
         this.copyrightItem = newMenuItem(_("Awaiting refresh..."));
         this.clipboardImageItem = newMenuItem(_("Copy image to clipboard"));
@@ -154,7 +162,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
                 .forEach(e => this.titleItem.menu.addMenuItem(e));
 
         // quick settings submenu
-        this.settingsSubMenu = new PopupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
+        this.settingsSubMenu = new popupMenu.PopupSubMenuMenuItem(_("Quick settings"), false);
         // toggles under the quick settings submenu
         this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
         this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
@@ -169,7 +177,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
         // these items are a bit unique, we'll populate them in _setControls()
         this.controlItem = newMenuItem("");
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});       
+        this.thumbnailItem = new popupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});       
         this._setControls(); // build the button bar
 
         // we need to word-wrap these menu items to not overflow menu in case of long lines of text
@@ -182,14 +190,14 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let allMenuItems = [ 
             this.refreshItem, 
             this.refreshDueItem, 
-            new PopupMenu.PopupSeparatorMenuItem(),
+            new popupMenu.PopupSeparatorMenuItem(),
             this.controlItem,
-            new PopupMenu.PopupSeparatorMenuItem(),
+            new popupMenu.PopupSeparatorMenuItem(),
             this.explainItem, 
             this.thumbnailItem, 
             this.titleItem, 
             this.copyrightItem,
-            new PopupMenu.PopupSeparatorMenuItem(),
+            new popupMenu.PopupSeparatorMenuItem(),
             this.settingsSubMenu,
             this.settingsItem
         ];
@@ -214,13 +222,13 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
-        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + metadata.version;
     }
 
     // listen for configuration changes
     _setConnections() {
         this._settings.connect('changed::hide', () => {
-            getActorCompat(this).visible = !this._settings.get_boolean('hide');
+            this.visible = !this._settings.get_boolean('hide');
         });
         
         let settingConnections = [
@@ -252,7 +260,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this._cleanUpImages();
 
         // menu connections 
-        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
+        this.connect('button-press-event', this._openMenu.bind(this));
 
         // link menu items to functions
         this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
@@ -313,7 +321,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }  
 
     _openPrefs() {
-        ExtensionUtils.openPrefs();
+        Extension.openPreferences();
     }
 
     _openMenu() {
@@ -365,8 +373,8 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         log('Replace icon set to: ' + icon_name);
-        getActorCompat(this).remove_all_children();
-        getActorCompat(this).add_child(this.icon);
+        this.remove_all_children();
+        this.add_child(this.icon);
     }
 
     // set backgrounds as requested and set preview image in menu
@@ -491,10 +499,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         });
 
         if (position !== null) {
-            getActorCompat(parent).insert_child_at_index(iconBtn, position);
+            parent.insert_child_at_index(iconBtn, position);
         }
         else {
-            getActorCompat(parent).add_child(iconBtn);
+            parent.add_child(iconBtn);
         }
             
         iconBtn.connect('button-press-event', fn.bind(this));
@@ -528,12 +536,12 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             throw Error("error creating Clutter.Image()");
         }
 
-        getActorCompat(this.thumbnailItem).hexpand = false;
-        getActorCompat(this.thumbnailItem).vexpand = false;
-        getActorCompat(this.thumbnailItem).content = image;
+        this.thumbnailItem.hexpand = false;
+        this.thumbnailItem.vexpand = false;
+        this.thumbnailItem.content = image;
         
         log('scale factor: ' + scale_factor);
-        getActorCompat(this.thumbnailItem).set_size(480*scale_factor, 270*scale_factor);
+        this.thumbnailItem.set_size(480*scale_factor, 270*scale_factor);
         this.thumbnailItem.setSensitive(true);
     }
 
@@ -657,9 +665,10 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 
     _processMessageRefresh(message) {
+        const decoder = new TextDecoder();
         try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
-                ByteArray.toString(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
+                decoder.decode(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
                 message.response_body.data; // Soup 2
             
             log('Recieved ' + data.length + ' bytes');
@@ -760,11 +769,11 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _createNotification(image) {
         // set notifications icon
-        let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
+        let source = new messageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
         Main.messageTray.add(source);
         let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.fullstartdate);
         let details = Utils.getImageTitle(image);
-        let notification = new MessageTray.Notification(source, msg, details);
+        let notification = new messageTray.Notification(source, msg, details);
         notification.setTransient(this._settings.get_boolean('transient'));
         source.showNotification(notification);
     }
@@ -990,26 +999,31 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 });
 
+/* // is this needed except for legacy?
 function init(extensionMeta) {
-    ExtensionUtils.initTranslations("BingWallpaper");
 }
+*/
 
-function enable() {
-    bingWallpaperIndicator = new BingWallpaperIndicator();
-    Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
-}
+export default class MyTestExtension {
+    enable() {
+        bingWallpaperIndicator = new BingWallpaperIndicator();
+        Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
+    }
 
-function disable() { 
-    bingWallpaperIndicator.stop();
-    bingWallpaperIndicator.destroy();
-    bingWallpaperIndicator = null;
+    disable() { 
+        bingWallpaperIndicator.stop();
+        bingWallpaperIndicator.destroy();
+        bingWallpaperIndicator = null;
+    
+        // *** NOTE for EGO reviewers ***
+        // blur.js remains active during lockscreen, while the rest of the extension is disabled
+        // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
 
-    // *** NOTE for EGO reviewers ***
-    // blur.js remains active during lockscreen, while the rest of the extension is disabled
-    // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
-    if (!Main.sessionMode.isLocked) {
-        blur._disable(); // disable blur (blur.js) override and cleanup
-        blur = null;
+        // disabled for initial GNOME-45 migration
+        //if (!Main.sessionMode.isLocked) {
+        //    blur._disable(); // disable blur (blur.js) override and cleanup
+        //    blur = null;
+        //}
     }
 }
 

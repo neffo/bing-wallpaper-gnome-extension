@@ -7,14 +7,13 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const {Gio, GLib, Soup, GdkPixbuf} = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Config = imports.misc.config;
-const Convenience = Me.imports.convenience;
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
-const ByteArray = imports.byteArray;
+//const {Gio, GLib, Soup, GdkPixbuf} = imports.gi;
+import Soup from 'gi://Soup';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import * as Convenience from './convenience.js';
+import {Extension, gettext as _, dir as myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
@@ -24,19 +23,11 @@ var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
-var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
-var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
-var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
-
 var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 let debug = false;
-
-// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
-var getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
 
 var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -116,8 +107,9 @@ function fetch_change_log(version, label, httpSession) {
     // queue the http request
     try {
         if (Soup.MAJOR_VERSION >= 3) {
+            const decoder = new TextDecoder();
             httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                let data = ByteArray.toString(httpSession.send_and_read_finish(message).get_data());
+                let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
                 label.set_label(text);
             });
@@ -149,13 +141,6 @@ function is_x11() {
 function enabled_unsafe() {
     //log("User override, enabling unsafe Wayland functionality");
     return true;
-}
-
-function gnome_major_version() {
-    let [major] = Config.PACKAGE_VERSION.split('.');
-    let shellVersion = Number.parseInt(major);
-
-    return shellVersion;
 }
 
 function imageHasBasename(image_item, i, b) {
@@ -529,8 +514,9 @@ function importBingJSON(settings) {
             log('error loading bing-json '+filepath+' - '+etag_out);
         }
         else {
+            const decoder = new TextDecoder();
             log('JSON import success');
-            let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+            let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
             cleanupImageList(settings); // remove the older missing images

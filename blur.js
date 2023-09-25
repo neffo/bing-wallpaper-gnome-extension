@@ -22,10 +22,6 @@ var _showPrompt = UnlockDialog.prototype._showPrompt;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
-var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]);
-var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
-
 // default BWP mild blur
 var BWP_BLUR_SIGMA = 2;
 var BWP_BLUR_BRIGHTNESS = 55;
@@ -155,11 +151,6 @@ var Blur = class Blur {
     }
 };
 
-function supportedVersion() { // when current lockscren blur implementation was first shipped (we ignore earlier weird version)
-    if (shellVersionMajor >= 40 ||
-        (shellVersionMajor == 3 && shellVersionMinor == 36 && shellVersionPoint >= 4)) {
-        return true;
-    }
-
-    return false;
+function supportedVersion() { // assume supported
+    return true;
 }
