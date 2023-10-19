@@ -7,26 +7,20 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const {Gio, GLib, Soup, GdkPixbuf} = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Config = imports.misc.config;
-const Convenience = Me.imports.convenience;
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import Soup from 'gi://Soup';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import * as Convenience from './convenience.js';
 const ByteArray = imports.byteArray;
 
-var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
-var PRESET_NO_BLUR = { blur: 0, dim: 60 }; 
-var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 }; 
+export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
+export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
+export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 };
 
-var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
-var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
-var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
-
-var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
-var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]); //FIXME: these checks work will probably break on newer shell versions
-var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
+export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
+export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
+export var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
 var vertical_blur = null;
 var horizontal_blur = null;
@@ -35,18 +29,18 @@ let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-ext
 let debug = false;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
-var getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
+export var getActorCompat = (obj) =>
+    Convenience.versionGreaterEqual(Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0'), '3.33') ? obj : obj.actor;
 
-var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
-var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
-var markets = ['auto', 'ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
+export var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
+export var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
+export var markets = ['auto', 'ar-XA', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'en-AU', 'en-CA', 'en-GB',
     'en-ID', 'en-IE', 'en-IN', 'en-MY', 'en-NZ', 'en-PH', 'en-SG', 'en-US', 'en-WW', 'en-XA', 'en-ZA', 'es-AR',
     'es-CL', 'es-ES', 'es-MX', 'es-US', 'es-XL', 'et-EE', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR',
     'he-IL', 'hr-HR', 'hu-HU', 'it-IT', 'ja-JP', 'ko-KR', 'lt-LT', 'lv-LV', 'nb-NO', 'nl-BE', 'nl-NL',
     'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
     'zh-CN', 'zh-HK', 'zh-TW'];
-var marketName = [
+export var marketName = [
     'auto', '(شبه الجزيرة العربية‎) العربية', 'dansk (Danmark)', 'Deutsch (Österreich)',
     'Deutsch (Schweiz)', 'Deutsch (Deutschland)', 'English (Australia)', 'English (Canada)',
     'English (United Kingdom)', 'English (Indonesia)', 'English (Ireland)', 'English (India)', 'English (Malaysia)',
@@ -60,15 +54,15 @@ var marketName = [
     'slovenčina (Slovensko)', 'slovenščina (Slovenija)', 'svenska (Sverige)', 'ไทย (ไทย)', 'Türkçe (Türkiye)',
     'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
-var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
+export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-var randomIntervals = [300, 3600, 86400, 604800];
-var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
+export var randomIntervals = [300, 3600, 86400, 604800];
+export var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
 
-var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
-var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
+export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
+export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
 
-function validate_icon(settings, icon_image = null) {
+export function validate_icon(settings, extension_path, icon_image = null) {
     log('validate_icon()');
     let icon_name = settings.get_string('icon-name');
     if (icon_name == '' || icon_list.indexOf(icon_name) == -1) {
@@ -77,20 +71,20 @@ function validate_icon(settings, icon_image = null) {
     }
     // if called from prefs
     if (icon_image) { 
-        log('set icon to: ' + Me.dir.get_path() + '/icons/' + icon_name + '.svg');
-        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(Me.dir.get_path() + '/icons/' + icon_name + '.svg', 32, 32);
+        log('set icon to: ' + extension_path + '/icons/' + icon_name + '.svg');
+        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 32, 32);
         icon_image.set_from_pixbuf(pixbuf);
     }
 }
 
-function validate_resolution(settings) {
+export function validate_resolution(settings) {
     let resolution = settings.get_string('resolution');
     if (resolution == '' || resolutions.indexOf(resolution) == -1) // if not a valid resolution
         settings.reset('resolution');
 }
 
 // FIXME: needs work
-function validate_imagename(settings) {
+export function validate_imagename(settings) {
     let filename = settings.get_string('selected-image');
     if (filename != 'current' || filename != 'random')
         return;
@@ -101,13 +95,13 @@ function validate_imagename(settings) {
     }
 }
 
-function get_current_bg(schema) {
+export function get_current_bg(schema) {
     let gsettings = new Gio.Settings({ schema: schema });
     let cur = gsettings.get_string('picture-uri');
     return (cur);
 }
 
-function fetch_change_log(version, label, httpSession) {
+export function fetch_change_log(version, label, httpSession) {
     // create an http message
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);
@@ -136,36 +130,29 @@ function fetch_change_log(version, label, httpSession) {
     }
 }
 
-function set_blur_preset(settings, preset) {
+export function set_blur_preset(settings, preset) {
     settings.set_int('lockscreen-blur-strength', preset.blur);
     settings.set_int('lockscreen-blur-brightness', preset.dim);
     log("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
-function is_x11() {
+export function is_x11() {
     return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
 }
 
-function enabled_unsafe() {
+export function enabled_unsafe() {
     //log("User override, enabling unsafe Wayland functionality");
     return true;
 }
 
-function gnome_major_version() {
-    let [major] = Config.PACKAGE_VERSION.split('.');
-    let shellVersion = Number.parseInt(major);
-
-    return shellVersion;
-}
-
-function imageHasBasename(image_item, i, b) {
+export function imageHasBasename(image_item, i, b) {
     //log("imageHasBasename : " + image_item.urlbase + " =? " + this);
     if (this && this.search(image_item.urlbase.replace('th?id=OHR.', '')))
         return true;
     return false;
 }
 
-function dateFromLongDate(longdate, add_seconds) {
+export function dateFromLongDate(longdate, add_seconds) {
     if (typeof longdate === 'number')
         longdate = longdate.toString();
     return GLib.DateTime.new(GLib.TimeZone.new_utc(),
@@ -177,7 +164,7 @@ function dateFromLongDate(longdate, add_seconds) {
                              0 ).add_seconds(add_seconds); // seconds
 }
 
-function dateFromShortDate(shortdate) {
+export function dateFromShortDate(shortdate) {
     if (typeof shortdate === 'number')
         shortdate = shortdate.toString();
     return GLib.DateTime.new(GLib.TimeZone.new_utc(),
@@ -187,31 +174,31 @@ function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-function getImageList(settings) {
+export function getImageList(settings) {
     return JSON.parse(settings.get_string('bing-json'));
 }
 
-function setImageList(settings, imageList) {
+export function setImageList(settings, imageList) {
     settings.set_string('bing-json', JSON.stringify(imageList));
     if (settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
         exportBingJSON(settings);
     }
 }
 
-function getImageTitle(image_data) {
+export function getImageTitle(image_data) {
     return image_data.copyright.replace(/\s*\(.*?\)\s*/g, '');
 }
 
-function getImageUrlBase(image_data) {
+export function getImageUrlBase(image_data) {
     return image_data.urlbase.replace('/th?id=OHR.', '');
 }
 
-function getMaxLongDate(settings) {
+export function getMaxLongDate(settings) {
     let imageList = getImageList(settings);
     return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
 }
 
-function getCurrentImageIndex (imageList) {
+export function getCurrentImageIndex (imageList) {
     if (!imageList)
         return -1;
     let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
@@ -220,7 +207,7 @@ function getCurrentImageIndex (imageList) {
     return index;
 }
 
-function setImageFavouriteStatus(settings, imageURL, newState) {
+export function setImageFavouriteStatus(settings, imageURL, newState) {
     log('set favourite status of '+imageURL+' to '+newState);
     let imageList = getImageList(settings);
     imageList.forEach(function(x, i) {
@@ -233,7 +220,7 @@ function setImageFavouriteStatus(settings, imageURL, newState) {
     setImageList(settings, imageList); // save back to settings
 }
 
-function getCurrentImage(imageList) {
+export function getCurrentImage(imageList) {
     if (!imageList || imageList.length == 0)
         return null;
     let index = getCurrentImageIndex(imageList);
@@ -242,7 +229,7 @@ function getCurrentImage(imageList) {
     return imageList[index];
 }
 
-function inImageList(imageList, urlbase) {
+export function inImageList(imageList, urlbase) {
     let image = null;
     imageList.forEach(function(x, i) {
         if (urlbase.replace('/th?id=OHR.', '') == x.urlbase.replace('/th?id=OHR.', ''))
@@ -251,7 +238,7 @@ function inImageList(imageList, urlbase) {
     return image;
 }
 
-function inImageListByTitle(imageList, title) {
+export function inImageListByTitle(imageList, title) {
     let image = null;
     imageList.forEach(function(x, i) {
         log('inImageListbyTitle(): ' + title + ' == ' + getImageTitle(x));
@@ -261,7 +248,7 @@ function inImageListByTitle(imageList, title) {
     return image;
 }
 
-function mergeImageLists(settings, imageList) {
+export function mergeImageLists(settings, imageList) {
     let curList = getImageList(settings);
     let newList = []; // list of only new images (for future notifications)
     imageList.forEach(function(x, i) {
@@ -274,21 +261,21 @@ function mergeImageLists(settings, imageList) {
     return newList; // return this to caller for notifications
 }
 
-function imageIndex(imageList, urlbase) {
+export function imageIndex(imageList, urlbase) {
     return imageList.map(p => p.urlbase.replace('/th?id=OHR.', '')).indexOf(urlbase.replace('/th?id=OHR.', ''));
 }
 
-function isFavourite(image) {
+export function isFavourite(image) {
     return (image.favourite && image.favourite === true);
 }
 
-function getImageByIndex(imageList, index) {
+export function getImageByIndex(imageList, index) {
     if (imageList.length == 0 || index < 0 || index > imageList.length - 1)
         return null;
     return imageList[index];
 }
 
-function cleanupImageList(settings) {
+export function cleanupImageList(settings) {
     let curList = imageListSortByDate(getImageList(settings));
     let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
     let newList = [];
@@ -306,7 +293,7 @@ function cleanupImageList(settings) {
     setImageList(settings, newList);
 }
 
-function getWallpaperDir(settings) {
+export function getWallpaperDir(settings) {
     let homeDir =  GLib.get_home_dir(); 
     let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir); 
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
@@ -328,24 +315,24 @@ function getWallpaperDir(settings) {
     return BingWallpaperDir;
 }
 
-function setWallpaperDir(settings, uri) {
+export function setWallpaperDir(settings, uri) {
     let homeDir =  GLib.get_home_dir();
     let relUri = uri.replace(homeDir, '~');
     settings.set_string('download-folder', relUri);
 }
 
-function imageToFilename(settings, image, resolution = null) {
+export function imageToFilename(settings, image, resolution = null) {
     return getWallpaperDir(settings) + image.startdate + '-' +
 		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_'
 		+ (resolution ? resolution : getResolution(settings, image)) + '.jpg';
 }
 
-function getRandomInt(max) {
+export function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
 // Utility function
-function dump(object, level = 0) {
+export function dump(object, level = 0) {
     let output = '';
     for (let property in object) {
         output += ' - '.repeat(level)+property + ': ' + object[property]+'\n ';
@@ -357,7 +344,7 @@ function dump(object, level = 0) {
     return(output);
 }
 
-function friendly_time_diff(time, short = true) {
+export function friendly_time_diff(time, short = true) {
     // short we want to keep ~4-5 characters
     let timezone = GLib.TimeZone.new_local();
     let now = GLib.DateTime.new_now(timezone).to_unix();
@@ -380,7 +367,7 @@ function friendly_time_diff(time, short = true) {
     }
 }
 
-function getResolution(settings, image) {
+export function getResolution(settings, image) {
     let resolution = settings.get_string('resolution');
     if (resolutions.indexOf(resolution) == -1 || (image ? image.wp == false : true) || // wp == false when background is animated
 		settings.get_string('resolution') == 'auto' ) {
@@ -390,26 +377,26 @@ function getResolution(settings, image) {
     return resolution;
 }
 
-function openImageFolder(settings) {
+export function openImageFolder(settings) {
     //const context = global?global.create_app_launch_context(0, -1):null;
     Gio.AppInfo.launch_default_for_uri('file://' + getWallpaperDir(settings), null);
 }
 
-function imageListSortByDate(imageList) {
+export function imageListSortByDate(imageList) {
     return imageList.sort(function(a, b) {
         var x = parseInt(a.fullstartdate); var y = parseInt(b.fullstartdate);
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
 
-function shortenName(string, limit) {
+export function shortenName(string, limit) {
     if (string.length > limit) {
         string = string.substr(0, limit - 4) + '...';
     }
     return string;
 }
 
-function moveImagesToNewFolder(settings, oldPath, newPath) {
+export function moveImagesToNewFolder(settings, oldPath, newPath) {
     // possible race condition here, need to think about how to fix it
     //let BingWallpaperDir = settings.get_string('download-folder');
     let dir = Gio.file_new_for_path(oldPath);
@@ -433,17 +420,17 @@ function moveImagesToNewFolder(settings, oldPath, newPath) {
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
 }
 
-function dirname(path) {
+export function dirname(path) {
     return path.match(/.*\//);
 }
 
-function slash(path) {
+export function slash(path) {
     if (!path.endsWith('/'))
         return path += '/';
     return path;
 }
 
-function moveBackground(oldPath, newPath, schema) {
+export function moveBackground(oldPath, newPath, schema) {
     let gsettings = new Gio.Settings({schema: schema});
     let uri = gsettings.get_string('picture-uri');
     gsettings.set_string('picture-uri', uri.replace(oldPath, newPath));
@@ -458,12 +445,12 @@ function moveBackground(oldPath, newPath, schema) {
     gsettings.apply();
 }
 
-function log(msg) {
+export function log(msg) {
     if (debug)
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
 
-function deleteImage(to_delete) {
+export function deleteImage(to_delete) {
     var file = Gio.file_new_for_path(to_delete);
     if (file.query_exists(null)) {
         try {
@@ -477,7 +464,7 @@ function deleteImage(to_delete) {
 }
 
 // add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
-function purgeImages(settings) {
+export function purgeImages(settings) {
     let deletepictures = settings.get_boolean('delete-previous');
     if (deletepictures === false)
         return;
@@ -497,7 +484,7 @@ function purgeImages(settings) {
     validate_imagename(settings); // if we deleted our current image, we want to reset it to something valid
 }
 
-function openInSystemViewer(filename, is_file = true) {
+export function openInSystemViewer(filename, is_file = true) {
     let context;
     try {
         context = global.create_app_launch_context(0, -1);
@@ -510,7 +497,7 @@ function openInSystemViewer(filename, is_file = true) {
     Gio.AppInfo.launch_default_for_uri(filename, context);
 }
 
-function exportBingJSON(settings) {
+export function exportBingJSON(settings) {
     let json = settings.get_string('bing-json');
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
@@ -520,7 +507,7 @@ function exportBingJSON(settings) {
     }
 }
 
-function importBingJSON(settings) {
+export function importBingJSON(settings) {
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {

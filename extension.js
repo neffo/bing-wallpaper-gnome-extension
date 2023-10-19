@@ -7,23 +7,29 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const {St, Soup, Gio, GObject, GLib, Clutter, Cogl, Gdk} = imports.gi;
-const Main = imports.ui.main;
-const MessageTray = imports.ui.messageTray;
-const Util = imports.misc.util;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
+import St from 'gi://St';
+import Soup from 'gi://Soup';
+import Gio from 'gi://Gio';
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import Clutter from 'gi://Clutter';
+import Cogl from 'gi://Cogl';
+import Gdk from 'gi://Gdk';
+
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+import {Button} from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 const ByteArray = imports.byteArray;
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
-const Blur = Me.imports.blur;
-const Thumbnail = Me.imports.thumbnail;
-const BWClipboard = Me.imports.BWClipboard;
-const Convenience = Me.imports.convenience;
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Utils from './utils.js';
+import Blur from './blur.js';
+import Thumbnail from './thumbnail.js';
+import BWClipboard from './BWClipboard.js';
+import * as Convenience from './convenience.js';
 
 const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';
@@ -39,16 +45,13 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
-const ICON_RANDOM = Me.dir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
-const ICON_FAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
-const ICON_UNFAVE_BUTTON = Me.dir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 const getActorCompat = (obj) =>
-    Convenience.currentVersionGreaterEqual('3.33') ? obj : obj.actor;
+    Convenience.versionGreaterEqual(Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0'), '3.33') ? obj : obj.actor;
 
 const newMenuItem = (label) => {
     return new PopupMenu.PopupMenuItem(label);
@@ -90,8 +93,8 @@ function doSetBackground(uri, schema) {
 }
 
 const BingWallpaperIndicator = GObject.registerClass(
-class BingWallpaperIndicator extends PanelMenu.Button {
-    _init(params = {}) {
+class BingWallpaperIndicator extends Button {
+    _init(ext) {
         super._init(0, IndicatorName, false);
 
         this.title = "";
@@ -110,13 +113,19 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         this.thumbnail = null;
         this.thumbnailItem = null;
         this.selected_image = "current";
-        this.clipboard = new BWClipboard.BWClipboard();
+        this.clipboard = new BWClipboard();
         this.imageIndex = null;
         this.logger = null;
         this.favourite_status = false;
+        this._extension = ext;
         
+        let extensionIconsPath = ext.dir.get_child('icons').get_path()
+        this.ICON_RANDOM = extensionIconsPath + '/'+'game-die-symbolic.svg';
+        this.ICON_FAVE_BUTTON = extensionIconsPath + '/'+'fav-symbolic.svg';
+        this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
+
         if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
-            blur = new Blur.Blur();
+            blur = new Blur();
         
         /*
         blur.BWP_BLUR_BRIGHTNESS = 2;
@@ -124,7 +133,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         */
 
         // take a variety of actions when the gsettings values are modified by prefs
-        this._settings = ExtensionUtils.getSettings(Utils.BING_SCHEMA);
+        this._settings = this._extension.getSettings(Utils.BING_SCHEMA);
 
         this._initSoup();
 
@@ -214,7 +223,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     // create soup Session
     _initSoup() {
         this.httpSession = new Soup.Session();
-        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + Me.metadata.version;
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this._extension.metadata.version;
     }
 
     // listen for configuration changes
@@ -313,7 +322,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }  
 
     _openPrefs() {
-        ExtensionUtils.openPrefs();
+        this._extension.openPreferences();
     }
 
     _openMenu() {
@@ -360,9 +369,9 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     // set indicator icon (tray icon)
     _setIcon() {
-        Utils.validate_icon(this._settings);
+        Utils.validate_icon(this._settings, this._extension.path);
         let icon_name = this._settings.get_string('icon-name');
-        let gicon = Gio.icon_new_for_string(Me.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
+        let gicon = Gio.icon_new_for_string(this._extension.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         log('Replace icon set to: ' + icon_name);
         getActorCompat(this).remove_all_children();
@@ -373,7 +382,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     _setBackground() {
         if (this.filename == '')
             return;
-        this.thumbnail = new Thumbnail.Thumbnail(this.filename); // historically thumbnails were a bit unsafe on Wayland, but now fixed
+        this.thumbnail = new Thumbnail(this.filename); // historically thumbnails were a bit unsafe on Wayland, but now fixed
         this._setThumbnailImage();
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();
@@ -436,7 +445,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         else {
             this.explainItem.label.set_text(this.explanation ? this.explanation : '');
         }
-        this._setFavouriteIcon(this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON);
+        this._setFavouriteIcon(this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON);
     }
 
     _wrapLabelItem(menuItem) {
@@ -449,7 +458,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
 
     _setControls() {
         this.favouriteBtn = this._newMenuIcon(
-            this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON, 
+            this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON,
             this.controlItem, 
             this._favouriteImage);
         this.prevBtn = this._newMenuIcon(
@@ -465,7 +474,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
             this.controlItem, 
             this._curImage);
         this.randomizeBtn = this._newMenuIcon(
-            ICON_RANDOM, 
+            this.ICON_RANDOM,
             this.controlItem, 
             this._shuffleImage);
     }
@@ -577,7 +586,7 @@ class BingWallpaperIndicator extends PanelMenu.Button {
         log('favourite image '+this.imageURL+' status was '+this.favourite_status);
         this.favourite_status = !this.favourite_status;
         Utils.setImageFavouriteStatus(this._settings, this.imageURL, this.favourite_status);
-        this._setFavouriteIcon(this.favourite_status?ICON_FAVE_BUTTON:ICON_UNFAVE_BUTTON);
+        this._setFavouriteIcon(this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON);
     }
 
     _setFavouriteIcon(icon_name) {
@@ -990,26 +999,23 @@ class BingWallpaperIndicator extends PanelMenu.Button {
     }
 });
 
-function init(extensionMeta) {
-    ExtensionUtils.initTranslations("BingWallpaper");
-}
+export default class BingWallpaperExtension extends Extension {
+    enable() {
+        bingWallpaperIndicator = new BingWallpaperIndicator(this);
+        Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
+    }
+    disable() {
+        bingWallpaperIndicator.stop();
+        bingWallpaperIndicator.destroy();
+        bingWallpaperIndicator = null;
 
-function enable() {
-    bingWallpaperIndicator = new BingWallpaperIndicator();
-    Main.panel.addToStatusArea(IndicatorName, bingWallpaperIndicator);
-}
-
-function disable() { 
-    bingWallpaperIndicator.stop();
-    bingWallpaperIndicator.destroy();
-    bingWallpaperIndicator = null;
-
-    // *** NOTE for EGO reviewers ***
-    // blur.js remains active during lockscreen, while the rest of the extension is disabled
-    // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
-    if (!Main.sessionMode.isLocked) {
-        blur._disable(); // disable blur (blur.js) override and cleanup
-        blur = null;
+        // *** NOTE for EGO reviewers ***
+        // blur.js remains active during lockscreen, while the rest of the extension is disabled
+        // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
+        if (!Main.sessionMode.isLocked) {
+            blur._disable(); // disable blur (blur.js) override and cleanup
+            blur = null;
+        }
     }
 }
 

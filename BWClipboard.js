@@ -6,11 +6,12 @@
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 
-const St = imports.gi.St;
-const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
-const Gio = imports.gi.Gio;
+import St from 'gi://St';
+import Gio from 'gi://Gio';
 
-var BWClipboard = class BWClipboard {
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+
+export default class BWClipboard {
     constructor() {
         this.clipboard = St.Clipboard.get_default();
     }

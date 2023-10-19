@@ -6,10 +6,10 @@
 // (at your option) any later version.
 // See the GNU General Public License, version 3 or later for details.
 
-const Gio = imports.gi.Gio;
-const GdkPixbuf = imports.gi.GdkPixbuf;
+import Gio from 'gi://Gio';
+import GdkPixbuf from 'gi://GdkPixbuf';
 
-var Thumbnail = class Thumbnail {
+export default class Thumbnail {
     constructor(filePath) {
         if (!filePath) {
             throw new Error(`need argument ${filePath}`);
