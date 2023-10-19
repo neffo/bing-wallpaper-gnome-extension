@@ -139,11 +139,6 @@ class BingWallpaperIndicator extends Button {
 
         getActorCompat(this).visible = !this._settings.get_boolean('hide');
 
-        // enable testing potentially unsafe features on Wayland if the user overrides it
-        if (!Utils.is_x11() && this._settings.get_boolean('override-unsafe-wayland')) {
-            Utils.is_x11 = Utils.enabled_unsafe;
-        }
-
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
         this.explainItem = newMenuItem(_("Awaiting refresh..."));
@@ -328,7 +323,7 @@ class BingWallpaperIndicator extends Button {
     _openMenu() {
         // Grey out menu items if an update is pending
         this.refreshItem.setSensitive(!this._updatePending);
-        if (Utils.is_x11()) {
+        if (Utils.is_x11(this._settings)) {
             this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
             this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         }

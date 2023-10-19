@@ -136,13 +136,8 @@ export function set_blur_preset(settings, preset) {
     log("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
-export function is_x11() {
-    return GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
-}
-
-export function enabled_unsafe() {
-    //log("User override, enabling unsafe Wayland functionality");
-    return true;
+export function is_x11(settings) {
+    return settings.get_boolean('override-unsafe-wayland') || GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
 }
 
 export function imageHasBasename(image_item, i, b) {
