@@ -12,7 +12,7 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 import * as Convenience from './convenience.js';
-import {Extension, gettext as _, dir as myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension, gettext as _, dir as myDir} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
@@ -637,8 +637,8 @@ export function initSoup() {
     try {
         let httpSession = new Soup.Session();
         this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/'
-            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' 
-            + metadata.version;
+            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/';
+            //+ Extension.metadata.version;
         return httpSession;
     }
     catch (e) {
