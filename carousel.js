@@ -15,8 +15,6 @@ import GLib from 'gi://GLib';
 import * as Utils from './utils.js';
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-
-
 const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
@@ -68,35 +66,22 @@ export default class Carousel {
 
         win.set_default_size(dimensions[2], dimensions[3]);
         win.set_title(title);
-
-        if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ['carouselScrollable']);
-            flowBox = buildable.get_object('carouselFlowBox');
-            win.add(buildable.get_object('carouselScrollable'));
-        }
-        else {
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ['carouselViewPort']);
-            flowBox = buildable.get_object('carouselFlowBox');
-            win.set_child(buildable.get_object('carouselScrollable'));
-        }
+    
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ['carouselViewPort']);
+        flowBox = buildable.get_object('carouselFlowBox');
+        win.set_child(buildable.get_object('carouselScrollable'));
         return [win, flowBox];
     }
 
     _create_gallery() {
         Utils.randomIntervals.forEach((x) => {
-            let item = this._create_random_item(x.value, x.title);
-            if (Gtk.get_major_version() < 4)
-                this.flowBox.add(item);
-            else 
-                this.flowBox.insert(item, -1);
+            let item = this._create_random_item(x.value, _(x.title));
+            this.flowBox.insert(item, -1);
         });
 
         this.imageList.forEach((image) => {
             let item = this._create_gallery_item(image);
-            if (Gtk.get_major_version() < 4)
-                this.flowBox.add(item);
-            else 
-                this.flowBox.insert(item, -1);
+            this.flowBox.insert(item, -1);
         });
     }
 
@@ -104,10 +89,7 @@ export default class Carousel {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() < 4)
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ["flowBoxChild"]);
-        else
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxChild"]);
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxChild"]);
         
         // assign variables to the UI objects we've just loaded
         let galleryImage = buildable.get_object('galleryImage');
@@ -131,12 +113,7 @@ export default class Carousel {
             this._load_image(galleryImage, filename);
         }
         catch (e) {
-            if (Gtk.get_major_version() < 4) {
-                galleryImage.set_from_icon_name('image-missing', '64x64');
-            }
-            else {
-                galleryImage.set_from_icon_name('image-missing');
-            }
+            galleryImage.set_from_icon_name('image-missing');
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             this.log('create_gallery_image: '+e);
         }
@@ -193,12 +170,7 @@ export default class Carousel {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ["flowBoxRandom"]);
-        }
-        else {
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxRandom"]);
-        }
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxRandom"]);
 
         let randomLabel = buildable.get_object('randomLabel');
         randomLabel.set_text(title);
@@ -220,12 +192,7 @@ export default class Carousel {
         this.flowBox.set_max_children_per_line(1);
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() >= 4) {
-            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
-        }
-        else {
-            return null;
-        }
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
 
         let loadButton = buildable.get_object('loadButton');
 
@@ -272,13 +239,7 @@ export default class Carousel {
                         pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
 
-                if (Gtk.get_major_version() < 4) {
-                    galleryImage.set_from_pixbuf(pixbuf);
-                }
-                else {
-                    galleryImage.set_pixbuf(pixbuf);
-                }
-                    
+                galleryImage.set_pixbuf(pixbuf);
             }
             catch (e) {
                 this._set_blank_image(galleryImage);
@@ -288,15 +249,8 @@ export default class Carousel {
     }
 
     _set_blank_image(galleryImage) {
-        if (Gtk.get_major_version() < 4) {
-            galleryImage.set_from_icon_name('image-missing', '64x64');
-            galleryImage.set_icon_size = 3; // Gtk.GTK_ICON_SIZE_LARGE;
-        }
-        else {
             //galleryImage.set_from_icon_name('image-missing');
             //galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
-        }
-        
     }
 
     log(msg) {

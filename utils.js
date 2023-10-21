@@ -12,7 +12,7 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 import * as Convenience from './convenience.js';
-import {Extension, gettext as _, dir as myDir} from 'resource:///org/gnome/shell/extensions/extension.js';
+//import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
@@ -27,10 +27,6 @@ var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 let debug = false;
-
-// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
-export var getActorCompat = (obj) =>
-    Convenience.versionGreaterEqual(Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0'), '3.33') ? obj : obj.actor;
 
 export var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 export var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -56,9 +52,9 @@ export var marketName = [
 ];
 export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-export var randomIntervals = [ {value: 'hourly', title: _('on the hour')},
-                        {value: 'daily', title: _('every day at midnight')},
-                        {value: 'weekly', title: _('every Sunday at midnight')} ];
+export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
+                        {value: 'daily', title: ('every day at midnight')},
+                        {value: 'weekly', title: ('every Sunday at midnight')} ];
 
 export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
@@ -173,7 +169,7 @@ export function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-function getImageList(settings, filter = null) {
+export function getImageList(settings, filter = null) {
     let image_list = JSON.parse(settings.get_string('bing-json'));
     if (!filter) {
         return image_list;
@@ -198,7 +194,7 @@ export function setImageList(settings, imageList) {
     }
 }
 
-function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+export function setImageHiddenStatus(settings, hide_image_list, hide_status) {
     // stub
     // get current image list
     let image_list = getImageList(settings);

@@ -24,7 +24,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 const ByteArray = imports.byteArray;
 
-import {Extension, gettext as _, myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
 import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
@@ -46,18 +46,10 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
-const ICON_RANDOM = myDir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
-const ICON_FAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
-const ICON_UNFAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
-const ICON_TRASH_BUTTON = myDir.get_child('icons').get_path() + '/'+'trash-empty-symbolic.svg';
-const ICON_UNTRASH_BUTTON = myDir.get_child('icons').get_path() + '/'+'trash-full-symbolic.svg';
+const ICON_RANDOM = 'game-die-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
-
-// remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
-const getActorCompat = (obj) =>
-    Convenience.versionGreaterEqual(Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0'), '3.33') ? obj : obj.actor;
 
 const newMenuItem = (label) => {
     return new PopupMenu.PopupMenuItem(label);
@@ -132,6 +124,8 @@ class BingWallpaperIndicator extends Button {
         this.ICON_RANDOM = extensionIconsPath + '/'+'game-die-symbolic.svg';
         this.ICON_FAVE_BUTTON = extensionIconsPath + '/'+'fav-symbolic.svg';
         this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
+        this.ICON_TRASH_BUTTON = extensionIconsPath + '/'+'trash-empty-symbolic.svg';
+        this.ICON_UNTRASH_BUTTON = extensionIconsPath + '/'+'trash-full-symbolic.svg';
 
         if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
             blur = new Blur();
@@ -323,10 +317,8 @@ class BingWallpaperIndicator extends Button {
     _openMenu() {
         // Grey out menu items if an update is pending
         this.refreshItem.setSensitive(!this._updatePending);
-        if (Utils.is_x11(this._settings)) {
-            this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-            this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
-        }
+        this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
+        this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
         //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -377,7 +369,7 @@ class BingWallpaperIndicator extends Button {
     _setBackground() {
         if (this.filename == '')
             return;
-        this.thumbnail = new Thumbnail.Thumbnail(this.filename, St.ThemeContext.get_for_stage(global.stage).scale_factor); // use scale factor to make them look nicer
+        this.thumbnail = new Thumbnail(this.filename, St.ThemeContext.get_for_stage(global.stage).scale_factor); // use scale factor to make them look nicer
         this._setThumbnailImage();
         if (!this.dimensions.width || !this.dimensions.height) // if dimensions aren't in image database yet
             [this.dimensions.width, this.dimensions.height] = Utils.getFileDimensions(this.filename);
