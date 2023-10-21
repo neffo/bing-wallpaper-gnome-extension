@@ -46,17 +46,13 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // Prepare labels and controls
         let buildable = new Gtk.Builder();
-        if (Gtk.get_major_version() == 4) { // GTK4 removes some properties, and builder breaks when it sees them
-            buildable.add_from_file( this.dir.get_path() + '/ui/Settings4.ui' );
-            provider.load_from_path(this.dir.get_path() + '/ui/prefs.css');
-            Gtk.StyleContext.add_provider_for_display(
+        // GTK4 removes some properties, and builder breaks when it sees them
+        buildable.add_from_file( this.dir.get_path() + '/ui/Settings4.ui' );
+        provider.load_from_path(this.dir.get_path() + '/ui/prefs.css');
+        Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),
             provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        }
-        else {
-            buildable.add_from_file( this.dir.get_path() + '/ui/Settings.ui' );
-        }
 
         let box = buildable.get_object('prefs_widget');
 
@@ -102,17 +98,11 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         let buttonImportData = buildable.get_object('button_json_import');
         let buttonExportData = buildable.get_object('button_json_export');
         let switchAlwaysExport = buildable.get_object('always_export_switch');
-        /*let searchEntry = buildable.get_object('searchEntry');
-        let searchBuffer = buildable.get_object('searchBuffer');*/
+        let switchEnableShuffle = buildable.get_object('shuffle_enabled_switch');
+        let entryShuffleMode = buildable.get_object('shuffle_mode_combo');
         let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
 
-        try {
-            httpSession = new Soup.Session();
-            httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this.metadata.version;
-        }
-        catch (e) {
-            log("Error creating httpSession: " + e);
-        }
+        httpSession = httpSession = Utils.initSoup();
 
         // check that these are valid (can be edited through dconf-editor)
         Utils.validate_resolution(settings);
@@ -147,15 +137,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.openImageFolder(settings);
         });
 
-        // open image carousel (gallery) window (gtk3, gnome <40) or populate the tab (gtk4+, gnome 40+)
-        if (Gtk.get_major_version() == 4) {
-            carousel = new Carousel(settings, null, null, carouselFlowBox); // auto load carousel
-        }
-        else {
-            galleryButton.connect('clicked', (widget) => {
-                carousel = new Carousel(settings, widget, null, carouselFlowBox);
-            });
-        }
+        // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
+        carousel = new Carousel(settings, null, null, carouselFlowBox); // auto load carousel
 
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable
@@ -167,69 +150,48 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         //download folder
-        if (Gtk.get_major_version() == 4) { // we need to use native file choosers in Gtk4
-            fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
+        fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
 
-            fileChooserBtn.connect('clicked', (widget) => {
-                let parent = widget.get_root();
-                let curWallpaperDir = Gio.File.new_for_path(Utils.getWallpaperDir(settings));
-                fileChooser.set_current_folder(curWallpaperDir.get_parent());
-                fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
-                fileChooser.set_transient_for(parent);
-                fileChooser.set_accept_label(_('Select folder'));
-                fileChooser.show();
-            });
+        fileChooserBtn.connect('clicked', (widget) => {
+            let parent = widget.get_root();
+            let curWallpaperDir = Gio.File.new_for_path(Utils.getWallpaperDir(settings));
+            fileChooser.set_current_folder(curWallpaperDir.get_parent());
+            fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
+            fileChooser.set_transient_for(parent);
+            fileChooser.set_accept_label(_('Select folder'));
+            fileChooser.show();
+        });
 
-            fileChooser.connect('response', (widget, response) => {
-                if (response !== Gtk.ResponseType.ACCEPT) {
-                    return;
-                }
-                let fileURI = fileChooser.get_file().get_path().replace('file://', '');
-                log("fileChooser returned: "+fileURI);
-                fileChooserBtn.set_label(fileURI);
-                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
-                Utils.setWallpaperDir(settings, fileURI);
-            });
+        fileChooser.connect('response', (widget, response) => {
+            if (response !== Gtk.ResponseType.ACCEPT) {
+                return;
+            }
+            let fileURI = fileChooser.get_file().get_path().replace('file://', '');
+            log("fileChooser returned: "+fileURI);
+            fileChooserBtn.set_label(fileURI);
+            Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
+            Utils.setWallpaperDir(settings, fileURI);
+        });
 
-            // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
-            let market_grid = buildable.get_object('market_grid');
-            marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
+        // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
+        let market_grid = buildable.get_object('market_grid');
+        marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
+        marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        market_grid.attach(marketEntry, 1, 0, 1, 2);
+        marketEntry.connect('notify::selected-item', () => {
+            let id = marketEntry.get_selected();
+            settings.set_string('market', Utils.markets[id]);
+            log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
+        });
+
+        settings.connect('changed::market', () => {
             marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
-            market_grid.attach(marketEntry, 1, 0, 1, 2);
-            marketEntry.connect('notify::selected-item', () => {
-                let id = marketEntry.get_selected();
-                settings.set_string('market', Utils.markets[id]);
-                log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
-            });
+        });
 
-            settings.connect('changed::market', () => {
-                marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
-            });
+        settings.connect('changed::download-folder', () => {
+            fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
+        });
 
-            settings.connect('changed::download-folder', () => {
-                fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
-            });
-        }
-        else { // Gtk 3
-            fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
-            log("fileChooser filename/dirname set to '"+fileChooserBtn.get_filename()+"' setting is '"+settings.get_string('download-folder')+"'");
-
-            fileChooserBtn.add_shortcut_folder_uri("file://" + GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)+"/BingWallpaper");
-            fileChooserBtn.connect('file-set', (widget) => {
-                Utils.moveImagesToNewFolder(settings, settings.get_string('download-folder'), widget.get_filename());
-                Utils.setWallpaperDir(settings, widget.get_filename());
-            });
-
-            Utils.markets.forEach((bingmarket, index) => { // add markets to dropdown list (aka a GtkComboText)
-                marketEntry.append(bingmarket, bingmarket+": "+Utils.marketName[index]);
-            });
-
-            settings.bind('market', marketEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-
-            settings.connect('changed::download-folder', () => {
-                fileChooserBtn.set_filename(Utils.getWallpaperDir(settings));
-            });
-        }
 
         // Resolution
         Utils.resolutions.forEach((res) => { // add res to dropdown list (aka a GtkComboText)
@@ -242,17 +204,15 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.validate_resolution(settings);
         });
 
-        // History
-        let imageList = Utils.getImageList(settings);
-        historyEntry.append('current', _('Most recent image'));
-        historyEntry.append('random', _('Random image'));
-
-        imageList.forEach((image) => {
-            historyEntry.append(image.urlbase.replace('/th?id=OHR.', ''), Utils.shortenName(Utils.getImageTitle(image), 50));
+        // shuffle modes
+        settings.bind('random-mode-enabled', switchEnableShuffle, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Utils.randomIntervals.forEach((x) => {
+            entryShuffleMode.append(x.value, _(x.title));
         });
+        settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
-        // selected image can also be changed through the menu or even dconf
-        settings.bind('selected-image', historyEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        // selected image can no longer be changed through a dropdown (didn't scale)
+        settings.bind('selected-image', historyEntry, 'label', Gio.SettingsBindFlags.DEFAULT);
         settings.connect('changed::selected-image', () => {
             Utils.validate_imagename(settings);
         });
