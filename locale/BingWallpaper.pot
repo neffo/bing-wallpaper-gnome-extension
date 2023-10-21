@@ -202,7 +202,7 @@ msgid "Changes since last version"
 msgstr ""
 
 #: ui/Settings4.ui.h:51
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgid "Based on NASA APOD GNOME shell extension by Elia Argentieri"
 msgstr ""
 
 #: ui/Settings4.ui.h:52
