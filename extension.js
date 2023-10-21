@@ -134,7 +134,7 @@ class BingWallpaperIndicator extends Button {
         this._settings = this._extension.getSettings();
 
         // create Soup session
-        this.httpSession = Utils.initSoup();
+        this._initSoup();
 
         this.visible = !this._settings.get_boolean('hide');
 
@@ -212,6 +212,12 @@ class BingWallpaperIndicator extends Button {
         else {
             this._restartTimeout(60); // wait 60 seconds before performing refresh
         }
+    }
+
+    // create Soup session
+    _initSoup() {
+        this.httpSession = new Soup.Session();
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this._extension.metadata.version;
     }
 
     // listen for configuration changes

@@ -102,7 +102,13 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         let entryShuffleMode = buildable.get_object('shuffle_mode_combo');
         let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
 
-        httpSession = httpSession = Utils.initSoup();
+        try {
+            httpSession = new Soup.Session();
+            httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this.metadata.version;
+        }
+        catch (e) {
+            log("Error creating httpSession: " + e);
+        }
 
         // check that these are valid (can be edited through dconf-editor)
         Utils.validate_resolution(settings);

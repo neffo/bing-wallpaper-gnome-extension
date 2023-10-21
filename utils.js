@@ -26,7 +26,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = false;
+let debug = true;
 
 export var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 export var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -627,19 +627,4 @@ export function getFileDimensions(filepath) {
 
 export function toFilename(wallpaperDir, startdate, imageURL, resolution) {
     return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
-}
-
-export function initSoup() {
-    try {
-        let httpSession = new Soup.Session();
-        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/'
-            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper GNOME Extension/';
-            //+ Extension.metadata.version;
-        return httpSession;
-    }
-    catch (e) {
-        log('Unable to create soup session: '+e);
-        return null;
-    }
-
 }
