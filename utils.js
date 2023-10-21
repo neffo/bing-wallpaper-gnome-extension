@@ -26,7 +26,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = true;
+let debug = false;
 
 export var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 export var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -50,6 +50,7 @@ export var marketName = [
     'slovenčina (Slovensko)', 'slovenščina (Slovenija)', 'svenska (Sverige)', 'ไทย (ไทย)', 'Türkçe (Türkiye)',
     'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
+
 export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
 export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
@@ -60,7 +61,7 @@ export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
 
 export function validate_icon(settings, extension_path, icon_image = null) {
-    log('validate_icon()');
+    BingLog('validate_icon()');
     let icon_name = settings.get_string('icon-name');
     if (icon_name == '' || icon_list.indexOf(icon_name) == -1) {
         settings.reset('icon-name');
@@ -68,7 +69,7 @@ export function validate_icon(settings, extension_path, icon_image = null) {
     }
     // if called from prefs
     if (icon_image) { 
-        log('set icon to: ' + extension_path + '/icons/' + icon_name + '.svg');
+        BingLog('set icon to: ' + extension_path + '/icons/' + icon_name + '.svg');
         let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 32, 32);
         icon_image.set_from_pixbuf(pixbuf);
     }
@@ -88,7 +89,7 @@ export function validate_imagename(settings) {
         return;
 
     if (!inImageList(getImageList(settings), filename)) {
-        log('invalid image selected');
+        BingLog('invalid image selected');
         //settings.reset('selected-image');
         settings.set_string('selected-image', 'current');
     }
@@ -106,7 +107,7 @@ export function fetch_change_log(version, label, httpSession) {
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);
     request.request_headers.append('Accept', 'application/json');
-    log("Fetching " + url);
+    BingLog("Fetching " + url);
     // queue the http request
     try {
         if (Soup.MAJOR_VERSION >= 3) {
@@ -125,7 +126,7 @@ export function fetch_change_log(version, label, httpSession) {
         }
     } 
     catch (error) {
-        log("Error fetching change log: " + error);
+        BingLog("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+error));
     }
 }
@@ -133,7 +134,7 @@ export function fetch_change_log(version, label, httpSession) {
 export function set_blur_preset(settings, preset) {
     settings.set_int('lockscreen-blur-strength', preset.blur);
     settings.set_int('lockscreen-blur-brightness', preset.dim);
-    log("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
+    BingLog("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
 export function is_x11(settings) {
@@ -228,17 +229,17 @@ export function getCurrentImageIndex (imageList) {
         return -1;
     let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
     let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
-    log('getCurrentImageIndex for ' + maxLongDate + ': ' + index);
+    BingLog('getCurrentImageIndex for ' + maxLongDate + ': ' + index);
     return index;
 }
 
 export function setImageFavouriteStatus(settings, imageURL, newState) {
-    log('set favourite status of '+imageURL+' to '+newState);
+    BingLog('set favourite status of '+imageURL+' to '+newState);
     let imageList = getImageList(settings);
     imageList.forEach(function(x, i) {
         //log('testing: '+imageURL+' includes '+x.urlbase);
         if (imageURL.includes(x.urlbase)) {
-            log('setting index '+i+' to '+newState?'true':'false');
+            BingLog('setting index '+i+' to '+newState?'true':'false');
             imageList[i].favourite = newState;
         }
     });
@@ -281,7 +282,7 @@ export function inImageList(imageList, urlbase) {
 export function inImageListByTitle(imageList, title) {
     let image = null;
     imageList.forEach(function(x, i) {
-        log('inImageListbyTitle(): ' + title + ' == ' + getImageTitle(x));
+        BingLog('inImageListbyTitle(): ' + title + ' == ' + getImageTitle(x));
         if (getImageTitle(x) == title)
             image = x;
     });
@@ -327,7 +328,7 @@ export function cleanupImageList(settings) {
             newList.push(x);
         }
         else {
-            log('Cleaning up: '+filename);
+            BingLog('Cleaning up: '+filename);
         }
     });
     setImageList(settings, newList);
@@ -356,7 +357,7 @@ export function getWallpaperDir(settings) {
     let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
         BingWallpaperDir = (userPicturesDir?userPicturesDir:userDesktopDir) + '/BingWallpaper/';
-        log('Using default download folder: ' + BingWallpaperDir);
+        BingLog('Using default download folder: ' + BingWallpaperDir);
         setWallpaperDir(settings, BingWallpaperDir);
     }
     else if (!BingWallpaperDir.endsWith('/')) {
@@ -396,7 +397,7 @@ export function dump(object, level = 0) {
 			output += dump(object[property], level+1);
     }
 	if (level == 0)
-		log(output);
+		BingLog(output);
     return(output);
 }
 
@@ -446,7 +447,7 @@ function seconds_until(until) {
             day.get_day_of_month(),
             0, 0, 0); // midnight
     }
-    log('shuffle timer will be set to '+end.format_iso8601());
+    BingLog('shuffle timer will be set to '+end.format_iso8601());
     return(Math.floor(end.difference(now)/1000000)); // difference in μs -> s
 }
 
@@ -492,10 +493,10 @@ export function moveImagesToNewFolder(settings, oldPath, newPath) {
     while (file = dirIter.next_file(null)) {
         let filename = file.get_name(); // we only want to move files that we think we own
         if (filename.match(/\d{8}\-.+\.jpg/i)) {
-            log('file: ' + slash(oldPath) + filename + ' -> ' + slash(newPath) + filename);
+            BingLog('file: ' + slash(oldPath) + filename + ' -> ' + slash(newPath) + filename);
             let cur = Gio.file_new_for_path(slash(oldPath) + filename);
             let dest = Gio.file_new_for_path(slash(newPath) + filename);
-            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { log ('...moved'); });
+            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { BingLog ('...moved'); });
         }
     }
     // correct filenames for GNOME backgrounds
@@ -522,13 +523,13 @@ export function moveBackground(oldPath, newPath, schema) {
 		gsettings.set_string('picture-uri-dark', dark_uri.replace(oldPath, newPath));
 	}
 	catch (e) {
-		log('no dark background gsettings key found ('+e+')');
+		BingLog('no dark background gsettings key found ('+e+')');
 	}
     Gio.Settings.sync();
     gsettings.apply();
 }
 
-export function log(msg) {
+export function BingLog(msg) {
     if (debug)
         print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
 }
@@ -538,10 +539,10 @@ export function deleteImage(to_delete) {
     if (file.query_exists(null)) {
         try {
             file.delete(null);
-            log("deleted file: " + to_delete);
+            BingLog("deleted file: " + to_delete);
         }
         catch (error) {
-            log("an error occured deleting " + to_delete + " : " + error);
+            BingLog("an error occured deleting " + to_delete + " : " + error);
         }
     }
 }
@@ -558,11 +559,11 @@ export function purgeImages(settings) {
         var to_delete = imagelist.shift(); // get the first (oldest item from the list)
         if (deletepictures && to_delete != '') {
             let imageFilename = imageToFilename(settings, to_delete);
-            log('deleting '+imageFilename);
+            BingLog('deleting '+imageFilename);
             deleteImage(imageFilename);
         }
     }
-    log('cleaned up image list, count was '+origlength+' now '+imagelist.length);
+    BingLog('cleaned up image list, count was '+origlength+' now '+imagelist.length);
     cleanupImageList(settings);
     validate_imagename(settings); // if we deleted our current image, we want to reset it to something valid
 }
@@ -586,7 +587,7 @@ export function exportBingJSON(settings) {
     let file = Gio.file_new_for_path(filepath);
     let [success, error] = file.replace_contents(json, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
     if (!success) {
-        log('error saving bing-json from '+filepath+': '+error);
+        BingLog('error saving bing-json from '+filepath+': '+error);
     }
 }
 
@@ -597,10 +598,10 @@ export function importBingJSON(settings) {
     if (file.query_exists(null)) {
         let [success, contents, etag_out] = file.load_contents(null);
         if (!success) {
-            log('error loading bing-json '+filepath+' - '+etag_out);
+            BingLog('error loading bing-json '+filepath+' - '+etag_out);
         }
         else {
-            log('JSON import success');
+            BingLog('JSON import success');
             let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
@@ -608,7 +609,7 @@ export function importBingJSON(settings) {
         }
     }
     else {
-        log('JSON import file not found');
+        BingLog('JSON import file not found');
     }
 }
 
@@ -619,7 +620,7 @@ export function getFileDimensions(filepath) {
         return [width, height];
     }
     catch (e) {
-        log('unable to getFileDimensions('+filepath+') '+e);
+        BingLog('unable to getFileDimensions('+filepath+') '+e);
         return [null, null];
     }
 

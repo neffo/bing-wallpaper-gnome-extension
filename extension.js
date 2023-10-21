@@ -67,7 +67,7 @@ const newMenuSwitchItem = (label, state) => {
 
 function log(msg) {
     if (bingWallpaperIndicator && bingWallpaperIndicator._settings.get_boolean('debug-logging'))
-        print('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
+        console.log('BingWallpaper extension: ' + msg); // disable to keep the noise down in journal
 }
 
 function notifyError(msg) {

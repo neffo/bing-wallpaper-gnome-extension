@@ -332,22 +332,22 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:167
+#: prefs.js:160
 msgid "Select folder"
 msgstr ""
 
-#: utils.js:129
+#: utils.js:130
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:412 utils.js:415
+#: utils.js:413 utils.js:416
 msgid "minutes"
 msgstr ""
 
-#: utils.js:418
+#: utils.js:419
 msgid "days"
 msgstr ""
 
-#: utils.js:421
+#: utils.js:422
 msgid "hours"
 msgstr ""

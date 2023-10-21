@@ -24,14 +24,16 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
-var PREFS_DEFAULT_WIDTH = 650;
-var PREFS_DEFAULT_HEIGHT = 650;
+var PREFS_DEFAULT_WIDTH = 900;
+var PREFS_DEFAULT_HEIGHT = 1000;
 
 export default class BingWallpaperExtensionPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         // formally globals
         let settings = this.getSettings(Utils.BING_SCHEMA);
         let desktop_settings = this.getSettings(Utils.DESKTOP_SCHEMA);
+
+        window.set_default_size(PREFS_DEFAULT_WIDTH, PREFS_DEFAULT_HEIGHT);
 
         let icon_image = null;
         let provider = new Gtk.CssProvider();
@@ -41,7 +43,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         let log = (msg) => { // avoids need for globals
             if (settings.get_boolean('debug-logging'))
-                print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+                console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
         }
 
         // Prepare labels and controls
@@ -58,14 +60,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
 
-        if (Convenience.versionGreaterEqual(Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0'), '40')) {
-            box.connect('realize', () => {
-                let window = box.get_root();
-                //window.default_width = PREFS_DEFAULT_WIDTH;
-                window.default_height = PREFS_DEFAULT_HEIGHT;
-            });
-        }
-
         buildable.get_object('extension_version').set_text(this.metadata.version.toString());
         buildable.get_object('extension_name').set_text(this.metadata.name.toString());
 
@@ -81,7 +75,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         let marketEntry = buildable.get_object('market');
         let resolutionEntry = buildable.get_object('resolution');
         let historyEntry = buildable.get_object('history');
-        let galleryButton = buildable.get_object('button_open_gallery');
         let deleteSwitch = buildable.get_object('delete_previous');
         icon_image = buildable.get_object('icon_image');
         let overrideSwitch = buildable.get_object('lockscreen_override');
@@ -173,7 +166,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
                 return;
             }
             let fileURI = fileChooser.get_file().get_path().replace('file://', '');
-            log("fileChooser returned: "+fileURI);
             fileChooserBtn.set_label(fileURI);
             Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
             Utils.setWallpaperDir(settings, fileURI);
@@ -187,7 +179,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         marketEntry.connect('notify::selected-item', () => {
             let id = marketEntry.get_selected();
             settings.set_string('market', Utils.markets[id]);
-            log('dropdown selected '+id+' = '+Utils.markets[id]+" - "+Utils.marketName[id]);
         });
 
         settings.connect('changed::market', () => {
@@ -246,10 +237,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         buttonslightblur.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
-
-        // not required in GTK4 as widgets are displayed by default
-        if (Gtk.get_major_version() < 4)
-            box.show_all();
 
         // fetch
         if (httpSession)
