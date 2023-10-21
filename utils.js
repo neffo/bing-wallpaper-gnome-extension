@@ -633,7 +633,7 @@ export function initSoup() {
     try {
         let httpSession = new Soup.Session();
         this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/'
-            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/';
+            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper GNOME Extension/';
             //+ Extension.metadata.version;
         return httpSession;
     }
