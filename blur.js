@@ -9,22 +9,22 @@
 // This code based on https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen 
 // and https://github.com/sunwxg/gnome-shell-extension-unlockDialogBackground
 
-const St = imports.gi.St;
-const Main = imports.ui.main;
-const Shell = imports.gi.Shell;
-const Background = imports.ui.background;
-const ScreenShield = imports.ui.screenShield;
-const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
-const ExtensionUtils = imports.misc.extensionUtils;
-var _updateBackgroundEffects = UnlockDialog.prototype._updateBackgroundEffects;
-var _showClock = UnlockDialog.prototype._showClock;
-var _showPrompt = UnlockDialog.prototype._showPrompt;
-const Me = ExtensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
+import St from 'gi://St';
+import Shell from 'gi://Shell';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Background from 'resource:///org/gnome/shell/ui/background.js';
+import * as ScreenShield from 'resource:///org/gnome/shell/ui/screenShield.js';
+import * as UnlockDialog from 'resource:///org/gnome/shell/ui/unlockDialog.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+var _updateBackgroundEffects = UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
+var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
+var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
+import * as Utils from './utils.js';
 
-var shellVersionMajor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[0]);
-var shellVersionMinor = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[1]);
-var shellVersionPoint = parseInt(imports.misc.config.PACKAGE_VERSION.split('.')[2]);
+var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
+var shellVersionPoint = parseInt(Config.PACKAGE_VERSION.split('.')[2]);
 
 // default BWP mild blur
 var BWP_BLUR_SIGMA = 2;
@@ -86,7 +86,7 @@ function _showPrompt_BWP() {
     this._updateBackgroundEffects();
 }
 
-var Blur = class Blur {
+export default class Blur {
     constructor() {
         this.enabled = false;
         log('Bing Wallpaper adjustable blur is '+supportedVersion()?'available':'not available');
@@ -122,15 +122,15 @@ var Blur = class Blur {
 
     _enable() {
         if (supportedVersion()) {
-            log("Blur._enable() called on GNOME "+imports.misc.config.PACKAGE_VERSION);
-            UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects_BWP;
+            log("Blur._enable() called on GNOME "+Config.PACKAGE_VERSION);
+            UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects_BWP;
             // we override _showClock and _showPrompt to patch in updates to blur effect before calling the GNOME functions
-            UnlockDialog.prototype._showClock = _showClock_BWP;
-            UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
+            UnlockDialog.UnlockDialog.prototype._showClock = _showClock_BWP;
+            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
 
             // this are the original functions which we call into from our versions above
-            UnlockDialog.prototype._showClock_GNOME = _showClock;
-            UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock;
+            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
             
         }
         this.enabled = true;
@@ -142,14 +142,14 @@ var Blur = class Blur {
         log("_lockscreen_blur_disable() called");
         if (supportedVersion()) {
             // restore default functions
-            UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
-            UnlockDialog.prototype._showClock = _showClock;
-            UnlockDialog.prototype._showPrompt = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
+            UnlockDialog.UnlockDialog.prototype._showClock = _showClock;
+            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt;
             // clean up unused functions we created
-            UnlockDialog.prototype._showClock_GNOME = null;
-            delete UnlockDialog.prototype._showClock_GNOME;
-            UnlockDialog.prototype._showPrompt_GNOME = null;
-            delete UnlockDialog.prototype._showPrompt_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = null;
+            delete UnlockDialog.UnlockDialog.prototype._showClock_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = null;
+            delete UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME;
         }
         this.enabled = false;
     }

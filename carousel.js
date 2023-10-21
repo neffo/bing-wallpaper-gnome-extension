@@ -7,18 +7,22 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import * as Utils from './utils.js';
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
+
+
 const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
 
-var Carousel = class Carousel {
+export default class Carousel {
     constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null) {
         //create_gallery(widget, settings);
         this.settings = settings;
@@ -28,6 +32,7 @@ var Carousel = class Carousel {
         this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         this.searchEntry = null;
+        this.extensionPath = ExtensionPreferences.lookupByUUID('BingWallpaper@ineffable-gmail.com').path
         
         this.log('create carousel...');
 
@@ -65,12 +70,12 @@ var Carousel = class Carousel {
         win.set_title(title);
 
         if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ['carouselScrollable']);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ['carouselScrollable']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.add(buildable.get_object('carouselScrollable'));
         }
         else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselViewPort']);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ['carouselViewPort']);
             flowBox = buildable.get_object('carouselFlowBox');
             win.set_child(buildable.get_object('carouselScrollable'));
         }
@@ -100,9 +105,9 @@ var Carousel = class Carousel {
 
         // grab appropriate object from UI file
         if (Gtk.get_major_version() < 4)
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ["flowBoxChild"]);
         else
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxChild"]);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxChild"]);
         
         // assign variables to the UI objects we've just loaded
         let galleryImage = buildable.get_object('galleryImage');
@@ -187,10 +192,10 @@ var Carousel = class Carousel {
 
         // grab appropriate object from UI file
         if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel.ui', ["flowBoxRandom"]);
         }
         else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxRandom"]);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxRandom"]);
         }
 
         let randomLabel = buildable.get_object('randomLabel');
@@ -214,7 +219,7 @@ var Carousel = class Carousel {
 
         // grab appropriate object from UI file
         if (Gtk.get_major_version() >= 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
+            buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
         }
         else {
             return null;
