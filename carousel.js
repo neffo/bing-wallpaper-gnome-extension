@@ -78,8 +78,8 @@ var Carousel = class Carousel {
     }
 
     _create_gallery() {
-        Utils.randomIntervals.forEach((seconds, i) => {
-            let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
+        Utils.randomIntervals.forEach((x) => {
+            let item = this._create_random_item(x.value, x.title);
             if (Gtk.get_major_version() < 4)
                 this.flowBox.add(item);
             else 
@@ -156,7 +156,8 @@ var Carousel = class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            Utils.cleanupImageList(this.settings);
+            //Utils.cleanupImageList(this.settings);
+            Utils.hideImage(this.settings, [image]);
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
@@ -182,7 +183,7 @@ var Carousel = class Carousel {
         return item;
     }
 
-    _create_random_item(seconds, title) {
+    _create_random_item(interval, title) {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file
@@ -195,13 +196,13 @@ var Carousel = class Carousel {
 
         let randomLabel = buildable.get_object('randomLabel');
         randomLabel.set_text(title);
-        let filename = 'random';
         let applyButton = buildable.get_object('randomButton');
 
         applyButton.connect('clicked', (widget) => {
-            this.settings.set_string('selected-image', filename);
-            this.settings.set_int('random-interval', seconds);
-            this.log('gallery selected random with interval '+seconds);
+            this.settings.set_string('random-interval-mode', interval);
+            //this.settings.set_int('random-interval', seconds);
+            this.settings.set_boolean('random-mode-enabled', true);
+            this.log('gallery selected random with interval '+interval+' ('+title+')');
         });
 
         let item = buildable.get_object('flowBoxRandom');
@@ -223,9 +224,10 @@ var Carousel = class Carousel {
         let loadButton = buildable.get_object('loadButton');
 
         loadButton.connect('clicked', (widget) => {
-            this.flowBox.remove(widget.get_parent());
+            widget.set_label(_("Loading..."));
             this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
+            this.flowBox.remove(widget.get_parent());
         });
 
         let item = buildable.get_object('flowBoxPlaceholder');

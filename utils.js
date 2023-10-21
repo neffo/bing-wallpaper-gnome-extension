@@ -32,7 +32,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = false;
+let debug = true;
 
 // remove this when dropping support for < 3.33, see https://github.com/OttoAllmendinger/
 var getActorCompat = (obj) =>
@@ -62,8 +62,9 @@ var marketName = [
 ];
 var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-var randomIntervals = [300, 3600, 86400, 604800];
-var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
+var randomIntervals = [ {value: 'hourly', title: _('on the hour')},
+                        {value: 'daily', title: _('every day at midnight')},
+                        {value: 'weekly', title: _('every Sunday at midnight')} ];
 
 var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
@@ -92,11 +93,8 @@ function validate_resolution(settings) {
 // FIXME: needs work
 function validate_imagename(settings) {
     let filename = settings.get_string('selected-image');
-    if (filename != 'current' || filename != 'random')
-        return;
     if (!inImageList(getImageList(settings), filename)) {
         log('invalid image selected');
-        //settings.reset('selected-image');
         settings.set_string('selected-image', 'current');
     }
 }
@@ -187,8 +185,22 @@ function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-function getImageList(settings) {
-    return JSON.parse(settings.get_string('bing-json'));
+function getImageList(settings, filter = null) {
+    let image_list = JSON.parse(settings.get_string('bing-json'));
+    if (!filter) {
+        return image_list;
+    }
+    else {
+        return image_list.filter((x, i) => {
+            if (filter.faves && !x.favourite)
+                return false;
+            if (filter.min_height && x.height < filter.min_height)
+                return false;
+            if (filter.hidden && x.hidden)
+                return false;
+            return true;
+        });
+    }
 }
 
 function setImageList(settings, imageList) {
@@ -231,6 +243,22 @@ function setImageFavouriteStatus(settings, imageURL, newState) {
         }
     });
     setImageList(settings, imageList); // save back to settings
+}
+
+function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+    // stub
+    // get current image list
+    let image_list = getImageList(settings);
+    image_list.forEach( (x, i) => {
+        hide_image_list.forEach(u => {
+            if (u.includes(x.urlbase)) {
+                // mark as hidden
+                x.hidden = hide_status;
+            }
+        });
+    });
+    // export image list back to settings
+    setImageList(settings, image_list);
 }
 
 function getCurrentImage(imageList) {
@@ -288,6 +316,21 @@ function getImageByIndex(imageList, index) {
     return imageList[index];
 }
 
+function getFetchableImageList(settings) {
+    let imageList = getImageList(settings);
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let dlList = [];
+    imageList.forEach( function (x, i) {
+        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
+        let filename = imageToFilename(settings, x);
+        // image is still downloadable (< 8 days old) but not on disk
+        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
+            dlList.push(x);
+        }
+    });
+    return dlList;
+}
+
 function cleanupImageList(settings) {
     let curList = imageListSortByDate(getImageList(settings));
     let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
@@ -302,6 +345,22 @@ function cleanupImageList(settings) {
         else {
             log('Cleaning up: '+filename);
         }
+    });
+    setImageList(settings, newList);
+}
+
+function populateImageListResolutions(settings) {
+    let curList = imageListSortByDate(getImageList(settings));
+    let newList = [];
+    curList.forEach( function (x, i) {
+        let filename = imageToFilename(settings, x);
+        let width, height;
+        if (!x.width || !x.height) {
+            [width, height] = getFileDimensions(filename);
+            x.width = width;
+            x.height = height;
+        }
+        newList.push(x);
     });
     setImageList(settings, newList);
 }
@@ -359,8 +418,7 @@ function dump(object, level = 0) {
 
 function friendly_time_diff(time, short = true) {
     // short we want to keep ~4-5 characters
-    let timezone = GLib.TimeZone.new_local();
-    let now = GLib.DateTime.new_now(timezone).to_unix();
+    let now = GLib.DateTime.new_now_local().to_unix();
     let seconds = time.to_unix() - now;
 
     if (seconds <= 0) {
@@ -378,6 +436,34 @@ function friendly_time_diff(time, short = true) {
     else {
         return Math.round(seconds / 3600) + " " + (short ? "h" : _("hours"));
     }
+}
+
+function seconds_until(until) {
+    let now = GLib.DateTime.new_now_local();
+    let end, day;
+    if (until == 'hourly') {
+        end = GLib.DateTime.new_local(
+            now.get_year(), 
+            now.get_month(), 
+            now.get_day_of_month(), 
+            now.get_hour()+1, // should roll over to next day if results in >23
+            0, 0);
+    }
+    else {
+        if (until == 'weekly') {
+            day = now.add_days(7 - now.get_day_of_week());
+        }
+        else {
+            day = now.add_days(1);
+        }
+        end = GLib.DateTime.new_local(
+            day.get_year(), 
+            day.get_month(), 
+            day.get_day_of_month(),
+            0, 0, 0); // midnight
+    }
+    log('shuffle timer will be set to '+end.format_iso8601());
+    return(Math.floor(end.difference(now)/1000000)); // difference in μs -> s
 }
 
 function getResolution(settings, image) {
@@ -540,4 +626,33 @@ function importBingJSON(settings) {
         log('JSON import file not found');
     }
 }
-  
+
+function getFileDimensions(filepath) {
+    let format, width, height;
+    try {
+        [format, width, height] = GdkPixbuf.Pixbuf.get_file_info(filepath);
+        return [width, height];
+    }
+    catch (e) {
+        log('unable to getFileDimensions('+filepath+') '+e);
+        return [null, null];
+    }
+
+}
+
+function toFilename(wallpaperDir, startdate, imageURL, resolution) {
+    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
+}
+
+function initSoup() {
+    try {
+        let httpSession = new Soup.Session();
+        httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + imports.misc.config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper GNOME Extension/' + Me.metadata.version;
+        return httpSession;
+    }
+    catch (e) {
+        log('Unable to create soup session: '+e);
+        return null;
+    }
+
+}
