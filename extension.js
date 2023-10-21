@@ -24,7 +24,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 const ByteArray = imports.byteArray;
 
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension, gettext as _, myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
 import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
@@ -35,7 +35,8 @@ const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';
 const IndicatorName = 'BingWallpaperIndicator';
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
-const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error
+const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error3
+const MINIMUM_SHUFFLE_IMAGES = 3; // bare minimum to use filtered image set in shuffle mode
 const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
 const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
 const ICON_CONSEC_BUTTON = 'media-playlist-consecutive-symbolic';
@@ -45,6 +46,11 @@ const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
 const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
 const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
 const ICON_REFRESH = 'view-refresh-symbolic';
+const ICON_RANDOM = myDir.get_child('icons').get_path() + '/'+'game-die-symbolic.svg';
+const ICON_FAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'fav-symbolic.svg';
+const ICON_UNFAVE_BUTTON = myDir.get_child('icons').get_path() + '/'+'unfav-symbolic.svg';
+const ICON_TRASH_BUTTON = myDir.get_child('icons').get_path() + '/'+'trash-empty-symbolic.svg';
+const ICON_UNTRASH_BUTTON = myDir.get_child('icons').get_path() + '/'+'trash-full-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
@@ -109,6 +115,7 @@ class BingWallpaperIndicator extends Button {
         this.imageURL = ""; // link to image itself
         this.imageinfolink = ""; // link to Bing photo info page
         this.refreshdue = 0;
+        this.shuffledue = 0;
         this.refreshduetext = "";
         this.thumbnail = null;
         this.thumbnailItem = null;
@@ -117,6 +124,8 @@ class BingWallpaperIndicator extends Button {
         this.imageIndex = null;
         this.logger = null;
         this.favourite_status = false;
+        this.hidden_status = false;
+        this.dimensions = { 'width': null, 'height': null};
         this._extension = ext;
         
         let extensionIconsPath = ext.dir.get_child('icons').get_path()
@@ -127,17 +136,13 @@ class BingWallpaperIndicator extends Button {
         if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
             blur = new Blur();
         
-        /*
-        blur.BWP_BLUR_BRIGHTNESS = 2;
-        blur.BWP_BLUR_SIGMA = 55;
-        */
-
         // take a variety of actions when the gsettings values are modified by prefs
-        this._settings = this._extension.getSettings(Utils.BING_SCHEMA);
+        this._settings = this._extension.getSettings();
 
-        this._initSoup();
+        // create Soup session
+        this.httpSession = Utils.initSoup();
 
-        getActorCompat(this).visible = !this._settings.get_boolean('hide');
+        this.visible = !this._settings.get_boolean('hide');
 
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
@@ -215,16 +220,10 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    // create soup Session
-    _initSoup() {
-        this.httpSession = new Soup.Session();
-        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this._extension.metadata.version;
-    }
-
     // listen for configuration changes
     _setConnections() {
         this._settings.connect('changed::hide', () => {
-            getActorCompat(this).visible = !this._settings.get_boolean('hide');
+            this.visible = !this._settings.get_boolean('hide');
         });
         
         let settingConnections = [
@@ -256,10 +255,11 @@ class BingWallpaperIndicator extends Button {
         this._cleanUpImages();
 
         // menu connections 
-        getActorCompat(this).connect('button-press-event', this._openMenu.bind(this));
+        this.connect('button-press-event', this._openMenu.bind(this));
 
         // link menu items to functions
-        this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        //this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
+        this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         this.openImageItem.connect('activate', this._openInSystemViewer.bind(this));
         //this.titleItem.connect('activate', this._setBackgroundDesktop.bind(this));
         this.openImageInfoLinkItem.connect('activate', this._openImageInfoLink.bind(this)); 
@@ -369,16 +369,19 @@ class BingWallpaperIndicator extends Button {
         let gicon = Gio.icon_new_for_string(this._extension.dir.get_child('icons').get_path() + '/' + icon_name + '.svg');
         this.icon = new St.Icon({gicon: gicon, style_class: 'system-status-icon'});
         log('Replace icon set to: ' + icon_name);
-        getActorCompat(this).remove_all_children();
-        getActorCompat(this).add_child(this.icon);
+        this.remove_all_children();
+        this.add_child(this.icon);
     }
 
     // set backgrounds as requested and set preview image in menu
     _setBackground() {
         if (this.filename == '')
             return;
-        this.thumbnail = new Thumbnail(this.filename); // historically thumbnails were a bit unsafe on Wayland, but now fixed
+        this.thumbnail = new Thumbnail.Thumbnail(this.filename, St.ThemeContext.get_for_stage(global.stage).scale_factor); // use scale factor to make them look nicer
         this._setThumbnailImage();
+        if (!this.dimensions.width || !this.dimensions.height) // if dimensions aren't in image database yet
+            [this.dimensions.width, this.dimensions.height] = Utils.getFileDimensions(this.filename);
+        log('image set to : '+this.filename);
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();
 
@@ -415,6 +418,17 @@ class BingWallpaperIndicator extends Button {
         
         log('Next refresh due ' + difference + ' seconds from now');
         this._restartTimeout(difference);
+    }
+
+    // alternative shuffle mode, not yet enabled
+    _restartShuffleTimeoutFromDueDate(duedate) {
+        let now = GLib.DateTime.new_now_local();
+        let difference = duedate.difference(now) / 1000000;
+        if (difference < 60 || difference > 86400) // clamp to a reasonable range
+            difference = 60;
+
+        log('Next shuffle due ' + difference + ' seconds from now');
+        this._restartShuffleTimeout(difference);
     }
 
     // convert longdate format into human friendly format
@@ -471,10 +485,11 @@ class BingWallpaperIndicator extends Button {
         this.randomizeBtn = this._newMenuIcon(
             this.ICON_RANDOM,
             this.controlItem, 
-            this._shuffleImage);
+            this._shuffleImage,
+            null, true);
     }
 
-    _newMenuIcon(icon_name, parent, fn, position = null) {
+    _newMenuIcon(icon_name, parent, fn, position = null, arg = null) {
         let gicon = Gio.icon_new_for_string(icon_name);
         let icon = new St.Icon({
             /*icon_name: icon_name,*/
@@ -495,13 +510,13 @@ class BingWallpaperIndicator extends Button {
         });
 
         if (position !== null) {
-            getActorCompat(parent).insert_child_at_index(iconBtn, position);
+            parent.insert_child_at_index(iconBtn, position);
         }
         else {
-            getActorCompat(parent).add_child(iconBtn);
+            parent.add_child(iconBtn);
         }
             
-        iconBtn.connect('button-press-event', fn.bind(this));
+        iconBtn.connect('button-press-event', fn.bind(this, arg));
         return iconBtn;
     }
 
@@ -532,12 +547,12 @@ class BingWallpaperIndicator extends Button {
             throw Error("error creating Clutter.Image()");
         }
 
-        getActorCompat(this.thumbnailItem).hexpand = false;
-        getActorCompat(this.thumbnailItem).vexpand = false;
-        getActorCompat(this.thumbnailItem).content = image;
+        this.thumbnailItem.hexpand = false;
+        this.thumbnailItem.vexpand = false;
+        this.thumbnailItem.content = image;
         
         log('scale factor: ' + scale_factor);
-        getActorCompat(this.thumbnailItem).set_size(480*scale_factor, 270*scale_factor);
+        this.thumbnailItem.set_size(480*scale_factor, 270*scale_factor);
         this.thumbnailItem.setSensitive(true);
     }
 
@@ -661,9 +676,10 @@ class BingWallpaperIndicator extends Button {
     }
 
     _processMessageRefresh(message) {
+        const decoder = new TextDecoder();
         try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
-                ByteArray.toString(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
+                decoder.decode(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
                 message.response_body.data; // Soup 2
             
             log('Recieved ' + data.length + ' bytes');

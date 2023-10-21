@@ -12,7 +12,7 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 import * as Convenience from './convenience.js';
-const ByteArray = imports.byteArray;
+import {Extension, gettext as _, dir as myDir, metadata} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
@@ -56,8 +56,9 @@ export var marketName = [
 ];
 export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
 
-export var randomIntervals = [300, 3600, 86400, 604800];
-export var randomIntervalsTitle = ['00:00:05:00', '00:01:00:00', '00:24:00:00', '07:00:00:00'];
+export var randomIntervals = [ {value: 'hourly', title: _('on the hour')},
+                        {value: 'daily', title: _('every day at midnight')},
+                        {value: 'weekly', title: _('every Sunday at midnight')} ];
 
 export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
@@ -86,8 +87,10 @@ export function validate_resolution(settings) {
 // FIXME: needs work
 export function validate_imagename(settings) {
     let filename = settings.get_string('selected-image');
-    if (filename != 'current' || filename != 'random')
+
+    if (filename != 'current' || filename != 'random') // FIXME: remove this when we move to new shuffle mode
         return;
+
     if (!inImageList(getImageList(settings), filename)) {
         log('invalid image selected');
         //settings.reset('selected-image');
@@ -102,6 +105,7 @@ export function get_current_bg(schema) {
 }
 
 export function fetch_change_log(version, label, httpSession) {
+    const decoder = new TextDecoder();
     // create an http message
     let url = gitreleaseurl + "v" + version;
     let request = Soup.Message.new('GET', url);
@@ -111,7 +115,7 @@ export function fetch_change_log(version, label, httpSession) {
     try {
         if (Soup.MAJOR_VERSION >= 3) {
             httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                let data = ByteArray.toString(httpSession.send_and_read_finish(message).get_data());
+                let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
                 label.set_label(text);
             });
@@ -169,8 +173,22 @@ export function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-export function getImageList(settings) {
-    return JSON.parse(settings.get_string('bing-json'));
+function getImageList(settings, filter = null) {
+    let image_list = JSON.parse(settings.get_string('bing-json'));
+    if (!filter) {
+        return image_list;
+    }
+    else {
+        return image_list.filter((x, i) => {
+            if (filter.faves && !x.favourite)
+                return false;
+            if (filter.min_height && x.height < filter.min_height)
+                return false;
+            if (filter.hidden && x.hidden)
+                return false;
+            return true;
+        });
+    }
 }
 
 export function setImageList(settings, imageList) {
@@ -178,6 +196,22 @@ export function setImageList(settings, imageList) {
     if (settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
         exportBingJSON(settings);
     }
+}
+
+function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+    // stub
+    // get current image list
+    let image_list = getImageList(settings);
+    image_list.forEach( (x, i) => {
+        hide_image_list.forEach(u => {
+            if (u.includes(x.urlbase)) {
+                // mark as hidden
+                x.hidden = hide_status;
+            }
+        });
+    });
+    // export image list back to settings
+    setImageList(settings, image_list);
 }
 
 export function getImageTitle(image_data) {
@@ -222,6 +256,21 @@ export function getCurrentImage(imageList) {
     if (index == -1)
         return imageList[0]; // give something sensible
     return imageList[index];
+}
+
+function getFetchableImageList(settings) {
+    let imageList = getImageList(settings);
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let dlList = [];
+    imageList.forEach( function (x, i) {
+        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
+        let filename = imageToFilename(settings, x);
+        // image is still downloadable (< 8 days old) but not on disk
+        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
+            dlList.push(x);
+        }
+    });
+    return dlList;
 }
 
 export function inImageList(imageList, urlbase) {
@@ -288,6 +337,22 @@ export function cleanupImageList(settings) {
     setImageList(settings, newList);
 }
 
+function populateImageListResolutions(settings) {
+    let curList = imageListSortByDate(getImageList(settings));
+    let newList = [];
+    curList.forEach( function (x, i) {
+        let filename = imageToFilename(settings, x);
+        let width, height;
+        if (!x.width || !x.height) {
+            [width, height] = getFileDimensions(filename);
+            x.width = width;
+            x.height = height;
+        }
+        newList.push(x);
+    });
+    setImageList(settings, newList);
+}
+
 export function getWallpaperDir(settings) {
     let homeDir =  GLib.get_home_dir(); 
     let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir); 
@@ -341,8 +406,7 @@ export function dump(object, level = 0) {
 
 export function friendly_time_diff(time, short = true) {
     // short we want to keep ~4-5 characters
-    let timezone = GLib.TimeZone.new_local();
-    let now = GLib.DateTime.new_now(timezone).to_unix();
+    let now = GLib.DateTime.new_now_local().to_unix();
     let seconds = time.to_unix() - now;
 
     if (seconds <= 0) {
@@ -360,6 +424,34 @@ export function friendly_time_diff(time, short = true) {
     else {
         return Math.round(seconds / 3600) + " " + (short ? "h" : _("hours"));
     }
+}
+
+function seconds_until(until) {
+    let now = GLib.DateTime.new_now_local();
+    let end, day;
+    if (until == 'hourly') {
+        end = GLib.DateTime.new_local(
+            now.get_year(), 
+            now.get_month(), 
+            now.get_day_of_month(), 
+            now.get_hour()+1, // should roll over to next day if results in >23
+            0, 0);
+    }
+    else {
+        if (until == 'weekly') {
+            day = now.add_days(7 - now.get_day_of_week());
+        }
+        else {
+            day = now.add_days(1);
+        }
+        end = GLib.DateTime.new_local(
+            day.get_year(), 
+            day.get_month(), 
+            day.get_day_of_month(),
+            0, 0, 0); // midnight
+    }
+    log('shuffle timer will be set to '+end.format_iso8601());
+    return(Math.floor(end.difference(now)/1000000)); // difference in μs -> s
 }
 
 export function getResolution(settings, image) {
@@ -503,6 +595,7 @@ export function exportBingJSON(settings) {
 }
 
 export function importBingJSON(settings) {
+    const decoder = new TextDecoder();
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {
@@ -512,7 +605,7 @@ export function importBingJSON(settings) {
         }
         else {
             log('JSON import success');
-            let parsed = JSON.parse(ByteArray.toString(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+            let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
             cleanupImageList(settings); // remove the older missing images
@@ -522,4 +615,35 @@ export function importBingJSON(settings) {
         log('JSON import file not found');
     }
 }
-  
+
+export function getFileDimensions(filepath) {
+    let format, width, height;
+    try {
+        [format, width, height] = GdkPixbuf.Pixbuf.get_file_info(filepath);
+        return [width, height];
+    }
+    catch (e) {
+        log('unable to getFileDimensions('+filepath+') '+e);
+        return [null, null];
+    }
+
+}
+
+export function toFilename(wallpaperDir, startdate, imageURL, resolution) {
+    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
+}
+
+export function initSoup() {
+    try {
+        let httpSession = new Soup.Session();
+        this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/'
+            + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' 
+            + metadata.version;
+        return httpSession;
+    }
+    catch (e) {
+        log('Unable to create soup session: '+e);
+        return null;
+    }
+
+}

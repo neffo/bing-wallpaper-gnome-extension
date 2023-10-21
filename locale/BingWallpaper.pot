@@ -6,11 +6,11 @@ msgstr ""
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:163
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:172
 msgid "Enable desktop notifications"
 msgstr ""
 
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:145 extension.js:159
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:154 extension.js:168
 msgid "Set background image"
 msgstr ""
 
@@ -42,39 +42,39 @@ msgstr ""
 msgid "Select from image gallery"
 msgstr ""
 
-#: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
+#: ui/Settings.ui.h:12 ui/Settings4.ui.h:13
 msgid "Bing locale"
 msgstr ""
 
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:148
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:14 extension.js:157
 msgid "Settings"
 msgstr ""
 
-#: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
+#: ui/Settings.ui.h:14
 msgid "Use custom blur and brightness"
 msgstr ""
 
-#: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
+#: ui/Settings.ui.h:15
 msgid "Override GDM3 lockscreen effects"
 msgstr ""
 
-#: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
+#: ui/Settings.ui.h:16
 msgid "Blur can improve readability of login prompt"
 msgstr ""
 
-#: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
+#: ui/Settings.ui.h:17 ui/Settings4.ui.h:18
 msgid "Background blur intensity"
 msgstr ""
 
-#: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
+#: ui/Settings.ui.h:18 ui/Settings4.ui.h:19
 msgid "Can improve contrast of login prompt"
 msgstr ""
 
-#: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
+#: ui/Settings.ui.h:19 ui/Settings4.ui.h:20
 msgid "Background brightness"
 msgstr ""
 
-#: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
+#: ui/Settings.ui.h:20 ui/Settings4.ui.h:21
 msgid "Presets"
 msgstr ""
 
@@ -82,99 +82,99 @@ msgstr ""
 msgid "Commonly used presets"
 msgstr ""
 
-#: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
+#: ui/Settings.ui.h:22 ui/Settings4.ui.h:22
 msgid "No blur, slight dim"
 msgstr ""
 
-#: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
+#: ui/Settings.ui.h:23 ui/Settings4.ui.h:23
 msgid "GNOME default"
 msgstr ""
 
-#: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
+#: ui/Settings.ui.h:24 ui/Settings4.ui.h:24
 msgid "Slight blur, slight dim"
 msgstr ""
 
-#: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
+#: ui/Settings.ui.h:25 ui/Settings4.ui.h:25
 msgid "Lock Screen"
 msgstr ""
 
-#: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
+#: ui/Settings.ui.h:26 ui/Settings4.ui.h:27
 msgid "Debug logging"
 msgstr ""
 
-#: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
+#: ui/Settings.ui.h:27 ui/Settings4.ui.h:26
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:160
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:29 extension.js:169
 msgid "Always show new images"
 msgstr ""
 
-#: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
+#: ui/Settings.ui.h:29 ui/Settings4.ui.h:28
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
-#: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
+#: ui/Settings.ui.h:30 ui/Settings4.ui.h:31
 msgid "Enable all features on Wayland"
 msgstr ""
 
-#: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
+#: ui/Settings.ui.h:31 ui/Settings4.ui.h:30
 msgid "Some newer features may be unstable on Wayland"
 msgstr ""
 
-#: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
+#: ui/Settings.ui.h:32 ui/Settings4.ui.h:32
 msgid "Screen resolution"
 msgstr ""
 
-#: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
+#: ui/Settings.ui.h:33 ui/Settings4.ui.h:33
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
+#: ui/Settings.ui.h:34 ui/Settings4.ui.h:34
 msgid "Manually adjust random interval (seconds)"
 msgstr ""
 
-#: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
+#: ui/Settings.ui.h:35 ui/Settings4.ui.h:35
 msgid "Random interval"
 msgstr ""
 
-#: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
+#: ui/Settings.ui.h:36 ui/Settings4.ui.h:36
 msgid "Import Bing Wallpaper data"
 msgstr ""
 
-#: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
+#: ui/Settings.ui.h:37 ui/Settings4.ui.h:37
 msgid "Import previously exported JSON data from wallpaper directory"
 msgstr ""
 
-#: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
+#: ui/Settings.ui.h:38 ui/Settings4.ui.h:38
 msgid "Import"
 msgstr ""
 
-#: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
+#: ui/Settings.ui.h:39 ui/Settings4.ui.h:39
 msgid "Export Bing Wallpaper data"
 msgstr ""
 
-#: ui/Settings.ui.h:40 ui/Settings4.ui.h:38
+#: ui/Settings.ui.h:40 ui/Settings4.ui.h:40
 msgid "Export JSON data to wallpaper dir for backup or data migration"
 msgstr ""
 
-#: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
+#: ui/Settings.ui.h:41 ui/Settings4.ui.h:41
 msgid "Export"
 msgstr ""
 
-#: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
+#: ui/Settings.ui.h:42 ui/Settings4.ui.h:42
 msgid "Always export Bing data"
 msgstr ""
 
-#: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
+#: ui/Settings.ui.h:43 ui/Settings4.ui.h:43
 msgid "Export Bing JSON whenever data changes"
 msgstr ""
 
-#: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
+#: ui/Settings.ui.h:44 ui/Settings4.ui.h:44
 msgid "Debug options"
 msgstr ""
 
-#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
+#: ui/Settings.ui.h:45 ui/Settings4.ui.h:46
 msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
@@ -182,41 +182,61 @@ msgstr ""
 msgid "Gnome shell extension version "
 msgstr ""
 
-#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
+#: ui/Settings.ui.h:47 ui/Settings4.ui.h:48
 msgid "Maintained by Michael Carroll"
 msgstr ""
 
-#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
+#: ui/Settings.ui.h:48 ui/Settings4.ui.h:49
 msgid ""
 "Show your support to the author on <a href=\"https://flattr.com/"
 "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
 
-#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
+#: ui/Settings.ui.h:49 ui/Settings4.ui.h:50
 msgid "Changes since last version"
 msgstr ""
 
-#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
+#: ui/Settings.ui.h:50 ui/Settings4.ui.h:51
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
 msgstr ""
 
-#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
+#: ui/Settings.ui.h:51 ui/Settings4.ui.h:52
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, version 3 or later</a> for details.</span>"
 msgstr ""
 
-#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
+#: ui/Settings.ui.h:53 ui/Settings4.ui.h:54
 msgid "About"
 msgstr ""
 
-#: ui/Settings4.ui.h:43
-msgid "Gallery"
+#: ui/Settings4.ui.h:11
+msgid "Shuffle enabled"
+msgstr ""
+
+#: ui/Settings4.ui.h:12
+msgid "Shuffle mode"
+msgstr ""
+
+#: ui/Settings4.ui.h:15
+msgid "Dynamically switches blur on GDM3 lock screen"
+msgstr ""
+
+#: ui/Settings4.ui.h:16
+msgid "Enable dynamic lockscreen blur"
+msgstr ""
+
+#: ui/Settings4.ui.h:17
+msgid "Blur can improve readability"
 msgstr ""
 
 #: ui/Settings4.ui.h:45
+msgid "Gallery"
+msgstr ""
+
+#: ui/Settings4.ui.h:47
 msgid "GNOME shell extension version "
 msgstr ""
 
@@ -252,102 +272,106 @@ msgstr ""
 msgid "Load image gallery"
 msgstr ""
 
-#: extension.js:138
+#: extension.js:147
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:139 extension.js:140 extension.js:141
+#: extension.js:148 extension.js:149 extension.js:150
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:142
+#: extension.js:151
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:152
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:153
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:146
+#: extension.js:155
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:156
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:149
+#: extension.js:158
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:150
+#: extension.js:159
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:157
+#: extension.js:166
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:161
+#: extension.js:170
 msgid "Image shuffle mode"
 msgstr ""
 
-#: extension.js:162
+#: extension.js:171
 msgid "Image shuffle only favourites"
 msgstr ""
 
-#: extension.js:164
+#: extension.js:173
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:333
+#: extension.js:337
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:334
+#: extension.js:338
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:765 extension.js:808
+#: extension.js:785 extension.js:828
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:839
+#: extension.js:859
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:840
+#: extension.js:860
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:181
+#: prefs.js:161
 msgid "Select folder"
 msgstr ""
 
-#: prefs.js:249
-msgid "Most recent image"
+#: utils.js:59
+msgid "on the hour"
 msgstr ""
 
-#: prefs.js:250
-msgid "Random image"
+#: utils.js:60
+msgid "every day at midnight"
 msgstr ""
 
-#: utils.js:135
+#: utils.js:61
+msgid "every Sunday at midnight"
+msgstr ""
+
+#: utils.js:133
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:370 utils.js:373
+#: utils.js:416 utils.js:419
 msgid "minutes"
 msgstr ""
 
-#: utils.js:376
+#: utils.js:422
 msgid "days"
 msgstr ""
 
-#: utils.js:379
+#: utils.js:425
 msgid "hours"
 msgstr ""
