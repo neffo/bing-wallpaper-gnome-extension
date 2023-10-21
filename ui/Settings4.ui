@@ -1451,7 +1451,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                   <object class="GtkLabel">
                     <property name="can_focus">0</property>
                     <property name="margin-start">36</property>
-                    <property name="label" translatable="yes">Based on NASA APOD Gnome shell extension by Elia Argentieri</property>
+                    <property name="label" translatable="yes">Based on NASA APOD GNOME shell extension by Elia Argentieri</property>
                     <property name="justify">center</property>
                     <property name="wrap">1</property>
                     <attributes>
