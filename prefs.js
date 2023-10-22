@@ -24,8 +24,8 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
-var PREFS_DEFAULT_WIDTH = 900;
-var PREFS_DEFAULT_HEIGHT = 1000;
+var PREFS_DEFAULT_WIDTH = 950;
+var PREFS_DEFAULT_HEIGHT = 950;
 
 export default class BingWallpaperExtensionPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
