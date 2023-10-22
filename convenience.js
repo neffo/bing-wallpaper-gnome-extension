@@ -25,7 +25,6 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const Config = imports.misc.config;
 
 const versionArray = (v) => v.split(".").map(Number);
 
@@ -44,7 +43,7 @@ function versionEqual(a, b) {
         , true);
 }
 
-function versionGreater(a, b) {
+export function versionGreater(a, b) {
     const diff = zip(versionArray(a), versionArray(b), 0).find(([a, b]) => a !== b);
     if (!diff) {
         return false;
@@ -53,42 +52,10 @@ function versionGreater(a, b) {
     return x > y;
 }
 
+export function versionGreaterEqual(a,b) {
+    return versionEqual(a, b) || versionGreater(a, b);
+}
+
 function versionSmaller(a, b) {
     return (!versionEqual(a, b)) && (!versionGreater(a, b));
 }
-
-function currentVersion() {
-    return ''+Config.PACKAGE_VERSION.replace(/(alpha|beta)/,'0');
-}
-
-function currentVersionEqual(v) {
-    return versionEqual(currentVersion(), v);
-}
-
-function currentVersionGreater(v) {
-    return versionGreater(currentVersion(), v);
-}
-
-function currentVersionGreaterEqual(v) {
-    return versionEqual(currentVersion(), v)
-      || versionGreater(currentVersion(), v);
-}
-
-function currentVersionSmaller(v) {
-    return versionSmaller(currentVersion(), v);
-}
-
-function currentVersionSmallerEqual(v) {
-    return versionEqual(currentVersion(), v)
-      && (!versionGreater(currentVersion(), v));
-}
-
-var exports = {
-    currentVersion,
-    currentVersionEqual,
-    currentVersionGreater,
-    currentVersionGreaterEqual,
-    currentVersionSmaller,
-    currentVersionSmallerEqual
-};
-

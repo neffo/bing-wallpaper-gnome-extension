@@ -7,18 +7,20 @@
 // See the GNU General Public License, version 3 or later for details.
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
-const { Gtk, Gdk, GdkPixbuf, Gio, GLib } = imports.gi;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import * as Utils from './utils.js';
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const Gettext = imports.gettext.domain('BingWallpaper');
-const _ = Gettext.gettext;
 const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
 const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
 
-var Carousel = class Carousel {
+export default class Carousel {
     constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null) {
         //create_gallery(widget, settings);
         this.settings = settings;
@@ -28,6 +30,7 @@ var Carousel = class Carousel {
         this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         this.searchEntry = null;
+        this.extensionPath = ExtensionPreferences.lookupByUUID('BingWallpaper@ineffable-gmail.com').path
         
         this.log('create carousel...');
 
@@ -63,35 +66,22 @@ var Carousel = class Carousel {
 
         win.set_default_size(dimensions[2], dimensions[3]);
         win.set_title(title);
-
-        if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ['carouselScrollable']);
-            flowBox = buildable.get_object('carouselFlowBox');
-            win.add(buildable.get_object('carouselScrollable'));
-        }
-        else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ['carouselViewPort']);
-            flowBox = buildable.get_object('carouselFlowBox');
-            win.set_child(buildable.get_object('carouselScrollable'));
-        }
+    
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ['carouselViewPort']);
+        flowBox = buildable.get_object('carouselFlowBox');
+        win.set_child(buildable.get_object('carouselScrollable'));
         return [win, flowBox];
     }
 
     _create_gallery() {
-        Utils.randomIntervals.forEach((seconds, i) => {
-            let item = this._create_random_item(seconds, Utils.randomIntervalsTitle[i]);
-            if (Gtk.get_major_version() < 4)
-                this.flowBox.add(item);
-            else 
-                this.flowBox.insert(item, -1);
+        Utils.randomIntervals.forEach((x) => {
+            let item = this._create_random_item(x.value, _(x.title));
+            this.flowBox.insert(item, -1);
         });
 
         this.imageList.forEach((image) => {
             let item = this._create_gallery_item(image);
-            if (Gtk.get_major_version() < 4)
-                this.flowBox.add(item);
-            else 
-                this.flowBox.insert(item, -1);
+            this.flowBox.insert(item, -1);
         });
     }
 
@@ -99,10 +89,7 @@ var Carousel = class Carousel {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() < 4)
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxChild"]);
-        else
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxChild"]);
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxChild"]);
         
         // assign variables to the UI objects we've just loaded
         let galleryImage = buildable.get_object('galleryImage');
@@ -126,12 +113,7 @@ var Carousel = class Carousel {
             this._load_image(galleryImage, filename);
         }
         catch (e) {
-            if (Gtk.get_major_version() < 4) {
-                galleryImage.set_from_icon_name('image-missing', '64x64');
-            }
-            else {
-                galleryImage.set_from_icon_name('image-missing');
-            }
+            galleryImage.set_from_icon_name('image-missing');
             galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
             this.log('create_gallery_image: '+e);
         }
@@ -156,6 +138,8 @@ var Carousel = class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
+            //Utils.cleanupImageList(this.settings);
+            Utils.hideImage(this.settings, [image]);
             Utils.cleanupImageList(this.settings);
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
@@ -182,16 +166,11 @@ var Carousel = class Carousel {
         return item;
     }
 
-    _create_random_item(seconds, title) {
+    _create_random_item(interval, title) {
         let buildable = new Gtk.Builder();
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() < 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel.ui', ["flowBoxRandom"]);
-        }
-        else {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxRandom"]);
-        }
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxRandom"]);
 
         let randomLabel = buildable.get_object('randomLabel');
         randomLabel.set_text(title);
@@ -199,9 +178,9 @@ var Carousel = class Carousel {
         let applyButton = buildable.get_object('randomButton');
 
         applyButton.connect('clicked', (widget) => {
-            this.settings.set_string('selected-image', filename);
-            this.settings.set_int('random-interval', seconds);
-            this.log('gallery selected random with interval '+seconds);
+            this.settings.set_string('random-interval-mode', interval);
+            this.settings.set_boolean('random-mode-enabled', true);
+            this.log('gallery selected random with interval '+interval+' ('+title+')');
         });
 
         let item = buildable.get_object('flowBoxRandom');
@@ -213,16 +192,12 @@ var Carousel = class Carousel {
         this.flowBox.set_max_children_per_line(1);
 
         // grab appropriate object from UI file
-        if (Gtk.get_major_version() >= 4) {
-            buildable.add_objects_from_file(Me.dir.get_path() + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
-        }
-        else {
-            return null;
-        }
+        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ["flowBoxPlaceholder"]);
 
         let loadButton = buildable.get_object('loadButton');
 
         loadButton.connect('clicked', (widget) => {
+            widget.set_label(_("Loading...")); // does this work???
             this.flowBox.remove(widget.get_parent());
             this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
@@ -264,13 +239,7 @@ var Carousel = class Carousel {
                         pixbuf.savev(image_thumb_path,'jpeg',['quality'], ['90']);
                 }
 
-                if (Gtk.get_major_version() < 4) {
-                    galleryImage.set_from_pixbuf(pixbuf);
-                }
-                else {
-                    galleryImage.set_pixbuf(pixbuf);
-                }
-                    
+                galleryImage.set_pixbuf(pixbuf);
             }
             catch (e) {
                 this._set_blank_image(galleryImage);
@@ -280,15 +249,8 @@ var Carousel = class Carousel {
     }
 
     _set_blank_image(galleryImage) {
-        if (Gtk.get_major_version() < 4) {
-            galleryImage.set_from_icon_name('image-missing', '64x64');
-            galleryImage.set_icon_size = 3; // Gtk.GTK_ICON_SIZE_LARGE;
-        }
-        else {
             //galleryImage.set_from_icon_name('image-missing');
             //galleryImage.set_icon_size = 2; // Gtk.GTK_ICON_SIZE_LARGE;
-        }
-        
     }
 
     log(msg) {

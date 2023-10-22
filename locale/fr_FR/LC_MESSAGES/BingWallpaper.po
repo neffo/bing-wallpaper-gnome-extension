@@ -20,11 +20,11 @@ msgstr ""
 
 #: Settings.ui.h:1 Settings4.ui.h:2
 msgid "Hide the indicator"
-msgstr "Cacher l'indicateur"
+msgstr "Cacher l’indicateur"
 
 #: Settings.ui.h:2 Settings4.ui.h:3
 msgid "Indicator icon"
-msgstr "Icône d'indicateur"
+msgstr "Icône d’indicateur"
 
 #: Settings.ui.h:3 Settings4.ui.h:4
 msgid "Enable desktop notifications"
@@ -32,11 +32,11 @@ msgstr "Activer les notifications sur le bureau"
 
 #: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
 msgid "Set background image"
-msgstr "Définir l'arrière-plan"
+msgstr "Définir l’arrière-plan"
 
 #: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
 msgid "Set lock screen image"
-msgstr "Définir l'écran de verrouillage"
+msgstr "Définir l’écran de verrouillage"
 
 #: Settings.ui.h:6 Settings4.ui.h:7
 msgid "Download folder"
@@ -44,7 +44,7 @@ msgstr "Dossier de téléchargement"
 
 #: Settings.ui.h:7 Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
-msgstr "Dossier d'image de Bing Wallpaper"
+msgstr "Dossier d’image de Bing Wallpaper"
 
 #: Settings.ui.h:8 Settings4.ui.h:9
 msgid "Delete previously downloaded wallpapers"
@@ -53,7 +53,7 @@ msgstr "Supprimer les images précédemment téléchargées"
 #: Settings.ui.h:9 Settings4.ui.h:10
 msgid "Days to store wallpapers before deleting"
 msgstr ""
-"Nombres de jours pendant lesquels les arrière-plans sont conservés avant "
+"Nombre de jours pendant lesquels les arrière-plans sont conservés avant "
 "suppression"
 
 #: Settings.ui.h:10 Settings4.ui.h:11
@@ -75,7 +75,7 @@ msgstr "Ignorer la sélection de résolution automatique"
 #: Settings.ui.h:14 Settings4.ui.h:13
 #, fuzzy
 msgid "Selected image"
-msgstr "Définir l'arrière-plan"
+msgstr "Définir l’arrière-plan"
 
 #: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
 msgid "Settings"
@@ -87,23 +87,23 @@ msgstr "Personaliser le flou et la luminosité"
 
 #: Settings.ui.h:17 Settings4.ui.h:18
 msgid "Override GDM3 lockscreen effects"
-msgstr "Passer outre les effets de l'écran de verouillage GDM3"
+msgstr "Passer outre les effets de l’écran de verrouillage GDM3"
 
 #: Settings.ui.h:18 Settings4.ui.h:19
 msgid "Blur can improve readability of login prompt"
-msgstr "Le flou peut améliorer la lisibilté sur l'invite de connexion"
+msgstr "Le flou peut améliorer la lisibilté sur l’invite de connexion"
 
 #: Settings.ui.h:19 Settings4.ui.h:20
 msgid "Background blur intensity"
-msgstr "Intensité du flou de l'arrière plan"
+msgstr "Intensité du flou de l’arrière plan"
 
 #: Settings.ui.h:20 Settings4.ui.h:21
 msgid "Can improve contrast of login prompt"
-msgstr "Peut améliorer le contraste de l'invite de connexion"
+msgstr "Peut améliorer le contraste de l’invite de connexion"
 
 #: Settings.ui.h:21 Settings4.ui.h:22
 msgid "Background brightness"
-msgstr "Luminosité de l'arrière plan"
+msgstr "Luminosité de l’arrière plan"
 
 #: Settings.ui.h:22 Settings4.ui.h:23
 msgid "Presets"
@@ -111,7 +111,7 @@ msgstr "Pré-définis"
 
 #: Settings.ui.h:23 Settings4.ui.h:24
 msgid "Commonly used presets"
-msgstr "Pré-définis courrament utilisés"
+msgstr "Pré-définis couramment utilisés"
 
 #: Settings.ui.h:24 Settings4.ui.h:25
 msgid "No blur, slight dim"
@@ -127,15 +127,15 @@ msgstr "Léger flou, léger dim"
 
 #: Settings.ui.h:27 Settings4.ui.h:28
 msgid "Lock Screen"
-msgstr "Ecran de verouillage"
+msgstr "Écran de verrouillage"
 
 #: Settings.ui.h:28 Settings4.ui.h:29
 msgid "New wallpaper images everyday from Bing"
-msgstr "Nouvelle image d'arrière plan chaque jour depuis Bing"
+msgstr "Nouvelle image d’arrière plan chaque jour depuis Bing"
 
 #: Settings.ui.h:29 Settings4.ui.h:30
 msgid "Gnome shell extension version "
-msgstr "Version de l'extension Gnome shell "
+msgstr "Version de l’extension Gnome shell "
 
 #: Settings.ui.h:30 Settings4.ui.h:31
 msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
@@ -161,7 +161,7 @@ msgstr "Changements depuis la dernière version"
 
 #: Settings.ui.h:34 Settings4.ui.h:35
 msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basé sur l'extension Gnome shell NASA APNN de Elia Argentieri"
+msgstr "Basé sur l’extension Gnome shell NASA APNN de Elia Argentieri"
 
 #: Settings.ui.h:35 Settings4.ui.h:36
 #, fuzzy
@@ -201,16 +201,16 @@ msgstr "En attente d'actualisation..."
 #: extension.js:126
 #, fuzzy
 msgid "Copy image to clipboard"
-msgstr "Copier l'image dans le presse-papiers"
+msgstr "Copier l’image dans le presse-papiers"
 
 #: extension.js:127
 msgid "Copy image URL to clipboard"
-msgstr "Copier l'URL de l'image dans le presse-papiers"
+msgstr "Copier l’URL de l’image dans le presse-papiers"
 
 #: extension.js:128
 #, fuzzy
 msgid "Open image folder"
-msgstr "Ouvrir le dossier d'images"
+msgstr "Ouvrir le dossier d’images"
 
 #: extension.js:131
 msgid "Refresh Now"
@@ -226,13 +226,13 @@ msgstr "Prochaine actualisation"
 
 #: extension.js:490 extension.js:527
 msgid "Bing Wallpaper of the Day for"
-msgstr "Le fond d'écran Bing du jour pour"
+msgstr "Le fond d’écran Bing du jour pour"
 
 #: extension.js:495
 #, fuzzy
 #| msgid "Set wallpaper"
 msgid "Set as wallpaper"
-msgstr "Définir le fond d'écran"
+msgstr "Définir le fond d’écran"
 
 #: extension.js:498
 msgid "More info on Bing.com"
@@ -240,17 +240,17 @@ msgstr "Plus d'info sur Bing.com"
 
 #: extension.js:553
 msgid "No wallpaper available"
-msgstr "Aucun fond d'écran disponible"
+msgstr "Aucun fond d’écran disponible"
 
 #: extension.js:554
 msgid "No picture for today."
-msgstr "Pas d'image pour aujourd'hui."
+msgstr "Pas d’image pour aujourd'hui."
 
 #: prefs.js:173
 #, fuzzy
 #| msgid "Set lock screen image"
 msgid "Most recent image"
-msgstr "Définir l'écran de verrouillage"
+msgstr "Définir l’écran de verrouillage"
 
 #: prefs.js:174
 msgid "Random image"
