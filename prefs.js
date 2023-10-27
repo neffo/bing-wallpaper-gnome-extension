@@ -9,15 +9,12 @@
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
-import GdkPixbuf from 'gi://GdkPixbuf';
 import Gio from 'gi://Gio';
-import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import Adw from 'gi://Adw';
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 import * as Utils from './utils.js';
-import * as Convenience from './convenience.js';
 import Carousel from './carousel.js';
 
 const BingImageURL = Utils.BingImageURL;
@@ -137,7 +134,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
-        carousel = new Carousel(settings, null, null, carouselFlowBox); // auto load carousel
+        carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
 
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable

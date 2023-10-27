@@ -17,7 +17,6 @@ import Cogl from 'gi://Cogl';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
-import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import {Button} from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
@@ -27,7 +26,6 @@ import * as Utils from './utils.js';
 import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
 import BWClipboard from './BWClipboard.js';
-import * as Convenience from './convenience.js';
 
 const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';

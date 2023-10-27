@@ -10,17 +10,11 @@
 // and https://github.com/sunwxg/gnome-shell-extension-unlockDialogBackground
 
 import St from 'gi://St';
-import Shell from 'gi://Shell';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Background from 'resource:///org/gnome/shell/ui/background.js';
-import * as ScreenShield from 'resource:///org/gnome/shell/ui/screenShield.js';
 import * as UnlockDialog from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
-import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 var _updateBackgroundEffects = UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
 var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
 var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
-import * as Utils from './utils.js';
 
 var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);

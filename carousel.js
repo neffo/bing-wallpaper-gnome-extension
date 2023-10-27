@@ -8,12 +8,10 @@
 // Based on GNOME shell extension NASA APOD by Elia Argentieri https://github.com/Elinvention/gnome-shell-extension-nasa-apod
 
 import Gtk from 'gi://Gtk';
-import Gdk from 'gi://Gdk';
 import GdkPixbuf from 'gi://GdkPixbuf';
 import Gio from 'gi://Gio';
-import GLib from 'gi://GLib';
 import * as Utils from './utils.js';
-import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 const default_dimensions = [30, 30, 1650, 800]; // TODO: pull from and save dimensions to settings, but perhaps verify that dimensions are ok
 
@@ -21,7 +19,7 @@ const GALLERY_THUMB_WIDTH = 320;
 const GALLERY_THUMB_HEIGHT = 180;
 
 export default class Carousel {
-    constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null) {
+    constructor(settings, button = null, callbackfunc = null, prefs_flowbox = null, extensionPath = null) {
         //create_gallery(widget, settings);
         this.settings = settings;
         this.button = button;
@@ -30,47 +28,18 @@ export default class Carousel {
         this.window = null;
         this.imageList = Utils.imageListSortByDate(Utils.getImageList(this.settings)).reverse(); // get images and reverse order
         this.searchEntry = null;
-        this.extensionPath = ExtensionPreferences.lookupByUUID('BingWallpaper@ineffable-gmail.com').path
+        this.extensionPath = extensionPath
         
         this.log('create carousel...');
 
-        if (!prefs_flowbox) {    
-            [this.window, this.flowBox] = this._create_gallery_window(_('Bing Wallpaper Gallery'), default_dimensions);
-            if (Gtk.get_major_version() < 4)
-                this.window.show_all();
-            else
-                this.window.show();
-            //this.window.connect('destroy', this._enable_button);
-        }
-        else {
-            this.flowBox = prefs_flowbox;
-        }
-        if (Gtk.get_major_version() < 4) {
-            this._create_gallery();
-        }
-        else {
-            this.flowBox.insert(this._create_placeholder_item(), -1);
-        }
+        this.flowBox = prefs_flowbox;  
+        this.flowBox.insert(this._create_placeholder_item(), -1);
     }
 
     _enable_button() {
         if (this.button) {
             this.button.set_sensitive(state);
         }
-    }
-
-    _create_gallery_window(title, dimensions) {
-        let buildable = new Gtk.Builder();
-        let win = new Gtk.Window();
-        let flowBox;
-
-        win.set_default_size(dimensions[2], dimensions[3]);
-        win.set_title(title);
-    
-        buildable.add_objects_from_file(this.extensionPath + '/ui/carousel4.ui', ['carouselViewPort']);
-        flowBox = buildable.get_object('carouselFlowBox');
-        win.set_child(buildable.get_object('carouselScrollable'));
-        return [win, flowBox];
     }
 
     _create_gallery() {

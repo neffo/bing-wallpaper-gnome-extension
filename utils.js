@@ -11,8 +11,6 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
-import * as Convenience from './convenience.js';
-//import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
