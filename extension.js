@@ -14,7 +14,6 @@ import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
-import Gdk from 'gi://Gdk';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
@@ -22,7 +21,6 @@ import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import {Button} from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
-const ByteArray = imports.byteArray;
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
@@ -1017,14 +1015,6 @@ export default class BingWallpaperExtension extends Extension {
         bingWallpaperIndicator.stop();
         bingWallpaperIndicator.destroy();
         bingWallpaperIndicator = null;
-
-        // *** NOTE for EGO reviewers ***
-        // blur.js remains active during lockscreen, while the rest of the extension is disabled
-        // this code ONLY modifies the background blur effects for the lockscreen no web connectivity
-        if (!Main.sessionMode.isLocked) {
-            blur._disable(); // disable blur (blur.js) override and cleanup
-            blur = null;
-        }
     }
 }
 
