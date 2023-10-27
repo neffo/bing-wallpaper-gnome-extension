@@ -11,8 +11,6 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
-import * as Convenience from './convenience.js';
-//import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
 export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
@@ -137,10 +135,6 @@ export function set_blur_preset(settings, preset) {
     BingLog("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
-export function is_x11(settings) {
-    return settings.get_boolean('override-unsafe-wayland') || GLib.getenv('XDG_SESSION_TYPE') == 'x11'; // don't do wayland unsafe things if set
-}
-
 export function imageHasBasename(image_item, i, b) {
     //log("imageHasBasename : " + image_item.urlbase + " =? " + this);
     if (this && this.search(image_item.urlbase.replace('th?id=OHR.', '')))
@@ -196,7 +190,6 @@ export function setImageList(settings, imageList) {
 }
 
 export function setImageHiddenStatus(settings, hide_image_list, hide_status) {
-    // stub
     // get current image list
     let image_list = getImageList(settings);
     image_list.forEach( (x, i) => {
@@ -253,21 +246,6 @@ export function getCurrentImage(imageList) {
     if (index == -1)
         return imageList[0]; // give something sensible
     return imageList[index];
-}
-
-function getFetchableImageList(settings) {
-    let imageList = getImageList(settings);
-    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
-    let dlList = [];
-    imageList.forEach( function (x, i) {
-        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
-        let filename = imageToFilename(settings, x);
-        // image is still downloadable (< 8 days old) but not on disk
-        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
-            dlList.push(x);
-        }
-    });
-    return dlList;
 }
 
 export function inImageList(imageList, urlbase) {
@@ -423,7 +401,7 @@ export function friendly_time_diff(time, short = true) {
     }
 }
 
-function seconds_until(until) {
+export function seconds_until(until) {
     let now = GLib.DateTime.new_now_local();
     let end, day;
     if (until == 'hourly') {

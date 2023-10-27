@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 18:32+1000\n"
-"PO-Revision-Date: 2023-10-22 10:31+0200\n"
+"PO-Revision-Date: 2023-10-23 08:47+0200\n"
 "Last-Translator: Sebastian Kessler\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -325,7 +325,7 @@ msgstr "Shuffle-Modus für Bilder"
 
 #: extension.js:162
 msgid "Image shuffle only favourites"
-msgstr "Shuffle-Modus nur Bilder"
+msgstr "Shuffle-Modus nur Favoriten"
 
 #: extension.js:164
 msgid "Show image count"
