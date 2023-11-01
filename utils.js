@@ -312,7 +312,7 @@ export function cleanupImageList(settings) {
     setImageList(settings, newList);
 }
 
-function populateImageListResolutions(settings) {
+export function populateImageListResolutions(settings) {
     let curList = imageListSortByDate(getImageList(settings));
     let newList = [];
     curList.forEach( function (x, i) {
@@ -326,6 +326,21 @@ function populateImageListResolutions(settings) {
         newList.push(x);
     });
     setImageList(settings, newList);
+}
+
+export function getFetchableImageList(settings) {
+    let imageList = getImageList(settings);
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let dlList = [];
+    imageList.forEach( function (x, i) {
+        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
+        let filename = imageToFilename(settings, x);
+        // image is still downloadable (< 8 days old) but not on disk
+        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
+            dlList.push(x);
+        }
+    });
+    return dlList;
 }
 
 export function getWallpaperDir(settings) {
