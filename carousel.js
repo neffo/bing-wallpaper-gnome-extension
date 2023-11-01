@@ -224,6 +224,6 @@ export default class Carousel {
 
     log(msg) {
         if (this.settings.get_boolean('debug-logging'))
-            print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+            console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
     }
 };

@@ -33,7 +33,7 @@ var promptActive = false;   // default GNOME method of testing this relies on st
 
 function log(msg) {
     if (debug) // set 'debug' above to false to keep the noise down in journal
-        print("BingWallpaper extension/Blur: " + msg); 
+        console.log("BingWallpaper extension/Blur: " + msg); 
 }
 
 // we patch UnlockDialog._updateBackgroundEffects()

@@ -210,6 +210,11 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
+    destroy() {
+        blur._disable(); // disable blur (blur.js) override and cleanup
+        blur = null;
+    }
+
     // create Soup session
     _initSoup() {
         this.httpSession = new Soup.Session();
