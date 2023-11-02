@@ -34,15 +34,8 @@ const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from t
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error3
 const MINIMUM_SHUFFLE_IMAGES = 3; // bare minimum to use filtered image set in shuffle mode
 const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
-const ICON_SHUFFLE_BUTTON = 'media-playlist-shuffle-symbolic';
-const ICON_CONSEC_BUTTON = 'media-playlist-consecutive-symbolic';
 const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
-const ICON_TIMED_MODE_BUTTON = 'document-open-recent-symbolic';
-const ICON_PAUSE_MODE_BUTTON = 'media-playback-pause-symbolic';
-const ICON_PLAY_MODE_BUTTON = 'media-playback-start-symbolic';
-const ICON_REFRESH = 'view-refresh-symbolic';
-const ICON_RANDOM = 'game-die-symbolic.svg';
 
 let bingWallpaperIndicator = null;
 let blur = null;
@@ -116,7 +109,7 @@ class BingWallpaperIndicator extends Button {
         this.dimensions = { 'width': null, 'height': null};
         this._extension = ext;
         
-        let extensionIconsPath = ext.dir.get_child('icons').get_path()
+        let extensionIconsPath = ext.dir.get_child('icons').get_path();
         this.ICON_RANDOM = extensionIconsPath + '/'+'game-die-symbolic.svg';
         this.ICON_FAVE_BUTTON = extensionIconsPath + '/'+'fav-symbolic.svg';
         this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
@@ -458,7 +451,7 @@ class BingWallpaperIndicator extends Button {
             this.explainItem.label.set_text(this.explanation ? this.explanation : '');
         }
         this._setFavouriteIcon(this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON);
-        this._setTrashIcon(this.hidden_status?ICON_UNTRASH_BUTTON:ICON_TRASH_BUTTON);
+        this._setTrashIcon(this.hidden_status?this.ICON_UNTRASH_BUTTON:this.ICON_TRASH_BUTTON);
     }
 
     _wrapLabelItem(menuItem) {
@@ -475,7 +468,7 @@ class BingWallpaperIndicator extends Button {
             this.controlItem, 
             this._favouriteImage);
         this.trashBtn = this._newMenuIcon(
-            this.hidden_status?ICON_UNTRASH_BUTTON:ICON_TRASH_BUTTON,
+            this.hidden_status?this.ICON_UNTRASH_BUTTON:this.ICON_TRASH_BUTTON,
             this.controlItem, 
             this._trashImage);
         this.prevBtn = this._newMenuIcon(
