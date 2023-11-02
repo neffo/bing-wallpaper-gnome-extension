@@ -332,7 +332,8 @@ class BingWallpaperIndicator extends Button {
                 (this.shuffledue ? this.shuffledue.format("%Y-%m-%d %X") : '-') +
                 " (" + Utils.friendly_time_diff(this.shuffledue) + ")";
         }
-        this.refreshDueItem.label.set_text(this.refreshduetext);
+        if (this.refreshDueItem.label) // testing, is this why open menu was breaking?
+            this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
     _setBlur() {
