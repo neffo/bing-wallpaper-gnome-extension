@@ -18,7 +18,6 @@ export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 };
 
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
-export var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
 var vertical_blur = null;
 var horizontal_blur = null;
@@ -49,7 +48,7 @@ export var marketName = [
     'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
 
-export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
+export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned']; // this may change in the future
 
 export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
                         {value: 'daily', title: ('every day at midnight')},
