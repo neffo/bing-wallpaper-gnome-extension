@@ -107,9 +107,8 @@ export default class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            //Utils.cleanupImageList(this.settings);
+            //Utils.cleanupImageList(this.settings); // hide image instead
             Utils.hideImage(this.settings, [image]);
-            Utils.cleanupImageList(this.settings);
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
@@ -224,6 +223,6 @@ export default class Carousel {
 
     log(msg) {
         if (this.settings.get_boolean('debug-logging'))
-            print("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
+            console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
     }
 };

@@ -18,7 +18,6 @@ export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 };
 
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
-export var LOCKSCREEN_SCHEMA = 'org.gnome.desktop.screensaver';
 
 var vertical_blur = null;
 var horizontal_blur = null;
@@ -49,7 +48,7 @@ export var marketName = [
     'українська (Україна)', '中文（中国）', '中文（中國香港特別行政區）', '中文（台灣）'
 ];
 
-export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned'];
+export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretched', 'zoom', 'spanned']; // this may change in the future
 
 export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
                         {value: 'daily', title: ('every day at midnight')},
@@ -312,7 +311,7 @@ export function cleanupImageList(settings) {
     setImageList(settings, newList);
 }
 
-function populateImageListResolutions(settings) {
+export function populateImageListResolutions(settings) {
     let curList = imageListSortByDate(getImageList(settings));
     let newList = [];
     curList.forEach( function (x, i) {
@@ -326,6 +325,21 @@ function populateImageListResolutions(settings) {
         newList.push(x);
     });
     setImageList(settings, newList);
+}
+
+export function getFetchableImageList(settings) {
+    let imageList = getImageList(settings);
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let dlList = [];
+    imageList.forEach( function (x, i) {
+        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
+        let filename = imageToFilename(settings, x);
+        // image is still downloadable (< 8 days old) but not on disk
+        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
+            dlList.push(x);
+        }
+    });
+    return dlList;
 }
 
 export function getWallpaperDir(settings) {

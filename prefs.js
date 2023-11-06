@@ -72,7 +72,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         let marketEntry = buildable.get_object('market');
         let resolutionEntry = buildable.get_object('resolution');
         let historyEntry = buildable.get_object('history');
-        let deleteSwitch = buildable.get_object('delete_previous');
         icon_image = buildable.get_object('icon_image');
         let overrideSwitch = buildable.get_object('lockscreen_override');
         let strengthEntry = buildable.get_object('entry_strength');
@@ -216,8 +215,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             styleEntry.append(style, style);
         });
         desktop_settings.bind('picture-options', styleEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-
-        settings.bind('delete-previous', deleteSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
