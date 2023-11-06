@@ -211,11 +211,6 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    destroy() {
-        blur._disable(); // disable blur (blur.js) override and cleanup
-        blur = null;
-    }
-
     // create Soup session
     _initSoup() {
         this.httpSession = new Soup.Session();
@@ -332,8 +327,7 @@ class BingWallpaperIndicator extends Button {
                 (this.shuffledue ? this.shuffledue.format("%Y-%m-%d %X") : '-') +
                 " (" + Utils.friendly_time_diff(this.shuffledue) + ")";
         }
-        if (this.refreshDueItem.label) // testing, is this why open menu was breaking?
-            this.refreshDueItem.label.set_text(this.refreshduetext);
+        this.refreshDueItem.label.set_text(this.refreshduetext);            
     }
 
     _setBlur() {
@@ -1093,6 +1087,8 @@ class BingWallpaperIndicator extends Button {
         this._timeout = undefined;
         this._shuffleTimeout = undefined;
         this.menu.removeAll();
+        blur._disable(); // disable blur (blur.js) override and cleanup
+        blur = null;
     }
 });
 
