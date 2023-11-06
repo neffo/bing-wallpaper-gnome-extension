@@ -139,9 +139,10 @@ class BingWallpaperIndicator extends Button {
         this.settingsItem = newMenuItem(_("Settings"));
         this.openImageItem = newMenuItem(_("Open in image viewer"));
         this.openImageInfoLinkItem = newMenuItem(_("Open Bing image information page"));
+        this.imageResolutionItem = newMenuItem(_("Awaiting refresh..."));
 
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
-        [this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
+        [this.imageResolutionItem, this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
             this.clipboardImageItem, this.clipboardURLItem, this.dwallpaperItem]
                 .forEach(e => this.titleItem.menu.addMenuItem(e));
 
@@ -189,7 +190,7 @@ class BingWallpaperIndicator extends Button {
         allMenuItems.forEach(e => this.menu.addMenuItem(e));
 
         // non clickable information items
-        [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem]
+        [this.explainItem, this.copyrightItem, this.refreshDueItem, this.thumbnailItem, this.imageResolutionItem]
             .forEach((e) => {
                 e.setSensitive(false);
             });
@@ -227,7 +228,6 @@ class BingWallpaperIndicator extends Button {
             {signal: 'changed::icon-name', call: this._setIcon},
             {signal: 'changed::market', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
-            /*{signal: 'changed::set-lockscreen', call: this._setBackground},*/
             {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
@@ -375,17 +375,10 @@ class BingWallpaperIndicator extends Button {
         log('image set to : '+this.filename);
         if (this._settings.get_boolean('set-background'))
             this._setBackgroundDesktop();
-
-        if (this._settings.get_boolean('set-lock-screen'))
-            this._setBackgroundScreensaver();
     }
 
     _setBackgroundDesktop() {
         doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
-    }
-    
-    _setBackgroundScreensaver() {
-        doSetBackground(this.filename, Utils.LOCKSCREEN_SCHEMA);
     }
 
     _copyURLToClipboard() {
@@ -437,6 +430,7 @@ class BingWallpaperIndicator extends Button {
     _setMenuText() {
         this.titleItem.label.set_text(this.title ? this.title : '');  
         this.copyrightItem.label.set_text(this.copyright ? this.copyright : '');
+        this.imageResolutionItem.label.set_text(this.dimensions.width+'px x '+this.dimensions.height+'px');
         if (this._settings.get_boolean('show-count-in-image-title') && this.explanation) {
             let imageList = JSON.parse(this._settings.get_string('bing-json'));
             if (imageList.length > 0)
