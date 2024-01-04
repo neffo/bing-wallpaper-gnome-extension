@@ -1,166 +1,237 @@
+#
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: bing-wallpaper-gnome-extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-09 18:12+1000\n"
-"PO-Revision-Date: 2021-06-24 17:30-0300\n"
-"Last-Translator: \n"
-"Language-Team: Portuguese, Brazilian\n"
+"PO-Revision-Date: 2024-01-04 12:59-0300\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-Crowdin-Project: bing-wallpaper-gnome-extension\n"
 "X-Crowdin-Project-ID: 451876\n"
 "X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: BingWallpaper.pot\n"
 "X-Crowdin-File-ID: 2\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Gtranslator 45.3\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Ocultar o indicador"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Ícone do indicador"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr "Habilitar notificações na Área de Trabalho"
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "Definir imagem de fundo"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Definir imagem da tela de bloqueio"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Pasta de download"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
+#: ui/Settings4.ui.h:1
 msgid "Bing Wallpaper pictures folder"
 msgstr "Pasta de imagens do Bing Wallpaper"
 
-#: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Excluir papéis de parede baixados anteriormente"
+#: ui/Settings4.ui.h:2
+msgid "Hide the indicator"
+msgstr "Ocultar o indicador"
 
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "Dias para armazenar papéis de parede antes de excluir"
+#: ui/Settings4.ui.h:3
+msgid "Indicator icon"
+msgstr "Ícone do indicador"
 
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Idioma do Bing"
+#: ui/Settings4.ui.h:4 extension.js:156
+msgid "Enable desktop notifications"
+msgstr "Habilitar notificações na Área de Trabalho"
 
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "O padrão é inglês - Estados Unidos"
+#: ui/Settings4.ui.h:5 extension.js:136 extension.js:152
+msgid "Set background image"
+msgstr "Definir imagem de fundo"
 
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Resolução de tela"
+#: ui/Settings4.ui.h:6
+msgid "Background style option"
+msgstr "Opção de estilo de fundo"
 
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "Substituir a seleção de resolução automática"
+#: ui/Settings4.ui.h:7
+msgid "Download folder"
+msgstr "Pasta de download"
 
-#: Settings.ui.h:14 Settings4.ui.h:13
+#: ui/Settings4.ui.h:8
+msgid "Open folder"
+msgstr "Abrir pasta"
+
+#: ui/Settings4.ui.h:9
 msgid "Selected image"
 msgstr "Imagem selecionada"
 
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
+#: ui/Settings4.ui.h:10
+msgid "Shuffle enabled"
+msgstr "Embaralhar ativado"
+
+#: ui/Settings4.ui.h:11
+msgid "Shuffle mode"
+msgstr "Modo embaralhar"
+
+#: ui/Settings4.ui.h:12
+msgid "Bing locale"
+msgstr "Idioma do Bing"
+
+#: ui/Settings4.ui.h:13 extension.js:139
 msgid "Settings"
 msgstr "Configurações"
 
-#: Settings.ui.h:16 Settings4.ui.h:17
-msgid "Use custom blur and brightness"
-msgstr "Usar desfoque e brilho personalizados"
+#: ui/Settings4.ui.h:14
+msgid "Dynamically switches blur on GDM3 lock screen"
+msgstr "Altera dinamicamente o desfoque na tela de bloqueio GDM3"
 
-#: Settings.ui.h:17 Settings4.ui.h:18
-msgid "Override GDM3 lockscreen effects"
-msgstr "Sobrescrever efeitos de bloqueio de tela GDM3"
+#: ui/Settings4.ui.h:15
+msgid "Enable dynamic lockscreen blur"
+msgstr "Ativar o desfoque dinâmico da tela de bloqueio"
 
-#: Settings.ui.h:18 Settings4.ui.h:19
-msgid "Blur can improve readability of login prompt"
-msgstr "Desfoque pode melhorar a legibilidade da tela de login"
+#: ui/Settings4.ui.h:16
+msgid "Blur can improve readability"
+msgstr "Desfoque pode melhorar a legibilidade"
 
-#: Settings.ui.h:19 Settings4.ui.h:20
+#: ui/Settings4.ui.h:17
 msgid "Background blur intensity"
 msgstr "Intensidade do desfoque de fundo"
 
-#: Settings.ui.h:20 Settings4.ui.h:21
+#: ui/Settings4.ui.h:18
 msgid "Can improve contrast of login prompt"
 msgstr "Pode melhorar o contraste da tela de login"
 
-#: Settings.ui.h:21 Settings4.ui.h:22
+#: ui/Settings4.ui.h:19
 msgid "Background brightness"
 msgstr "Brilho do fundo"
 
-#: Settings.ui.h:22 Settings4.ui.h:23
+#: ui/Settings4.ui.h:20
 msgid "Presets"
 msgstr "Predefinições"
 
-#: Settings.ui.h:23 Settings4.ui.h:24
-msgid "Commonly used presets"
-msgstr "Predefinições comumente usadas"
-
-#: Settings.ui.h:24 Settings4.ui.h:25
+#: ui/Settings4.ui.h:21
 msgid "No blur, slight dim"
 msgstr "Sem desfoque, um pouco escuro"
 
-#: Settings.ui.h:25 Settings4.ui.h:26
+#: ui/Settings4.ui.h:22
 msgid "GNOME default"
 msgstr "Padrão GNOME"
 
-#: Settings.ui.h:26 Settings4.ui.h:27
+#: ui/Settings4.ui.h:23
 msgid "Slight blur, slight dim"
 msgstr "Desfoque leve, um pouco escuro"
 
-#: Settings.ui.h:27 Settings4.ui.h:28
+#: ui/Settings4.ui.h:24
 msgid "Lock Screen"
 msgstr "Tela de bloqueio"
 
-#: Settings.ui.h:28 Settings4.ui.h:29
+#: ui/Settings4.ui.h:25
+msgid "Enable logging to system journal"
+msgstr "Ativar o registro no journal do sistema"
+
+#: ui/Settings4.ui.h:26
+msgid "Debug logging"
+msgstr "Depurar o registro"
+
+#: ui/Settings4.ui.h:27
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+"Trocar para novas imagens quando disponíveis (a não ser em modo aleatório)"
+
+#: ui/Settings4.ui.h:28 extension.js:153
+msgid "Always show new images"
+msgstr "Sempre mostre novas imagens"
+
+#: ui/Settings4.ui.h:29
+msgid "Some newer features may be unstable on Wayland"
+msgstr "Algumas funcionalidades novas podem ser instáveis no Wayland"
+
+#: ui/Settings4.ui.h:30
+msgid "Enable all features on Wayland"
+msgstr "Ativar todas as funcionalidades no Wayland"
+
+#: ui/Settings4.ui.h:31
+msgid "Screen resolution"
+msgstr "Resolução de tela"
+
+#: ui/Settings4.ui.h:32
+msgid "Override automatic resolution selection"
+msgstr "Substituir a seleção de resolução automática"
+
+#: ui/Settings4.ui.h:33
+msgid "Manually adjust random interval (seconds)"
+msgstr "Manualmente ajusta o intervalo de aleatoriedade (segundos)"
+
+#: ui/Settings4.ui.h:34
+msgid "Random interval"
+msgstr "Intervalo de aleatoriedade"
+
+#: ui/Settings4.ui.h:35
+msgid "Import Bing Wallpaper data"
+msgstr "Importar dados de papel de parede Bing"
+
+#: ui/Settings4.ui.h:36
+msgid "Import previously exported JSON data from wallpaper directory"
+msgstr ""
+"Importar previamente exportado dados JSON do diretório de papel de parede"
+
+#: ui/Settings4.ui.h:37
+msgid "Import"
+msgstr "Importar"
+
+#: ui/Settings4.ui.h:38
+msgid "Export Bing Wallpaper data"
+msgstr "Exportar dados de papel de parede Bing"
+
+#: ui/Settings4.ui.h:39
+msgid "Export JSON data to wallpaper dir for backup or data migration"
+msgstr ""
+"Exportar dados JSON para diretório de papel de parede para salvaguardar ou "
+"migração de dados"
+
+#: ui/Settings4.ui.h:40
+msgid "Export"
+msgstr "Exportar"
+
+#: ui/Settings4.ui.h:41
+msgid "Always export Bing data"
+msgstr "Sempre exporta dados Bing"
+
+#: ui/Settings4.ui.h:42
+msgid "Export Bing JSON whenever data changes"
+msgstr "Exportar JSON Bing sempre que alterar dados"
+
+#: ui/Settings4.ui.h:43
+msgid "Debug options"
+msgstr "Opções de depuração"
+
+#: ui/Settings4.ui.h:44
+msgid "Gallery"
+msgstr "Galeria"
+
+#: ui/Settings4.ui.h:45
 msgid "New wallpaper images everyday from Bing"
 msgstr "Novas imagens de papel de parede todos os dias do Bing"
 
-#: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version "
-msgstr "Versão da extensão Gnome shell "
+#: ui/Settings4.ui.h:46
+msgid "GNOME shell extension version "
+msgstr "Versão da extensão GNOME shell "
 
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
+#: ui/Settings4.ui.h:47
 msgid "Maintained by Michael Carroll"
 msgstr "Mantida por Michael Carroll"
 
-#: Settings.ui.h:32 Settings4.ui.h:33
+#: ui/Settings4.ui.h:48
 msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Show your support to the author on <a href=\"https://flattr.com/"
+"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
 "Sponsors</a>."
 msgstr ""
 "Mostre seu apoio ao autor no <a href=\"https://flattr.com/@neffo\">Flattr</"
 "a> ou <a href=\"https://github.com/sponsors/neffo\">Patrocinadores do "
 "Github</a>."
 
-#: Settings.ui.h:33 Settings4.ui.h:34
+#: ui/Settings4.ui.h:49
 msgid "Changes since last version"
 msgstr "Alterações desde a última versão"
 
-#: Settings.ui.h:34 Settings4.ui.h:35
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baseado na extensão NASA APOD Gnome shell pela Elia Argentieri"
+#: ui/Settings4.ui.h:50
+msgid "Based on NASA APOD GNOME shell extension by Elia Argentieri"
+msgstr "Baseado na extensão NASA APOD GNOME shell pela Elia Argentieri"
 
-#: Settings.ui.h:35 Settings4.ui.h:36
+#: ui/Settings4.ui.h:51
 msgid ""
 "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -170,106 +241,198 @@ msgstr ""
 "Veja a <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
 "Public License, versão 3 ou posterior</a> para mais detalhes</span>"
 
-#: Settings.ui.h:37 Settings4.ui.h:38
+#: ui/Settings4.ui.h:53
 msgid "About"
 msgstr "Sobre"
 
-#: Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Abrir pasta"
+#: ui/carousel4.ui.h:1
+msgid "Favorite"
+msgstr "Favorito"
 
-#: extension.js:117
+#: ui/carousel4.ui.h:2
+msgid "Apply"
+msgstr "Aplicar"
+
+#: ui/carousel4.ui.h:3
+msgid "View"
+msgstr "Visualizar"
+
+#: ui/carousel4.ui.h:4
+msgid "Info"
+msgstr "Informação"
+
+#: ui/carousel4.ui.h:5
+msgid "Delete"
+msgstr "Apagar"
+
+#: ui/carousel4.ui.h:6
+msgid "<image name here>"
+msgstr "<image name here>"
+
+#: ui/carousel4.ui.h:7
+msgid "Set random mode"
+msgstr "Definir modo aleatório"
+
+#: ui/carousel4.ui.h:8
+msgid "Load image gallery"
+msgstr "Carrega a galeria de imagem"
+
+#: ui/intervals.utils.js.h:2
+msgid "on the hour"
+msgstr "de hora em hora"
+
+#: ui/intervals.utils.js.h:5
+msgid "every day at midnight"
+msgstr "todo dia à meia-noite"
+
+#: ui/intervals.utils.js.h:8
+msgid "every Sunday at midnight"
+msgstr "todo domingo à meia-noite"
+
+#: extension.js:130
 msgid "<No refresh scheduled>"
 msgstr "<Nenhuma atualização agendada>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:131 extension.js:132 extension.js:142 extension.js:144
 msgid "Awaiting refresh..."
 msgstr "Aguardando atualização..."
 
-#: extension.js:126
+#: extension.js:133
 msgid "Copy image to clipboard"
 msgstr "Copiar imagem para área de transferência"
 
-#: extension.js:127
+#: extension.js:134
 msgid "Copy image URL to clipboard"
 msgstr "Copiar URL da imagem para área de transferência"
 
-#: extension.js:128
+#: extension.js:135
 msgid "Open image folder"
 msgstr "Abrir pasta de imagens"
 
-#: extension.js:131
+#: extension.js:137
+msgid "Set lock screen image"
+msgstr "Definir imagem da tela de bloqueio"
+
+#: extension.js:138
 msgid "Refresh Now"
 msgstr "Atualizar agora"
 
-#: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr "Miniaturas desativadas no Wayland"
+#: extension.js:140
+msgid "Open in image viewer"
+msgstr "Abrir no visualizador de imagem"
 
-#: extension.js:203
+#: extension.js:141
+msgid "Open Bing image information page"
+msgstr "Abrir página de informação de imagem Bing"
+
+#: extension.js:150
+msgid "Quick settings"
+msgstr "Configurações rápidas"
+
+#: extension.js:154
+msgid "Image shuffle mode"
+msgstr "Modo embaralhar imagem"
+
+#: extension.js:155
+msgid "Image shuffle only favourites"
+msgstr "Embaralha apenas imagens favoritas"
+
+#: extension.js:157
+msgid "Show image count"
+msgstr "Exibir contador de imagem"
+
+#: extension.js:158
+msgid "Image shuffle only UHD resolutions"
+msgstr "Embaralha imagem somente em resolução UHD"
+
+#: extension.js:321
 msgid "Next refresh"
 msgstr "Próxima atualização"
 
-#: extension.js:490 extension.js:527
+#: extension.js:323
+msgid "Last refresh"
+msgstr "Última atualização"
+
+#: extension.js:326
+msgid "Next shuffle"
+msgstr "Próximo embaralhamento"
+
+#: extension.js:801 extension.js:875
 msgid "Bing Wallpaper of the Day for"
 msgstr "Papel de parede do dia para"
 
-#: extension.js:495
-msgid "Set as wallpaper"
-msgstr "Definir como papel de parede"
-
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr "Mais informações no Bing.com"
-
-#: extension.js:553
+#: extension.js:913
 msgid "No wallpaper available"
 msgstr "Nenhum papel de parede disponível"
 
-#: extension.js:554
+#: extension.js:914
 msgid "No picture for today."
 msgstr "Nenhuma imagem para hoje."
 
-#: prefs.js:173
-msgid "Most recent image"
-msgstr "Imagem mais recente"
+#: prefs.js:156
+msgid "Select folder"
+msgstr "Selecionar pasta"
 
-#: prefs.js:174
-msgid "Random image"
-msgstr "Imagem aleatória"
+#: utils.js:127
+msgid "Error fetching change log: "
+msgstr "Erro ao obter o registro de alterações"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
-msgstr "Desabilitada na versão atual do GNOME"
-
-#: utils.js:139
-msgid "Fetching data..."
-msgstr "Buscando dados..."
-
-#: utils.js:150
-msgid "Market not available in your region"
-msgstr "Mercado não disponível na sua região"
-
-#: utils.js:154
-msgid "A network error occured"
-msgstr "Ocorreu um erro de rede"
-
-#: utils.js:159
-msgid "Too many requests in 5 seconds"
-msgstr "Muitas requisições realizadas em 5 segundos"
-
-#: utils.js:186
-msgid "No change log found for this release"
-msgstr "Não foram encontrados registros de alterações para esta versão"
-
-#: utils.js:366 utils.js:369
+#: utils.js:405 utils.js:408
 msgid "minutes"
 msgstr "minutos"
 
-#: utils.js:372
+#: utils.js:411
 msgid "days"
 msgstr "dias"
 
-#: utils.js:375
+#: utils.js:414
 msgid "hours"
 msgstr "horas"
+
+#~ msgid "Delete previously downloaded wallpapers"
+#~ msgstr "Excluir papéis de parede baixados anteriormente"
+
+#~ msgid "Days to store wallpapers before deleting"
+#~ msgstr "Dias para armazenar papéis de parede antes de excluir"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "O padrão é inglês - Estados Unidos"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Usar desfoque e brilho personalizados"
+
+#~ msgid "Override GDM3 lockscreen effects"
+#~ msgstr "Sobrescrever efeitos de bloqueio de tela GDM3"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Predefinições comumente usadas"
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid "Set as wallpaper"
+#~ msgstr "Definir como papel de parede"
+
+#~ msgid "More info on Bing.com"
+#~ msgstr "Mais informações no Bing.com"
+
+#~ msgid "Most recent image"
+#~ msgstr "Imagem mais recente"
+
+#~ msgid "Disabled on current GNOME version"
+#~ msgstr "Desabilitada na versão atual do GNOME"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Buscando dados..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "Mercado não disponível na sua região"
+
+#~ msgid "A network error occured"
+#~ msgstr "Ocorreu um erro de rede"
+
+#~ msgid "Too many requests in 5 seconds"
+#~ msgstr "Muitas requisições realizadas em 5 segundos"
+
+#~ msgid "No change log found for this release"
+#~ msgstr "Não foram encontrados registros de alterações para esta versão"
