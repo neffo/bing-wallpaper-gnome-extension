@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (C) 2017-2024
+
+This file is part of Bing Wallpaper extension preferences.
+
+This extension is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This extension is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this extension.    If not, see <http://www.gnu.org/licenses/>.
+
+Bing Wallpaper GNOME extension by: Michael Carroll
+-->
+<interface domain="BingWallpaper">
+    <requires lib="gtk" version="4.0"/>
+    <requires lib="libadwaita" version="1.0"/>
+    <object class="AdwPreferencesPage" id="settings_page">
+        <property name="icon-name">emblem-photos-symbolic</property>
+        <property name="title" translatable="yes">Members</property>
+        <child>
+            <object class="AdwPreferencesGroup" id="ui_group">
+                <property name="title" translatable="yes">Indicator</property>
+                <child>
+                    <object class="AdwSwitchRow" id="hideSwitch">
+                        <property name="title" translatable="yes">Hide Indicator</property>
+                        <property name="subtitle" translatable="yes">Whether to hide the panel indicator</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSwitchRow" id="notifySwitch">
+                        <property name="title" translatable="yes">Desktop notifications</property>
+                        <property name="subtitle" translatable="yes">Enable notifications on new images</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="iconEntry">
+                        <property name="title" translatable="yes">Indicator icon</property>
+                        <property name="subtitle" translatable="yes">Select from alternate tray icons</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="AdwPreferencesGroup" id="wp_group">
+                <property name="title" translatable="yes">Wallpaper</property>
+                <child>
+                    <object class="AdwSwitchRow" id="bgSwitch">
+                        <property name="title" translatable="yes">Set wallpaper</property>
+                        <property name="subtitle" translatable="yes">Whether to set wallpaper automatically</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSwitchRow" id="shuffleSwitch">
+                        <property name="title" translatable="yes">Enabled shuffle</property>
+                        <property name="subtitle" translatable="yes">Randomly select wallpaper from collection</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="shuffleInterval">
+                        <property name="title" translatable="yes">Shuffle interval</property>
+                        <property name="subtitle" translatable="yes">How frequently to shuffle wallpapers</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="AdwPreferencesGroup" id="dl_group">
+                <property name="title" translatable="yes">Downloads</property>
+                <child>
+                    <object class="AdwActionRow" id="folderRow">
+                        <property name="title" translatable="yes">Download folder</property>
+                        <property name="subtitle" translatable="yes">Open or change wallpaper downloads folder</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+    <object class="GtkFileDialog" id="folderDialog">
+        <property name="accept-label" translatable="yes">Change folder</property>
+        <property name="modal">true</property>
+        <property name="title" translatable="yes">Select new wallpaper download folder</property>
+    </object>
+    <!--
+    <object class="GtkButton" id="openBtn">
+        <child>
+            <object class="AdwSwitchRow" id="bgSwitch">
+                <property name="label" translatable="yes">Open folder</property>
+                <property name="icon-name">folder-pictures-symbolic</property>
+                <!-- <signal name="clicked" handler="open_wp_folder" /> -->
+            </object>
+        </child>
+    </object>
+    <object class="GtkButton" id="changeBtn">
+        <child>
+            <object class="AdwSwitchRow" id="changeBtn">
+                <property name="label" translatable="yes">Change folder</property>
+                <property name="icon-name">folder-download-symbolic</property>
+            </object>
+        </child>
+    </object>
+    -->
+</interface>

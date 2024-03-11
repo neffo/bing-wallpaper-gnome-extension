@@ -12,9 +12,9 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 
-export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
-export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
-export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 };
+export var PRESET_GNOME_DEFAULT = { blur: 45, dim: 65 }; // as at GNOME 40
+export var PRESET_NO_BLUR = { blur: 0, dim: 65 };
+export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 30 };
 
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
@@ -52,7 +52,8 @@ export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretc
 
 export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
                         {value: 'daily', title: ('every day at midnight')},
-                        {value: 'weekly', title: ('every Sunday at midnight')} ];
+                        {value: 'weekly', title: ('Sunday at midnight')},
+                        { value: 'custom', title: ('User defined interval')} ];
 
 export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
@@ -76,6 +77,12 @@ export function validate_resolution(settings) {
     let resolution = settings.get_string('resolution');
     if (resolution == '' || resolutions.indexOf(resolution) == -1) // if not a valid resolution
         settings.reset('resolution');
+}
+
+export function validate_interval(settings) {
+    let index = randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode'));
+    if (index == -1) // if not a valid interval
+        settings.reset('random-interval-mode');
 }
 
 // FIXME: needs work

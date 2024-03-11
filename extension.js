@@ -561,6 +561,7 @@ class BingWallpaperIndicator extends Button {
 
     _randomModeChanged() {
         let randomEnabled = this._settings.get_boolean('random-mode-enabled');
+        Utils.validate_interval(this._settings);
         [this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD /*, this.toggleShuffleOnlyUnhidden*/]
             .forEach( x => {
                 x.setSensitive(randomEnabled);

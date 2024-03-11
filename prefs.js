@@ -21,14 +21,16 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
-var PREFS_DEFAULT_WIDTH = 950;
-var PREFS_DEFAULT_HEIGHT = 950;
+var PREFS_DEFAULT_WIDTH = 700;
+var PREFS_DEFAULT_HEIGHT = 750;
 
 export default class BingWallpaperExtensionPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         // formally globals
         let settings = this.getSettings(Utils.BING_SCHEMA);
-        let desktop_settings = this.getSettings(Utils.DESKTOP_SCHEMA);
+        //let desktop_settings = this.getSettings(Utils.DESKTOP_SCHEMA);
+
+        window.set_default_size(PREFS_DEFAULT_WIDTH, PREFS_DEFAULT_HEIGHT);
 
         let icon_image = null;
         let provider = new Gtk.CssProvider();
@@ -45,80 +47,48 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             if (settings.get_boolean('debug-logging'))
                 console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
         }
+        
+        let buildable = new Gtk.Builder();
+        // GTK4 removes some properties, and builder breaks when it sees them
+        buildable.add_from_file( this.dir.get_path() + '/ui/prefsadw.ui' );
 
-        const settings_page = new Adw.PreferencesPage({
-            title: _('Settings'),
-            icon_name: 'dialog-information-symbolic',
-        });
+        const settings_page = buildable.get_object('settings_page');
+        
         window.add(settings_page);
-        const ui_group = new Adw.PreferencesGroup({
-            title: _('Indicator'),
-            /*description: _('Configure the indicator of the extension'),*/
-        });
-        settings_page.add(ui_group);
-        const hideSwitch = new Adw.SwitchRow({
-            title: _('Hide Indicator'),
-            subtitle: _('Whether to hide the panel indicator'),
-        });
-        const notifySwitch = new Adw.SwitchRow({
-            title: _('Desktop notifications'),
-            subtitle: _('Whether to enable notifications on new images'),
-        });
-        ui_group.add(hideSwitch);
-        ui_group.add(notifySwitch);
-        /*const list = new Gtk.StringList();
+        
+        const ui_group = buildable.get_object('ui_group');
+        const hideSwitch = buildable.get_object('hideSwitch');
+        const notifySwitch = buildable.get_object('notifySwitch');
+        const iconEntry = buildable.get_object('iconEntry');
+
+        const list = new Gtk.StringList();
         Utils.icon_list.forEach((iconname, index) => {
             list.append(iconname, iconname);
-        });*/
-        const iconEntry = new Adw.ComboRow({
-            title: _('Desktop notifications'),
-            subtitle: _('Whether to enable notifications on new images'),
-            model: Gtk.StringList.new(Utils.icon_list),
-            selected: Utils.icon_list.indexOf(settings.get_string('icon-name')),
         });
-        ui_group.add(iconEntry);
+        
+        iconEntry.set_model(list);
+        iconEntry.set_selected(Utils.icon_list.indexOf(settings.get_string('icon-name')));
+        
 
+        const wp_group = buildable.get_object('wp_group');
+        //settings_page.add(wp_group);
 
-        const wp_group = new Adw.PreferencesGroup({
-            title: _('Wallpaper'),
-            /*description: _('Configure downloads'),*/
-        });
-        settings_page.add(wp_group);
         const shuffleIntervals  = new Gtk.StringList;
         Utils.randomIntervals.forEach((x) => {
             shuffleIntervals.append(_(x.title));
         });
-        const shuffleSwitch = new Adw.SwitchRow({
-            title: _('Enabled shuffle'),
-            subtitle: _('Whether to select random wallpapers'),
-        });
-        const shuffleInterval = new Adw.ComboRow({
-            title: _('Enabled shuffle'),
-            subtitle: _('Whether to select random wallpapers'),
-            model: shuffleIntervals,
-            selected: Utils.icon_list.indexOf(settings.get_string('random-interval')),
-        });
-        wp_group.add(shuffleSwitch); 
-        wp_group.add(shuffleInterval); 
 
-        const dl_group = new Adw.PreferencesGroup({
-            title: _('Downloads'),
-            /*description: _('Configure downloads'),*/
-        });
-        settings_page.add(dl_group);
-        const bgSwitch = new Adw.SwitchRow({
-            title: _('Set wallpaper'),
-            subtitle: _('Whether to set wallpaper automatically'),
-        });
-        dl_group.add(bgSwitch);
-        const folderOpen = new Adw.ActionRow({
-            title: _('Download folder'),
-            subtitle: _('Open or change wallpaper downloads folder'),
-        });
-        dl_group.add(folderOpen);
-        const folderSplit = new Adw.SplitButton({
-            label: _('Open folder'),
-        });
+        const bgSwitch = buildable.get_object('bgSwitch');
+        const shuffleSwitch = buildable.get_object('shuffleSwitch');
+        const shuffleInterval = buildable.get_object('shuffleInterval');
+        shuffleInterval.set_model(shuffleIntervals);
+        shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
+
+        const dl_group = buildable.get_object('dl_group');
+        //settings_page.add(dl_group);
+
+        const folderRow = buildable.get_object('folderRow');
+
         const openBtn = new Gtk.Button( {
             child: new Adw.ButtonContent({
                         icon_name: 'folder-pictures-symbolic',
@@ -135,17 +105,108 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
         });
-        /*folderSplit.set_child(openBtn);
-        folderSplit.set_child(changeBtn);*/
-        folderOpen.add_suffix(openBtn);
-        folderOpen.add_suffix(changeBtn);
+
+        folderRow.add_suffix(openBtn);
+        folderRow.add_suffix(changeBtn);
 
         /* not sure how to make this work right just yet */
-        const folderDialog = new Gtk.FileDialog({
-            accept_label: _('Select'),
-            modal: true,
-            title: _('Select new wallpaper download folder'),
+        const folderDialog = buildable.get_object('folderDialog');
+
+        const lockscreen_page = new Adw.PreferencesPage({
+            title: _('Lock screen'),
+            icon_name: 'applications-system-symbolic',
         });
+        window.add(lockscreen_page);
+        const ls_group = new Adw.PreferencesGroup({
+            title: _('Lockscreen blur'),
+            /*description: _('Configure the indicator of the extension'),*/
+        });
+        lockscreen_page.add(ls_group);
+        const overrideSwitch = new Adw.SwitchRow({
+            title: _('Dynamic lockscreen blur'),
+            subtitle: _('Whether to enable dynamic blur mode on lock screen'),
+        });
+        const strengthEntry = new Adw.SpinRow({
+            title: _('Blur strength'),
+            subtitle: _('Blur strength when login prompt is not visible'),
+            adjustment: new Gtk.Adjustment({
+                    lower: 0,
+                    upper: 50,
+                    value: settings.get_int('lockscreen-blur-strength'),
+                    page_increment: 10,
+                    step_increment: 1,
+                }),
+        });
+        const brightnessEntry = new Adw.SpinRow({
+            title: _('Wallpaper brightness'),
+            subtitle: _('Dim wallpaper when login prompt is not visible'),
+            adjustment: new Gtk.Adjustment({
+                lower: 0,
+                upper: 50,
+                value: settings.get_int('lockscreen-blur-brightness'),
+                page_increment: 10,
+                step_increment: 1,
+            }),
+        });
+
+        const blurPresets = new Adw.ActionRow({
+            title: _('Presets'),
+            /*subtitle: _('Open or change wallpaper downloads folder'),*/
+        });
+        
+        const defaultBtn = new Gtk.Button( {
+            child: new Adw.ButtonContent({
+                        icon_name: 'emblem-default-symbolic',
+                        label: _('Default'),
+                    },),
+            valign: Gtk.Align.CENTER, 
+            halign: Gtk.Align.CENTER,
+        });
+        const noBlurBtn = new Gtk.Button( {
+            child: new Adw.ButtonContent({
+                        icon_name: 'emblem-default-symbolic',
+                        label: _('No blur, slight dim'),
+                    },),
+            valign: Gtk.Align.CENTER, 
+            halign: Gtk.Align.CENTER,
+        });
+        const slightBlurBtn = new Gtk.Button( {
+            child: new Adw.ButtonContent({
+                        icon_name: 'emblem-default-symbolic',
+                        label: _('Slight blur & dim'),
+                    },),
+            valign: Gtk.Align.CENTER, 
+            halign: Gtk.Align.CENTER,
+        });
+
+        blurPresets.add_suffix(defaultBtn);
+        blurPresets.add_suffix(noBlurBtn);
+        blurPresets.add_suffix(slightBlurBtn);
+
+        ls_group.add(overrideSwitch);
+        ls_group.add(strengthEntry);
+        ls_group.add(brightnessEntry);
+        ls_group.add(blurPresets);
+
+        const gallery_page = new Adw.PreferencesPage({
+            title: _('Gallery'),
+            icon_name: 'document-open-recent-symbolic',
+        });
+        window.add(gallery_page);
+
+        const debug_page = new Adw.PreferencesPage({
+            title: _('Debug'),
+            icon_name: 'preferences-other-symbolic',
+        });
+        window.add(debug_page);
+
+        const about_page = new Adw.PreferencesPage({
+            title: _('About'),
+            icon_name: 'user-info-symbolic',
+        });
+        window.add(about_page);
+
+
 
         /*
         // Prepare labels and controls
@@ -208,6 +269,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         // check that these are valid (can be edited through dconf-editor)
         Utils.validate_resolution(settings);
         Utils.validate_icon(settings, this.path, icon_image);
+        Utils.validate_interval(settings);
 
         // Indicator & notifications
         settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -217,14 +279,21 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         Utils.icon_list.forEach((iconname, index) => {
             iconEntry.append(iconname, iconname);
         });
+        */
         // user selectable indicator icons
-        settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        // settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
         settings.connect('changed::icon-name', () => {
             Utils.validate_icon(settings, this.path, icon_image);
+            /*iconEntry.set_selected(Utils.indexOf(settings.get_string('icon-name')));*/
         });
-        iconEntry.set_active_id(settings.get_string('icon-name'));
+        
+        /*
+        iconEntry.connect('changed', (widget) => {
+            settings.set_string('icon-name', Utils.icon_list[iconEntry.active_id]);
+        });*/
+        
+        //iconEntry.set_active_id(settings.get_string('icon-name'));
 
-        */
         // connect switches to settings changes
         settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         /*
@@ -309,37 +378,28 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         /*settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);*/
 
-        /*
-        // selected image can no longer be changed through a dropdown (didn't scale)
-        settings.bind('selected-image', historyEntry, 'label', Gio.SettingsBindFlags.DEFAULT);
-        settings.connect('changed::selected-image', () => {
-            Utils.validate_imagename(settings);
+        settings.connect('changed::random-interval-mode', () => {
+            shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
         });
-        
-        // background styles (e.g. zoom or span)
-        Utils.backgroundStyle.forEach((style) => {
-            styleEntry.append(style, style);
-        });
-        desktop_settings.bind('picture-options', styleEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-    
+
+            
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
+        
         // add a couple of preset buttons
-        buttonGDMdefault.connect('clicked', (widget) => {
+        defaultBtn.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
         });
-        buttonnoblur.connect('clicked', (widget) => {
+        noBlurBtn.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
         });
-        buttonslightblur.connect('clicked', (widget) => {
+        slightBlurBtn.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
-
-        */
-
+        
         // fetch
         /*
         if (httpSession)
