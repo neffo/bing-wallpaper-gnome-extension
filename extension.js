@@ -589,7 +589,7 @@ class BingWallpaperIndicator extends Button {
         log('trash image '+this.imageURL+' status was '+this.hidden_status);
         this.hidden_status = !this.hidden_status;
         Utils.setImageHiddenStatus(this._settings, [this.imageURL], this.hidden_status);
-        this._setTrashIcon(this.hidden_status?ICON_UNTRASH_BUTTON:ICON_TRASH_BUTTON);
+        this._setTrashIcon(this.hidden_status?this.ICON_UNTRASH_BUTTON:this.ICON_TRASH_BUTTON);
     }
 
     _setFavouriteIcon(icon_name) {
@@ -715,7 +715,7 @@ class BingWallpaperIndicator extends Button {
         if (seconds == null) {
             let diff = -Math.floor(GLib.DateTime.new_now_local().difference(this.shuffledue)/1000000);
             log('shuffle ('+this.shuffledue.format_iso8601()+') diff = '+diff);
-            if (diff > 0) {
+            if (diff > 30) { // on occasions the above will be 1 second
                 seconds = diff; // if not specified, we should maintain the existing shuffle timeout (i.e. we just restored from saved state)
             }
             else if (this._settings.get_string('random-interval-mode') != 'custom') {
@@ -842,6 +842,7 @@ class BingWallpaperIndicator extends Button {
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
         
         if (force_shuffle) {
+            log('forcing shuffle of image')
             image = this._shuffleImage();
             if (this._settings.get_boolean('random-mode-enabled'))
                 this._restartShuffleTimeout();
