@@ -83,28 +83,320 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </object>
         </child>
     </object>
+    <object class="AdwPreferencesPage" id="lockscreen_page">
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="title" translatable="yes">Lock screen</property>
+        <child>
+            <object class="AdwPreferencesGroup" id="ls_group">
+                <property name="title" translatable="yes">Lockscreen blur</property>
+                <child>
+                    <object class="AdwSwitchRow" id="overrideSwitch">
+                        <property name="title" translatable="yes">Dynamic lockscreen blur</property>
+                        <property name="subtitle" translatable="yes">Whether to enable dynamic blur mode on lock screen</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSpinRow" id="strengthEntry">
+                        <property name="title" translatable="yes">Blur strength</property>
+                        <property name="subtitle" translatable="yes">Blur strength when login prompt is not visible</property>
+                        <property name="adjustment">
+                            <object class="GtkAdjustment" id="blurAdjustment">
+                                <property name="lower">0</property>
+                                <property name="upper">50</property>
+                                <property name="page_increment">10</property>
+                                <property name="step_increment">1</property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSpinRow" id="brightnessEntry">
+                        <property name="title" translatable="yes">Wallpaper brightness</property>
+                        <property name="subtitle" translatable="yes">Dim wallpaper when login prompt is not visible</property>
+                        <property name="adjustment">
+                            <object class="GtkAdjustment" id="brightnessAdjustment">
+                                <property name="lower">0</property>
+                                <property name="upper">100</property>
+                                <property name="page_increment">10</property>
+                                <property name="step_increment">1</property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="AdwPreferencesGroup" id="ps_group">
+                <!-- <property name="title" translatable="yes">Presets</property> -->
+                <child>
+                    <object class="AdwActionRow" id="blurPresets">
+                        <property name="title" translatable="yes">Presets</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+    <object class="AdwPreferencesPage" id="gallery_page">
+        <property name="icon-name">document-open-recent-symbolic</property>
+        <property name="title" translatable="yes">Gallery</property>
+        <child>
+            <object class="GtkViewport" id="carouselViewPort">
+            <property name="can-focus">0</property>
+            <property name="height_request">500</property>
+            <property name="hexpand">0</property>
+            <property name="vexpand">0</property>
+            <property name="child">
+                <object class="GtkFlowBox" id="carouselFlowBox">
+                <property name="can-focus">0</property>
+                <property name="halign">center</property>
+                <property name="homogeneous">1</property>
+                <property name="max-children-per-line">2</property>
+                <property name="min-children-per-line">2</property>
+                <property name="row-spacing">2</property>
+                <property name="column-spacing">2</property>
+                </object>
+            </property>
+            </object>
+        </child>
+    </object>
+    <object class="AdwPreferencesPage" id="debug_page">
+        <property name="icon-name">preferences-other-symbolic</property>
+        <property name="title" translatable="yes">Debug</property>
+        <child>
+            <object class="AdwPreferencesGroup" id="db_group">
+                <property name="title" translatable="yes">Debug options</property>
+                <child>
+                    <object class="AdwSwitchRow" id="debug_switch">
+                        <property name="title" translatable="yes">Debug logging</property>
+                        <property name="subtitle" translatable="yes">Enable logging to system journal</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSwitchRow" id="revert_switch">
+                        <property name="title" translatable="yes">Always show new images</property>
+                        <property name="subtitle" translatable="yes">Switch to new images when available (unless on random mode)</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="resolutionEntry">
+                        <property name="title" translatable="yes">Screen resolution</property>
+                        <property name="subtitle" translatable="yes">Override automatic resolution selection</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSpinRow" id="entry_random_interval">
+                        <property name="title" translatable="yes">Random interval</property>
+                        <property name="subtitle" translatable="yes">Custom shuffle interval when enabled</property>
+                        <property name="adjustment">
+                            <object class="GtkAdjustment" id="adjustment_random_interval">
+                                <property name="lower">300</property>
+                                <property name="upper">604800</property>
+                                <property name="page_increment">300</property>
+                                <property name="step_increment">3600</property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="AdwPreferencesGroup" id="js_group">
+                <!-- <property name="title" translatable="yes">Presets</property> -->
+                <child>
+                    <object class="AdwSwitchRow" id="always_export_switch">
+                        <property name="title" translatable="yes">Always export Bing data</property>
+                        <property name="subtitle" translatable="yes">Export Bing JSON when image data changes</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwActionRow" id="json_actionrow">
+                        <property name="title" translatable="yes">Bing JSON data</property>
+                        <property name="subtitle" translatable="yes">Custom shuffle interval when enabled</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+    <object class="AdwPreferencesPage" id="about_page">
+        <property name="icon-name">user-info-symbolic</property>
+        <property name="title" translatable="yes">About</property>
+        <child>
+          <object class="AdwPreferencesGroup" id="about_group">
+            <!-- <property name="orientation">vertical</property>-->
+            <child>
+                <object class="GtkImage" id="app_icon_image">
+                <property name="pixel-size">128</property>
+                <property name="accessible-role">presentation</property>
+                <style>
+                    <class name="icon-dropshadow"/>
+                </style>
+                </object>
+            </child>
+            <child>
+                <object class="GtkLabel" id="app_name_label">
+                <property name="wrap">True</property>
+                <property name="justify">center</property>
+                <property name="label" translatable="yes">Bing Wallpaper</property>
+                <style>
+                    <class name="title-1"/>
+                </style>
+                </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="extension_description">
+                <property name="can_focus">0</property>
+                <property name="label" translatable="yes">New wallpaper images everyday from Bing</property>
+                <property name="justify">center</property>
+                <property name="wrap">1</property>
+              </object>
+            </child>
+            
+            <child>
+                <object class="GtkLabel" id="developer_name_label">
+                <property name="wrap">True</property>
+                <property name="justify">center</property>
+                <property name="label" translatable="yes">Maintained by Michael Carroll</property>
+                </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup" id="change_log_group">
+            <child>
+              <object class="AdwActionRow" id="details_row">
+                <property name="title" translatable="yes">Version</property>
+                <child>
+                    <object class="GtkButton" id="version_button">
+                    <property name="halign">center</property>
+                    <property name="can-shrink">True</property>
+                    <style>
+                        <class name="app-version"/>
+                    </style>
+                    </object>
+                </child>
+              </object>
+            </child>
+            <child>
+            <object class="AdwExpanderRow" id="expander_row">
+                <property name="title" translatable="yes">Release notes</property>
+                <child>
+                    <object class="GtkLabel" id="change_log">
+                        <property name="wrap">True</property>
+                        <property name="justify">left</property>
+                    </object>
+                </child>
+            </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup" id="about_details_group">
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="AdwPreferencesGroup" id="details_group">
+                    
+                    <child>
+                        <object class="AdwActionRow" id="extension_page_row">
+                            <property name="title" translatable="yes">GNOME extensions page</property>
+                            <property name="use-underline">True</property>
+                            <property name="activatable">True</property>
+                            <property name="activatable-widget">extension_page_linkbutton</property>
+                            <child>
+                                <object class="GtkLinkButton" id="extension_page_linkbutton">
+                                    <property name="uri">https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/</property>
+                                </object>
+                            </child>
+                            <child>
+                                <object class="GtkImage">
+                                    <property name="icon-name">adw-external-link-symbolic</property>
+                                    <property name="accessible-role">presentation</property>
+                                </object>
+                            </child>
+                        </object>
+                    </child>
+                    <child>
+                        <object class="AdwActionRow" id="source_code_row">
+                            <property name="title" translatable="yes">Source code</property>
+                            <property name="use-underline">True</property>
+                            <property name="activatable">True</property>
+                            <property name="activatable-widget">source_code_linkbutton</property>
+                            <child>
+                                <object class="GtkLinkButton" id="source_code_linkbutton">
+                                    <property name="uri">https://github.com/neffo/</property>
+                                </object>
+                            </child>
+                            <child>
+                                <object class="GtkImage">
+                                    <property name="icon-name">adw-external-link-symbolic</property>
+                                    <property name="accessible-role">presentation</property>
+                                </object>
+                            </child>
+                        </object>
+                    </child>
+                    <child>
+                        <object class="AdwActionRow" id="bug_report_row">
+                            <property name="title" translatable="yes">Report an issue</property>
+                            <property name="use-underline">True</property>
+                            <property name="activatable">True</property>
+                            <property name="activatable-widget">bug_report_linkbutton</property>
+                            <child>
+                                <object class="GtkLinkButton" id="bug_report_linkbutton">
+                                    <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension/issues</property>
+                                </object>
+                            </child>
+                            <child>
+                                <object class="GtkImage">
+                                    <property name="icon-name">adw-external-link-symbolic</property>
+                                    <property name="accessible-role">presentation</property>
+                                </object>
+                            </child>
+                        </object>
+                    </child>
+                    <child>
+                        <object class="AdwActionRow" id="contributors_row">
+                            <property name="title" translatable="yes">Contributors</property>
+                            <property name="use-underline">True</property>
+                            <property name="activatable">True</property>
+                            <property name="activatable-widget">contributors_linkbutton</property>
+                            <child>
+                                <object class="GtkLinkButton" id="contributors_linkbutton">
+                                    <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors</property>
+                                </object>
+                            </child>
+                            <child>
+                                <object class="GtkImage">
+                                    <property name="icon-name">adw-external-link-symbolic</property>
+                                    <property name="accessible-role">presentation</property>
+                                </object>
+                            </child>
+                        </object>
+                    </child>
+                    <child>
+                        <object class="AdwExpanderRow" id="license_expander">
+                            <property name="title" translatable="yes">License</property>
+                            <child>
+                                <object class="GtkLabel" id="license">
+                                    <property name="wrap">True</property>
+                                    <property name="justify">left</property>
+                                    <property name="label">This extension is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</property>
+                                </object>
+                            </child>
+                        </object>
+                    </child>
+                    </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+    </object>
     <object class="GtkFileDialog" id="folderDialog">
         <property name="accept-label" translatable="yes">Change folder</property>
         <property name="modal">true</property>
         <property name="title" translatable="yes">Select new wallpaper download folder</property>
     </object>
-    <!--
-    <object class="GtkButton" id="openBtn">
-        <child>
-            <object class="AdwSwitchRow" id="bgSwitch">
-                <property name="label" translatable="yes">Open folder</property>
-                <property name="icon-name">folder-pictures-symbolic</property>
-                <!-- <signal name="clicked" handler="open_wp_folder" /> -->
-            </object>
-        </child>
-    </object>
-    <object class="GtkButton" id="changeBtn">
-        <child>
-            <object class="AdwSwitchRow" id="changeBtn">
-                <property name="label" translatable="yes">Change folder</property>
-                <property name="icon-name">folder-download-symbolic</property>
-            </object>
-        </child>
-    </object>
-    -->
 </interface>
+
+<!-- <signal name="clicked" handler="open_wp_folder" /> -->

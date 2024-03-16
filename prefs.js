@@ -111,16 +111,20 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         /* not sure how to make this work right just yet */
         const folderDialog = buildable.get_object('folderDialog');
+        const lockscreen_page = buildable.get_object('lockscreen_page');
 
-        const lockscreen_page = new Adw.PreferencesPage({
+        /*const lockscreen_page = new Adw.PreferencesPage({
             title: _('Lock screen'),
             icon_name: 'applications-system-symbolic',
-        });
+        });*/
         window.add(lockscreen_page);
+        const ls_group = buildable.get_object('ls_group');
+        /*
         const ls_group = new Adw.PreferencesGroup({
             title: _('Lockscreen blur'),
-            /*description: _('Configure the indicator of the extension'),*/
         });
+        */
+        /*
         lockscreen_page.add(ls_group);
         const overrideSwitch = new Adw.SwitchRow({
             title: _('Dynamic lockscreen blur'),
@@ -148,11 +152,20 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
                 step_increment: 1,
             }),
         });
-
-        const blurPresets = new Adw.ActionRow({
+        */
+        /*const blurPresets = new Adw.ActionRow({
             title: _('Presets'),
-            /*subtitle: _('Open or change wallpaper downloads folder'),*/
-        });
+        });*/
+
+        const overrideSwitch = buildable.get_object('overrideSwitch');
+        const blurPresets = buildable.get_object('blurPresets');
+        const strengthEntry = buildable.get_object('strengthEntry');
+        const brightnessEntry = buildable.get_object('brightnessEntry');
+        const blurAdjustment = buildable.get_object('blurAdjustment');
+        const brightnessAdjustment = buildable.get_object('brightnessAdjustment');
+
+        blurAdjustment.set_value(settings.get_int('lockscreen-blur-strength'));
+        brightnessAdjustment.set_value(settings.get_int('lockscreen-blur-brightness'));
         
         const defaultBtn = new Gtk.Button( {
             child: new Adw.ButtonContent({
@@ -188,24 +201,48 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         ls_group.add(brightnessEntry);
         ls_group.add(blurPresets);
 
-        const gallery_page = new Adw.PreferencesPage({
-            title: _('Gallery'),
-            icon_name: 'document-open-recent-symbolic',
-        });
+        const gallery_page = buildable.get_object('gallery_page');
         window.add(gallery_page);
 
-        const debug_page = new Adw.PreferencesPage({
-            title: _('Debug'),
-            icon_name: 'preferences-other-symbolic',
-        });
+        const carouselFlowBox = buildable.get_object('carouselFlowBox');
+
+        const debug_page = buildable.get_object('debug_page');
         window.add(debug_page);
 
-        const about_page = new Adw.PreferencesPage({
-            title: _('About'),
-            icon_name: 'user-info-symbolic',
+        const randomIntervalEntry = buildable.get_object('entry_random_interval');
+        randomIntervalEntry.set_value(settings.get_int('random-interval'));
+        const resolutionEntry = buildable.get_object('resolutionEntry');
+        const debugSwitch = buildable.get_object('debug_switch');
+        const revertSwitch = buildable.get_object('revert_switch');
+        const always_export_switch = buildable.get_object('always_export_switch');
+
+        const buttonImportData = new Gtk.Button( {
+            child: new Adw.ButtonContent({
+                        icon_name: 'document-send-symbolic',
+                        label: _('Import'),
+                    },),
+            valign: Gtk.Align.CENTER, 
+            halign: Gtk.Align.CENTER,
         });
+        const buttonExportData = new Gtk.Button( {
+            child: new Adw.ButtonContent({
+                        icon_name: 'document-save-symbolic',
+                        label: _('Export'),
+                    },),
+            valign: Gtk.Align.CENTER, 
+            halign: Gtk.Align.CENTER,
+        });
+        const json_actionrow = buildable.get_object('json_actionrow');
+        json_actionrow.add_suffix(buttonImportData);
+        json_actionrow.add_suffix(buttonExportData);
+
+        const about_page = buildable.get_object('about_page');
+        const version_button = buildable.get_object('version_button');
         window.add(about_page);
 
+        version_button.set_label(this.metadata.version.toString());
+
+        const change_log = buildable.get_object('change_log');
 
 
         /*
@@ -239,9 +276,10 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         icon_image = buildable.get_object('icon_image');
         let overrideSwitch = buildable.get_object('lockscreen_override');
         let strengthEntry = buildable.get_object('entry_strength');
-        let brightnessEntry = buildable.get_object('entry_brightness');
-        let debugSwitch = buildable.get_object('debug_switch');
-        let revertSwitch = buildable.get_object('revert_switch');
+        let brightnessEntry = buildable.get_object('entry_brightness');*/
+
+
+        /*
         let unsafeSwitch = buildable.get_object('unsafe_switch');
         let randomIntervalEntry = buildable.get_object('entry_random_interval');
         let change_log = buildable.get_object('change_log');
@@ -296,22 +334,22 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // connect switches to settings changes
         settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        /*
+        
         settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        //settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('always-export-bing-json', switchAlwaysExport, 'active', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('always-export-bing-json', always_export_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
-        */
         // button opens Nautilus at our image folder
         openBtn.connect('clicked', (widget) => {
             Utils.openImageFolder(settings);
         });
-        /*
+        
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
-        carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
-
+        // disabled at the moment, needs testing
+        //carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
+        
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable
         buttonImportData.connect('clicked', () => {
@@ -321,58 +359,36 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.exportBingJSON(settings);
         });
 
-        //download folder
-        fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
-        
-        fileChooserBtn.connect('clicked', (widget) => {
-            let parent = widget.get_root();
-            let curWallpaperDir = Gio.File.new_for_path(Utils.getWallpaperDir(settings));
-            fileChooser.set_current_folder(curWallpaperDir.get_parent());
-            fileChooser.set_action(Gtk.FileChooserAction.SELECT_FOLDER);
-            fileChooser.set_transient_for(parent);
-            fileChooser.set_accept_label(_('Select folder'));
-            fileChooser.show();
+        const dirChooser = new Gtk.FileDialog( {
+            accept_label: "Select",
+            modal: true,
+            title: _("Select wallpaper download folder"),
         });
 
-        fileChooser.connect('response', (widget, response) => {
-            if (response !== Gtk.ResponseType.ACCEPT) {
-                return;
-            }
-            let fileURI = fileChooser.get_file().get_path().replace('file://', '');
-            fileChooserBtn.set_label(fileURI);
-            Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), fileURI);
-            Utils.setWallpaperDir(settings, fileURI);
-        });
-        // in Gtk 4 instead we use a DropDown, but we need to treat it a bit special
-        let market_grid = buildable.get_object('market_grid');
-        marketEntry = Gtk.DropDown.new_from_strings(Utils.marketName);
-        marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
-        market_grid.attach(marketEntry, 1, 0, 1, 2);
-        marketEntry.connect('notify::selected-item', () => {
-            let id = marketEntry.get_selected();
-            settings.set_string('market', Utils.markets[id]);
-        });
+        changeBtn.connect('clicked', (widget) => {
+            dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)));
+            dirChooser.select_folder(window, null, (self, res) => {
+                let new_path = self.select_folder_finish(res).get_uri().replace('file://', '');
+                log(new_path);
+                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), new_path);
+                Utils.setWallpaperDir(settings, new_path);
+            });
 
-        settings.connect('changed::market', () => {
-            marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
         });
-
-        settings.connect('changed::download-folder', () => {
-            fileChooserBtn.set_label(Utils.getWallpaperDir(settings));
-        });
-
 
         // Resolution
+        const resolutionModel = new Gtk.StringList();
         Utils.resolutions.forEach((res) => { // add res to dropdown list (aka a GtkComboText)
-            resolutionEntry.append(res, res);
+            resolutionModel.append(res, res);
         });
+        resolutionEntry.set_model(resolutionModel);
         
         settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 
         settings.connect('changed::resolution', () => {
             Utils.validate_resolution(settings);
         });
-        */
+       
 
         // shuffle modes
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -401,10 +417,9 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
         
         // fetch
-        /*
+        
         if (httpSession)
             Utils.fetch_change_log(this.metadata.version.toString(), change_log, httpSession);
-        */
 
         /*group.add(box);
         page.add(group);
