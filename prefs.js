@@ -21,7 +21,7 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
-var PREFS_DEFAULT_WIDTH = 700;
+var PREFS_DEFAULT_WIDTH = 750;
 var PREFS_DEFAULT_HEIGHT = 750;
 
 export default class BingWallpaperExtensionPreferences extends ExtensionPreferences {
@@ -113,50 +113,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const folderDialog = buildable.get_object('folderDialog');
         const lockscreen_page = buildable.get_object('lockscreen_page');
 
-        /*const lockscreen_page = new Adw.PreferencesPage({
-            title: _('Lock screen'),
-            icon_name: 'applications-system-symbolic',
-        });*/
         window.add(lockscreen_page);
         const ls_group = buildable.get_object('ls_group');
-        /*
-        const ls_group = new Adw.PreferencesGroup({
-            title: _('Lockscreen blur'),
-        });
-        */
-        /*
-        lockscreen_page.add(ls_group);
-        const overrideSwitch = new Adw.SwitchRow({
-            title: _('Dynamic lockscreen blur'),
-            subtitle: _('Whether to enable dynamic blur mode on lock screen'),
-        });
-        const strengthEntry = new Adw.SpinRow({
-            title: _('Blur strength'),
-            subtitle: _('Blur strength when login prompt is not visible'),
-            adjustment: new Gtk.Adjustment({
-                    lower: 0,
-                    upper: 50,
-                    value: settings.get_int('lockscreen-blur-strength'),
-                    page_increment: 10,
-                    step_increment: 1,
-                }),
-        });
-        const brightnessEntry = new Adw.SpinRow({
-            title: _('Wallpaper brightness'),
-            subtitle: _('Dim wallpaper when login prompt is not visible'),
-            adjustment: new Gtk.Adjustment({
-                lower: 0,
-                upper: 50,
-                value: settings.get_int('lockscreen-blur-brightness'),
-                page_increment: 10,
-                step_increment: 1,
-            }),
-        });
-        */
-        /*const blurPresets = new Adw.ActionRow({
-            title: _('Presets'),
-        });*/
-
         const overrideSwitch = buildable.get_object('overrideSwitch');
         const blurPresets = buildable.get_object('blurPresets');
         const strengthEntry = buildable.get_object('strengthEntry');
@@ -204,7 +162,10 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const gallery_page = buildable.get_object('gallery_page');
         window.add(gallery_page);
 
+        const carouselViewPort = buildable.get_object('carouselViewPort');
         const carouselFlowBox = buildable.get_object('carouselFlowBox');
+
+        //carouselViewPort.set_size(500,500);
 
         const debug_page = buildable.get_object('debug_page');
         window.add(debug_page);
@@ -243,57 +204,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         version_button.set_label(this.metadata.version.toString());
 
         const change_log = buildable.get_object('change_log');
-
-
-        /*
-        // Prepare labels and controls
-        let buildable = new Gtk.Builder();
-        // GTK4 removes some properties, and builder breaks when it sees them
-        buildable.add_from_file( this.dir.get_path() + '/ui/Settings4.ui' );
-        */
-
-        
-        /*
-        let box = buildable.get_object('prefs_widget');
-
-        // fix size of prefs window in GNOME shell 40+ (but super racy, so is unreliable)
-
-        buildable.get_object('extension_version').set_text(this.metadata.version.toString());
-        buildable.get_object('extension_name').set_text(this.metadata.name.toString());
-
-        // assign variables to UI objects we've loaded
-        let hideSwitch = buildable.get_object('hide');
-        let iconEntry = buildable.get_object('icon');
-        let notifySwitch = buildable.get_object('notify');
-        let bgSwitch = buildable.get_object('background');
-        let styleEntry = buildable.get_object('background_style');
-        let fileChooserBtn = buildable.get_object('download_folder');
-        let fileChooser = buildable.get_object('file_chooser'); // this should only exist on Gtk4
-        let folderOpenBtn = buildable.get_object('button_open_download_folder');
-        let marketEntry = buildable.get_object('market');
-        let resolutionEntry = buildable.get_object('resolution');
-        let historyEntry = buildable.get_object('history');
-        icon_image = buildable.get_object('icon_image');
-        let overrideSwitch = buildable.get_object('lockscreen_override');
-        let strengthEntry = buildable.get_object('entry_strength');
-        let brightnessEntry = buildable.get_object('entry_brightness');*/
-
-
-        /*
-        let unsafeSwitch = buildable.get_object('unsafe_switch');
-        let randomIntervalEntry = buildable.get_object('entry_random_interval');
-        let change_log = buildable.get_object('change_log');
-        let buttonGDMdefault = buildable.get_object('button_default_gnome');
-        let buttonnoblur = buildable.get_object('button_no_blur');
-        let buttonslightblur = buildable.get_object('button_slight_blur');
-        let buttonImportData = buildable.get_object('button_json_import');
-        let buttonExportData = buildable.get_object('button_json_export');
-        let switchAlwaysExport = buildable.get_object('always_export_switch');
-        let switchEnableShuffle = buildable.get_object('shuffle_enabled_switch');
-        let entryShuffleMode = buildable.get_object('shuffle_mode_combo');
-        let carouselFlowBox = (Gtk.get_major_version() == 4) ? buildable.get_object('carouselFlowBox'): null;
-        */
-
+       
         try {
             httpSession = new Soup.Session();
             httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this.metadata.version;
@@ -312,24 +223,11 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         // Indicator & notifications
         settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        /*
-        // add markets to dropdown list (aka a GtkComboText)
-        Utils.icon_list.forEach((iconname, index) => {
-            iconEntry.append(iconname, iconname);
-        });
-        */
-        // user selectable indicator icons
-        // settings.bind('icon-name', iconEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
         settings.connect('changed::icon-name', () => {
             Utils.validate_icon(settings, this.path, icon_image);
             /*iconEntry.set_selected(Utils.indexOf(settings.get_string('icon-name')));*/
         });
-        
-        /*
-        iconEntry.connect('changed', (widget) => {
-            settings.set_string('icon-name', Utils.icon_list[iconEntry.active_id]);
-        });*/
-        
+               
         //iconEntry.set_active_id(settings.get_string('icon-name'));
 
         // connect switches to settings changes
@@ -348,7 +246,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
         // disabled at the moment, needs testing
-        //carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
+        carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
         
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable
@@ -420,10 +318,5 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         
         if (httpSession)
             Utils.fetch_change_log(this.metadata.version.toString(), change_log, httpSession);
-
-        /*group.add(box);
-        page.add(group);
-
-        window.add(page);*/
     }
 }
