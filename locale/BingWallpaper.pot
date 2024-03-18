@@ -26,7 +26,7 @@ msgstr ""
 msgid "Download folder"
 msgstr ""
 
-#: ui/Settings4.ui.h:8
+#: ui/Settings4.ui.h:8 prefs.js:95
 msgid "Open folder"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Presets"
 msgstr ""
 
-#: ui/Settings4.ui.h:21
+#: ui/Settings4.ui.h:21 prefs.js:139
 msgid "No blur, slight dim"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Import previously exported JSON data from wallpaper directory"
 msgstr ""
 
-#: ui/Settings4.ui.h:37
+#: ui/Settings4.ui.h:37 prefs.js:184
 msgid "Import"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Export JSON data to wallpaper dir for backup or data migration"
 msgstr ""
 
-#: ui/Settings4.ui.h:40
+#: ui/Settings4.ui.h:40 prefs.js:192
 msgid "Export"
 msgstr ""
 
@@ -324,34 +324,46 @@ msgstr ""
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:801 extension.js:875
+#: extension.js:802 extension.js:877
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:913
+#: extension.js:915
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:914
+#: extension.js:916
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:156
-msgid "Select folder"
+#: prefs.js:103
+msgid "Change folder"
 msgstr ""
 
-#: utils.js:127
+#: prefs.js:131
+msgid "Default"
+msgstr ""
+
+#: prefs.js:147
+msgid "Slight blur & dim"
+msgstr ""
+
+#: prefs.js:265
+msgid "Select wallpaper download folder"
+msgstr ""
+
+#: utils.js:134
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:405 utils.js:408
+#: utils.js:414 utils.js:417
 msgid "minutes"
 msgstr ""
 
-#: utils.js:411
+#: utils.js:420
 msgid "days"
 msgstr ""
 
-#: utils.js:414
+#: utils.js:423
 msgid "hours"
 msgstr ""

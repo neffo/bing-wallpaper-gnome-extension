@@ -175,6 +175,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const resolutionEntry = buildable.get_object('resolutionEntry');
         const debugSwitch = buildable.get_object('debug_switch');
         const revertSwitch = buildable.get_object('revert_switch');
+        const trash_purge_switch = buildable.get_object('trash_purge_switch');
         const always_export_switch = buildable.get_object('always_export_switch');
 
         const buttonImportData = new Gtk.Button( {
@@ -237,6 +238,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         //settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('trash-deletes-images', trash_purge_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('always-export-bing-json', always_export_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         // button opens Nautilus at our image folder

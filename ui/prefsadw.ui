@@ -182,6 +182,12 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </object>
                 </child>
                 <child>
+                    <object class="AdwSwitchRow" id="trash_purge_switch">
+                        <property name="title" translatable="yes">Purge on trash</property>
+                        <property name="subtitle" translatable="yes">Trashing an image will remove it from database</property>
+                    </object>
+                </child>
+                <child>
                     <object class="AdwComboRow" id="resolutionEntry">
                         <property name="title" translatable="yes">Screen resolution</property>
                         <property name="subtitle" translatable="yes">Override automatic resolution selection</property>

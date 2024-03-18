@@ -56,7 +56,7 @@ Author: Michael Carroll
         <child>
           <object class="GtkPicture" id="galleryImage">
             <property name="width-request">320</property>
-            <property name="height-request">180</property>
+            <property name="height-request">120</property>
             <property name="can-focus">0</property>
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
