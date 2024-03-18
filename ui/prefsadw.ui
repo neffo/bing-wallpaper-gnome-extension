@@ -334,7 +334,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="activatable-widget">source_code_linkbutton</property>
                             <child>
                                 <object class="GtkLinkButton" id="source_code_linkbutton">
-                                    <property name="uri">https://github.com/neffo/</property>
+                                    <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension</property>
                                 </object>
                             </child>
                             <child>
