@@ -591,6 +591,12 @@ class BingWallpaperIndicator extends Button {
         this.hidden_status = !this.hidden_status;
         Utils.setImageHiddenStatus(this._settings, [this.imageURL], this.hidden_status);
         this._setTrashIcon(this.hidden_status?this.ICON_UNTRASH_BUTTON:this.ICON_TRASH_BUTTON);
+        if (this.settings.get_boolean('trash-deletes-images')) {
+            log('image to be deleted: '+this.filename);
+            Utils.deleteImage(this.filename);
+            Utils.validate_imagename(this.settings);
+        }
+        
     }
 
     _setFavouriteIcon(icon_name) {

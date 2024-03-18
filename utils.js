@@ -301,7 +301,7 @@ export function getImageByIndex(imageList, index) {
 }
 
 export function cleanupImageList(settings) {
-    if (settings.get_boolean('trash-deletes-images'))
+    if (settings.get_boolean('trash-deletes-images') == false)
         return;
     let curList = imageListSortByDate(getImageList(settings));
     let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
