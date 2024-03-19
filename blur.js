@@ -72,13 +72,13 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
 // adjustable blur in a Windows-like way (this ensures login prompt is readable)
 function _showClock_BWP() {
     promptActive = false;
-    _showClock_GNOME(); // pass to default GNOME function
+    this._showClock_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
 function _showPrompt_BWP() {
     promptActive = true;
-    _showPrompt_GNOME(); // pass to default GNOME function
+    this._showPrompt_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
@@ -139,8 +139,8 @@ export default class Blur {
         if (supportedVersion()) {
             // restore default functions
             UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
-            UnlockDialog.UnlockDialog.prototype._showClock = _showClock;
-            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._showClock = _showClock_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_GNOME;
             // clean up unused functions we created
             UnlockDialog.UnlockDialog.prototype._showClock_GNOME = null;
             delete UnlockDialog.UnlockDialog.prototype._showClock_GNOME;
