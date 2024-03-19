@@ -13,8 +13,10 @@ import St from 'gi://St';
 import * as UnlockDialog from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 var _updateBackgroundEffects = UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
-var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
-var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
+
+// original functions
+var _showClock_GNOME = UnlockDialog.UnlockDialog.prototype._showClock;
+var _showPrompt_GNOME = UnlockDialog.UnlockDialog.prototype._showPrompt;
 
 var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
@@ -70,13 +72,13 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
 // adjustable blur in a Windows-like way (this ensures login prompt is readable)
 function _showClock_BWP() {
     promptActive = false;
-    this._showClock_GNOME(); // pass to default GNOME function
+    _showClock_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
 function _showPrompt_BWP() {
     promptActive = true;
-    this._showPrompt_GNOME(); // pass to default GNOME function
+    _showPrompt_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
@@ -123,8 +125,8 @@ export default class Blur {
             UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
 
             // this are the original functions which we call into from our versions above
-            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock;
-            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt_GNOME;
             
         }
         this.enabled = true;
