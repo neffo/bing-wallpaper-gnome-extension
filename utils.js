@@ -68,7 +68,7 @@ export function validate_icon(settings, extension_path, icon_image = null) {
     // if called from prefs
     if (icon_image) { 
         BingLog('set icon to: ' + extension_path + '/icons/' + icon_name + '.svg');
-        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 32, 32);
+        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 64, 64);
         icon_image.set_from_pixbuf(pixbuf);
     }
 }

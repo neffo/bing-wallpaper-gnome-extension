@@ -31,43 +31,43 @@ msgid "Select from alternate tray icons"
 msgstr ""
 
 #: ui/prefsadw.ui.h:9
-msgid "Wallpaper"
-msgstr ""
-
-#: ui/prefsadw.ui.h:10
-msgid "Set wallpaper"
-msgstr ""
-
-#: ui/prefsadw.ui.h:11
-msgid "Whether to set wallpaper automatically"
-msgstr ""
-
-#: ui/prefsadw.ui.h:12
-msgid "Enabled shuffle"
-msgstr ""
-
-#: ui/prefsadw.ui.h:13
-msgid "Randomly select wallpaper from collection"
-msgstr ""
-
-#: ui/prefsadw.ui.h:14
-msgid "Shuffle interval"
-msgstr ""
-
-#: ui/prefsadw.ui.h:15
-msgid "How frequently to shuffle wallpapers"
-msgstr ""
-
-#: ui/prefsadw.ui.h:16
-msgid "Downloads"
-msgstr ""
-
-#: ui/prefsadw.ui.h:17
 msgid "Download folder"
 msgstr ""
 
-#: ui/prefsadw.ui.h:18
+#: ui/prefsadw.ui.h:10
 msgid "Open or change wallpaper downloads folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:11
+msgid "Wallpaper"
+msgstr ""
+
+#: ui/prefsadw.ui.h:12
+msgid "Set wallpaper"
+msgstr ""
+
+#: ui/prefsadw.ui.h:13
+msgid "Whether to set wallpaper automatically"
+msgstr ""
+
+#: ui/prefsadw.ui.h:14
+msgid "Enabled shuffle"
+msgstr ""
+
+#: ui/prefsadw.ui.h:15
+msgid "Randomly select wallpaper from collection"
+msgstr ""
+
+#: ui/prefsadw.ui.h:16
+msgid "Shuffle interval"
+msgstr ""
+
+#: ui/prefsadw.ui.h:17
+msgid "How frequently to shuffle wallpapers"
+msgstr ""
+
+#: ui/prefsadw.ui.h:18
+msgid "Downloads"
 msgstr ""
 
 #: ui/prefsadw.ui.h:19
@@ -214,7 +214,7 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: ui/prefsadw.ui.h:55 prefs.js:103
+#: ui/prefsadw.ui.h:55 prefs.js:104
 msgid "Change folder"
 msgstr ""
 
@@ -358,31 +358,31 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:95
+#: prefs.js:96
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:131
+#: prefs.js:132
 msgid "Default"
 msgstr ""
 
-#: prefs.js:139
+#: prefs.js:140
 msgid "No blur, slight dim"
 msgstr ""
 
-#: prefs.js:147
+#: prefs.js:148
 msgid "Slight blur & dim"
 msgstr ""
 
-#: prefs.js:184
+#: prefs.js:185
 msgid "Import"
 msgstr ""
 
-#: prefs.js:192
+#: prefs.js:193
 msgid "Export"
 msgstr ""
 
-#: prefs.js:265
+#: prefs.js:267
 msgid "Select wallpaper download folder"
 msgstr ""
 

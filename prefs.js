@@ -32,7 +32,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         window.set_default_size(PREFS_DEFAULT_WIDTH, PREFS_DEFAULT_HEIGHT);
 
-        let icon_image = null;
+        /*let icon_image = null;*/
         let provider = new Gtk.CssProvider();
         provider.load_from_path(this.dir.get_path() + '/ui/prefs.css');
         Gtk.StyleContext.add_provider_for_display(
@@ -61,13 +61,14 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const notifySwitch = buildable.get_object('notifySwitch');
         const iconEntry = buildable.get_object('iconEntry');
 
+        /*
         const list = new Gtk.StringList();
         Utils.icon_list.forEach((iconname, index) => {
-            list.append(iconname, iconname);
+            list.append(iconname);
         });
         
-        iconEntry.set_model(list);
-        iconEntry.set_selected(Utils.icon_list.indexOf(settings.get_string('icon-name')));
+        iconEntry.set_model(list);*/
+        iconEntry.set_value(1+Utils.icon_list.indexOf(settings.get_string('icon-name')));
         
 
         const wp_group = buildable.get_object('wp_group');
@@ -213,8 +214,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         catch (e) {
             log("Error creating httpSession: " + e);
         }
-        
-        
+        const icon_image = buildable.get_object('icon_image');
         
         // check that these are valid (can be edited through dconf-editor)
         Utils.validate_resolution(settings);
@@ -226,10 +226,12 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('notify', notifySwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.connect('changed::icon-name', () => {
             Utils.validate_icon(settings, this.path, icon_image);
-            /*iconEntry.set_selected(Utils.indexOf(settings.get_string('icon-name')));*/
+            iconEntry.set_value(1 + Utils.icon_list.indexOf(settings.get_string('icon-name')));
         });
                
-        //iconEntry.set_active_id(settings.get_string('icon-name'));
+        iconEntry.connect('output', () => {
+            settings.set_string('icon-name', Utils.icon_list[iconEntry.get_value()-1]);
+        });
 
         // connect switches to settings changes
         settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -283,7 +285,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
         resolutionEntry.set_model(resolutionModel);
         
-        settings.bind('resolution', resolutionEntry, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('resolution', resolutionEntry, 'selected', Gio.SettingsBindFlags.DEFAULT);
 
         settings.connect('changed::resolution', () => {
             Utils.validate_resolution(settings);

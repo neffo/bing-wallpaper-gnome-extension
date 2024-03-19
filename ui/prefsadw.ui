@@ -41,9 +41,35 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </object>
                 </child>
                 <child>
-                    <object class="AdwComboRow" id="iconEntry">
+                    <object class="AdwSpinRow" id="iconEntry">
                         <property name="title" translatable="yes">Indicator icon</property>
                         <property name="subtitle" translatable="yes">Select from alternate tray icons</property>
+                        <property name="adjustment">
+                            <object class="GtkAdjustment" id="iconEntryAdjustment">
+                                <property name="lower">1</property>
+                                <property name="upper">5</property>
+                                <property name="step_increment">1</property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwActionRow" id="icon_image_row">
+                        <!--
+                        <property name="title" translatable="yes">Download folder</property>
+                        <property name="subtitle" translatable="yes">Open or change wallpaper downloads folder</property>
+                        -->
+                        <child>
+                            <object class="GtkImage" id="icon_image">
+                                <property name="width_request">64</property>
+                                <property name="height_request">64</property>
+                                <property name="can_focus">0</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">1</property>
+                                <property name="file">../icons/bing-symbolic.svg</property>
+                                <property name="css_classes">icon_image_black_bg</property>
+                            </object>
+                        </child>
                     </object>
                 </child>
             </object>
