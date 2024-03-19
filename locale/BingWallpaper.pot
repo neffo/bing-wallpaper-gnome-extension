@@ -1,215 +1,225 @@
-#: ui/Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
+#: ui/prefsadw.ui.h:1
+msgid "Members"
 msgstr ""
 
-#: ui/Settings4.ui.h:2
-msgid "Hide the indicator"
+#: ui/prefsadw.ui.h:2
+msgid "Indicator"
 msgstr ""
 
-#: ui/Settings4.ui.h:3
+#: ui/prefsadw.ui.h:3
+msgid "Hide Indicator"
+msgstr ""
+
+#: ui/prefsadw.ui.h:4
+msgid "Whether to hide the panel indicator"
+msgstr ""
+
+#: ui/prefsadw.ui.h:5
+msgid "Desktop notifications"
+msgstr ""
+
+#: ui/prefsadw.ui.h:6
+msgid "Enable notifications on new images"
+msgstr ""
+
+#: ui/prefsadw.ui.h:7
 msgid "Indicator icon"
 msgstr ""
 
-#: ui/Settings4.ui.h:4 extension.js:156
-msgid "Enable desktop notifications"
+#: ui/prefsadw.ui.h:8
+msgid "Select from alternate tray icons"
 msgstr ""
 
-#: ui/Settings4.ui.h:5 extension.js:136 extension.js:152
-msgid "Set background image"
+#: ui/prefsadw.ui.h:9
+msgid "Wallpaper"
 msgstr ""
 
-#: ui/Settings4.ui.h:6
-msgid "Background style option"
+#: ui/prefsadw.ui.h:10
+msgid "Set wallpaper"
 msgstr ""
 
-#: ui/Settings4.ui.h:7
+#: ui/prefsadw.ui.h:11
+msgid "Whether to set wallpaper automatically"
+msgstr ""
+
+#: ui/prefsadw.ui.h:12
+msgid "Enabled shuffle"
+msgstr ""
+
+#: ui/prefsadw.ui.h:13
+msgid "Randomly select wallpaper from collection"
+msgstr ""
+
+#: ui/prefsadw.ui.h:14
+msgid "Shuffle interval"
+msgstr ""
+
+#: ui/prefsadw.ui.h:15
+msgid "How frequently to shuffle wallpapers"
+msgstr ""
+
+#: ui/prefsadw.ui.h:16
+msgid "Downloads"
+msgstr ""
+
+#: ui/prefsadw.ui.h:17
 msgid "Download folder"
 msgstr ""
 
-#: ui/Settings4.ui.h:8 prefs.js:95
-msgid "Open folder"
+#: ui/prefsadw.ui.h:18
+msgid "Open or change wallpaper downloads folder"
 msgstr ""
 
-#: ui/Settings4.ui.h:9
-msgid "Selected image"
+#: ui/prefsadw.ui.h:19
+msgid "Lock screen"
 msgstr ""
 
-#: ui/Settings4.ui.h:10
-msgid "Shuffle enabled"
+#: ui/prefsadw.ui.h:20
+msgid "Lockscreen blur"
 msgstr ""
 
-#: ui/Settings4.ui.h:11
-msgid "Shuffle mode"
+#: ui/prefsadw.ui.h:21
+msgid "Dynamic lockscreen blur"
 msgstr ""
 
-#: ui/Settings4.ui.h:12
-msgid "Bing locale"
+#: ui/prefsadw.ui.h:22
+msgid "Whether to enable dynamic blur mode on lock screen"
 msgstr ""
 
-#: ui/Settings4.ui.h:13 extension.js:139
-msgid "Settings"
+#: ui/prefsadw.ui.h:23
+msgid "Blur strength"
 msgstr ""
 
-#: ui/Settings4.ui.h:14
-msgid "Dynamically switches blur on GDM3 lock screen"
+#: ui/prefsadw.ui.h:24
+msgid "Blur strength when login prompt is not visible"
 msgstr ""
 
-#: ui/Settings4.ui.h:15
-msgid "Enable dynamic lockscreen blur"
+#: ui/prefsadw.ui.h:25
+msgid "Wallpaper brightness"
 msgstr ""
 
-#: ui/Settings4.ui.h:16
-msgid "Blur can improve readability"
+#: ui/prefsadw.ui.h:26
+msgid "Dim wallpaper when login prompt is not visible"
 msgstr ""
 
-#: ui/Settings4.ui.h:17
-msgid "Background blur intensity"
-msgstr ""
-
-#: ui/Settings4.ui.h:18
-msgid "Can improve contrast of login prompt"
-msgstr ""
-
-#: ui/Settings4.ui.h:19
-msgid "Background brightness"
-msgstr ""
-
-#: ui/Settings4.ui.h:20
+#: ui/prefsadw.ui.h:27
 msgid "Presets"
 msgstr ""
 
-#: ui/Settings4.ui.h:21 prefs.js:139
-msgid "No blur, slight dim"
-msgstr ""
-
-#: ui/Settings4.ui.h:22
-msgid "GNOME default"
-msgstr ""
-
-#: ui/Settings4.ui.h:23
-msgid "Slight blur, slight dim"
-msgstr ""
-
-#: ui/Settings4.ui.h:24
-msgid "Lock Screen"
-msgstr ""
-
-#: ui/Settings4.ui.h:25
-msgid "Enable logging to system journal"
-msgstr ""
-
-#: ui/Settings4.ui.h:26
-msgid "Debug logging"
-msgstr ""
-
-#: ui/Settings4.ui.h:27
-msgid "Switch to new images when available (unless on random mode)"
-msgstr ""
-
-#: ui/Settings4.ui.h:28 extension.js:153
-msgid "Always show new images"
-msgstr ""
-
-#: ui/Settings4.ui.h:29
-msgid "Some newer features may be unstable on Wayland"
-msgstr ""
-
-#: ui/Settings4.ui.h:30
-msgid "Enable all features on Wayland"
-msgstr ""
-
-#: ui/Settings4.ui.h:31
-msgid "Screen resolution"
-msgstr ""
-
-#: ui/Settings4.ui.h:32
-msgid "Override automatic resolution selection"
-msgstr ""
-
-#: ui/Settings4.ui.h:33
-msgid "Manually adjust random interval (seconds)"
-msgstr ""
-
-#: ui/Settings4.ui.h:34
-msgid "Random interval"
-msgstr ""
-
-#: ui/Settings4.ui.h:35
-msgid "Import Bing Wallpaper data"
-msgstr ""
-
-#: ui/Settings4.ui.h:36
-msgid "Import previously exported JSON data from wallpaper directory"
-msgstr ""
-
-#: ui/Settings4.ui.h:37 prefs.js:184
-msgid "Import"
-msgstr ""
-
-#: ui/Settings4.ui.h:38
-msgid "Export Bing Wallpaper data"
-msgstr ""
-
-#: ui/Settings4.ui.h:39
-msgid "Export JSON data to wallpaper dir for backup or data migration"
-msgstr ""
-
-#: ui/Settings4.ui.h:40 prefs.js:192
-msgid "Export"
-msgstr ""
-
-#: ui/Settings4.ui.h:41
-msgid "Always export Bing data"
-msgstr ""
-
-#: ui/Settings4.ui.h:42
-msgid "Export Bing JSON whenever data changes"
-msgstr ""
-
-#: ui/Settings4.ui.h:43
-msgid "Debug options"
-msgstr ""
-
-#: ui/Settings4.ui.h:44
+#: ui/prefsadw.ui.h:28
 msgid "Gallery"
 msgstr ""
 
-#: ui/Settings4.ui.h:45
+#: ui/prefsadw.ui.h:29
+msgid "Debug"
+msgstr ""
+
+#: ui/prefsadw.ui.h:30
+msgid "Debug options"
+msgstr ""
+
+#: ui/prefsadw.ui.h:31
+msgid "Debug logging"
+msgstr ""
+
+#: ui/prefsadw.ui.h:32
+msgid "Enable logging to system journal"
+msgstr ""
+
+#: ui/prefsadw.ui.h:33 extension.js:153
+msgid "Always show new images"
+msgstr ""
+
+#: ui/prefsadw.ui.h:34
+msgid "Switch to new images when available (unless on random mode)"
+msgstr ""
+
+#: ui/prefsadw.ui.h:35
+msgid "Purge on trash"
+msgstr ""
+
+#: ui/prefsadw.ui.h:36
+msgid "Trashing an image will remove it from database"
+msgstr ""
+
+#: ui/prefsadw.ui.h:37
+msgid "Screen resolution"
+msgstr ""
+
+#: ui/prefsadw.ui.h:38
+msgid "Override automatic resolution selection"
+msgstr ""
+
+#: ui/prefsadw.ui.h:39
+msgid "Random interval"
+msgstr ""
+
+#: ui/prefsadw.ui.h:40
+msgid "Custom shuffle interval when enabled"
+msgstr ""
+
+#: ui/prefsadw.ui.h:41
+msgid "Always export Bing data"
+msgstr ""
+
+#: ui/prefsadw.ui.h:42
+msgid "Export Bing JSON when image data changes"
+msgstr ""
+
+#: ui/prefsadw.ui.h:43
+msgid "Bing JSON data"
+msgstr ""
+
+#: ui/prefsadw.ui.h:44
+msgid "About"
+msgstr ""
+
+#: ui/prefsadw.ui.h:45
+msgid "Bing Wallpaper"
+msgstr ""
+
+#: ui/prefsadw.ui.h:46
 msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
-#: ui/Settings4.ui.h:46
-msgid "GNOME shell extension version "
-msgstr ""
-
-#: ui/Settings4.ui.h:47
+#: ui/prefsadw.ui.h:47
 msgid "Maintained by Michael Carroll"
 msgstr ""
 
-#: ui/Settings4.ui.h:48
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/"
-"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
+#: ui/prefsadw.ui.h:48
+msgid "Version"
 msgstr ""
 
-#: ui/Settings4.ui.h:49
-msgid "Changes since last version"
+#: ui/prefsadw.ui.h:49
+msgid "Release notes"
 msgstr ""
 
-#: ui/Settings4.ui.h:50
-msgid "Based on NASA APOD GNOME shell extension by Elia Argentieri"
+#: ui/prefsadw.ui.h:50
+msgid "GNOME extensions page"
 msgstr ""
 
-#: ui/Settings4.ui.h:51
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
+#: ui/prefsadw.ui.h:51
+msgid "Source code"
 msgstr ""
 
-#: ui/Settings4.ui.h:53
-msgid "About"
+#: ui/prefsadw.ui.h:52
+msgid "Report an issue"
+msgstr ""
+
+#: ui/prefsadw.ui.h:53
+msgid "Contributors"
+msgstr ""
+
+#: ui/prefsadw.ui.h:54
+msgid "License"
+msgstr ""
+
+#: ui/prefsadw.ui.h:55 prefs.js:103
+msgid "Change folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:56
+msgid "Select new wallpaper download folder"
 msgstr ""
 
 #: ui/carousel4.ui.h:1
@@ -276,12 +286,20 @@ msgstr ""
 msgid "Open image folder"
 msgstr ""
 
+#: extension.js:136 extension.js:152
+msgid "Set background image"
+msgstr ""
+
 #: extension.js:137
 msgid "Set lock screen image"
 msgstr ""
 
 #: extension.js:138
 msgid "Refresh Now"
+msgstr ""
+
+#: extension.js:139
+msgid "Settings"
 msgstr ""
 
 #: extension.js:140
@@ -304,6 +322,10 @@ msgstr ""
 msgid "Image shuffle only favourites"
 msgstr ""
 
+#: extension.js:156
+msgid "Enable desktop notifications"
+msgstr ""
+
 #: extension.js:157
 msgid "Show image count"
 msgstr ""
@@ -324,28 +346,40 @@ msgstr ""
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:802 extension.js:877
+#: extension.js:808 extension.js:883
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:915
+#: extension.js:921
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:916
+#: extension.js:922
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:103
-msgid "Change folder"
+#: prefs.js:95
+msgid "Open folder"
 msgstr ""
 
 #: prefs.js:131
 msgid "Default"
 msgstr ""
 
+#: prefs.js:139
+msgid "No blur, slight dim"
+msgstr ""
+
 #: prefs.js:147
 msgid "Slight blur & dim"
+msgstr ""
+
+#: prefs.js:184
+msgid "Import"
+msgstr ""
+
+#: prefs.js:192
+msgid "Export"
 msgstr ""
 
 #: prefs.js:265
