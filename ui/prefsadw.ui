@@ -24,7 +24,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
     <requires lib="libadwaita" version="1.0"/>
     <object class="AdwPreferencesPage" id="settings_page">
         <property name="icon-name">emblem-photos-symbolic</property>
-        <property name="title" translatable="yes">Members</property>
+        <property name="title" translatable="yes">Settings</property>
         <child>
             <object class="AdwPreferencesGroup" id="ui_group">
                 <property name="title" translatable="yes">Indicator</property>
@@ -85,7 +85,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 </child>
                 <child>
                     <object class="AdwSwitchRow" id="shuffleSwitch">
-                        <property name="title" translatable="yes">Enabled shuffle</property>
+                        <property name="title" translatable="yes">Shuffle wallpaper</property>
                         <property name="subtitle" translatable="yes">Randomly select wallpaper from collection</property>
                     </object>
                 </child>

@@ -1,5 +1,5 @@
-#: ui/prefsadw.ui.h:1
-msgid "Members"
+#: ui/prefsadw.ui.h:1 extension.js:139
+msgid "Settings"
 msgstr ""
 
 #: ui/prefsadw.ui.h:2
@@ -51,7 +51,7 @@ msgid "Whether to set wallpaper automatically"
 msgstr ""
 
 #: ui/prefsadw.ui.h:14
-msgid "Enabled shuffle"
+msgid "Shuffle wallpaper"
 msgstr ""
 
 #: ui/prefsadw.ui.h:15
@@ -296,10 +296,6 @@ msgstr ""
 
 #: extension.js:138
 msgid "Refresh Now"
-msgstr ""
-
-#: extension.js:139
-msgid "Settings"
 msgstr ""
 
 #: extension.js:140

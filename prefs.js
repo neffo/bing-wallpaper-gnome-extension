@@ -285,7 +285,9 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
         resolutionEntry.set_model(resolutionModel);
         
-        settings.bind('resolution', resolutionEntry, 'selected', Gio.SettingsBindFlags.DEFAULT);
+        settings.connect('changed::resolution', () => {
+            resolutionEntry.set_selected(Utils.resolutions.map( e => e.value).indexOf(settings.get_string('resolution')));
+        });
 
         settings.connect('changed::resolution', () => {
             Utils.validate_resolution(settings);
