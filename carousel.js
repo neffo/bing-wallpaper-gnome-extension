@@ -107,7 +107,6 @@ export default class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            Utils.hideImage(this.settings, [image]);
             Utils.setImageHiddenStatus(this.settings, [image], true);
             Utils.cleanupImageList(this.settings); // hide image instead
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
