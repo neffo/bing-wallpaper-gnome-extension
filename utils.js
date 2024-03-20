@@ -195,16 +195,15 @@ export function setImageList(settings, imageList) {
     }
 }
 
-export function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+export function setImageHiddenStatus(settings, hide_image, hide_status) {
     // get current image list
     let image_list = getImageList(settings);
+    log ('image count = '+image_list.length+', hide_image = '+hide_image);
     image_list.forEach( (x, i) => {
-        hide_image_list.forEach(u => {
-            if (u.includes(x.urlbase)) {
-                // mark as hidden
-                x.hidden = hide_status;
-            }
-        });
+        if (hide_image.includes(x.urlbase)) {
+            // mark as hidden
+            x.hidden = hide_status;
+        }
     });
     // export image list back to settings
     setImageList(settings, image_list);

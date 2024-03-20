@@ -386,14 +386,14 @@ msgstr ""
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:414 utils.js:417
+#: utils.js:413 utils.js:416
 msgid "minutes"
 msgstr ""
 
-#: utils.js:420
+#: utils.js:419
 msgid "days"
 msgstr ""
 
-#: utils.js:423
+#: utils.js:422
 msgid "hours"
 msgstr ""
