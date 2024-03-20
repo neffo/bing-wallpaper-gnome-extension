@@ -594,7 +594,7 @@ class BingWallpaperIndicator extends Button {
         if (this._settings.get_boolean('trash-deletes-images')) {
             log('image to be deleted: '+this.filename);
             Utils.deleteImage(this.filename);
-            Utils.validate_imagename(this.settings);
+            Utils.validate_imagename(this._settings);
         }
         
     }
