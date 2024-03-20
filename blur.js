@@ -13,10 +13,8 @@ import St from 'gi://St';
 import * as UnlockDialog from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 var _updateBackgroundEffects = UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
-
-// original functions
-var _showClock_GNOME = UnlockDialog.UnlockDialog.prototype._showClock;
-var _showPrompt_GNOME = UnlockDialog.UnlockDialog.prototype._showPrompt;
+var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
+var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
 
 var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
@@ -28,7 +26,7 @@ var BWP_BLUR_BRIGHTNESS = 55;
 // GNOME defaults
 var BLUR_BRIGHTNESS = 0.55;
 var BLUR_SIGMA = 60;
-var debug = true;
+var debug = false;
 
 var promptActive = false;   // default GNOME method of testing this relies on state of a transisiton
                             // so we are being explicit here (do not want any races, thanks)
@@ -70,13 +68,13 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
 
 // we patch both UnlockDialog._showClock() and UnlockDialog._showPrompt() to let us 
 // adjustable blur in a Windows-like way (this ensures login prompt is readable)
-function _showClock_BWP(this) {
+function _showClock_BWP() {
     promptActive = false;
     this._showClock_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
-function _showPrompt_BWP(this) {
+function _showPrompt_BWP() {
     promptActive = true;
     this._showPrompt_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
@@ -85,12 +83,12 @@ function _showPrompt_BWP(this) {
 export default class Blur {
     constructor() {
         this.enabled = false;
-        log('Bing Wallpaper adjustable blur is ' + supportedVersion() ? 'available' : 'not available');
+        log('Bing Wallpaper adjustable blur is '+supportedVersion()?'available':'not available');
     }
 
     set_blur_strength(value) {
         BWP_BLUR_SIGMA = this._clampValue(value);
-        log("lockscreen blur strength set to " + BWP_BLUR_SIGMA);
+        log("lockscreen blur strength set to "+BWP_BLUR_SIGMA);
     }
 
     set_blur_brightness(value) {
@@ -125,8 +123,8 @@ export default class Blur {
             UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
 
             // this are the original functions which we call into from our versions above
-            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock_GNOME;
-            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock;
+            UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
             
         }
         this.enabled = true;
@@ -139,8 +137,8 @@ export default class Blur {
         if (supportedVersion()) {
             // restore default functions
             UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
-            UnlockDialog.UnlockDialog.prototype._showClock = _showClock_GNOME;
-            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_GNOME;
+            UnlockDialog.UnlockDialog.prototype._showClock = _showClock;
+            UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt;
             // clean up unused functions we created
             UnlockDialog.UnlockDialog.prototype._showClock_GNOME = null;
             delete UnlockDialog.UnlockDialog.prototype._showClock_GNOME;
@@ -151,8 +149,9 @@ export default class Blur {
     }
 };
 
-function supportedVersion() {
-    if (shellVersionMajor >= 40 ) {
+function supportedVersion() { // when current lockscren blur implementation was first shipped (we ignore earlier weird version)
+    if (shellVersionMajor >= 40 ||
+        (shellVersionMajor == 3 && shellVersionMinor == 36 && shellVersionPoint >= 4)) {
         return true;
     }
 
