@@ -12,9 +12,9 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 
-export var PRESET_GNOME_DEFAULT = { blur: 60, dim: 55 }; // as at GNOME 40
-export var PRESET_NO_BLUR = { blur: 0, dim: 60 };
-export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 60 };
+export var PRESET_GNOME_DEFAULT = { blur: 45, dim: 65 }; // as at GNOME 40
+export var PRESET_NO_BLUR = { blur: 0, dim: 65 };
+export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 30 };
 
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
@@ -52,7 +52,8 @@ export var backgroundStyle = ['none', 'wallpaper', 'centered', 'scaled', 'stretc
 
 export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
                         {value: 'daily', title: ('every day at midnight')},
-                        {value: 'weekly', title: ('every Sunday at midnight')} ];
+                        {value: 'weekly', title: ('Sunday at midnight')},
+                        { value: 'custom', title: ('User defined interval')} ];
 
 export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
 export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
@@ -67,7 +68,7 @@ export function validate_icon(settings, extension_path, icon_image = null) {
     // if called from prefs
     if (icon_image) { 
         BingLog('set icon to: ' + extension_path + '/icons/' + icon_name + '.svg');
-        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 32, 32);
+        let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(extension_path + '/icons/' + icon_name + '.svg', 64, 64);
         icon_image.set_from_pixbuf(pixbuf);
     }
 }
@@ -76,6 +77,12 @@ export function validate_resolution(settings) {
     let resolution = settings.get_string('resolution');
     if (resolution == '' || resolutions.indexOf(resolution) == -1) // if not a valid resolution
         settings.reset('resolution');
+}
+
+export function validate_interval(settings) {
+    let index = randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode'));
+    if (index == -1) // if not a valid interval
+        settings.reset('random-interval-mode');
 }
 
 // FIXME: needs work
@@ -188,16 +195,15 @@ export function setImageList(settings, imageList) {
     }
 }
 
-export function setImageHiddenStatus(settings, hide_image_list, hide_status) {
+export function setImageHiddenStatus(settings, hide_image, hide_status) {
     // get current image list
     let image_list = getImageList(settings);
+    log ('image count = '+image_list.length+', hide_image = '+hide_image);
     image_list.forEach( (x, i) => {
-        hide_image_list.forEach(u => {
-            if (u.includes(x.urlbase)) {
-                // mark as hidden
-                x.hidden = hide_status;
-            }
-        });
+        if (hide_image.includes(x.urlbase)) {
+            // mark as hidden
+            x.hidden = hide_status;
+        }
     });
     // export image list back to settings
     setImageList(settings, image_list);
@@ -294,6 +300,8 @@ export function getImageByIndex(imageList, index) {
 }
 
 export function cleanupImageList(settings) {
+    if (settings.get_boolean('trash-deletes-images') == false)
+        return;
     let curList = imageListSortByDate(getImageList(settings));
     let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
     let newList = [];

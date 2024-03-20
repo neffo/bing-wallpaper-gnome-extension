@@ -107,8 +107,8 @@ export default class Carousel {
         deleteButton.connect('clicked', (widget) => {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
-            //Utils.cleanupImageList(this.settings); // hide image instead
-            Utils.hideImage(this.settings, [image]);
+            Utils.setImageHiddenStatus(this.settings, image.urlbase, true);
+            Utils.cleanupImageList(this.settings); // hide image instead
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
@@ -169,6 +169,7 @@ export default class Carousel {
             this.flowBox.remove(widget.get_parent());
             this.flowBox.set_max_children_per_line(2);
             this._create_gallery();
+            
         });
 
         let item = buildable.get_object('flowBoxPlaceholder');

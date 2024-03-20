@@ -37,7 +37,7 @@ function log(msg) {
 }
 
 // we patch UnlockDialog._updateBackgroundEffects()
-function _updateBackgroundEffects_BWP(monitorIndex) {
+export function _updateBackgroundEffects_BWP(monitorIndex) {
     // GNOME shell 3.36.4 and above
     log("_updateBackgroundEffects_BWP() called for shell >= 3.36.4");
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
@@ -68,18 +68,26 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
 
 // we patch both UnlockDialog._showClock() and UnlockDialog._showPrompt() to let us 
 // adjustable blur in a Windows-like way (this ensures login prompt is readable)
-function _showClock_BWP() {
+export function _showClock_BWP() {
     promptActive = false;
     this._showClock_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
-function _showPrompt_BWP() {
+export function _showPrompt_BWP() {
     promptActive = true;
     this._showPrompt_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
+export function _clampValue(value) {
+       // valid values are 0 to 100
+    if (value > 100)
+        value = 100;
+    if (value < 0 )
+        value = 0;
+    return value;
+}
 export default class Blur {
     constructor() {
         this.enabled = false;
@@ -87,22 +95,13 @@ export default class Blur {
     }
 
     set_blur_strength(value) {
-        BWP_BLUR_SIGMA = this._clampValue(value);
+        BWP_BLUR_SIGMA = _clampValue(value);
         log("lockscreen blur strength set to "+BWP_BLUR_SIGMA);
     }
 
     set_blur_brightness(value) {
-        BWP_BLUR_BRIGHTNESS = this._clampValue(value);
+        BWP_BLUR_BRIGHTNESS = _clampValue(value);
         log("lockscreen brightness set to " + BWP_BLUR_BRIGHTNESS);
-    }
-
-    // valid values are 0 to 100
-    _clampValue(value) {
-        if (value > 100)
-            value = 100;
-        if (value < 0 )
-            value = 0;
-        return value;
     }
 
     _switch(enabled) {

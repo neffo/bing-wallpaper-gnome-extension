@@ -211,7 +211,7 @@
     </key>
 
     <key name="trash-deletes-images" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Trash deletes images or just marks as bad</summary>
     </key>
     
