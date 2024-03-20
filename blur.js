@@ -28,7 +28,7 @@ var BWP_BLUR_BRIGHTNESS = 55;
 // GNOME defaults
 var BLUR_BRIGHTNESS = 0.55;
 var BLUR_SIGMA = 60;
-var debug = false;
+var debug = true;
 
 var promptActive = false;   // default GNOME method of testing this relies on state of a transisiton
                             // so we are being explicit here (do not want any races, thanks)
@@ -85,12 +85,12 @@ function _showPrompt_BWP() {
 export default class Blur {
     constructor() {
         this.enabled = false;
-        log('Bing Wallpaper adjustable blur is '+supportedVersion()?'available':'not available');
+        log('Bing Wallpaper adjustable blur is ' + supportedVersion() ? 'available' : 'not available');
     }
 
     set_blur_strength(value) {
         BWP_BLUR_SIGMA = this._clampValue(value);
-        log("lockscreen blur strength set to "+BWP_BLUR_SIGMA);
+        log("lockscreen blur strength set to " + BWP_BLUR_SIGMA);
     }
 
     set_blur_brightness(value) {
@@ -151,9 +151,8 @@ export default class Blur {
     }
 };
 
-function supportedVersion() { // when current lockscren blur implementation was first shipped (we ignore earlier weird version)
-    if (shellVersionMajor >= 40 ||
-        (shellVersionMajor == 3 && shellVersionMinor == 36 && shellVersionPoint >= 4)) {
+function supportedVersion() {
+    if (shellVersionMajor >= 40 ) {
         return true;
     }
 
