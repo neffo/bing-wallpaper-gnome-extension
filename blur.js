@@ -70,13 +70,13 @@ function _updateBackgroundEffects_BWP(monitorIndex) {
 
 // we patch both UnlockDialog._showClock() and UnlockDialog._showPrompt() to let us 
 // adjustable blur in a Windows-like way (this ensures login prompt is readable)
-function _showClock_BWP() {
+function _showClock_BWP(this) {
     promptActive = false;
     this._showClock_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
 }
 
-function _showPrompt_BWP() {
+function _showPrompt_BWP(this) {
     promptActive = true;
     this._showPrompt_GNOME(); // pass to default GNOME function
     this._updateBackgroundEffects();
