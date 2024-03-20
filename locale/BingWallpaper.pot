@@ -214,7 +214,7 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: ui/prefsadw.ui.h:55 prefs.js:118
+#: ui/prefsadw.ui.h:55 prefs.js:115
 msgid "Change folder"
 msgstr ""
 
@@ -354,31 +354,31 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:110
+#: prefs.js:107
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:133
+#: prefs.js:130
 msgid "Default"
 msgstr ""
 
-#: prefs.js:141
+#: prefs.js:138
 msgid "No blur, slight dim"
 msgstr ""
 
-#: prefs.js:149
+#: prefs.js:146
 msgid "Slight blur & dim"
 msgstr ""
 
-#: prefs.js:173
+#: prefs.js:163
 msgid "Import"
 msgstr ""
 
-#: prefs.js:181
+#: prefs.js:171
 msgid "Export"
 msgstr ""
 
-#: prefs.js:248
+#: prefs.js:238
 msgid "Select wallpaper download folder"
 msgstr ""
 
