@@ -21,6 +21,7 @@ const BingImageURL = Utils.BingImageURL;
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
+// this is pretty wide because of the size of the gallery
 var PREFS_DEFAULT_WIDTH = 750;
 var PREFS_DEFAULT_HEIGHT = 750;
 
@@ -52,44 +53,54 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         // GTK4 removes some properties, and builder breaks when it sees them
         buildable.add_from_file( this.dir.get_path() + '/ui/prefsadw.ui' );
 
+        // adw or gtk objects we'll attach to below
         const settings_page = buildable.get_object('settings_page');
-        
-        window.add(settings_page);
-        
-        const ui_group = buildable.get_object('ui_group');
         const hideSwitch = buildable.get_object('hideSwitch');
         const notifySwitch = buildable.get_object('notifySwitch');
         const iconEntry = buildable.get_object('iconEntry');
+        const bgSwitch = buildable.get_object('bgSwitch');
+        const shuffleSwitch = buildable.get_object('shuffleSwitch');
+        const shuffleInterval = buildable.get_object('shuffleInterval'); 
+        const folderRow = buildable.get_object('folderRow');
+        const lockscreen_page = buildable.get_object('lockscreen_page');
+        const overrideSwitch = buildable.get_object('overrideSwitch');
+        const blurPresets = buildable.get_object('blurPresets');
+        const strengthEntry = buildable.get_object('strengthEntry');
+        const brightnessEntry = buildable.get_object('brightnessEntry');
+        const blurAdjustment = buildable.get_object('blurAdjustment');
+        const brightnessAdjustment = buildable.get_object('brightnessAdjustment');
+        const resolutionEntry = buildable.get_object('resolutionEntry');
+        const debugSwitch = buildable.get_object('debug_switch');
+        const revertSwitch = buildable.get_object('revert_switch');
+        const trash_purge_switch = buildable.get_object('trash_purge_switch');
+        const always_export_switch = buildable.get_object('always_export_switch');
+        const gallery_page = buildable.get_object('gallery_page');
+        const carouselFlowBox = buildable.get_object('carouselFlowBox');
+        const randomIntervalEntry = buildable.get_object('entry_random_interval');
+        const debug_page = buildable.get_object('debug_page');
+        const json_actionrow = buildable.get_object('json_actionrow');
+        const about_page = buildable.get_object('about_page');
+        const version_button = buildable.get_object('version_button');
+        const change_log = buildable.get_object('change_log');
 
-        /*
-        const list = new Gtk.StringList();
-        Utils.icon_list.forEach((iconname, index) => {
-            list.append(iconname);
-        });
-        
-        iconEntry.set_model(list);*/
+        window.add(settings_page);
+        window.add(lockscreen_page);
+        window.add(gallery_page);       
+        window.add(debug_page);
+        window.add(about_page);
+
         iconEntry.set_value(1+Utils.icon_list.indexOf(settings.get_string('icon-name')));
-        
 
-        const wp_group = buildable.get_object('wp_group');
-        //settings_page.add(wp_group);
-
+        // shuffle intervals
         const shuffleIntervals  = new Gtk.StringList;
         Utils.randomIntervals.forEach((x) => {
             shuffleIntervals.append(_(x.title));
         });
-
-        const bgSwitch = buildable.get_object('bgSwitch');
-        const shuffleSwitch = buildable.get_object('shuffleSwitch');
-        const shuffleInterval = buildable.get_object('shuffleInterval');
+       
         shuffleInterval.set_model(shuffleIntervals);
         shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
 
-        const dl_group = buildable.get_object('dl_group');
-        //settings_page.add(dl_group);
-
-        const folderRow = buildable.get_object('folderRow');
-
+        // add wallpaper folder open and change buttons
         const openBtn = new Gtk.Button( {
             child: new Adw.ButtonContent({
                         icon_name: 'folder-pictures-symbolic',
@@ -108,20 +119,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         folderRow.add_suffix(openBtn);
-        folderRow.add_suffix(changeBtn);
-
-        /* not sure how to make this work right just yet */
-        const folderDialog = buildable.get_object('folderDialog');
-        const lockscreen_page = buildable.get_object('lockscreen_page');
-
-        window.add(lockscreen_page);
-        const ls_group = buildable.get_object('ls_group');
-        const overrideSwitch = buildable.get_object('overrideSwitch');
-        const blurPresets = buildable.get_object('blurPresets');
-        const strengthEntry = buildable.get_object('strengthEntry');
-        const brightnessEntry = buildable.get_object('brightnessEntry');
-        const blurAdjustment = buildable.get_object('blurAdjustment');
-        const brightnessAdjustment = buildable.get_object('brightnessAdjustment');
+        folderRow.add_suffix(changeBtn);   
 
         blurAdjustment.set_value(settings.get_int('lockscreen-blur-strength'));
         brightnessAdjustment.set_value(settings.get_int('lockscreen-blur-brightness'));
@@ -151,34 +149,14 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             halign: Gtk.Align.CENTER,
         });
 
+        // add to presets row
         blurPresets.add_suffix(defaultBtn);
         blurPresets.add_suffix(noBlurBtn);
         blurPresets.add_suffix(slightBlurBtn);
-
-        ls_group.add(overrideSwitch);
-        ls_group.add(strengthEntry);
-        ls_group.add(brightnessEntry);
-        ls_group.add(blurPresets);
-
-        const gallery_page = buildable.get_object('gallery_page');
-        window.add(gallery_page);
-
-        const carouselViewPort = buildable.get_object('carouselViewPort');
-        const carouselFlowBox = buildable.get_object('carouselFlowBox');
-
-        //carouselViewPort.set_size(500,500);
-
-        const debug_page = buildable.get_object('debug_page');
-        window.add(debug_page);
-
-        const randomIntervalEntry = buildable.get_object('entry_random_interval');
+        
         randomIntervalEntry.set_value(settings.get_int('random-interval'));
-        const resolutionEntry = buildable.get_object('resolutionEntry');
-        const debugSwitch = buildable.get_object('debug_switch');
-        const revertSwitch = buildable.get_object('revert_switch');
-        const trash_purge_switch = buildable.get_object('trash_purge_switch');
-        const always_export_switch = buildable.get_object('always_export_switch');
 
+        // these buttons either export or import saved JSON data
         const buttonImportData = new Gtk.Button( {
             child: new Adw.ButtonContent({
                         icon_name: 'document-send-symbolic',
@@ -195,17 +173,11 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             valign: Gtk.Align.CENTER, 
             halign: Gtk.Align.CENTER,
         });
-        const json_actionrow = buildable.get_object('json_actionrow');
+        
         json_actionrow.add_suffix(buttonImportData);
         json_actionrow.add_suffix(buttonExportData);
 
-        const about_page = buildable.get_object('about_page');
-        const version_button = buildable.get_object('version_button');
-        window.add(about_page);
-
-        version_button.set_label(this.metadata.version.toString());
-
-        const change_log = buildable.get_object('change_log');
+        version_button.set_label(this.metadata.version.toString());      
        
         try {
             httpSession = new Soup.Session();
@@ -235,7 +207,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // connect switches to settings changes
         settings.bind('set-background', bgSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        
         settings.bind('debug-logging', debugSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('revert-to-current-image', revertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         //settings.bind('override-unsafe-wayland', unsafeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -249,7 +220,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
         
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
-        // disabled at the moment, needs testing
         carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
         
         // this is intended for migrating image folders between computers (or even sharing) or backups
@@ -261,6 +231,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.exportBingJSON(settings);
         });
 
+        // change wallpaper button
         const dirChooser = new Gtk.FileDialog( {
             accept_label: "Select",
             modal: true,
@@ -281,7 +252,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         // Resolution
         const resolutionModel = new Gtk.StringList();
         Utils.resolutions.forEach((res) => { // add res to dropdown list (aka a GtkComboText)
-            resolutionModel.append(res, res);
+            resolutionModel.append(res);
         });
         resolutionEntry.set_model(resolutionModel);
         
@@ -292,7 +263,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.connect('changed::resolution', () => {
             Utils.validate_resolution(settings);
         });
-       
 
         // shuffle modes
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -301,14 +271,12 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.connect('changed::random-interval-mode', () => {
             shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
         });
-
             
         // GDM3 lockscreen blur override
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-        
         // add a couple of preset buttons
         defaultBtn.connect('clicked', (widget) => {
             Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
@@ -320,7 +288,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
         });
         
-        // fetch
+        // fetch change log (on about page)
         
         if (httpSession)
             Utils.fetch_change_log(this.metadata.version.toString(), change_log, httpSession);
