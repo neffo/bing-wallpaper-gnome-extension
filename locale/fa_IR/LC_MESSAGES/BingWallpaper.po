@@ -1,0 +1,379 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Shahrad Elahi <shahrad@litehex.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-04 16:06+0330\n"
+"PO-Revision-Date: 2024-04-04 16:10+0330\n"
+"Last-Translator: Shahrad Elahi\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Generator: Poedit 3.4\n"
+
+#: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
+msgid "Hide the indicator"
+msgstr "پنهان کردن نشانگر"
+
+#: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
+msgid "Indicator icon"
+msgstr "نماد نشانگر"
+
+#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4
+msgid "Enable desktop notifications"
+msgstr "فعال کردن اعلان های دسکتاپ"
+
+#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:118
+msgid "Set background image"
+msgstr "تنظیم تصویر پس زمینه"
+
+#: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
+msgid "Background style option"
+msgstr "گزینه سبک پس زمینه"
+
+#: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
+msgid "Download folder"
+msgstr "پوشه دانلود"
+
+#: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
+msgid "Bing Wallpaper pictures folder"
+msgstr "پوشه تصاویر پس زمینه بینگ"
+
+#: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
+msgid "Open folder"
+msgstr "باز کردن پوشه"
+
+#: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
+msgid "Delete previously downloaded wallpapers"
+msgstr "حذف کردن تصاویر دانلود شده قدیمی"
+
+#: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
+msgid "Selected image"
+msgstr "تصویر انتخاب شده"
+
+#: ui/Settings.ui.h:11 ui/Settings4.ui.h:11
+msgid "Select from image gallery"
+msgstr "انتخاب از گالری"
+
+#: ui/Settings.ui.h:12 ui/Settings4.ui.h:12
+msgid "Bing locale"
+msgstr "منطقه و زبان"
+
+#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:121
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: ui/Settings.ui.h:14 ui/Settings4.ui.h:14
+msgid "Use custom blur and brightness"
+msgstr "استفاده از تاری و روشنایی سفارشی"
+
+#: ui/Settings.ui.h:15 ui/Settings4.ui.h:15
+msgid "Override GDM3 lockscreen effects"
+msgstr "نادیده گرفتن جلوه‌های صفحه قفل GDM3"
+
+#: ui/Settings.ui.h:16 ui/Settings4.ui.h:16
+msgid "Blur can improve readability of login prompt"
+msgstr "تار بودن می تواند خوانایی دیالوگ ورود را بهبود بخشد"
+
+#: ui/Settings.ui.h:17 ui/Settings4.ui.h:17
+msgid "Background blur intensity"
+msgstr "شدت تاری پس زمینه"
+
+#: ui/Settings.ui.h:18 ui/Settings4.ui.h:18
+msgid "Can improve contrast of login prompt"
+msgstr "می تواند کنتراست دیالوگ ورود را بهبود بخشد"
+
+#: ui/Settings.ui.h:19 ui/Settings4.ui.h:19
+msgid "Background brightness"
+msgstr "روشنایی پس زمینه"
+
+#: ui/Settings.ui.h:20 ui/Settings4.ui.h:20
+msgid "Presets"
+msgstr "تنظیمات از پیش تعیین شده"
+
+#: ui/Settings.ui.h:21
+msgid "Commonly used presets"
+msgstr "تنظیم های رایج استفاده شده"
+
+#: ui/Settings.ui.h:22 ui/Settings4.ui.h:21
+msgid "No blur, slight dim"
+msgstr "بدون تاری، کم نور"
+
+#: ui/Settings.ui.h:23 ui/Settings4.ui.h:22
+msgid "GNOME default"
+msgstr "پیشفرض گنوم"
+
+#: ui/Settings.ui.h:24 ui/Settings4.ui.h:23
+msgid "Slight blur, slight dim"
+msgstr "تاری جزئی، کم نور"
+
+#: ui/Settings.ui.h:25 ui/Settings4.ui.h:24
+msgid "Lock Screen"
+msgstr "صفحه قفل"
+
+#: ui/Settings.ui.h:26 ui/Settings4.ui.h:26
+msgid "Debug logging"
+msgstr "لاگ کردن برای اشکال زدایی"
+
+#: ui/Settings.ui.h:27 ui/Settings4.ui.h:25
+msgid "Enable logging to system journal"
+msgstr "لاگ کردن در ژورنال را فعال کنید"
+
+#: ui/Settings.ui.h:28 ui/Settings4.ui.h:28
+msgid "Always show new images"
+msgstr "همیشه تصاویر جدید را نشان دهید"
+
+#: ui/Settings.ui.h:29 ui/Settings4.ui.h:27
+msgid "Switch to new images when available (unless on random mode)"
+msgstr "در صورت موجود بودن به تصاویر جدید بروید (مگر در حالت تصادفی)"
+
+#: ui/Settings.ui.h:30 ui/Settings4.ui.h:30
+msgid "Enable all features on Wayland"
+msgstr "فعال سازی تمام ویژگی‌ها در Wayland"
+
+#: ui/Settings.ui.h:31 ui/Settings4.ui.h:29
+msgid "Some newer features may be unstable on Wayland"
+msgstr "برخی از ویژگی های جدید ممکن است در Wayland ناپایدار باشند"
+
+#: ui/Settings.ui.h:32 ui/Settings4.ui.h:31
+msgid "Screen resolution"
+msgstr "وضوح صفحه"
+
+#: ui/Settings.ui.h:33 ui/Settings4.ui.h:32
+msgid "Override automatic resolution selection"
+msgstr "نادیده گرفتن انتخاب وضوح خودکار"
+
+#: ui/Settings.ui.h:34 ui/Settings4.ui.h:33
+msgid "Manually adjust random interval (seconds)"
+msgstr "تنظیم دستی بازه تصادفی (ثانیه)"
+
+#: ui/Settings.ui.h:35 ui/Settings4.ui.h:34
+msgid "Random interval"
+msgstr "بازه تصادفی"
+
+#: ui/Settings.ui.h:36 ui/Settings4.ui.h:35
+msgid "Import Bing Wallpaper data"
+msgstr "داده‌های Bing Wallpaper را وارد کنید"
+
+#: ui/Settings.ui.h:37 ui/Settings4.ui.h:36
+msgid "Import previously exported JSON data from wallpaper directory"
+msgstr "داده‌های JSON صادر شده قبلی را از پوشه پس زمینه‌ها وارد کنید"
+
+#: ui/Settings.ui.h:38 ui/Settings4.ui.h:37
+msgid "Import"
+msgstr "وارد كردن"
+
+#: ui/Settings.ui.h:39 ui/Settings4.ui.h:38
+msgid "Export Bing Wallpaper data"
+msgstr "داده‌های Bing Wallpaper را صادر کنید"
+
+#: ui/Settings.ui.h:40 ui/Settings4.ui.h:39
+msgid "Export JSON data to wallpaper dir for backup or data migration"
+msgstr "صادر کردن داده‌های JSON جهت تهیه نسخه پشتیبان یا انتقال داده"
+
+#: ui/Settings.ui.h:41 ui/Settings4.ui.h:40
+msgid "Export"
+msgstr "صادر کردن"
+
+#: ui/Settings.ui.h:42 ui/Settings4.ui.h:41
+msgid "Always export Bing data"
+msgstr "همیشه داده‌های بینگ را صادر کنید"
+
+#: ui/Settings.ui.h:43 ui/Settings4.ui.h:42
+msgid "Export Bing JSON whenever data changes"
+msgstr "صادر کردن داده‌های JSON بینگ در زمان تغییر ها"
+
+#: ui/Settings.ui.h:44 ui/Settings4.ui.h:43
+msgid "Debug options"
+msgstr "گزینه های اشکال زدایی"
+
+#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
+msgid "New wallpaper images everyday from Bing"
+msgstr "تصاویر پس زمینه جدید هر روز از بینگ"
+
+#: ui/Settings.ui.h:46
+msgid "Gnome shell extension version "
+msgstr "نسخه افزونه گنوم شل "
+
+#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
+msgid "Maintained by Michael Carroll"
+msgstr "تحت نظارت Michael Carroll"
+
+#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
+msgid ""
+"Show your support to the author on <a href=\"https://flattr.com/"
+"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+"Sponsors</a>."
+msgstr ""
+"حمایت خود را از نویسنده در <a href=\"https://flattr.com/@neffo\">Flattr</a> "
+"یا <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a> نشان "
+"دهید."
+
+#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
+msgid "Changes since last version"
+msgstr "تغییرات نسبت به آخرین نسخه"
+
+#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
+msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+msgstr "بر اساس افزونه گنوم NASA APOD توسط Elia Argentieri"
+
+#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">این برنامه کاملاً بدون گارانتی ارائه می شود.\n"
+"برای جزئیات به <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">لایسنس "
+"عمومی گنو، نسخه 3 یا بالاتر</a> مراجعه کنید.</span>"
+
+#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
+msgid "About"
+msgstr "درباره"
+
+#: ui/Settings4.ui.h:43
+msgid "Gallery"
+msgstr "گالری"
+
+#: ui/Settings4.ui.h:45
+msgid "GNOME shell extension version "
+msgstr "نسخه افزونه گنوم شل "
+
+#: ui/carousel.ui.h:1 ui/carousel4.ui.h:2
+msgid "Apply"
+msgstr "اعمال کردن"
+
+#: ui/carousel.ui.h:2 ui/carousel4.ui.h:3
+msgid "View"
+msgstr "نمایش"
+
+#: ui/carousel.ui.h:3 ui/carousel4.ui.h:4
+msgid "Info"
+msgstr "اطلاعات"
+
+#: ui/carousel.ui.h:4 ui/carousel4.ui.h:5
+msgid "Delete"
+msgstr "حذف"
+
+#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
+msgid "Set random mode"
+msgstr "تنظیم بر روی حالت تصادفی"
+
+#: ui/carousel4.ui.h:1
+msgid "Favorite"
+msgstr "مورد علاقه"
+
+#: ui/carousel4.ui.h:1
+msgid "<image name here>"
+msgstr "<نام تصویر>"
+
+#: ui/carousel4.ui.h:8
+msgid "Load image gallery"
+msgstr "بارگیری گالری تصاویر"
+
+#: extension.js:106
+msgid "<No refresh scheduled>"
+msgstr "<بروز رسانی برنامه ریزی نشده>"
+
+#: extension.js:108 extension.js:110 extension.js:113
+msgid "Awaiting refresh..."
+msgstr "در انتظار به‌روزرسانی..."
+
+#: extension.js:115
+msgid "Copy image to clipboard"
+msgstr "کپی کردن تصویر"
+
+#: extension.js:116
+msgid "Copy image URL to clipboard"
+msgstr "آدرس تصویر را کپی کنید"
+
+#: extension.js:117
+msgid "Open image folder"
+msgstr "باز کردن پوشه تصویر"
+
+#: extension.js:119
+msgid "Set lock screen image"
+msgstr "تنظیم تصویر صفحه قفل"
+
+#: extension.js:120
+msgid "Refresh Now"
+msgstr "به‌روزرسانی"
+
+#: extension.js:149
+msgid "Open in image viewer"
+msgstr "باز کردن در نمایشگر تصویر"
+
+#: extension.js:150
+msgid "Open Bing image information page"
+msgstr "باز کردن صفحه اطلاعات تصویر بینگ"
+
+#: extension.js:157
+msgid "Quick settings"
+msgstr "تنظیمات سریع"
+
+#: extension.js:161
+msgid "Image shuffle mode"
+msgstr "حالت مخلوط"
+
+#: extension.js:162
+msgid "Image shuffle only favourites"
+msgstr "فقط موارد دلخواه حالت مخلوط کردن"
+
+#: extension.js:164
+msgid "Show image count"
+msgstr "نمایش تعداد تصاویر"
+
+#: extension.js:209
+msgid "Next refresh"
+msgstr "رفرش بعدی"
+
+#: extension.js:334
+msgid "Last refresh"
+msgstr "رفرش قبلی"
+
+#: extension.js:505 extension.js:532
+msgid "Bing Wallpaper of the Day for"
+msgstr "تصویر زمینه Bing برای روز"
+
+#: extension.js:557
+msgid "No wallpaper available"
+msgstr "تصویر زمینه موجود نیست"
+
+#: extension.js:558
+msgid "No picture for today."
+msgstr "عکسی برای امروز نیست."
+
+#: prefs.js:159
+msgid "Select folder"
+msgstr "انتخاب پوشه"
+
+#: prefs.js:202
+msgid "Most recent image"
+msgstr "جدیدترین تصویر"
+
+#: prefs.js:203
+msgid "Random image"
+msgstr "تصویر تصادفی"
+
+#: utils.js:135
+msgid "Error fetching change log: "
+msgstr "خطا در دریافت تغییرات: "
+
+#: utils.js:366 utils.js:369
+msgid "minutes"
+msgstr "دقیقه"
+
+#: utils.js:372
+msgid "days"
+msgstr "روز"
+
+#: utils.js:375
+msgid "hours"
+msgstr "ساعت"
