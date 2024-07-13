@@ -20,6 +20,7 @@ var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 var shellVersionPoint = parseInt(Config.PACKAGE_VERSION.split('.')[2]);
 
+var blurField = shellVersionMajor >= 46 ? "radius" : "sigma";
 // default BWP mild blur
 var BWP_BLUR_SIGMA = 2;
 var BWP_BLUR_BRIGHTNESS = 55;
@@ -50,7 +51,7 @@ export function _updateBackgroundEffects_BWP(monitorIndex) {
             if (effect) {
                 effect.set({ // GNOME defaults when login prompt is visible
                     brightness: BLUR_BRIGHTNESS,
-                    sigma: BLUR_SIGMA * themeContext.scale_factor,
+                    [blurField]: BLUR_SIGMA * themeContext.scale_factor,
                 });
             }
         }
@@ -59,7 +60,7 @@ export function _updateBackgroundEffects_BWP(monitorIndex) {
             if (effect) {
                 effect.set({ // adjustable blur when clock is visible
                     brightness: BWP_BLUR_BRIGHTNESS * 0.01, // we use 0-100 rather than 0-1, so divide by 100
-                    sigma: BWP_BLUR_SIGMA * themeContext.scale_factor,
+                    [blurField]: BWP_BLUR_SIGMA * themeContext.scale_factor,
                 });
             }
         }
