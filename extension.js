@@ -220,9 +220,13 @@ class BingWallpaperIndicator extends Button {
 
     // listen for configuration changes
     _setConnections() {
-        this._settings.connect('changed::hide', () => {
-            this.visible = !this._settings.get_boolean('hide');
-        });
+        this.settings_connections = [];
+
+        this.settings_connections.push(
+            this._settings.connect('changed::hide', () => {
+                this.visible = !this._settings.get_boolean('hide');
+            })
+        );
         
         let settingConnections = [
             {signal: 'changed::icon-name', call: this._setIcon},
@@ -246,7 +250,9 @@ class BingWallpaperIndicator extends Button {
 
         // _setShuffleToggleState
         settingConnections.forEach((e) => {
-            this._settings.connect(e.signal, e.call.bind(this));
+            this.settings_connections.push(
+                this._settings.connect(e.signal, e.call.bind(this))
+            );
         });
         
         // ensure we're in a sensible initial state
@@ -281,10 +287,12 @@ class BingWallpaperIndicator extends Button {
                         /*{key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},*/
                         {key: 'random-mode-include-only-uhd', toggle: this.toggleShuffleOnlyUHD}];
         
-        toggles.forEach( (e) => { 
-            this._settings.connect('changed::'+e.key, () => { 
-                e.toggle.setToggleState(this._settings.get_boolean(e.key));
-            });
+        toggles.forEach( (e) => {
+            this.settings_connections.push(
+                this._settings.connect('changed::'+e.key, () => {
+                    e.toggle.setToggleState(this._settings.get_boolean(e.key));
+                })
+            );
             e.toggle.connect('toggled', (item, state) => {
                 this._settings.set_boolean(e.key, state);
             });
@@ -300,6 +308,16 @@ class BingWallpaperIndicator extends Button {
                 forEach(e => e.setSensitive(false));
         }
     }  
+
+    _onDestroy() {
+        this._unsetConnections();
+    }
+
+    _unsetConnections() {
+        this.settings_connections.forEach((e) => {
+            this._settings.disconnect(e);
+        });
+    }
 
     _openPrefs() {
         this._extension.openPreferences();
