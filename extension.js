@@ -229,6 +229,8 @@ class BingWallpaperIndicator extends Button {
             {signal: 'changed::market', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
             {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
+            {signal: 'changed::lockscreen-blur-strength', call: this._setBlur},
+            {signal: 'changed::lockscreen-blur-brightness', call: this._setBlur},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
             {signal: 'changed::notify', call: this._notifyCurrentImage},
@@ -246,9 +248,6 @@ class BingWallpaperIndicator extends Button {
         settingConnections.forEach((e) => {
             this._settings.connect(e.signal, e.call.bind(this));
         });
-
-        this._settings.connect('changed::lockscreen-blur-strength', blur.set_blur_strength.bind(this, this._settings.get_int('lockscreen-blur-strength')));
-        this._settings.connect('changed::lockscreen-blur-brightness', blur.set_blur_brightness.bind(this, this._settings.get_int('lockscreen-blur-brightness')));        
         
         // ensure we're in a sensible initial state
         this._setIcon();
