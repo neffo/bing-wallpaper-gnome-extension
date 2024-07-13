@@ -92,7 +92,7 @@ export function _clampValue(value) {
 export default class Blur {
     constructor() {
         this.enabled = false;
-        log('Bing Wallpaper adjustable blur is '+supportedVersion()?'available':'not available');
+        log('Bing Wallpaper adjustable blur is '+(supportedVersion()?'available':'not available'));
     }
 
     set_blur_strength(value) {
