@@ -286,7 +286,7 @@ msgid "every day at midnight"
 msgstr "todo dia à meia-noite"
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid " Sunday at midnight"
 msgstr "todo domingo à meia-noite"
 
 #: extension.js:130

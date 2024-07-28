@@ -279,7 +279,7 @@ msgid "every day at midnight"
 msgstr "her gün gece yarısı"
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid " Sunday at midnight"
 msgstr "her Pazar gece yarısı"
 
 #: extension.js:130

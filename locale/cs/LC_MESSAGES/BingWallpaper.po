@@ -285,7 +285,7 @@ msgid "every day at midnight"
 msgstr "každý den o půlnoci"
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid " Sunday at midnight"
 msgstr "každou neděli o půlnoci"
 
 #: extension.js:141

@@ -18,7 +18,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Image gallery to view, select and curate stored images
 * Optionally delete old images after a week, or you can keep (and curate) them forever
 * Override the lockscreen blur (NEW: lockscreen blur is now dynamic!)
-* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN, zh_TW), French (fr_FR), Portuguese (pt, pt_BR), Ukrainian (uk), Russian (ru_RU), Spanish (es), Korean (ko), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (nn), Swedish (sv), Arabic (ar), Hungarian (hu), Japanese (ja), Czech (cs_CZ), Finnish (fi_FI) and Turkish (tr) - a HUGE thanks to the translators
+* Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN, zh_TW), French (fr_FR), Portuguese (pt, pt_BR), Ukrainian (uk), Russian (ru_RU), Spanish (es), Korean (ko), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (nn), Swedish (sv), Arabic (ar), Hungarian (hu), Japanese (ja), Czech (cs_CZ), Finnish (fi_FI) and Turkish (tr), Persian (fa_ir) - a HUGE thanks to the translators
 * Image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
 * A selection of different theme-aware indicator (tray) icons to choose (or hide it completely)
 
