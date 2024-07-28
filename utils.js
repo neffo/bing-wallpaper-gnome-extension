@@ -550,7 +550,7 @@ export function deleteImage(to_delete) {
 // add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
 export function purgeImages(settings) {
     let deletepictures = settings.get_boolean('delete-previous');
-    let keepfavorites = settings.get_boolean('keep-favourites');
+    let keepfavourites = settings.get_boolean('keep-favourites');
     if (deletepictures === false)
         return;
     let imagelist = imageListSortByDate(getImageList(settings));
@@ -558,7 +558,7 @@ export function purgeImages(settings) {
     let origlength = imagelist.length;
     while (imagelist.length > maxpictures) {
         var to_delete = imagelist.shift(); // get the first (oldest item from the list)
-        var ok_to_delete = keepfavorites && (to_delete.favourite && to_delete.favourite === true);
+        var ok_to_delete = keepfavourites && (to_delete.favourite && to_delete.favourite === true);
         if (deletepictures && to_delete != '' && ok_to_delete) {
             let imageFilename = imageToFilename(settings, to_delete);
             BingLog('deleting '+imageFilename);
