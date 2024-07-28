@@ -263,7 +263,11 @@ msgid "every day at midnight"
 msgstr ""
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid "Sunday at midnight"
+msgstr ""
+
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
 msgstr ""
 
 #: extension.js:130
