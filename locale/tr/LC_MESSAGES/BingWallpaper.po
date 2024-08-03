@@ -263,7 +263,7 @@ msgid "<image name here>"
 msgstr "<görüntü adı buraya>"
 
 #: ui/carousel4.ui.h:7
-msgid "Set random mode"
+msgid "Image shuffle mode"
 msgstr "Rastgele kipi ayarla"
 
 #: ui/carousel4.ui.h:8

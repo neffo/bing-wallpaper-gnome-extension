@@ -265,7 +265,7 @@ msgid "Delete"
 msgstr "Удалить"
 
 #: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
-msgid "Set random mode"
+msgid "Image shuffle mode"
 msgstr "Выбрать случайный режим"
 
 #: ui/carousel4.ui.h:5

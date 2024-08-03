@@ -270,7 +270,7 @@ msgid "<image name here>"
 msgstr "<image name here>"
 
 #: ui/carousel4.ui.h:7
-msgid "Set random mode"
+msgid "Image shuffle mode"
 msgstr "Definir modo aleatório"
 
 #: ui/carousel4.ui.h:8

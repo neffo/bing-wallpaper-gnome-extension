@@ -269,7 +269,7 @@ msgid "<image name here>"
 msgstr "<zde jméno obrázku>"
 
 #: ui/carousel4.ui.h:7
-msgid "Set random mode"
+msgid "Image shuffle mode"
 msgstr "Nastav náhodný mód"
 
 #: ui/carousel4.ui.h:8
