@@ -17,7 +17,8 @@ for D in locale/*; do
         msgfmt --template=BingWallpaper.pot --statistics --verbose -o "${D}/LC_MESSAGES/BingWallpaper.mo" "${D}/LC_MESSAGES/BingWallpaper.po" 2>&1 | cat >> translations.txt
         # your processing here
         if [ $? -ne 0 ]; then
-            echo "ERROR processing $D translations"
+            echo "ERROR processing $D translations:"
+            msgfmt --template=BingWallpaper.pot -o "${D}/LC_MESSAGES/BingWallpaper.mo" "${D}/LC_MESSAGES/BingWallpaper.po"
         fi
     fi
 done

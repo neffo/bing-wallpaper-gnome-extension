@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bing-wallpaper-gnome-extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-03-27 16:00+0100\n"
+"PO-Revision-Date: 2024-08-05 00:27+1000\n"
 "Last-Translator: Ludek Vydra <lvtran@u.k2.cz>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -266,6 +266,10 @@ msgstr "Vymaž"
 msgid "<image name here>"
 msgstr "<zde jméno obrázku>"
 
+#: ui/carousel4.ui.h:7 extension.js:154
+msgid "Image shuffle mode"
+msgstr "Mód náhodného přepnutí obrázků"
+
 #: ui/carousel4.ui.h:8
 msgid "Load image gallery"
 msgstr "Nahrej galerii obrázků"
@@ -279,8 +283,14 @@ msgid "every day at midnight"
 msgstr "každý den o půlnoci"
 
 #: ui/intervals.utils.js.h:8
-msgid " Sunday at midnight"
+msgid "Sunday at midnight"
 msgstr "každou neděli o půlnoci"
+
+#: ui/intervals.utils.js.h:11
+#, fuzzy
+#| msgid "Random interval"
+msgid "User defined interval"
+msgstr "Náhodný interval"
 
 #: extension.js:130
 msgid "<No refresh scheduled>"
@@ -325,10 +335,6 @@ msgstr "Otevři Bing image informační stránku"
 #: extension.js:150
 msgid "Quick settings"
 msgstr "Rychlé nastavení"
-
-#: extension.js:154
-msgid "Image shuffle mode"
-msgstr "Mód náhodného přepnutí obrázků"
 
 #: extension.js:155
 msgid "Image shuffle only favourites"
