@@ -14,8 +14,11 @@ echo "# Translation status of statements as at $DATE:" > translations.txt
 MSGCOUNT=`cat locale/BingWallpaper.pot | grep -c -e msgid`
 for D in locale/*; do
     if [ -d "${D}" ]; then
-        msgfmt --template=BingWallpaper.pot --statistics --verbose -o "${D}/LC_MESSAGES/BingWallpaper.mo" "${D}/LC_MESSAGES/BingWallpaper.po"  2>&1 | cat >> translations.txt
+        msgfmt --template=BingWallpaper.pot --statistics --verbose -o "${D}/LC_MESSAGES/BingWallpaper.mo" "${D}/LC_MESSAGES/BingWallpaper.po" 2>&1 | cat >> translations.txt
         # your processing here
+        if [ $? -ne 0 ]; then
+            echo "ERROR processing $D translations"
+        fi
     fi
 done
 

@@ -70,7 +70,7 @@
     </key>
 
     <key name="keep-favourites" type="b">
-      <default>True</default>
+      <default>true</default>
         <summary>Keep previous wallpapers if they are favourites</summary>
         <description>Sensible default behaivour</description>
     </key>

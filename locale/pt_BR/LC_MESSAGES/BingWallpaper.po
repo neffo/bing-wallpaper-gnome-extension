@@ -329,10 +329,6 @@ msgstr "Abrir página de informação de imagem Bing"
 msgid "Quick settings"
 msgstr "Configurações rápidas"
 
-#: extension.js:154
-msgid "Image shuffle mode"
-msgstr "Modo embaralhar imagem"
-
 #: extension.js:155
 msgid "Image shuffle only favourites"
 msgstr "Embaralha apenas imagens favoritas"

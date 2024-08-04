@@ -263,10 +263,6 @@ msgstr "Informationen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
-msgid "Image shuffle mode"
-msgstr "Zufallsmodus festlegen"
-
 #: ui/carousel4.ui.h:1
 msgid "Favorite"
 msgstr "Favorit"

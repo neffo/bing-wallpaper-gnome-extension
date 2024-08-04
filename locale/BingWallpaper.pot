@@ -246,8 +246,8 @@ msgstr ""
 msgid "<image name here>"
 msgstr ""
 
-#: ui/carousel4.ui.h:7
-msgid "Set random mode"
+#: ui/carousel4.ui.h:7 extension.js:154
+msgid "Image shuffle mode"
 msgstr ""
 
 #: ui/carousel4.ui.h:8
@@ -312,10 +312,6 @@ msgstr ""
 
 #: extension.js:150
 msgid "Quick settings"
-msgstr ""
-
-#: extension.js:154
-msgid "Image shuffle mode"
 msgstr ""
 
 #: extension.js:155

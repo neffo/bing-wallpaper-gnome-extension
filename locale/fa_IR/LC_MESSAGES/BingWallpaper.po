@@ -318,10 +318,6 @@ msgstr "باز کردن صفحه اطلاعات تصویر بینگ"
 msgid "Quick settings"
 msgstr "تنظیمات سریع"
 
-#: extension.js:161
-msgid "Image shuffle mode"
-msgstr "حالت مخلوط"
-
 #: extension.js:162
 msgid "Image shuffle only favourites"
 msgstr "فقط موارد دلخواه حالت مخلوط کردن"
