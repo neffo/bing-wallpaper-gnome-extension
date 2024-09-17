@@ -33,9 +33,24 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
 * GNOME Shell themes can break some GNOME popup menu elements (toggle switches for example). This impacts GNOME more generally, not just this extension. Double check you are running latest versions of your themes (or disable them).
 
-## Requirements
+## System Requirements
 
 GNOME 3.36+ or 40+ (Ubuntu 20.04 LTS or later, older versions of the extension work with 3.18+, but are no longer supported).
+
+## Package dependencies
+
+Below packages are required to build the extension
+
+```
+npm
+gettext
+intltool
+zip
+```
+For Ubuntu you can hit below command to install
+```
+sudo apt install npm gettext intltool zip -y
+```
 
 ## Install
 
@@ -53,7 +68,7 @@ sh install.sh
 
 ## Enable debug logging
 
-Enable debug logging through the exptension preferences 'Debug options' tab or if unable to open preferences you can enable debugging using dconf-editor with this command:
+Enable debug logging through the extension preferences 'Debug options' tab or if unable to open preferences you can enable debugging using dconf-editor with this command:
 ```
 GSETTINGS_SCHEMA_DIR=$HOME/.local/share/gnome-shell/extensions/BingWallpaper@ineffable-gmail.com/schemas dconf-editor /org/gnome/shell/extensions/bingwallpaper/
 ```

@@ -2,6 +2,7 @@
 
 EXTENSION_NAME=BingWallpaper@ineffable-gmail.com
 INSTALL_PATH=~/.local/share/gnome-shell/extensions
+mkdir -p $INSTALL_PATH
 ZIP_NAME=BingWallpaper@ineffable-gmail.com.zip
 
 ./buildzip.sh
