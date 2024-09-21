@@ -847,12 +847,15 @@ class BingWallpaperIndicator extends Button {
     }
 
     _createNotification(msg, details) {
-        // set notifications icon
-        let source = new MessageTray.Source('Bing Wallpaper', 'preferences-desktop-wallpaper-symbolic');
-        Main.messageTray.add(source);
-        let notification = new MessageTray.Notification(source, msg, details);
-        notification.setTransient(this._settings.get_boolean('transient'));
-        source.showNotification(notification);
+        const systemSource = MessageTray.getSystemSource();
+        const bingNotify = new MessageTray.Notification({
+            source: systemSource,
+            title: msg,
+            body: details,
+            gicon: Gio.icon_new_for_string(this._extension.dir.get_child('icons').get_path() + '/' + icon_name + '.svg'),
+        });
+        systemSource.addNotification(bingNotify);
+        //Main.notify(msg, details);
         log('_createNotification: '+msg+' details: '+details);
     }
 
