@@ -852,7 +852,8 @@ class BingWallpaperIndicator extends Button {
             source: systemSource,
             title: msg,
             body: details,
-            gicon: Gio.icon_new_for_string(this._extension.dir.get_child('icons').get_path() + '/' + icon_name + '.svg'),
+            gicon: new Gio.ThemedIcon({name: 'image-x-generic'}),
+            iconName: 'image-x-generic',
         });
         systemSource.addNotification(bingNotify);
         //Main.notify(msg, details);
