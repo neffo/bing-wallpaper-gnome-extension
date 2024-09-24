@@ -337,7 +337,11 @@ export function populateImageListResolutions(settings) {
 
 export function getFetchableImageList(settings) {
     let imageList = getImageList(settings);
-    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let maxpictures = settings.get_int('previous-days');
+    let maxdownload = 8;
+    if (maxpictures < maxdownload && maxpictures >=1)
+        maxdownload = maxpictures;
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-maxdownload); // default 8 days ago, 1 day = 1 picture
     let dlList = [];
     imageList.forEach( function (x, i) {
         let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
@@ -565,7 +569,7 @@ export function purgeImages(settings) {
 
         if (to_delete.favourite && to_delete.favourite === true)
             maxpictures++; // exclude favourites from count!
-        
+
         if (deletepictures && to_delete != '' && ok_to_delete) {
             let imageFilename = imageToFilename(settings, to_delete);
             BingLog('deleting '+imageFilename);
