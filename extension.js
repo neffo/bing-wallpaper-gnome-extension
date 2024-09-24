@@ -286,7 +286,7 @@ class BingWallpaperIndicator extends Button {
 
         let toggles = [ /*{key: 'set-background', toggle: this.toggleSetBackground},*/
                         {key: 'revert-to-current-image', toggle: this.toggleSelectNew},
-                        /*{key: 'notify', toggle: this.toggleNotifications},*/
+                        {key: 'notify', toggle: this.toggleNotifications},
                         /*{key: 'show-count-in-image-title', toggle: this.toggleImageCount},*/
                         {key: 'random-mode-enabled', toggle: this.toggleShuffle},
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
