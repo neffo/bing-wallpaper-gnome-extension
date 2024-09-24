@@ -296,10 +296,12 @@ class BingWallpaperIndicator extends Button {
         toggles.forEach( (e) => {
             this.settings_connections.push(
                 this._settings.connect('changed::'+e.key, () => {
+                    log(e.key+' setting changed to '+ (this._settings.get_boolean(e.key)?'true':'false'));
                     e.toggle.setToggleState(this._settings.get_boolean(e.key));
                 })
             );
             e.toggle.connect('toggled', (item, state) => {
+                log(e.key+' switch toggled to '+ (state?'true':'false'));
                 this._setBooleanSetting(e.key, state);
             });
         });
