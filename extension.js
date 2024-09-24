@@ -700,6 +700,7 @@ class BingWallpaperIndicator extends Button {
             }
             catch(error) {
                 log('unable to send libsoup json message '+error);
+                notifyError('Unable to fetch Bing metadata\n'+error);
             }
         }
         else {
@@ -715,6 +716,7 @@ class BingWallpaperIndicator extends Button {
             }
             catch (error) {
                 log('unable to send libsoup json message '+error);
+                notifyError('Unable to fetch Bing metadata\n'+error);
             }
         }
     }
@@ -734,6 +736,7 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             log('Network error occured: ' + error);
+            notifyError('network error occured\n'+error);
             this._updatePending = false;
             this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
         }
@@ -831,6 +834,7 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             log('_parseData() failed with error ' + error + ' @ '+error.lineNumber);
+            notifyError('Bing metadata parsing error check ' + error + ' @ '+error.lineNumber);
             log(error.stack);
         }
     }
@@ -1087,6 +1091,7 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             log('error sending libsoup message '+error);
+            notifyError('Network error '+error);
         }
     }
 
@@ -1111,13 +1116,14 @@ class BingWallpaperIndicator extends Button {
                     } 
                     catch(e) {
                         log('Error writing file: ' + e);
-                        notifyError('Image '+file+' is not writable, check directory permissions '+e);
+                        notifyError('Image '+file.get_path()+' is not writable, check folder permissions or select a different folder\n'+e);
                     }
                 }
             );
         }
         catch (error) {
             log('Unable download image '+error);
+            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+e);
         }
     }
 
