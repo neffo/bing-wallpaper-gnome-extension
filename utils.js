@@ -369,7 +369,10 @@ export function getWallpaperDir(settings) {
         dir.make_directory_with_parents(null);
     }
     //FIXME: test if dir is good and writable
-    return BingWallpaperDir;
+    if (dir.query_exists(null))
+        return BingWallpaperDir;
+    else
+        return null;
 }
 
 export function setWallpaperDir(settings, uri) {

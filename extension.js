@@ -286,7 +286,7 @@ class BingWallpaperIndicator extends Button {
 
         let toggles = [ /*{key: 'set-background', toggle: this.toggleSetBackground},*/
                         {key: 'revert-to-current-image', toggle: this.toggleSelectNew},
-                        {key: 'notify', toggle: this.toggleNotifications},
+                        /*{key: 'notify', toggle: this.toggleNotifications},*/
                         /*{key: 'show-count-in-image-title', toggle: this.toggleImageCount},*/
                         {key: 'random-mode-enabled', toggle: this.toggleShuffle},
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
@@ -317,17 +317,17 @@ class BingWallpaperIndicator extends Button {
 
     _setBooleanSetting(key, state) {
         let success = this._settings.set_boolean(key, state);
-        log('key '+key+' set to ' + (state?'true':'false') + ' returned ' + (success?'true':'false'));
+        log('key '+key+' set to ' + (state?'true':'false') + ' (returned ' + (success?'true':'false')+')');
     }
 
     _setStringSetting(key, value) {
         let success = this._settings.set_string(key, value);
-        log('key '+key+' set to ' + value + ' returned ' + (success?'true':'false'));
+        log('key '+key+' set to ' + value + ' (returned ' + (success?'true':'false')+')');
     }
 
     _setIntSetting(key, value) {
         let success = this._settings.set_int(key, value);
-        log('key '+key+' set to ' + value + ' returned ' + (success?'true':'false'));
+        log('key '+key+' set to ' + value + ' (returned ' + (success?'true':'false')+')');
     }
 
     _onDestroy() {
@@ -1063,7 +1063,9 @@ class BingWallpaperIndicator extends Button {
         let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
         let dir = Gio.file_new_for_path(BingWallpaperDir);
         if (!dir.query_exists(null)) {
-            dir.make_directory_with_parents(null);
+            //dir.make_directory_with_parents(null);
+            notifyError('Download folder '+BingWallpaperDir+' does not exist or is not writable');
+            return;
         }
         log("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
@@ -1107,6 +1109,7 @@ class BingWallpaperIndicator extends Button {
                     } 
                     catch(e) {
                         log('Error writing file: ' + e);
+                        notifyError('Image '+file+' is not writable, check directory permissions '+e);
                     }
                 }
             );
