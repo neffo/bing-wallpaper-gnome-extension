@@ -802,7 +802,7 @@ class BingWallpaperIndicator extends Button {
                 log('WARNING: Bing returning market data for ' + datamarket + ' rather than selected ' + prefmarket);
             
             Utils.purgeImages(this._settings); // delete older images if enabled
-            //Utils.cleanupImageList(this._settings); // disabled, as old images should still be downloadble in theory
+            //Utils.cleanupImageList(this._settings); // merged into purgeImages
             this._downloadAllImages(); // fetch missing images that are still available
             Utils.populateImageListResolutions(this._settings);
             
