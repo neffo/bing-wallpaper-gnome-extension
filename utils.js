@@ -566,14 +566,17 @@ export function purgeImages(settings) {
     while (imagelist.length > maxpictures) {
         var to_delete = imagelist.shift(); // get the first (oldest item from the list)
         var ok_to_delete = keepfavourites && (to_delete.favourite && to_delete.favourite === true);
+        let imageFilename = imageToFilename(settings, to_delete);
 
         if (to_delete.favourite && to_delete.favourite === true)
             maxpictures++; // exclude favourites from count!
 
         if (deletepictures && to_delete != '' && ok_to_delete) {
-            let imageFilename = imageToFilename(settings, to_delete);
             BingLog('deleting '+imageFilename);
             deleteImage(imageFilename);
+        }
+        else {
+            BingLog('keeping '+imageFilename);
         }
     }
     BingLog('cleaned up image list, count was '+origlength+' now '+imagelist.length);
