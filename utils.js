@@ -563,6 +563,7 @@ export function purgeImages(settings) {
     let keepfavourites = settings.get_boolean('keep-favourites');
     let emptytrash = settings.get_boolean('trash-deletes-images');
     let maxDays = settings.get_int('previous-days');
+    BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
     
     /*if (deleteprevious === false)
         return;*/
@@ -581,7 +582,7 @@ export function purgeImages(settings) {
             ok_to_delete = true;
         
 
-        if (deletepictures && image != '' && ok_to_delete) {
+        if (deleteprevious && image != '' && ok_to_delete) {
             BingLog('deleting '+imageFilename);
             deleteImage(imageFilename);
         }
