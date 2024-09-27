@@ -126,99 +126,119 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/prefsadw.ui.h:33 extension.js:159
+#: ui/prefsadw.ui.h:33
+msgid "Advanced options"
+msgstr ""
+
+#: ui/prefsadw.ui.h:34 extension.js:159
 msgid "Always show new images"
 msgstr ""
 
-#: ui/prefsadw.ui.h:34
+#: ui/prefsadw.ui.h:35
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
-#: ui/prefsadw.ui.h:35
+#: ui/prefsadw.ui.h:36
 msgid "Purge on trash"
 msgstr ""
 
-#: ui/prefsadw.ui.h:36
+#: ui/prefsadw.ui.h:37
 msgid "Trashing an image will remove it from database"
 msgstr ""
 
-#: ui/prefsadw.ui.h:37
+#: ui/prefsadw.ui.h:38
 msgid "Screen resolution"
 msgstr ""
 
-#: ui/prefsadw.ui.h:38
+#: ui/prefsadw.ui.h:39
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: ui/prefsadw.ui.h:39
+#: ui/prefsadw.ui.h:40
 msgid "Random interval"
 msgstr ""
 
-#: ui/prefsadw.ui.h:40
+#: ui/prefsadw.ui.h:41
 msgid "Custom shuffle interval when enabled"
 msgstr ""
 
-#: ui/prefsadw.ui.h:41
-msgid "Always export Bing data"
-msgstr ""
-
 #: ui/prefsadw.ui.h:42
-msgid "Export Bing JSON when image data changes"
+msgid "Delete older images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:43
-msgid "Bing JSON data"
+msgid "Automatically delete older images (excludes favourites)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:44
-msgid "About"
+msgid "Number of images to keep"
 msgstr ""
 
 #: ui/prefsadw.ui.h:45
-msgid "Bing Wallpaper"
+msgid "Maximum number of images to keep (excludes favourites)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:46
-msgid "New wallpaper images everyday from Bing"
+msgid "Always export Bing data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:47
-msgid "Maintained by Michael Carroll"
+msgid "Export Bing JSON when image data changes"
 msgstr ""
 
 #: ui/prefsadw.ui.h:48
-msgid "Version"
+msgid "Bing JSON data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:49
-msgid "Release notes"
+msgid "About"
 msgstr ""
 
 #: ui/prefsadw.ui.h:50
-msgid "GNOME extensions page"
+msgid "Bing Wallpaper"
 msgstr ""
 
 #: ui/prefsadw.ui.h:51
-msgid "Source code"
+msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
 #: ui/prefsadw.ui.h:52
-msgid "Report an issue"
+msgid "Maintained by Michael Carroll"
 msgstr ""
 
 #: ui/prefsadw.ui.h:53
-msgid "Contributors"
+msgid "Version"
 msgstr ""
 
 #: ui/prefsadw.ui.h:54
-msgid "License"
+msgid "Release notes"
 msgstr ""
 
-#: ui/prefsadw.ui.h:55 prefs.js:115
-msgid "Change folder"
+#: ui/prefsadw.ui.h:55
+msgid "GNOME extensions page"
 msgstr ""
 
 #: ui/prefsadw.ui.h:56
+msgid "Source code"
+msgstr ""
+
+#: ui/prefsadw.ui.h:57
+msgid "Report an issue"
+msgstr ""
+
+#: ui/prefsadw.ui.h:58
+msgid "Contributors"
+msgstr ""
+
+#: ui/prefsadw.ui.h:59
+msgid "License"
+msgstr ""
+
+#: ui/prefsadw.ui.h:60 prefs.js:117
+msgid "Change folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:61
 msgid "Select new wallpaper download folder"
 msgstr ""
 
@@ -354,31 +374,31 @@ msgstr ""
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:107
+#: prefs.js:109
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:130
+#: prefs.js:132
 msgid "Default"
 msgstr ""
 
-#: prefs.js:138
+#: prefs.js:140
 msgid "No blur, slight dim"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:148
 msgid "Slight blur & dim"
 msgstr ""
 
-#: prefs.js:163
+#: prefs.js:165
 msgid "Import"
 msgstr ""
 
-#: prefs.js:171
+#: prefs.js:173
 msgid "Export"
 msgstr ""
 
-#: prefs.js:238
+#: prefs.js:241
 msgid "Select wallpaper download folder"
 msgstr ""
 
@@ -386,14 +406,14 @@ msgstr ""
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:416 utils.js:419
+#: utils.js:400 utils.js:403
 msgid "minutes"
 msgstr ""
 
-#: utils.js:422
+#: utils.js:406
 msgid "days"
 msgstr ""
 
-#: utils.js:425
+#: utils.js:409
 msgid "hours"
 msgstr ""

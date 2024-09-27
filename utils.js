@@ -23,7 +23,7 @@ var vertical_blur = null;
 var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
-let debug = false;
+let debug = true;
 
 export var icon_list = ['bing-symbolic', 'brick-symbolic', 'high-frame-symbolic', 'mid-frame-symbolic', 'low-frame-symbolic'];
 export var resolutions = ['auto', 'UHD', '1920x1200', '1920x1080', '1366x768', '1280x720', '1024x768', '800x600'];
@@ -534,36 +534,13 @@ export function deleteImage(to_delete) {
     }
 }
 
-/*
-export function cleanupImageList(settings) {
-    if (settings.get_boolean('trash-deletes-images') == false)
-        return;
-    let curList = imageListSortByDate(getImageList(settings));
-    let maxDays = settings.get_int('previous-days');
-    let cutOff = GLib.DateTime.new_now_utc().add_days(-maxDays); // 8 days ago
-    let newList = [];
-    curList.forEach( function (image, i) {
-        let filename = imageToFilename(settings, image);
-        let diff = dateFromLongDate(image.fullstartdate, 0).difference(cutOff);
-        // image is still downloadable (< 8 days old) or still on disk, so we keep
-        if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
-            BingLog('Keeping: '+filename);
-            newList.push(image);
-        }
-        else {
-            BingLog('Cleaning up: '+filename);
-        }
-    });
-    setImageList(settings, newList);
-}*/
-
-// add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
+// optionally purge trashed images (default is not, these just don't get select in random mode), optionally purge older images
 export function purgeImages(settings) {
     let deleteprevious = settings.get_boolean('delete-previous');
     let keepfavourites = settings.get_boolean('keep-favourites');
     let emptytrash = settings.get_boolean('trash-deletes-images');
     let maxDays = settings.get_int('previous-days');
-    BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
+    BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+'days:'+maxDays+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
     
     /*if (deleteprevious === false)
         return;*/

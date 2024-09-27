@@ -201,6 +201,11 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                         <property name="subtitle" translatable="yes">Enable logging to system journal</property>
                     </object>
                 </child>
+            </object>
+        </child>
+        <child>
+            <object class="AdwPreferencesGroup" id="adv_group">
+                <property name="title" translatable="yes">Advanced options</property>
                 <child>
                     <object class="AdwSwitchRow" id="revert_switch">
                         <property name="title" translatable="yes">Always show new images</property>
@@ -210,7 +215,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <child>
                     <object class="AdwSwitchRow" id="trash_purge_switch">
                         <property name="title" translatable="yes">Purge on trash</property>
-                        <property name="subtitle" translatable="yes">Trashing an image will remove it from database</property>
+                        <property name="subtitle" translatable="yes">Trashing an image will remove it from database and disk</property>
                     </object>
                 </child>
                 <child>
@@ -229,6 +234,24 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <property name="upper">604800</property>
                                 <property name="page_increment">300</property>
                                 <property name="step_increment">3600</property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSwitchRow" id="delete_previous_switch">
+                        <property name="title" translatable="yes">Delete older images</property>
+                        <property name="subtitle" translatable="yes">Automatically delete older images (excludes favourites)</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwSpinRow" id="delete_previous_entry">
+                        <property name="title" translatable="yes">Number of days to keep images</property>
+                        <property name="subtitle" translatable="yes">Keep images for this number of days (favourites are kept forever)</property>
+                        <property name="adjustment">
+                            <object class="GtkAdjustment" id="delete_previous_adjustment">
+                                <property name="lower">1</property>
+                                <property name="upper">90</property>
                             </object>
                         </property>
                     </object>
