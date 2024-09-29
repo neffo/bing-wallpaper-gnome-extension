@@ -32,7 +32,7 @@ var debug = false;
 var promptActive = false;   // default GNOME method of testing this relies on state of a transisiton
                             // so we are being explicit here (do not want any races, thanks)
 
-function log(msg) {
+function BingLog(msg) {
     if (debug) // set 'debug' above to false to keep the noise down in journal
         console.log("BingWallpaper extension/Blur: " + msg); 
 }
@@ -40,14 +40,14 @@ function log(msg) {
 // we patch UnlockDialog._updateBackgroundEffects()
 export function _updateBackgroundEffects_BWP(monitorIndex) {
     // GNOME shell 3.36.4 and above
-    log("_updateBackgroundEffects_BWP() called for shell >= 3.36.4");
+    BingLog("_updateBackgroundEffects_BWP() called for shell >= 3.36.4");
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
     for (const widget of this._backgroundGroup.get_children()) {
         // set blur effects, we have two modes in lockscreen: login prompt or clock
         // blur on when clock is visible is adjustable
         const effect = widget.get_effect('blur');
         if (promptActive) { 
-            log('default blur active');
+            BingLog('default blur active');
             if (effect) {
                 effect.set({ // GNOME defaults when login prompt is visible
                     brightness: BLUR_BRIGHTNESS,
@@ -56,7 +56,7 @@ export function _updateBackgroundEffects_BWP(monitorIndex) {
             }
         }
         else {
-            log('adjustable blur active');
+            BingLog('adjustable blur active');
             if (effect) {
                 effect.set({ // adjustable blur when clock is visible
                     brightness: BWP_BLUR_BRIGHTNESS * 0.01, // we use 0-100 rather than 0-1, so divide by 100
@@ -92,17 +92,17 @@ export function _clampValue(value) {
 export default class Blur {
     constructor() {
         this.enabled = false;
-        log('Bing Wallpaper adjustable blur is '+(supportedVersion()?'available':'not available'));
+        BingLog('Bing Wallpaper adjustable blur is '+(supportedVersion()?'available':'not available'));
     }
 
     set_blur_strength(value) {
         BWP_BLUR_SIGMA = _clampValue(value);
-        log("lockscreen blur strength set to "+BWP_BLUR_SIGMA);
+        BingLog("lockscreen blur strength set to "+BWP_BLUR_SIGMA);
     }
 
     set_blur_brightness(value) {
         BWP_BLUR_BRIGHTNESS = _clampValue(value);
-        log("lockscreen brightness set to " + BWP_BLUR_BRIGHTNESS);
+        BingLog("lockscreen brightness set to " + BWP_BLUR_BRIGHTNESS);
     }
 
     _switch(enabled) {
@@ -116,7 +116,7 @@ export default class Blur {
 
     _enable() {
         if (supportedVersion()) {
-            log("Blur._enable() called on GNOME "+Config.PACKAGE_VERSION);
+            BingLog("Blur._enable() called on GNOME "+Config.PACKAGE_VERSION);
             UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects_BWP;
             // we override _showClock and _showPrompt to patch in updates to blur effect before calling the GNOME functions
             UnlockDialog.UnlockDialog.prototype._showClock = _showClock_BWP;
@@ -133,7 +133,7 @@ export default class Blur {
     _disable() {
         if (!this.enabled)
             return;
-        log("_lockscreen_blur_disable() called");
+        BingLog("_lockscreen_blur_disable() called");
         if (supportedVersion()) {
             // restore default functions
             UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;

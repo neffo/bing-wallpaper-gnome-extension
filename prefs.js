@@ -44,7 +44,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         let carousel = null;
         let httpSession = null;
 
-        let log = (msg) => { // avoids need for globals
+        let BingLog = (msg) => { // avoids need for globals
             if (settings.get_boolean('debug-logging'))
                 console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
         }
@@ -186,7 +186,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this.metadata.version;
         }
         catch (e) {
-            log("Error creating httpSession: " + e);
+            BingLog("Error creating httpSession: " + e);
         }
         const icon_image = buildable.get_object('icon_image');
         
@@ -245,7 +245,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)));
             dirChooser.select_folder(window, null, (self, res) => {
                 let new_path = self.select_folder_finish(res).get_uri().replace('file://', '');
-                log(new_path);
+                BingLog(new_path);
                 Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), new_path);
                 Utils.setWallpaperDir(settings, new_path);
             });
