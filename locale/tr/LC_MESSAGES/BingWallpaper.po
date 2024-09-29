@@ -327,7 +327,7 @@ msgid "Image shuffle mode"
 msgstr "Görüntü karıştırma kipi"
 
 #: extension.js:155
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "Yalnızca gözdeleri karıştır"
 
 #: extension.js:156

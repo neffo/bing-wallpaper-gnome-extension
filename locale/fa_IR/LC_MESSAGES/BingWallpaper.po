@@ -319,7 +319,7 @@ msgid "Quick settings"
 msgstr "تنظیمات سریع"
 
 #: extension.js:162
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "فقط موارد دلخواه حالت مخلوط کردن"
 
 #: extension.js:164

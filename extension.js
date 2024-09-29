@@ -158,7 +158,7 @@ class BingWallpaperIndicator extends Button {
         this.toggleSetBackground = newMenuSwitchItem(_("Set background image"), this._settings.get_boolean('set-background'));
         this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
         this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), true);
-        this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
+        this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favorites"), this._settings.get_boolean('random-mode-include-only-favourites'));
         /*this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));*/
         this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         this.toggleShuffleOnlyUHD = newMenuSwitchItem(_("Image shuffle only UHD resolutions"), this._settings.get_boolean('random-mode-include-only-uhd'));
@@ -685,10 +685,17 @@ class BingWallpaperIndicator extends Button {
         this._restartTimeout();
         
         let market = this._settings.get_string('market');
+        // Soup3 should be the version used, but in the past some distros have packaged older versions only
         if (Soup.MAJOR_VERSION >= 3) {
             let url = BingImageURL;
             let params = Utils.BingParams;
             params['mkt'] = ( market != 'auto' ? market : '' );
+            
+            // if we've set previous days to be something less than 8 and 
+            // delete previous is active we want to just request a subset of wallpapers
+            if (this._settings.get_boolean('delete-previous') == true && this._settings.get_int('previous-days')<8) {
+                params['n'] = this._settings.get_int('previous-days');
+            }
 
             let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
             request.request_headers.append('Accept', 'application/json');

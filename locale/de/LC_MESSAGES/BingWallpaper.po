@@ -320,7 +320,7 @@ msgid "Image shuffle mode"
 msgstr "Shuffle-Modus für Bilder"
 
 #: extension.js:162
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "Shuffle-Modus nur Favoriten"
 
 #: extension.js:164

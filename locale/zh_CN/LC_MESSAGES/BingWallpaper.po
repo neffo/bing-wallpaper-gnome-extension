@@ -327,7 +327,7 @@ msgid "Image shuffle mode"
 msgstr "图像随机播放模式"
 
 #: extension.js:155
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "仅随机播放收藏夹的图像"
 
 #: extension.js:156

@@ -4,7 +4,7 @@ Bring some color to your GNOME desktop by syncing your desktop and lockscreen wa
 
 [![Get it on GNOME extensions](/screenshot/get_it_on_gnome_extensions.png)](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/) [![<3 Sponsor this project on GitHub <3](/screenshot/sponsor.png)](https://github.com/sponsors/neffo)
 
-![Screenshot](/screenshot/notification.png)
+![Screenshot](/screenshot/overview.jpg)
 
 As featured on [OMG! Ubuntu](https://www.omgubuntu.co.uk/2017/07/bing-wallpaper-changer-gnome-extension). 
 
@@ -21,6 +21,40 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN, zh_TW), French (fr_FR), Portuguese (pt, pt_BR), Ukrainian (uk), Russian (ru_RU), Spanish (es), Korean (ko), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (nn), Swedish (sv), Arabic (ar), Hungarian (hu), Japanese (ja), Czech (cs_CZ), Finnish (fi_FI) and Turkish (tr), Persian (fa_ir) - a HUGE thanks to the translators
 * Image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
 * A selection of different theme-aware indicator (tray) icons to choose (or hide it completely)
+
+## Quickstart guide
+
+* Install from [GNOME extensions](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/), by default your wallpaper will be synced to the current Bing image of the day - if that's all you want you don't have to do anymore, everything is automatic
+* Bing Wallpaper (by default) builds a collection of images over time (this can be disabled if required)
+
+### Control bar
+![Bing Wallpaper menu control bar](/screenshot/controlbar.png)
+
+* 🤍 - Favorite/unfavorite current image (can be used to shuffle only favorite images and favorites are never deleted automatically)
+* 🗑️ - Trash/untrash current image (exclude from shuffle selection or optionally deleted from disk)
+* ⏪ - select previous day's image (in date order)
+* ⏩ - select next day's image (in date order)
+* ⏭️ - select today's image (skip to current)
+* 🎲 - I'm feeling lucky, show me a random image (by default you should have at least 8 images available, curated with favorite and trash buttons)
+
+### Quick settings
+![Bing Wallpaper menu control bar](/screenshot/quicksettings.png)
+
+* Always show new images - when a new Bing wallpaper is available switch to it immediately
+* Image shuffle mode - switch to a random image at user defined intervals (default once per day or once per startup)
+* Image shuffle only favorites - only select favorite images (🤍), by default 'trashed' images are always excluded
+* Image shuffle only UHD resolution - occasionally some images are not UHD, exclude these from selection
+
+### Gallery
+
+![Gallery item](/screenshot/gallery.png)
+
+The 4 buttons in the gallery (4th page in the preferences) do have tool-tips but these do the following:
+- Favorite - favorite this image (equivalent to doing this via the control bar)
+- Apply - set this image as wallpaper
+- View - open image in image viewer
+- Info - open the Bing description of the image
+- Trash - trash the image
 
 ## TODO
 

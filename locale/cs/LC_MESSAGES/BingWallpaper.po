@@ -337,7 +337,7 @@ msgid "Quick settings"
 msgstr "Rychlé nastavení"
 
 #: extension.js:155
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "Mód náhodného přepnutí jen favoritů"
 
 #: extension.js:156

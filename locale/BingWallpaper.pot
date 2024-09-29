@@ -335,11 +335,7 @@ msgid "Quick settings"
 msgstr ""
 
 #: extension.js:161
-msgid "Image shuffle only favourites"
-msgstr ""
-
-#: extension.js:162
-msgid "Enable desktop notifications"
+msgid "Image shuffle only favorites"
 msgstr ""
 
 #: extension.js:163
@@ -362,15 +358,15 @@ msgstr ""
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:849 extension.js:937
+#: extension.js:856 extension.js:944
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:975
+#: extension.js:982
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:976
+#: extension.js:983
 msgid "No picture for today."
 msgstr ""
 
