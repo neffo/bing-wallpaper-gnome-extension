@@ -159,11 +159,11 @@ class BingWallpaperIndicator extends Button {
         this.toggleSelectNew = newMenuSwitchItem(_("Always show new images"), this._settings.get_boolean('revert-to-current-image'));
         this.toggleShuffle = newMenuSwitchItem(_("Image shuffle mode"), true);
         this.toggleShuffleOnlyFaves = newMenuSwitchItem(_("Image shuffle only favourites"), this._settings.get_boolean('random-mode-include-only-favourites'));
-        this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));
+        /*this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));*/
         this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         this.toggleShuffleOnlyUHD = newMenuSwitchItem(_("Image shuffle only UHD resolutions"), this._settings.get_boolean('random-mode-include-only-uhd'));
         
-        [this.toggleNotifications, /*this.toggleImageCount, this.toggleSetBackground,*/ this.toggleSelectNew, 
+        [/*this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground,*/ this.toggleSelectNew, 
             this.toggleShuffle, this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD]
                 .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
@@ -286,8 +286,8 @@ class BingWallpaperIndicator extends Button {
 
         let toggles = [ /*{key: 'set-background', toggle: this.toggleSetBackground},*/
                         {key: 'revert-to-current-image', toggle: this.toggleSelectNew},
-                        {key: 'notify', toggle: this.toggleNotifications},
-                        /*{key: 'show-count-in-image-title', toggle: this.toggleImageCount},*/
+                        /*{key: 'notify', toggle: this.toggleNotifications},
+                        {key: 'show-count-in-image-title', toggle: this.toggleImageCount},*/
                         {key: 'random-mode-enabled', toggle: this.toggleShuffle},
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
                         /*{key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},*/
