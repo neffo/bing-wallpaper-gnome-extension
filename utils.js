@@ -118,14 +118,16 @@ export function fetch_change_log(version, label, httpSession) {
             httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
-                label.set_label(text);
+                if (text)
+                    label.set_label(text);
             });
         }
         else {
             httpSession.queue_message(request, (httpSession, message) => {
                 let data = message.response_body.data;
                 let text = JSON.parse(data).body;
-                label.set_label(text);
+                if (text)
+                    label.set_label(text);
             });
         }
     } 
