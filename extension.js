@@ -352,7 +352,6 @@ class BingWallpaperIndicator extends Button {
         this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
-        //this.showItem.setSensitive(!this._updatePending && this.title != "" && this.explanation != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
@@ -694,7 +693,7 @@ class BingWallpaperIndicator extends Button {
             // if we've set previous days to be something less than 8 and 
             // delete previous is active we want to just request a subset of wallpapers
             if (this._settings.get_boolean('delete-previous') == true && this._settings.get_int('previous-days')<8) {
-                params['n'] = this._settings.get_int('previous-days');
+                params['n'] = ""+this._settings.get_int('previous-days');
             }
 
             let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
