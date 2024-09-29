@@ -143,7 +143,7 @@ msgid "Purge on trash"
 msgstr ""
 
 #: ui/prefsadw.ui.h:37
-msgid "Trashing an image will remove it from database"
+msgid "Trashing an image will remove it from database and disk"
 msgstr ""
 
 #: ui/prefsadw.ui.h:38
@@ -171,11 +171,11 @@ msgid "Automatically delete older images (excludes favourites)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:44
-msgid "Number of images to keep"
+msgid "Number of days to keep images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:45
-msgid "Maximum number of images to keep (excludes favourites)"
+msgid "Keep images for this number of days (favourites are kept forever)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:46
