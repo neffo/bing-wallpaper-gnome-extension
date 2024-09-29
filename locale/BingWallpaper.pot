@@ -1,4 +1,4 @@
-#: ui/prefsadw.ui.h:1 extension.js:139
+#: ui/prefsadw.ui.h:1 extension.js:145
 msgid "Settings"
 msgstr ""
 
@@ -126,99 +126,119 @@ msgstr ""
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/prefsadw.ui.h:33 extension.js:153
+#: ui/prefsadw.ui.h:33
+msgid "Advanced options"
+msgstr ""
+
+#: ui/prefsadw.ui.h:34 extension.js:159
 msgid "Always show new images"
 msgstr ""
 
-#: ui/prefsadw.ui.h:34
+#: ui/prefsadw.ui.h:35
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
-#: ui/prefsadw.ui.h:35
+#: ui/prefsadw.ui.h:36
 msgid "Purge on trash"
 msgstr ""
 
-#: ui/prefsadw.ui.h:36
-msgid "Trashing an image will remove it from database"
-msgstr ""
-
 #: ui/prefsadw.ui.h:37
-msgid "Screen resolution"
+msgid "Trashing an image will remove it from database and disk"
 msgstr ""
 
 #: ui/prefsadw.ui.h:38
-msgid "Override automatic resolution selection"
+msgid "Screen resolution"
 msgstr ""
 
 #: ui/prefsadw.ui.h:39
-msgid "Random interval"
+msgid "Override automatic resolution selection"
 msgstr ""
 
 #: ui/prefsadw.ui.h:40
-msgid "Custom shuffle interval when enabled"
+msgid "Random interval"
 msgstr ""
 
 #: ui/prefsadw.ui.h:41
-msgid "Always export Bing data"
+msgid "Custom shuffle interval when enabled"
 msgstr ""
 
 #: ui/prefsadw.ui.h:42
-msgid "Export Bing JSON when image data changes"
+msgid "Delete older images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:43
-msgid "Bing JSON data"
+msgid "Automatically delete older images (excludes favourites)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:44
-msgid "About"
+msgid "Number of days to keep images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:45
-msgid "Bing Wallpaper"
+msgid "Keep images for this number of days (favourites are kept forever)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:46
-msgid "New wallpaper images everyday from Bing"
+msgid "Always export Bing data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:47
-msgid "Maintained by Michael Carroll"
+msgid "Export Bing JSON when image data changes"
 msgstr ""
 
 #: ui/prefsadw.ui.h:48
-msgid "Version"
+msgid "Bing JSON data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:49
-msgid "Release notes"
+msgid "About"
 msgstr ""
 
 #: ui/prefsadw.ui.h:50
-msgid "GNOME extensions page"
+msgid "Bing Wallpaper"
 msgstr ""
 
 #: ui/prefsadw.ui.h:51
-msgid "Source code"
+msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
 #: ui/prefsadw.ui.h:52
-msgid "Report an issue"
+msgid "Maintained by Michael Carroll"
 msgstr ""
 
 #: ui/prefsadw.ui.h:53
-msgid "Contributors"
+msgid "Version"
 msgstr ""
 
 #: ui/prefsadw.ui.h:54
-msgid "License"
+msgid "Release notes"
 msgstr ""
 
-#: ui/prefsadw.ui.h:55 prefs.js:115
-msgid "Change folder"
+#: ui/prefsadw.ui.h:55
+msgid "GNOME extensions page"
 msgstr ""
 
 #: ui/prefsadw.ui.h:56
+msgid "Source code"
+msgstr ""
+
+#: ui/prefsadw.ui.h:57
+msgid "Report an issue"
+msgstr ""
+
+#: ui/prefsadw.ui.h:58
+msgid "Contributors"
+msgstr ""
+
+#: ui/prefsadw.ui.h:59
+msgid "License"
+msgstr ""
+
+#: ui/prefsadw.ui.h:60 prefs.js:117
+msgid "Change folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:61
 msgid "Select new wallpaper download folder"
 msgstr ""
 
@@ -246,8 +266,8 @@ msgstr ""
 msgid "<image name here>"
 msgstr ""
 
-#: ui/carousel4.ui.h:7
-msgid "Set random mode"
+#: ui/carousel4.ui.h:7 extension.js:160
+msgid "Image shuffle mode"
 msgstr ""
 
 #: ui/carousel4.ui.h:8
@@ -263,122 +283,118 @@ msgid "every day at midnight"
 msgstr ""
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid "Sunday at midnight"
 msgstr ""
 
-#: extension.js:130
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
+msgstr ""
+
+#: extension.js:136
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:131 extension.js:132 extension.js:142 extension.js:144
+#: extension.js:137 extension.js:138 extension.js:148 extension.js:150
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:133
+#: extension.js:139
 msgid "Copy image to clipboard"
 msgstr ""
 
-#: extension.js:134
+#: extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr ""
 
-#: extension.js:135
+#: extension.js:141
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:136 extension.js:152
+#: extension.js:142 extension.js:158
 msgid "Set background image"
 msgstr ""
 
-#: extension.js:137
+#: extension.js:143
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:138
+#: extension.js:144
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:140
+#: extension.js:146
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:141
+#: extension.js:147
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:150
+#: extension.js:156
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:154
-msgid "Image shuffle mode"
+#: extension.js:161
+msgid "Image shuffle only favorites"
 msgstr ""
 
-#: extension.js:155
-msgid "Image shuffle only favourites"
-msgstr ""
-
-#: extension.js:156
-msgid "Enable desktop notifications"
-msgstr ""
-
-#: extension.js:157
+#: extension.js:163
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:158
+#: extension.js:164
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
 
-#: extension.js:321
+#: extension.js:361
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:323
+#: extension.js:363
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:326
+#: extension.js:366
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:808 extension.js:883
+#: extension.js:856 extension.js:944
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:921
+#: extension.js:982
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:922
+#: extension.js:983
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:107
+#: prefs.js:109
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:130
+#: prefs.js:132
 msgid "Default"
 msgstr ""
 
-#: prefs.js:138
+#: prefs.js:140
 msgid "No blur, slight dim"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:148
 msgid "Slight blur & dim"
 msgstr ""
 
-#: prefs.js:163
+#: prefs.js:165
 msgid "Import"
 msgstr ""
 
-#: prefs.js:171
+#: prefs.js:173
 msgid "Export"
 msgstr ""
 
-#: prefs.js:238
+#: prefs.js:241
 msgid "Select wallpaper download folder"
 msgstr ""
 
@@ -386,14 +402,14 @@ msgstr ""
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:413 utils.js:416
+#: utils.js:400 utils.js:403
 msgid "minutes"
 msgstr ""
 
-#: utils.js:419
+#: utils.js:406
 msgid "days"
 msgstr ""
 
-#: utils.js:422
+#: utils.js:409
 msgid "hours"
 msgstr ""

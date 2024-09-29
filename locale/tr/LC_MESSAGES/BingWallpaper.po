@@ -1,370 +1,502 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-17 22:53+0200\n"
-"PO-Revision-Date: 2023-05-18 21:53+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/"
-"bing-wallpaper-gnome-extension/bing-wallpaper-gnome-extension/tr/>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2024-03-30 18:20+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/bing-wallpaper-"
+"gnome-extension/bing-wallpaper-gnome-extension/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Göstergeyi gizle"
-
-#: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Gösterge simgesi"
-
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4 extension.js:159
-msgid "Enable desktop notifications"
-msgstr "Masaüstü bildirimlerini etkinleştir"
-
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:142 extension.js:156
-msgid "Set background image"
-msgstr "Arka plan görüntüsünü ayarla"
-
-#: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
-msgid "Background style option"
-msgstr "Arka plan stili seçeneği"
-
-#: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
-msgid "Download folder"
-msgstr "İndirme klasörü"
-
-#: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Bing Duvar Kağıdı resimleri klasörü"
-
-#: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Klasörü aç"
-
-#: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Önceden indirilmiş duvar kağıtlarını sil"
-
-#: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
-msgid "Selected image"
-msgstr "Seçilen görüntü"
-
-#: ui/Settings.ui.h:11
-msgid "Select from image gallery"
-msgstr "Görüntü galerisinden seç"
-
-#: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Bing yerel ayarı"
-
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:145
+#: ui/prefsadw.ui.h:1 extension.js:139
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
-msgid "Use custom blur and brightness"
-msgstr "Özel bulanıklık ve parlaklık kullan"
+#: ui/prefsadw.ui.h:2
+msgid "Indicator"
+msgstr "Gösterge"
 
-#: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
-msgid "Override GDM3 lockscreen effects"
-msgstr "GDM3 kilit ekranı etkilerini geçersiz kıl"
+#: ui/prefsadw.ui.h:3
+msgid "Hide Indicator"
+msgstr "Göstergeyi Gizle"
 
-#: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
-msgid "Blur can improve readability of login prompt"
-msgstr "Bulanıklaştırma, giriş isteminin okunabilirliğini artırabilir"
+#: ui/prefsadw.ui.h:4
+msgid "Whether to hide the panel indicator"
+msgstr "Panel göstergesinin gizlenme durumu"
 
-#: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
-msgid "Background blur intensity"
-msgstr "Arka plan bulanıklık yoğunluğu"
+#: ui/prefsadw.ui.h:5
+msgid "Desktop notifications"
+msgstr "Masaüstü bildirimleri"
 
-#: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
-msgid "Can improve contrast of login prompt"
-msgstr "Giriş isteminin karşıtlığını iyileştirebilir"
+#: ui/prefsadw.ui.h:6
+msgid "Enable notifications on new images"
+msgstr "Yeni görüntülerle ilgili bildirimleri etkinleştir"
 
-#: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
-msgid "Background brightness"
-msgstr "Arka plan parlaklığı"
+#: ui/prefsadw.ui.h:7
+msgid "Indicator icon"
+msgstr "Gösterge simgesi"
 
-#: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
+#: ui/prefsadw.ui.h:8
+msgid "Select from alternate tray icons"
+msgstr "Alternatif tepsi simgeleri arasından seç"
+
+#: ui/prefsadw.ui.h:9
+msgid "Download folder"
+msgstr "İndirme klasörü"
+
+#: ui/prefsadw.ui.h:10
+msgid "Open or change wallpaper downloads folder"
+msgstr "Duvar kağıdı indirme klasörünü aç ya da değiştir"
+
+#: ui/prefsadw.ui.h:11
+msgid "Wallpaper"
+msgstr "Duvar Kağıdı"
+
+#: ui/prefsadw.ui.h:12
+msgid "Set wallpaper"
+msgstr "Duvar kağıdını ayarla"
+
+#: ui/prefsadw.ui.h:13
+msgid "Whether to set wallpaper automatically"
+msgstr "Duvar kağıdının kendiliğinden ayarlanma durumu"
+
+#: ui/prefsadw.ui.h:14
+msgid "Shuffle wallpaper"
+msgstr "Duvar kağıtlarını karıştır"
+
+#: ui/prefsadw.ui.h:15
+msgid "Randomly select wallpaper from collection"
+msgstr "Koleksiyondan rastgele duvar kağıdı seç"
+
+#: ui/prefsadw.ui.h:16
+msgid "Shuffle interval"
+msgstr "Karıştırma aralığı"
+
+#: ui/prefsadw.ui.h:17
+msgid "How frequently to shuffle wallpapers"
+msgstr "Duvar kağıtlarının karıştırılma sıklığı"
+
+#: ui/prefsadw.ui.h:18
+msgid "Downloads"
+msgstr "İndirmeler"
+
+#: ui/prefsadw.ui.h:19
+msgid "Lock screen"
+msgstr "Kilit ekranı"
+
+#: ui/prefsadw.ui.h:20
+msgid "Lockscreen blur"
+msgstr "Kilit ekranı bulanıklığı"
+
+#: ui/prefsadw.ui.h:21
+msgid "Dynamic lockscreen blur"
+msgstr "Dinamik kilit ekranı bulanıklığı"
+
+#: ui/prefsadw.ui.h:22
+msgid "Whether to enable dynamic blur mode on lock screen"
+msgstr "Kilit ekranında dinamik bulanıklaştırma kipinin etkinleştirilme durumu"
+
+#: ui/prefsadw.ui.h:23
+msgid "Blur strength"
+msgstr "Bulanıklık gücü"
+
+#: ui/prefsadw.ui.h:24
+msgid "Blur strength when login prompt is not visible"
+msgstr "Oturum açma istemi görünmediğinde bulanıklık gücü"
+
+#: ui/prefsadw.ui.h:25
+msgid "Wallpaper brightness"
+msgstr "Duvar kağıdı parlaklığı"
+
+#: ui/prefsadw.ui.h:26
+msgid "Dim wallpaper when login prompt is not visible"
+msgstr "Oturum açma istemi görünmediğinde duvar kağıdını karart"
+
+#: ui/prefsadw.ui.h:27
 msgid "Presets"
 msgstr "Ön Ayarlar"
 
-#: ui/Settings.ui.h:21
-msgid "Commonly used presets"
-msgstr "Yaygın kullanılan ön ayarlar"
-
-#: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
-msgid "No blur, slight dim"
-msgstr "Bulanıklık yok, hafif loş"
-
-#: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
-msgid "GNOME default"
-msgstr "GNOME varsayılanı"
-
-#: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
-msgid "Slight blur, slight dim"
-msgstr "Hafif bulanıklık, hafif loş"
-
-#: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
-msgid "Lock Screen"
-msgstr "Kilit Ekranı"
-
-#: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
-msgid "Debug logging"
-msgstr "Hata ayıklama günlüğü"
-
-#: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
-msgid "Enable logging to system journal"
-msgstr "Sistem günlüğüne günlüklemeyi etkinleştir"
-
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27 extension.js:157
-msgid "Always show new images"
-msgstr "Her zaman yeni görüntüleri göster"
-
-#: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
-msgid "Switch to new images when available (unless on random mode)"
-msgstr "Mevcut olduğunda yeni görüntülere geç (rastgele kipte değilse)"
-
-#: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
-msgid "Enable all features on Wayland"
-msgstr "Wayland üzerinde tüm özellikleri etkinleştir"
-
-#: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
-msgid "Some newer features may be unstable on Wayland"
-msgstr "Bazı yeni özellikler Wayland üzerinde kararsız olabilir"
-
-#: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
-msgid "Screen resolution"
-msgstr "Ekran çözünürlüğü"
-
-#: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
-msgid "Override automatic resolution selection"
-msgstr "Kendiliğinden çözünürlük seçimini geçersiz kıl"
-
-#: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
-msgid "Manually adjust random interval (seconds)"
-msgstr "Rastgele aralığı elle ayarla (saniye)"
-
-#: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
-msgid "Random interval"
-msgstr "Rastgele aralık"
-
-#: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
-msgid "Import Bing Wallpaper data"
-msgstr "Bing Duvar Kağıdı verilerini içe aktar"
-
-#: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
-msgid "Import previously exported JSON data from wallpaper directory"
-msgstr ""
-"Duvar kağıdı dizininden önceden dışa aktarılmış JSON verilerini içe aktar"
-
-#: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
-msgid "Import"
-msgstr "İçe Aktar"
-
-#: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
-msgid "Export Bing Wallpaper data"
-msgstr "Bing Duvar Kağıdı verilerini dışa aktar"
-
-#: ui/Settings.ui.h:40 ui/Settings4.ui.h:38
-msgid "Export JSON data to wallpaper dir for backup or data migration"
-msgstr ""
-"JSON verilerini yedekleme veya veri taşıma için duvar kağıdı dizinine aktar"
-
-#: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
-msgid "Export"
-msgstr "Dışa Aktar"
-
-#: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
-msgid "Always export Bing data"
-msgstr "Bing verilerini her zaman dışa aktar"
-
-#: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
-msgid "Export Bing JSON whenever data changes"
-msgstr "Veriler her değiştiğinde Bing JSON'u dışa aktar"
-
-#: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
-msgid "Debug options"
-msgstr "Hata ayıklama seçenekleri"
-
-#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
-msgid "New wallpaper images everyday from Bing"
-msgstr "Bing'den her gün yeni duvar kağıdı görüntüleri"
-
-#: ui/Settings.ui.h:46
-msgid "Gnome shell extension version "
-msgstr "GNOME shell uzantısı sürümü "
-
-#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
-msgid "Maintained by Michael Carroll"
-msgstr "Michael Carroll tarafından sürdürülmektedir"
-
-#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/"
-"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-"Yazara desteğinizi <a href=\"https://flattr.com/@neffo\">Flattr</a> veya <a "
-"href=\"https://github.com/sponsors/neffo\">Github Sponsorları</a> üzerinden "
-"gösterin."
-
-#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
-msgid "Changes since last version"
-msgstr "Son sürümden bu yana değişiklikler"
-
-#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Elia Argentieri'nin NASA APOD GNOME shell uzantısına dayanmaktadır"
-
-#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">Bu program KESİNLİKLE HİÇBİR GARANTİ ile birlikte "
-"gelmez.\n"
-"Ayrıntılar için <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
-"Genel Kamu Lisansı, sürüm 3 veya sonrası</a>'na bakın.</span>"
-
-#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
-msgid "About"
-msgstr "Hakkında"
-
-#: ui/Settings4.ui.h:43
+#: ui/prefsadw.ui.h:28
 msgid "Gallery"
 msgstr "Galeri"
 
-#: ui/Settings4.ui.h:45
-msgid "GNOME shell extension version "
-msgstr "GNOME shell uzantısı sürümü "
+#: ui/prefsadw.ui.h:29
+msgid "Debug"
+msgstr "Hata ayıkla"
 
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
+#: ui/prefsadw.ui.h:30
+msgid "Debug options"
+msgstr "Hata ayıklama seçenekleri"
+
+#: ui/prefsadw.ui.h:31
+msgid "Debug logging"
+msgstr "Hata ayıklama günlüğü"
+
+#: ui/prefsadw.ui.h:32
+msgid "Enable logging to system journal"
+msgstr "Sistem günlüğüne günlüklemeyi etkinleştir"
+
+#: ui/prefsadw.ui.h:33 extension.js:153
+msgid "Always show new images"
+msgstr "Her zaman yeni görüntüleri göster"
+
+#: ui/prefsadw.ui.h:34
+msgid "Switch to new images when available (unless on random mode)"
+msgstr "Mevcut olduğunda yeni görüntülere geç (rastgele kipte değilse)"
+
+#: ui/prefsadw.ui.h:35
+msgid "Purge on trash"
+msgstr "Çöpe atılınca temizle"
+
+#: ui/prefsadw.ui.h:36
+msgid "Trashing an image will remove it from database"
+msgstr "Resmi çöpe atmak onu veritabanından kaldırır"
+
+#: ui/prefsadw.ui.h:37
+msgid "Screen resolution"
+msgstr "Ekran çözünürlüğü"
+
+#: ui/prefsadw.ui.h:38
+msgid "Override automatic resolution selection"
+msgstr "Kendiliğinden çözünürlük seçimini geçersiz kıl"
+
+#: ui/prefsadw.ui.h:39
+msgid "Random interval"
+msgstr "Rastgele aralık"
+
+#: ui/prefsadw.ui.h:40
+msgid "Custom shuffle interval when enabled"
+msgstr "Etkinleştirildiyse, özel karıştırma aralığı"
+
+#: ui/prefsadw.ui.h:41
+msgid "Always export Bing data"
+msgstr "Bing verilerini her zaman dışa aktar"
+
+#: ui/prefsadw.ui.h:42
+msgid "Export Bing JSON when image data changes"
+msgstr "Görüntü verileri değiştiğinde Bing JSON'u dışa aktar"
+
+#: ui/prefsadw.ui.h:43
+msgid "Bing JSON data"
+msgstr "Bing JSON verileri"
+
+#: ui/prefsadw.ui.h:44
+msgid "About"
+msgstr "Hakkında"
+
+#: ui/prefsadw.ui.h:45
+msgid "Bing Wallpaper"
+msgstr "Bing Duvar Kağıdı"
+
+#: ui/prefsadw.ui.h:46
+msgid "New wallpaper images everyday from Bing"
+msgstr "Bing'den her gün yeni duvar kağıdı görüntüleri"
+
+#: ui/prefsadw.ui.h:47
+msgid "Maintained by Michael Carroll"
+msgstr "Michael Carroll tarafından sürdürülmektedir"
+
+#: ui/prefsadw.ui.h:48
+msgid "Version"
+msgstr "Sürüm"
+
+#: ui/prefsadw.ui.h:49
+msgid "Release notes"
+msgstr "Sürüm notları"
+
+#: ui/prefsadw.ui.h:50
+msgid "GNOME extensions page"
+msgstr "GNOME uzantıları sayfası"
+
+#: ui/prefsadw.ui.h:51
+msgid "Source code"
+msgstr "Kaynak kodu"
+
+#: ui/prefsadw.ui.h:52
+msgid "Report an issue"
+msgstr "Sorun bildir"
+
+#: ui/prefsadw.ui.h:53
+msgid "Contributors"
+msgstr "Katkıda Bulunanlar"
+
+#: ui/prefsadw.ui.h:54
+msgid "License"
+msgstr "Lisans"
+
+#: ui/prefsadw.ui.h:55 prefs.js:115
+msgid "Change folder"
+msgstr "Klasörü değiştir"
+
+#: ui/prefsadw.ui.h:56
+msgid "Select new wallpaper download folder"
+msgstr "Yeni duvar kağıdı indirme klasörünü seç"
+
+#: ui/carousel4.ui.h:1
+msgid "Favorite"
+msgstr "Gözde"
+
+#: ui/carousel4.ui.h:2
 msgid "Apply"
 msgstr "Uygula"
 
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
+#: ui/carousel4.ui.h:3
 msgid "View"
 msgstr "Görüntüle"
 
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
+#: ui/carousel4.ui.h:4
 msgid "Info"
 msgstr "Bilgi"
 
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
+#: ui/carousel4.ui.h:5
 msgid "Delete"
 msgstr "Sil"
 
-#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
-msgid "Set random mode"
-msgstr "Rastgele kipi ayarla"
-
-#: ui/carousel4.ui.h:5
+#: ui/carousel4.ui.h:6
 msgid "<image name here>"
 msgstr "<görüntü adı buraya>"
 
-#: ui/carousel4.ui.h:7
+#: ui/carousel4.ui.h:8
 msgid "Load image gallery"
 msgstr "Görüntü galerisini yükle"
 
-#: extension.js:135
+#: ui/intervals.utils.js.h:2
+msgid "on the hour"
+msgstr "saat başı"
+
+#: ui/intervals.utils.js.h:5
+msgid "every day at midnight"
+msgstr "her gün gece yarısı"
+
+#: ui/intervals.utils.js.h:8
+msgid " Sunday at midnight"
+msgstr "her Pazar gece yarısı"
+
+#: extension.js:130
 msgid "<No refresh scheduled>"
 msgstr "<Yenileme zamanlanmadı>"
 
-#: extension.js:136 extension.js:137 extension.js:138
+#: extension.js:131 extension.js:132 extension.js:142 extension.js:144
 msgid "Awaiting refresh..."
 msgstr "Yenileme bekleniyor..."
 
-#: extension.js:139
+#: extension.js:133
 msgid "Copy image to clipboard"
 msgstr "Görüntüyü panoya kopyala"
 
-#: extension.js:140
+#: extension.js:134
 msgid "Copy image URL to clipboard"
 msgstr "Görüntü URL'sini panoya kopyala"
 
-#: extension.js:141
+#: extension.js:135
 msgid "Open image folder"
 msgstr "Görüntü klasörünü aç"
 
-#: extension.js:143
+#: extension.js:136 extension.js:152
+msgid "Set background image"
+msgstr "Arka plan görüntüsünü ayarla"
+
+#: extension.js:137
 msgid "Set lock screen image"
 msgstr "Kilit ekranı görüntüsünü ayarla"
 
-#: extension.js:144
+#: extension.js:138
 msgid "Refresh Now"
 msgstr "Şimdi Yenile"
 
-#: extension.js:146
+#: extension.js:140
 msgid "Open in image viewer"
 msgstr "Görüntü göstericide aç"
 
-#: extension.js:147
+#: extension.js:141
 msgid "Open Bing image information page"
 msgstr "Bing görüntü bilgileri sayfasını aç"
 
-#: extension.js:154
+#: extension.js:150
 msgid "Quick settings"
 msgstr "Hızlı ayarlar"
 
-#: extension.js:158
+#: extension.js:154
 msgid "Image shuffle mode"
 msgstr "Görüntü karıştırma kipi"
 
-#: extension.js:160
+#: extension.js:155
+msgid "Image shuffle only favorites"
+msgstr "Yalnızca gözdeleri karıştır"
+
+#: extension.js:156
+msgid "Enable desktop notifications"
+msgstr "Masaüstü bildirimlerini etkinleştir"
+
+#: extension.js:157
 msgid "Show image count"
 msgstr "Görüntü sayısını göster"
 
-#: extension.js:326
+#: extension.js:158
+msgid "Image shuffle only UHD resolutions"
+msgstr "Yalnızca UHD çözünürlüklerde görüntüleri karıştır"
+
+#: extension.js:321
 msgid "Next refresh"
 msgstr "Sonraki yenileme"
 
-#: extension.js:327
+#: extension.js:323
 msgid "Last refresh"
 msgstr "Son yenileme"
 
-#: extension.js:724 extension.js:760
+#: extension.js:326
+msgid "Next shuffle"
+msgstr "Sonraki karıştırma"
+
+#: extension.js:808 extension.js:883
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing Günün Duvar Kağıdı"
 
-#: extension.js:784
+#: extension.js:921
 msgid "No wallpaper available"
 msgstr "Kullanılabilir duvar kağıdı yok"
 
-#: extension.js:785
+#: extension.js:922
 msgid "No picture for today."
 msgstr "Bugün için resim yok."
 
-#: prefs.js:181
-msgid "Select folder"
-msgstr "Klasör seç"
+#: prefs.js:107
+msgid "Open folder"
+msgstr "Klasörü aç"
 
-#: prefs.js:249
-msgid "Most recent image"
-msgstr "En son görüntü"
+#: prefs.js:130
+msgid "Default"
+msgstr "Öntanımlı"
 
-#: prefs.js:250
-msgid "Random image"
-msgstr "Rastgele görüntü"
+#: prefs.js:138
+msgid "No blur, slight dim"
+msgstr "Bulanıklık yok, hafif loş"
 
-#: utils.js:135
+#: prefs.js:146
+msgid "Slight blur & dim"
+msgstr "Hafif bulanıklık ve karartma"
+
+#: prefs.js:163
+msgid "Import"
+msgstr "İçe Aktar"
+
+#: prefs.js:171
+msgid "Export"
+msgstr "Dışa Aktar"
+
+#: prefs.js:238
+msgid "Select wallpaper download folder"
+msgstr "Duvar kağıdı indirme klasörünü seç"
+
+#: utils.js:134
 msgid "Error fetching change log: "
 msgstr "Değişiklik günlüğü alınırken hata oluştu: "
 
-#: utils.js:350 utils.js:353
+#: utils.js:413 utils.js:416
 msgid "minutes"
 msgstr "dakika"
 
-#: utils.js:356
+#: utils.js:419
 msgid "days"
 msgstr "gün"
 
-#: utils.js:359
+#: utils.js:422
 msgid "hours"
 msgstr "saat"
+
+#~ msgid "Background style option"
+#~ msgstr "Arka plan stili seçeneği"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Bing Duvar Kağıdı resimleri klasörü"
+
+#~ msgid "Delete previously downloaded wallpapers"
+#~ msgstr "Önceden indirilmiş duvar kağıtlarını sil"
+
+#~ msgid "Selected image"
+#~ msgstr "Seçilen görüntü"
+
+#~ msgid "Bing locale"
+#~ msgstr "Bing yerel ayarı"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Özel bulanıklık ve parlaklık kullan"
+
+#~ msgid "Override GDM3 lockscreen effects"
+#~ msgstr "GDM3 kilit ekranı etkilerini geçersiz kıl"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr "Bulanıklaştırma, giriş isteminin okunabilirliğini artırabilir"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "Arka plan bulanıklık yoğunluğu"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "Giriş isteminin karşıtlığını iyileştirebilir"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Yaygın kullanılan ön ayarlar"
+
+#~ msgid "Enable all features on Wayland"
+#~ msgstr "Wayland üzerinde tüm özellikleri etkinleştir"
+
+#~ msgid "Some newer features may be unstable on Wayland"
+#~ msgstr "Bazı yeni özellikler Wayland üzerinde kararsız olabilir"
+
+#~ msgid "Manually adjust random interval (seconds)"
+#~ msgstr "Rastgele aralığı elle ayarla (saniye)"
+
+#~ msgid "Import previously exported JSON data from wallpaper directory"
+#~ msgstr ""
+#~ "Duvar kağıdı dizininden önceden dışa aktarılmış JSON verilerini içe aktar"
+
+#~ msgid "Export Bing Wallpaper data"
+#~ msgstr "Bing Duvar Kağıdı verilerini dışa aktar"
+
+#~ msgid "Export JSON data to wallpaper dir for backup or data migration"
+#~ msgstr ""
+#~ "JSON verilerini yedekleme veya veri taşıma için duvar kağıdı dizinine "
+#~ "aktar"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "GNOME shell uzantısı sürümü "
+
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/@neffo"
+#~ "\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
+#~ "Sponsors</a>."
+#~ msgstr ""
+#~ "Yazara desteğinizi <a href=\"https://flattr.com/@neffo\">Flattr</a> veya "
+#~ "<a href=\"https://github.com/sponsors/neffo\">Github Sponsorları</a> "
+#~ "üzerinden gösterin."
+
+#~ msgid "Changes since last version"
+#~ msgstr "Son sürümden bu yana değişiklikler"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr "Elia Argentieri'nin NASA APOD GNOME shell uzantısına dayanmaktadır"
+
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">Bu program KESİNLİKLE HİÇBİR GARANTİ ile birlikte "
+#~ "gelmez.\n"
+#~ "Ayrıntılar için <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
+#~ "Genel Kamu Lisansı, sürüm 3 veya sonrası</a>'na bakın.</span>"
+
+#~ msgid "Select folder"
+#~ msgstr "Klasör seç"
+
+#~ msgid "Most recent image"
+#~ msgstr "En son görüntü"
+
+#~ msgid "Random image"
+#~ msgstr "Rastgele görüntü"

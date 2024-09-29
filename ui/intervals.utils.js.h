@@ -5,4 +5,7 @@ char *s = N_("on the hour");
 char *s = N_("every day at midnight");
 
 // shuffle at midnight on Sunday (weekly)
-char *s = N_("every Sunday at midnight");
+char *s = N_("Sunday at midnight");
+
+// shuffle at user defined interval
+char *s = N_("User defined interval");

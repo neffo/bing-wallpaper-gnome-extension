@@ -162,7 +162,7 @@ Author: Michael Carroll
         </child>
         <child>
           <object class="GtkButton" id="randomButton">
-            <property name="label" translatable="yes">Set random mode</property>
+            <property name="label" translatable="yes">Image shuffle mode</property>
             <property name="receives-default">1</property>
             <layout>
               <property name="column">0</property>

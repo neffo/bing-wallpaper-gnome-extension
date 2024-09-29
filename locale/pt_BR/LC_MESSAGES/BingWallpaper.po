@@ -270,7 +270,7 @@ msgid "<image name here>"
 msgstr "<image name here>"
 
 #: ui/carousel4.ui.h:7
-msgid "Set random mode"
+msgid "Image shuffle mode"
 msgstr "Definir modo aleatório"
 
 #: ui/carousel4.ui.h:8
@@ -286,7 +286,7 @@ msgid "every day at midnight"
 msgstr "todo dia à meia-noite"
 
 #: ui/intervals.utils.js.h:8
-msgid "every Sunday at midnight"
+msgid " Sunday at midnight"
 msgstr "todo domingo à meia-noite"
 
 #: extension.js:130
@@ -329,12 +329,8 @@ msgstr "Abrir página de informação de imagem Bing"
 msgid "Quick settings"
 msgstr "Configurações rápidas"
 
-#: extension.js:154
-msgid "Image shuffle mode"
-msgstr "Modo embaralhar imagem"
-
 #: extension.js:155
-msgid "Image shuffle only favourites"
+msgid "Image shuffle only favorites"
 msgstr "Embaralha apenas imagens favoritas"
 
 #: extension.js:157

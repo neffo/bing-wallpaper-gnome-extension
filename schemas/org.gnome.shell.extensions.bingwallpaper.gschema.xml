@@ -69,7 +69,14 @@
         <description>Save disk space</description>
     </key>
 
+    <key name="keep-favourites" type="b">
+      <default>true</default>
+        <summary>Keep previous wallpapers if they are favourites</summary>
+        <description>Sensible default behaivour</description>
+    </key>
+
     <key name="previous-days" type="i">
+      <range min="1" max="90" />
       <default>8</default>
       <summary>Number of days to keep wallpapers</summary>
       <description>Delete wallpapers after this number of days</description>

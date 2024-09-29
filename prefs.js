@@ -73,6 +73,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const debugSwitch = buildable.get_object('debug_switch');
         const revertSwitch = buildable.get_object('revert_switch');
         const trash_purge_switch = buildable.get_object('trash_purge_switch');
+        const delete_previous_switch = buildable.get_object('delete_previous_switch');
+        const delete_previous_adjustment = buildable.get_object('delete_previous_adjustment');
         const always_export_switch = buildable.get_object('always_export_switch');
         const gallery_page = buildable.get_object('gallery_page');
         const carouselFlowBox = buildable.get_object('carouselFlowBox');
@@ -213,6 +215,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('random-interval', randomIntervalEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('trash-deletes-images', trash_purge_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('always-export-bing-json', always_export_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('delete-previous', delete_previous_switch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         // button opens Nautilus at our image folder
         openBtn.connect('clicked', (widget) => {
@@ -276,6 +279,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
         settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('previous-days', delete_previous_adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
 
         // add a couple of preset buttons
         defaultBtn.connect('clicked', (widget) => {

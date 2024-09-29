@@ -118,14 +118,16 @@ export function fetch_change_log(version, label, httpSession) {
             httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
-                label.set_label(text);
+                if (text)
+                    label.set_label(text);
             });
         }
         else {
             httpSession.queue_message(request, (httpSession, message) => {
                 let data = message.response_body.data;
                 let text = JSON.parse(data).body;
-                label.set_label(text);
+                if (text)
+                    label.set_label(text);
             });
         }
     } 
@@ -299,26 +301,6 @@ export function getImageByIndex(imageList, index) {
     return imageList[index];
 }
 
-export function cleanupImageList(settings) {
-    if (settings.get_boolean('trash-deletes-images') == false)
-        return;
-    let curList = imageListSortByDate(getImageList(settings));
-    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
-    let newList = [];
-    curList.forEach( function (x, i) {
-        let filename = imageToFilename(settings, x);
-        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
-        // image is still downloadable (< 8 days old) or still on disk, so we keep
-        if (diff > 0 || Gio.file_new_for_path(filename).query_exists(null)) {
-            newList.push(x);
-        }
-        else {
-            BingLog('Cleaning up: '+filename);
-        }
-    });
-    setImageList(settings, newList);
-}
-
 export function populateImageListResolutions(settings) {
     let curList = imageListSortByDate(getImageList(settings));
     let newList = [];
@@ -337,7 +319,11 @@ export function populateImageListResolutions(settings) {
 
 export function getFetchableImageList(settings) {
     let imageList = getImageList(settings);
-    let cutOff = GLib.DateTime.new_now_utc().add_days(-8); // 8 days ago
+    let maxpictures = settings.get_int('previous-days');
+    let maxdownload = 8;
+    if (maxpictures < maxdownload && maxpictures >=1)
+        maxdownload = maxpictures;
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-maxdownload); // default 8 days ago, 1 day = 1 picture
     let dlList = [];
     imageList.forEach( function (x, i) {
         let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
@@ -369,7 +355,10 @@ export function getWallpaperDir(settings) {
         dir.make_directory_with_parents(null);
     }
     //FIXME: test if dir is good and writable
-    return BingWallpaperDir;
+    if (dir.query_exists(null))
+        return BingWallpaperDir;
+    else
+        return null;
 }
 
 export function setWallpaperDir(settings, uri) {
@@ -547,24 +536,43 @@ export function deleteImage(to_delete) {
     }
 }
 
-// add image to persistant list so we can delete it later (in chronological order), delete the oldest image (if user wants this)
+// optionally purge trashed images (default is not, these just don't get select in random mode), optionally purge older images
 export function purgeImages(settings) {
-    let deletepictures = settings.get_boolean('delete-previous');
-    if (deletepictures === false)
-        return;
+    let deleteprevious = settings.get_boolean('delete-previous');
+    let keepfavourites = settings.get_boolean('keep-favourites');
+    let emptytrash = settings.get_boolean('trash-deletes-images');
+    let maxDays = settings.get_int('previous-days');
+    BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+'days:'+maxDays+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
+    
+    /*if (deleteprevious === false)
+        return;*/
     let imagelist = imageListSortByDate(getImageList(settings));
-    let maxpictures = settings.get_int('previous-days');
     let origlength = imagelist.length;
-    while (imagelist.length > maxpictures) {
-        var to_delete = imagelist.shift(); // get the first (oldest item from the list)
-        if (deletepictures && to_delete != '') {
-            let imageFilename = imageToFilename(settings, to_delete);
+    let cutOff = GLib.DateTime.new_now_utc().add_days(-maxDays); // 8 days ago
+    let newList = [];
+    imagelist.forEach( function (image, i) {
+        var diff = dateFromLongDate(image.fullstartdate, 0).difference(cutOff); // relative age of image, < 0 we can delete
+        // always keep favourites, keep images that are less than minimum period (previous days) or if clean up delete previous is disabled (default)
+        var keep_image = (keepfavourites && image.favourite && image.favourite === true) || diff > 0 || !deleteprevious;
+        var ok_to_delete = !keep_image || (emptytrash && image.hidden);
+        var imageFilename = imageToFilename(settings, image);
+        
+        if (emptytrash && image.hidden && diff < 0)
+            ok_to_delete = true;
+        
+
+        if (deleteprevious && image != '' && ok_to_delete) {
             BingLog('deleting '+imageFilename);
             deleteImage(imageFilename);
         }
-    }
+        else {
+            BingLog('keeping '+imageFilename);
+            newList.push(image);
+        }
+    });
+    setImageList(settings, newList);
     BingLog('cleaned up image list, count was '+origlength+' now '+imagelist.length);
-    cleanupImageList(settings);
+    //cleanupImageList(settings);
     validate_imagename(settings); // if we deleted our current image, we want to reset it to something valid
 }
 
@@ -605,7 +613,8 @@ export function importBingJSON(settings) {
             let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
             // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
-            cleanupImageList(settings); // remove the older missing images
+            purgeImages(settings); // remove the older missing images
+            //cleanupImageList(settings); 
         }
     }
     else {

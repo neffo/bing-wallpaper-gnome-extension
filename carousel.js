@@ -108,7 +108,7 @@ export default class Carousel {
             this.log('Delete requested for '+filename);
             Utils.deleteImage(filename);
             Utils.setImageHiddenStatus(this.settings, image.urlbase, true);
-            Utils.cleanupImageList(this.settings); // hide image instead
+            Utils.purgeImages(this.settings); // hide image instead
             widget.get_parent().get_parent().set_visible(false); // bit of a hack
             if (this.callbackfunc)
                 this.callbackfunc();
