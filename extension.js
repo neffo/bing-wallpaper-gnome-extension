@@ -358,13 +358,13 @@ class BingWallpaperIndicator extends Button {
         let maxlongdate = Utils.getMaxLongDate(this._settings);
         this.refreshduetext = 
             _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + 
-            " (" + Utils.friendly_time_diff(this.refreshdue) + ")\n" + 
+            " (" + this.refreshdue?Utils.friendly_time_diff(this.refreshdue):"-" + ")\n" + 
             _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         // also show when shuffle is next due
         if (this._settings.get_boolean('random-mode-enabled')) {
             this.refreshduetext += "\n" + _("Next shuffle")+": " +
                 (this.shuffledue ? this.shuffledue.format("%Y-%m-%d %X") : '-') +
-                " (" + Utils.friendly_time_diff(this.shuffledue) + ")";
+                " (" + this.refreshdue?Utils.friendly_time_diff(this.shuffledue):"-" + ")";
         }
         this.refreshDueItem.label.set_text(this.refreshduetext);            
     }
