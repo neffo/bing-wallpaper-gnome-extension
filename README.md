@@ -49,7 +49,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ![Gallery item](/screenshot/gallery.png)
 
-The 4 buttons in the gallery (3rd page in the preferences) do have tool-tips but these do the following:
+The 5 buttons in the gallery (3rd page in the preferences) do have tool-tips but these do the following:
 - Favorite - favorite this image (equivalent to doing this via the control bar)
 - Apply - set this image as wallpaper
 - View - open image in image viewer

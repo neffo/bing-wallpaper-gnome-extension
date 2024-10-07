@@ -23,7 +23,7 @@ export default class Thumbnail {
             this.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filePath, w, h);
             this.srcFile = Gio.File.new_for_path(filePath);
         } catch (err) {
-            log('Unable to create thumbnail for corrupt or incomplete file: ' + filePath + ' err: ' + err);
+            console.log('Unable to create thumbnail for corrupt or incomplete file: ' + filePath + ' err: ' + err);
         }
     }
 };

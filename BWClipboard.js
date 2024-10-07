@@ -20,11 +20,11 @@ export default class BWClipboard {
         try {
             let file = Gio.File.new_for_path(filename);
             let [success, image_data] = file.load_contents(null);
-            //log('error: '+success);
+            //console.log('error: '+success);
             if (success)
                 this.clipboard.set_content(CLIPBOARD_TYPE, 'image/jpeg', image_data);
         } catch (err) {
-            log('unable to set clipboard to data in '+filename);
+            console.log('unable to set clipboard to data in '+filename);
         }
     }
 
