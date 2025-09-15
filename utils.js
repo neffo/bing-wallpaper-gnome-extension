@@ -136,7 +136,7 @@ export function fetch_change_log(version, label, httpSession) {
                     label.set_label(text);
             });
         }
-    } 
+    }
     catch (error) {
         BingLog("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+error));
@@ -286,7 +286,7 @@ export function mergeImageLists(settings, imageList) {
     imageList.forEach(function(x, i) {
         if (!inImageList(curList, x.urlbase)) {// if not in the list, add it
             curList.unshift(x); // use unshift to maintain reverse chronological order
-            newList.unshift(x); 
+            newList.unshift(x);
         }
     });
     setImageList(settings, imageListSortByDate(curList)); // sort then save back to settings
@@ -343,8 +343,8 @@ export function getFetchableImageList(settings) {
 }
 
 export function getWallpaperDir(settings) {
-    let homeDir =  GLib.get_home_dir(); 
-    let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir); 
+    let homeDir =  GLib.get_home_dir();
+    let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir);
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
@@ -423,9 +423,9 @@ export function seconds_until(until) {
     let end, day;
     if (until == 'hourly') {
         end = GLib.DateTime.new_local(
-            now.get_year(), 
-            now.get_month(), 
-            now.get_day_of_month(), 
+            now.get_year(),
+            now.get_month(),
+            now.get_day_of_month(),
             now.get_hour()+1, // should roll over to next day if results in >23
             0, 0);
     }
@@ -437,8 +437,8 @@ export function seconds_until(until) {
             day = now.add_days(1);
         }
         end = GLib.DateTime.new_local(
-            day.get_year(), 
-            day.get_month(), 
+            day.get_year(),
+            day.get_month(),
             day.get_day_of_month(),
             0, 0, 0); // midnight
     }
@@ -549,7 +549,7 @@ export function purgeImages(settings) {
     let emptytrash = settings.get_boolean('trash-deletes-images');
     let maxDays = settings.get_int('previous-days');
     BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+'days:'+maxDays+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
-    
+
     /*if (deleteprevious === false)
         return;*/
     let imagelist = imageListSortByDate(getImageList(settings));
@@ -562,10 +562,10 @@ export function purgeImages(settings) {
         var keep_image = (keepfavourites && image.favourite && image.favourite === true) || diff > 0 || !deleteprevious;
         var ok_to_delete = !keep_image || (emptytrash && image.hidden);
         var imageFilename = imageToFilename(settings, image);
-        
+
         if (emptytrash && image.hidden && diff < 0)
             ok_to_delete = true;
-        
+
 
         if (deleteprevious && image != '' && ok_to_delete) {
             BingLog('deleting '+imageFilename);
@@ -620,7 +620,7 @@ export function importBingJSON(settings) {
             // need to implement some checks for validity here
             mergeImageLists(settings, parsed);
             purgeImages(settings); // remove the older missing images
-            //cleanupImageList(settings); 
+            //cleanupImageList(settings);
         }
     }
     else {
@@ -643,4 +643,31 @@ export function getFileDimensions(filepath) {
 
 export function toFilename(wallpaperDir, startdate, imageURL, resolution) {
     return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
+}
+
+export function getCanonicalLocale(locale) {
+    try {
+        return Intl.getCanonicalLocales(locale)[0];
+    } catch (e) {
+        return null;
+    }
+}
+
+export function glibcLocaleToBCP47(str) {
+    return getCanonicalLocale(
+       str === 'C' ? 'en' : str.split('.')[0].replace('_', '-'));
+}
+
+export function getSystemLocale() {
+    let locale = GLib.getenv('LC_ALL');
+    if (!locale) {
+        locale = GLib.getenv('LC_MESSAGES');
+    }
+    if (!locale) {
+        locale = GLib.getenv('LANG');
+    }
+    if (!locale) {
+        return null;
+    }
+    return glibcLocaleToBCP47(locale);
 }
