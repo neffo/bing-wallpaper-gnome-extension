@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: 2021-05-09 13:21+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,276 +18,490 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Amaga l'icona de la barra de tasques"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "La icona"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
+#: ../carousel.js:142
+msgid "Loading..."
 msgstr ""
 
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "Canvia la imatge de fons de pantalla"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Modifica la imatge de la pantalla de bloqueig"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Carpeta de descàrregues"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Carpeta d'imatges de Bing Wallpaper"
-
-#: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Eliminar les imatges descarregades anteriorment"
-
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "Dies que es guardaran les imatges abans que s'eliminin"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Indicar a Bing la teva regió/idioma"
-
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Per defecte és English - Unitetd States"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Resolució de la pantalla"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr ""
-"Escull \"Auto\" per detectar automàticament la resolució de la pantalla"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
-msgid "Selected image"
-msgstr "Imatge"
-
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
-msgid "Settings"
-msgstr "Configuració"
-
-#: Settings.ui.h:16 Settings4.ui.h:17
-msgid "Use custom blur and brightness"
-msgstr ""
-
-#: Settings.ui.h:17 Settings4.ui.h:18
-msgid "Override GDM3 lockscreen effects"
-msgstr ""
-
-#: Settings.ui.h:18 Settings4.ui.h:19
-msgid "Blur can improve readability of login prompt"
-msgstr ""
-
-#: Settings.ui.h:19 Settings4.ui.h:20
-msgid "Background blur intensity"
-msgstr ""
-
-#: Settings.ui.h:20 Settings4.ui.h:21
-msgid "Can improve contrast of login prompt"
-msgstr ""
-
-#: Settings.ui.h:21 Settings4.ui.h:22
-msgid "Background brightness"
-msgstr ""
-
-#: Settings.ui.h:22 Settings4.ui.h:23
-msgid "Presets"
-msgstr ""
-
-#: Settings.ui.h:23 Settings4.ui.h:24
-msgid "Commonly used presets"
-msgstr ""
-
-#: Settings.ui.h:24 Settings4.ui.h:25
-msgid "No blur, slight dim"
-msgstr ""
-
-#: Settings.ui.h:25 Settings4.ui.h:26
-msgid "GNOME default"
-msgstr ""
-
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Slight blur, slight dim"
-msgstr ""
-
-#: Settings.ui.h:27 Settings4.ui.h:28
-msgid "Lock Screen"
-msgstr ""
-
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "New wallpaper images everyday from Bing"
-msgstr ""
-
-#: Settings.ui.h:29 Settings4.ui.h:30
-#, fuzzy
-#| msgid "Gnome shell extension version: "
-msgid "Gnome shell extension version "
-msgstr "Versió de 'Gnome shell extension': "
-
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
-msgid "Maintained by Michael Carroll"
-msgstr "Mantingut per Michael Carroll"
-
-#: Settings.ui.h:32 Settings4.ui.h:33
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-
-#: Settings.ui.h:33 Settings4.ui.h:34
-#, fuzzy
-msgid "Changes since last version"
-msgstr "Canvis des de la darrera versió"
-
-#: Settings.ui.h:34 Settings4.ui.h:35
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basada en 'NASA APOD Gnome shell extension' per Elia Argenteri"
-
-#: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">Aquesta aplicació no te ABSOLUTAMENT CAP GARANTIA.\n"
-"Visita <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 o superior</a> per més detalls.</"
-"span>"
-
-#: Settings.ui.h:37 Settings4.ui.h:38
-msgid "About"
-msgstr "Sobre"
-
-#: Settings4.ui.h:8
-#, fuzzy
-msgid "Open folder"
-msgstr "Obriu la carpeta"
-
-#: extension.js:117
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Cap actualització programada>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "Esperant l'actualització..."
 
-#: extension.js:126
+#: ../extension.js:139
 #, fuzzy
 msgid "Copy image to clipboard"
 msgstr "Copia la imatge al porta-retalls"
 
-#: extension.js:127
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Copia la URL de la imatge al porta-retalls"
 
-#: extension.js:128
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "Obriu la carpeta per veure les imatges"
 
-#: extension.js:131
+#: ../extension.js:142 ../extension.js:158
+msgid "Set background image"
+msgstr "Canvia la imatge de fons de pantalla"
+
+#: ../extension.js:143
+msgid "Set lock screen image"
+msgstr "Modifica la imatge de la pantalla de bloqueig"
+
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "Actualitza ara"
 
-#: extension.js:137
-msgid "Thumbnail disabled on Wayland"
+#: ../extension.js:145
+msgid "Settings"
+msgstr "Configuració"
+
+#: ../extension.js:146
+#, fuzzy
+msgid "Open in image viewer"
+msgstr "Obriu la carpeta per veure les imatges"
+
+#: ../extension.js:147
+msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:203
+#: ../extension.js:156
+#, fuzzy
+msgid "Quick settings"
+msgstr "Configuració"
+
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr ""
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr ""
+
+#: ../extension.js:161
+msgid "Image shuffle only favorites"
+msgstr ""
+
+#: ../extension.js:163
+msgid "Show image count"
+msgstr ""
+
+#: ../extension.js:164
+msgid "Image shuffle only UHD resolutions"
+msgstr ""
+
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "Següent actualització"
 
-#: extension.js:490 extension.js:527
+#: ../extension.js:362
+#, fuzzy
+msgid "Last refresh"
+msgstr "Següent actualització"
+
+#: ../extension.js:365
+msgid "Next shuffle"
+msgstr ""
+
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "'Bing Wallpaper of the Day' per"
 
-#: extension.js:495
-#, fuzzy
-#| msgid "Set wallpaper"
-msgid "Set as wallpaper"
-msgstr "Modifica el fons de pantalla"
-
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr ""
-
-#: extension.js:553
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "Cap fons de pantalla disponible"
 
-#: extension.js:554
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "Cap imatge per avui."
 
-#: prefs.js:173
+#: ../prefs.js:107
 #, fuzzy
-#| msgid "Set lock screen image"
-msgid "Most recent image"
-msgstr "Modifica la imatge de la pantalla de bloqueig"
+msgid "Open folder"
+msgstr "Obriu la carpeta"
 
-#: prefs.js:174
+#: ../prefs.js:112
 #, fuzzy
-msgid "Random image"
-msgstr "Imatge aleatòria"
+msgid "Change folder"
+msgstr "Obriu la carpeta per veure les imatges"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
+#: ../prefs.js:124
+msgid "Default"
 msgstr ""
 
-#: utils.js:139
-msgid "Fetching data..."
-msgstr "Obtenint les dades..."
-
-#: utils.js:150
-msgid "Market not available in your region"
-msgstr "El 'Market' no està habilitat per la teva regió"
-
-#: utils.js:154
-msgid "A network error occured"
-msgstr "Hi ha hagut un problema amb la xarxa"
-
-#: utils.js:159
-#, fuzzy
-msgid "Too many requests in 5 seconds"
-msgstr "Massa sol·licituds"
-
-#: utils.js:186
-msgid "No change log found for this release"
+#: ../prefs.js:129
+msgid "No blur, slight dim"
 msgstr ""
 
-#: utils.js:366 utils.js:369
+#: ../prefs.js:134
+msgid "Slight blur & dim"
+msgstr ""
+
+#: ../prefs.js:148
+msgid "Import"
+msgstr ""
+
+#: ../prefs.js:153
+msgid "Export"
+msgstr ""
+
+#: ../prefs.js:221
+msgid "Select wallpaper download folder"
+msgstr ""
+
+#: ../utils.js:142
+msgid "Error fetching change log: "
+msgstr ""
+
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "minuts"
 
-#: utils.js:372
+#: ../utils.js:414
 msgid "days"
 msgstr "dies"
 
-#: utils.js:375
+#: ../utils.js:417
 msgid "hours"
 msgstr "hores"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+#, fuzzy
+msgid "Hide indicator"
+msgstr "Amaga l'icona de la barra de tasques"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+msgid "Send a notifications"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+msgid "Send a notifications only on most recent image"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+#, fuzzy
+msgid "Set background"
+msgstr "Canvia la imatge de fons de pantalla"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+#, fuzzy
+msgid "Set background to Bing's background"
+msgstr "Canvia la imatge de fons de pantalla"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+#, fuzzy
+msgid "Set lock screen"
+msgstr "Modifica la imatge de la pantalla de bloqueig"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+#, fuzzy
+msgid "Set lock screen to Bing's background"
+msgstr "Modifica la imatge de la pantalla de bloqueig"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+msgid "Log messages to systemd journal"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+#, fuzzy
+msgid "Delete previous wallpapers"
+msgstr "Eliminar les imatges descarregades anteriorment"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+msgid "Number of days to keep wallpapers"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr ""
+
+#~ msgid "Indicator icon"
+#~ msgstr "La icona"
+
+#~ msgid "Download folder"
+#~ msgstr "Carpeta de descàrregues"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Carpeta d'imatges de Bing Wallpaper"
+
+#~ msgid "Days to store wallpapers before deleting"
+#~ msgstr "Dies que es guardaran les imatges abans que s'eliminin"
+
+#~ msgid "Bing locale"
+#~ msgstr "Indicar a Bing la teva regió/idioma"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "Per defecte és English - Unitetd States"
+
+#~ msgid "Screen resolution"
+#~ msgstr "Resolució de la pantalla"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr ""
+#~ "Escull \"Auto\" per detectar automàticament la resolució de la pantalla"
+
+#~ msgid "Selected image"
+#~ msgstr "Imatge"
+
+#, fuzzy
+#~| msgid "Gnome shell extension version: "
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Versió de 'Gnome shell extension': "
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Mantingut per Michael Carroll"
+
+#, fuzzy
+#~ msgid "Changes since last version"
+#~ msgstr "Canvis des de la darrera versió"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr "Basada en 'NASA APOD Gnome shell extension' per Elia Argenteri"
+
+#, fuzzy
+#~| msgid ""
+#~| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/"
+#~| "gpl-2.0.html\">GNU General Public License, version 3 or later</a> for "
+#~| "details.</span>"
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">Aquesta aplicació no te ABSOLUTAMENT CAP GARANTIA.\n"
+#~ "Visita <a href=\"https://www.gnu.org/licenses/old-licenses/"
+#~ "gpl-2.0.html\">GNU General Public License, version 3 o superior</a> per "
+#~ "més detalls.</span>"
+
+#~ msgid "About"
+#~ msgstr "Sobre"
+
+#, fuzzy
+#~| msgid "Set wallpaper"
+#~ msgid "Set as wallpaper"
+#~ msgstr "Modifica el fons de pantalla"
+
+#, fuzzy
+#~| msgid "Set lock screen image"
+#~ msgid "Most recent image"
+#~ msgstr "Modifica la imatge de la pantalla de bloqueig"
+
+#, fuzzy
+#~ msgid "Random image"
+#~ msgstr "Imatge aleatòria"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Obtenint les dades..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "El 'Market' no està habilitat per la teva regió"
+
+#~ msgid "A network error occured"
+#~ msgstr "Hi ha hagut un problema amb la xarxa"
+
+#, fuzzy
+#~ msgid "Too many requests in 5 seconds"
+#~ msgstr "Massa sol·licituds"
 
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "

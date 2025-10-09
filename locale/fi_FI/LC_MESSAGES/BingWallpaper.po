@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: 2021-05-09 13:41+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,263 +18,516 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Piilota ilmaisin"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Ilmaisimen kuvake"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-#, fuzzy
-msgid "Enable desktop notifications"
-msgstr "Työpöytäilmoitukset"
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "Aseta työpöydän taustakuva"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Aseta lukitusnäytön taustakuva"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Latauskansio"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Bing-taustakuvien kansio"
-
-#: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Poista aiemmin ladatut taustakuvat"
-
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "Säilytysaika (päivää) ennen poistamista"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Bing-sijainti"
-
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Oletus on englanti - Yhdysvallat"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Näytön tarkkuus"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "Ohita automaattinen tarkkuuden valinta"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
-#, fuzzy
-#| msgid "Set lock screen image"
-msgid "Selected image"
-msgstr "Aseta lukitusnäytön taustakuva"
-
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
-msgid "Settings"
-msgstr "Asetukset"
-
-#: Settings.ui.h:16 Settings4.ui.h:17
-msgid "Use custom blur and brightness"
-msgstr "Käytä mukautettua sumennusta ja kirkkautta"
-
-#: Settings.ui.h:17 Settings4.ui.h:18
-msgid "Override GDM3 lockscreen effects"
-msgstr "Ohita GDM3-lukitusnäytön tehosteet"
-
-#: Settings.ui.h:18 Settings4.ui.h:19
-msgid "Blur can improve readability of login prompt"
-msgstr "Sumennus saattaa parantaa kirjautumisnäytön luettavuutta"
-
-#: Settings.ui.h:19 Settings4.ui.h:20
-msgid "Background blur intensity"
-msgstr "Taustan sumennuksen voimakkuus"
-
-#: Settings.ui.h:20 Settings4.ui.h:21
-msgid "Can improve contrast of login prompt"
-msgstr "Saattaa parantaa kirjautumisnäytön kontrastia"
-
-#: Settings.ui.h:21 Settings4.ui.h:22
-msgid "Background brightness"
-msgstr "Taustan kirkkaus"
-
-#: Settings.ui.h:22 Settings4.ui.h:23
-msgid "Presets"
-msgstr "Esiasetukset"
-
-#: Settings.ui.h:23 Settings4.ui.h:24
-msgid "Commonly used presets"
-msgstr "Yleisesti käytetyt esiasetukset"
-
-#: Settings.ui.h:24 Settings4.ui.h:25
-msgid "No blur, slight dim"
-msgstr "Ei sumennusta, hieman himennystä"
-
-#: Settings.ui.h:25 Settings4.ui.h:26
-msgid "GNOME default"
-msgstr "GNOMEn oletus"
-
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Slight blur, slight dim"
-msgstr "Hieman sumennusta, hieman himmennys"
-
-#: Settings.ui.h:27 Settings4.ui.h:28
-msgid "Lock Screen"
-msgstr "Lukitusnäyttö"
-
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "New wallpaper images everyday from Bing"
-msgstr "Uusi taustakuva Bingistä joka päivä"
-
-#: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version "
-msgstr "Gnome shell -laajennuksen versio "
-
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
-msgid "Maintained by Michael Carroll"
-msgstr "Ylläpitäjä: Michael Carroll"
-
-#: Settings.ui.h:32 Settings4.ui.h:33
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
+#: ../carousel.js:142
+msgid "Loading..."
 msgstr ""
-"Tue kehittäjää sivustoilla <a href=\"https://flattr.com/@neffo\">Flattr</a> "
-"tai <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
-#: Settings.ui.h:33 Settings4.ui.h:34
-msgid "Changes since last version"
-msgstr "Muutokset edellisen version jälkeen"
-
-#: Settings.ui.h:34 Settings4.ui.h:35
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Pohjautuu Elia Argentierin NASA APOD Gnome shell -laajennukseen"
-
-#: Settings.ui.h:35 Settings4.ui.h:36
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">Tämä ohjelma ei sisällä MINKÄÄNLAISTA TAKUUTA.\n"
-"Lisätietoja osoitteessa <a href=\"https://www.gnu.org/licenses/gpl-3.0.html"
-"\">GNU General Public -lisenssi (GPL), versio 3 tai myöhempi</a>.</span>"
-
-#: Settings.ui.h:37 Settings4.ui.h:38
-msgid "About"
-msgstr "Tietoja"
-
-#: Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Avaa kuvakansio"
-
-#: extension.js:117
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Ei virkistystä ajastettuna>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "Odotetaan virkistystä..."
 
-#: extension.js:126
+#: ../extension.js:139
 msgid "Copy image to clipboard"
 msgstr "Kopioi kuva leikepöydälle"
 
-#: extension.js:127
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Kopioi kuvan URL leikepöydälle"
 
-#: extension.js:128
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "Avaa kuvakansio"
 
-#: extension.js:131
+#: ../extension.js:142 ../extension.js:158
+msgid "Set background image"
+msgstr "Aseta työpöydän taustakuva"
+
+#: ../extension.js:143
+msgid "Set lock screen image"
+msgstr "Aseta lukitusnäytön taustakuva"
+
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "Virkistä nyt"
 
-#: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr "Esikatselukuva pois käytöstä Waylandissa"
+#: ../extension.js:145
+msgid "Settings"
+msgstr "Asetukset"
 
-#: extension.js:203
+#: ../extension.js:146
+#, fuzzy
+msgid "Open in image viewer"
+msgstr "Avaa kuvakansio"
+
+#: ../extension.js:147
+msgid "Open Bing image information page"
+msgstr ""
+
+#: ../extension.js:156
+#, fuzzy
+msgid "Quick settings"
+msgstr "Asetukset"
+
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr ""
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr ""
+
+#: ../extension.js:161
+msgid "Image shuffle only favorites"
+msgstr ""
+
+#: ../extension.js:163
+msgid "Show image count"
+msgstr ""
+
+#: ../extension.js:164
+msgid "Image shuffle only UHD resolutions"
+msgstr ""
+
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "Seuraava virkistys"
 
-#: extension.js:490 extension.js:527
+#: ../extension.js:362
+#, fuzzy
+msgid "Last refresh"
+msgstr "Seuraava virkistys"
+
+#: ../extension.js:365
+msgid "Next shuffle"
+msgstr ""
+
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bingin taustakuva päivälle"
 
-#: extension.js:495
-#, fuzzy
-msgid "Set as wallpaper"
-msgstr "Aseta taustakuva"
-
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr ""
-
-#: extension.js:553
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "Taustakuvaa ei saatavilla"
 
-#: extension.js:554
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "Ei kuvaa tälle päivälle"
 
-#: prefs.js:173
-#, fuzzy
-msgid "Most recent image"
-msgstr "Tämän päivän kuva"
+#: ../prefs.js:107
+msgid "Open folder"
+msgstr "Avaa kuvakansio"
 
-#: prefs.js:174
+#: ../prefs.js:112
 #, fuzzy
-msgid "Random image"
-msgstr "Satunnaistettu kuva"
+msgid "Change folder"
+msgstr "Avaa kuvakansio"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
+#: ../prefs.js:124
+#, fuzzy
+msgid "Default"
+msgstr "GNOMEn oletus"
+
+#: ../prefs.js:129
+msgid "No blur, slight dim"
+msgstr "Ei sumennusta, hieman himennystä"
+
+#: ../prefs.js:134
+#, fuzzy
+msgid "Slight blur & dim"
+msgstr "Hieman sumennusta, hieman himmennys"
+
+#: ../prefs.js:148
+msgid "Import"
 msgstr ""
 
-#: utils.js:139
-msgid "Fetching data..."
-msgstr "Haetaan tietoja..."
-
-#: utils.js:150
-msgid "Market not available in your region"
-msgstr "Ei Bing-markkinaa saatavilla alueellasi"
-
-#: utils.js:154
-msgid "A network error occured"
-msgstr "Tapahtui verkkovirhe"
-
-#: utils.js:159
-msgid "Too many requests in 5 seconds"
+#: ../prefs.js:153
+msgid "Export"
 msgstr ""
 
-#: utils.js:186
-msgid "No change log found for this release"
-msgstr "Tälle julkaisulle ei löytynyt muutoslokia"
+#: ../prefs.js:221
+msgid "Select wallpaper download folder"
+msgstr ""
 
-#: utils.js:366 utils.js:369
+#: ../utils.js:142
+msgid "Error fetching change log: "
+msgstr ""
+
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "minuuttia"
 
-#: utils.js:372
+#: ../utils.js:414
 msgid "days"
 msgstr "päivää"
 
-#: utils.js:375
+#: ../utils.js:417
 msgid "hours"
 msgstr "tuntia"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+#, fuzzy
+msgid "Hide indicator"
+msgstr "Piilota ilmaisin"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+#, fuzzy
+msgid "Send a notifications"
+msgstr "Työpöytäilmoitukset"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+msgid "Send a notifications only on most recent image"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+#, fuzzy
+msgid "Set background"
+msgstr "Aseta työpöydän taustakuva"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+#, fuzzy
+msgid "Set background to Bing's background"
+msgstr "Aseta työpöydän taustakuva"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+#, fuzzy
+msgid "Set lock screen"
+msgstr "Aseta lukitusnäytön taustakuva"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+#, fuzzy
+msgid "Set lock screen to Bing's background"
+msgstr "Aseta lukitusnäytön taustakuva"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+msgid "Log messages to systemd journal"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+#, fuzzy
+msgid "Delete previous wallpapers"
+msgstr "Poista aiemmin ladatut taustakuvat"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+msgid "Number of days to keep wallpapers"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+#, fuzzy
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr "Ohita GDM3-lukitusnäytön tehosteet"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr ""
+
+#~ msgid "Indicator icon"
+#~ msgstr "Ilmaisimen kuvake"
+
+#~ msgid "Download folder"
+#~ msgstr "Latauskansio"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Bing-taustakuvien kansio"
+
+#~ msgid "Days to store wallpapers before deleting"
+#~ msgstr "Säilytysaika (päivää) ennen poistamista"
+
+#~ msgid "Bing locale"
+#~ msgstr "Bing-sijainti"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "Oletus on englanti - Yhdysvallat"
+
+#~ msgid "Screen resolution"
+#~ msgstr "Näytön tarkkuus"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr "Ohita automaattinen tarkkuuden valinta"
+
+#, fuzzy
+#~| msgid "Set lock screen image"
+#~ msgid "Selected image"
+#~ msgstr "Aseta lukitusnäytön taustakuva"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Käytä mukautettua sumennusta ja kirkkautta"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr "Sumennus saattaa parantaa kirjautumisnäytön luettavuutta"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "Taustan sumennuksen voimakkuus"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "Saattaa parantaa kirjautumisnäytön kontrastia"
+
+#~ msgid "Background brightness"
+#~ msgstr "Taustan kirkkaus"
+
+#~ msgid "Presets"
+#~ msgstr "Esiasetukset"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Yleisesti käytetyt esiasetukset"
+
+#~ msgid "Lock Screen"
+#~ msgstr "Lukitusnäyttö"
+
+#~ msgid "New wallpaper images everyday from Bing"
+#~ msgstr "Uusi taustakuva Bingistä joka päivä"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Gnome shell -laajennuksen versio "
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Ylläpitäjä: Michael Carroll"
+
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github Sponsors</a>."
+#~ msgstr ""
+#~ "Tue kehittäjää sivustoilla <a href=\"https://flattr.com/@neffo\">Flattr</"
+#~ "a> tai <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
+
+#~ msgid "Changes since last version"
+#~ msgstr "Muutokset edellisen version jälkeen"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr "Pohjautuu Elia Argentierin NASA APOD Gnome shell -laajennukseen"
+
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">Tämä ohjelma ei sisällä MINKÄÄNLAISTA TAKUUTA.\n"
+#~ "Lisätietoja osoitteessa <a href=\"https://www.gnu.org/licenses/"
+#~ "gpl-3.0.html\">GNU General Public -lisenssi (GPL), versio 3 tai myöhempi</"
+#~ "a>.</span>"
+
+#~ msgid "About"
+#~ msgstr "Tietoja"
+
+#~ msgid "Thumbnail disabled on Wayland"
+#~ msgstr "Esikatselukuva pois käytöstä Waylandissa"
+
+#, fuzzy
+#~ msgid "Set as wallpaper"
+#~ msgstr "Aseta taustakuva"
+
+#, fuzzy
+#~ msgid "Most recent image"
+#~ msgstr "Tämän päivän kuva"
+
+#, fuzzy
+#~ msgid "Random image"
+#~ msgstr "Satunnaistettu kuva"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Haetaan tietoja..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "Ei Bing-markkinaa saatavilla alueellasi"
+
+#~ msgid "A network error occured"
+#~ msgstr "Tapahtui verkkovirhe"
+
+#~ msgid "No change log found for this release"
+#~ msgstr "Tälle julkaisulle ei löytynyt muutoslokia"

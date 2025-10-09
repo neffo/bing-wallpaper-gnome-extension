@@ -1,376 +1,606 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Fraxinus Acer\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.6\n"
 
-#: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Скрыть индикатор"
+#: ../carousel.js:142
+msgid "Loading..."
+msgstr "Загрузка..."
 
-#: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Значок индикатора"
-
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr "Включить уведомления на рабочем столе"
-
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:139
-msgid "Set background image"
-msgstr "Установить фоновое изображение"
-
-#: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
-msgid "Background style option"
-msgstr "Опция стиля фона"
-
-#: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Папка для загрузки"
-
-#: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Папка с картинками для обоев Bing"
-
-#: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Открыть папку"
-
-#: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Удалить ранее загруженные обои"
-
-#: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
-msgid "Selected image"
-msgstr "Выбранное изображение"
-
-#: ui/Settings.ui.h:11
-msgid "Select from image gallery"
-msgstr "Выберите из галереи изображений"
-
-#: ui/Settings.ui.h:12 ui/Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Языковой стандарт Bing"
-
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:12 extension.js:142
-msgid "Settings"
-msgstr "Настройки"
-
-#: ui/Settings.ui.h:14 ui/Settings4.ui.h:13
-msgid "Use custom blur and brightness"
-msgstr "Используйте настраиваемое размытие и яркость"
-
-#: ui/Settings.ui.h:15 ui/Settings4.ui.h:14
-msgid "Override GDM3 lockscreen effects"
-msgstr "Переопределение эффектов экрана блокировки GDM3"
-
-#: ui/Settings.ui.h:16 ui/Settings4.ui.h:15
-msgid "Blur can improve readability of login prompt"
-msgstr "Размытие может улучшить читаемость для входа в систему"
-
-#: ui/Settings.ui.h:17 ui/Settings4.ui.h:16
-msgid "Background blur intensity"
-msgstr "Интенсивность размытия фона"
-
-#: ui/Settings.ui.h:18 ui/Settings4.ui.h:17
-msgid "Can improve contrast of login prompt"
-msgstr "Может улучшить контрастность приглашения для входа в систему"
-
-#: ui/Settings.ui.h:19 ui/Settings4.ui.h:18
-msgid "Background brightness"
-msgstr "Фоновая яркость"
-
-#: ui/Settings.ui.h:20 ui/Settings4.ui.h:19
-msgid "Presets"
-msgstr "Пресеты"
-
-#: ui/Settings.ui.h:21
-msgid "Commonly used presets"
-msgstr "Часто используемые пресеты"
-
-#: ui/Settings.ui.h:22 ui/Settings4.ui.h:20
-msgid "No blur, slight dim"
-msgstr "Никакого размытия, легкое затемнение"
-
-#: ui/Settings.ui.h:23 ui/Settings4.ui.h:21
-msgid "GNOME default"
-msgstr "GNOME по умолчанию"
-
-#: ui/Settings.ui.h:24 ui/Settings4.ui.h:22
-msgid "Slight blur, slight dim"
-msgstr "Легкое размытие, легкое затемнение"
-
-#: ui/Settings.ui.h:25 ui/Settings4.ui.h:23
-msgid "Lock Screen"
-msgstr "Экран блокировки"
-
-#: ui/Settings.ui.h:26 ui/Settings4.ui.h:25
-msgid "Debug logging"
-msgstr "Ведение журнала отладки"
-
-#: ui/Settings.ui.h:27 ui/Settings4.ui.h:24
-msgid "Enable logging to system journal"
-msgstr "Включить ведение журнала в системный журнал"
-
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:27
-msgid "Always show new images"
-msgstr "Всегда показывайте новые изображения"
-
-#: ui/Settings.ui.h:29 ui/Settings4.ui.h:26
-msgid "Switch to new images when available (unless on random mode)"
-msgstr ""
-"Переключайтесь на новые изображения, когда они доступны (если только не в "
-"случайном режиме)"
-
-#: ui/Settings.ui.h:30 ui/Settings4.ui.h:29
-msgid "Enable all features on Wayland"
-msgstr "Включить все функции на Wayland"
-
-#: ui/Settings.ui.h:31 ui/Settings4.ui.h:28
-msgid "Some newer features may be unstable on Wayland"
-msgstr "Некоторые новые функции могут быть нестабильными на Wayland"
-
-#: ui/Settings.ui.h:32 ui/Settings4.ui.h:30
-msgid "Screen resolution"
-msgstr "Разрешение экрана"
-
-#: ui/Settings.ui.h:33 ui/Settings4.ui.h:31
-msgid "Override automatic resolution selection"
-msgstr "Переопределение автоматического выбора разрешения"
-
-#: ui/Settings.ui.h:34 ui/Settings4.ui.h:32
-msgid "Manually adjust random interval (seconds)"
-msgstr "Ручная настройка случайного интервала (секунды)"
-
-#: ui/Settings.ui.h:35 ui/Settings4.ui.h:33
-msgid "Random interval"
-msgstr "Случайный интервал"
-
-#: ui/Settings.ui.h:36 ui/Settings4.ui.h:34
-msgid "Import Bing Wallpaper data"
-msgstr "Импорт данных обоев Bing"
-
-#: ui/Settings.ui.h:37 ui/Settings4.ui.h:35
-msgid "Import previously exported JSON data from wallpaper directory"
-msgstr "Импорт ранее экспортированных данных JSON из каталога обоев"
-
-#: ui/Settings.ui.h:38 ui/Settings4.ui.h:36
-msgid "Import"
-msgstr "Импорт"
-
-#: ui/Settings.ui.h:39 ui/Settings4.ui.h:37
-msgid "Export Bing Wallpaper data"
-msgstr "Экспорт данных обоев Bing"
-
-#: ui/Settings.ui.h:40 ui/Settings4.ui.h:38
-msgid "Export JSON data to wallpaper dir for backup or data migration"
-msgstr ""
-"Экспортировать данные JSON в каталог обоев для резервного копирования или "
-"переноса данных"
-
-#: ui/Settings.ui.h:41 ui/Settings4.ui.h:39
-msgid "Export"
-msgstr "Экспорт"
-
-#: ui/Settings.ui.h:42 ui/Settings4.ui.h:40
-msgid "Always export Bing data"
-msgstr "Всегда экспортировать большие данные"
-
-#: ui/Settings.ui.h:43 ui/Settings4.ui.h:41
-msgid "Export Bing JSON whenever data changes"
-msgstr "Экспортировать Bing JSON всякий раз, когда данные изменяются"
-
-#: ui/Settings.ui.h:44 ui/Settings4.ui.h:42
-msgid "Debug options"
-msgstr "Параметры отладки"
-
-#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
-msgid "New wallpaper images everyday from Bing"
-msgstr "Новые изображения обоев каждый день от Bing"
-
-#: ui/Settings.ui.h:46
-msgid "Gnome shell extension version "
-msgstr "Версия расширения Gnome shell "
-
-#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
-msgid "Maintained by Michael Carroll"
-msgstr "Поддерживается Майклом Кэрроллом"
-
-#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-"Покажите свою поддержку автору на <a href=\"https://flattr.com/@neffo "
-"\">Flattr</a> или <a href=\"https://github.com/sponsors/neffo \">Github "
-"Sponsor</a>."
-
-#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
-msgid "Changes since last version"
-msgstr "Изменения с момента последней версии"
-
-#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr ""
-"Основано на расширении оболочки NASA APOD Gnome, разработанном Элией "
-"Арджентьери"
-
-#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">его программа поставляется без КАКИХ-ЛИБО ГАРАНТИЙ.\n"
-"Посмотрите <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
-"General Public License, version 3 или позже</a> для получения подробной "
-"информации.</span>"
-
-#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
-msgid "About"
-msgstr "О программе"
-
-#: ui/Settings4.ui.h:43
-msgid "Gallery"
-msgstr "Галерея"
-
-#: ui/Settings4.ui.h:45
-msgid "GNOME shell extension version "
-msgstr "Версия расширения GNOME shell "
-
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:1
-msgid "Apply"
-msgstr "Принять"
-
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:2
-msgid "View"
-msgstr "View"
-
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:3
-msgid "Info"
-msgstr "Инфо"
-
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:4
-msgid "Delete"
-msgstr "Удалить"
-
-#: ui/carousel.ui.h:5 ui/carousel4.ui.h:6
-msgid "Image shuffle mode"
-msgstr "Выбрать случайный режим"
-
-#: ui/carousel4.ui.h:5
-msgid "<image name here>"
-msgstr "<имя изображения здесь>"
-
-#: ui/carousel4.ui.h:7
-msgid "Load image gallery"
-msgstr "Загрузить галерею изображений"
-
-#: extension.js:127
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Обновление не запланировано>"
 
-#: extension.js:129 extension.js:131 extension.js:134
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "Ожидание обновления."
 
-#: extension.js:136
+#: ../extension.js:139
 msgid "Copy image to clipboard"
 msgstr "Скопировать изображение в буфер обмена"
 
-#: extension.js:137
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Скопировать URL-адрес изображения в буфер обмена"
 
-#: extension.js:138
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "Открыть папку с изображениями"
 
-#: extension.js:140
+#: ../extension.js:142 ../extension.js:158
+msgid "Set background image"
+msgstr "Установить фоновое изображение"
+
+#: ../extension.js:143
 msgid "Set lock screen image"
 msgstr "Установить изображение на экран блокировки"
 
-#: extension.js:141
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "Обновить"
 
-#: extension.js:267
+#: ../extension.js:145
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../extension.js:146
+msgid "Open in image viewer"
+msgstr "Открыть в программе просмотра изображений"
+
+#: ../extension.js:147
+msgid "Open Bing image information page"
+msgstr "Открыть в Bing страницу с информацией об изображении"
+
+#: ../extension.js:156
+msgid "Quick settings"
+msgstr "Быстрые настройки"
+
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr "Всегда показывайте новые изображения"
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr "Выбрать случайный режим"
+
+#: ../extension.js:161
+msgid "Image shuffle only favorites"
+msgstr "Перемешивать только избранные изображения"
+
+#: ../extension.js:163
+msgid "Show image count"
+msgstr "Показать количество изображений"
+
+#: ../extension.js:164
+msgid "Image shuffle only UHD resolutions"
+msgstr "Перемешивать только UHD изображения"
+
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "Следующее"
 
-#: extension.js:268
-msgid "Last updated"
-msgstr "Прошлое"
+#: ../extension.js:362
+msgid "Last refresh"
+msgstr "Последнее обновление"
 
-#: extension.js:592 extension.js:622
+#: ../extension.js:365
+msgid "Next shuffle"
+msgstr "Следующее перемешивание"
+
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing Обои дня для"
 
-#: extension.js:649
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "Нет доступных обоев"
 
-#: extension.js:650
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "На сегодня фотографии нет."
 
-#: prefs.js:168
-msgid "Select folder"
-msgstr "Выберите папку"
+#: ../prefs.js:107
+msgid "Open folder"
+msgstr "Открыть папку"
 
-#: prefs.js:233
-msgid "Most recent image"
-msgstr "Самое последнее изображение"
+#: ../prefs.js:112
+msgid "Change folder"
+msgstr "Изменить папку"
 
-#: prefs.js:234
-msgid "Random image"
-msgstr "Случайное изображение"
+#: ../prefs.js:124
+msgid "Default"
+msgstr "По умолчанию"
 
-#: utils.js:116
-msgid "Fetching data..."
-msgstr "Выборка данных..."
+#: ../prefs.js:129
+msgid "No blur, slight dim"
+msgstr "Никакого размытия, легкое затемнение"
 
-#: utils.js:127
-msgid "Market not available in your region"
-msgstr "Рынок недоступен в вашем регионе"
+#: ../prefs.js:134
+msgid "Slight blur & dim"
+msgstr "Незначительное размытие и затемнение"
 
-#: utils.js:131
-msgid "A network error occured"
-msgstr "Произошла сетевая ошибка"
+#: ../prefs.js:148
+msgid "Import"
+msgstr "Импорт"
 
-#: utils.js:136
-msgid "Too many requests in 5 seconds"
-msgstr "Слишком много запросов за 5 секунд"
+#: ../prefs.js:153
+msgid "Export"
+msgstr "Экспорт"
 
-#: utils.js:162
-msgid "No change log found for this release"
-msgstr "Список изменений для этого выпуска не найден"
+#: ../prefs.js:221
+msgid "Select wallpaper download folder"
+msgstr "Выберите папку для загрузки обоев"
 
-#: utils.js:168
-msgid "Error fetching change log"
-msgstr "Ошибка выборки журнала изменений"
+#: ../utils.js:142
+msgid "Error fetching change log: "
+msgstr "Ошибка при выборке журнала изменений: "
 
-#: utils.js:383 utils.js:386
-#, fuzzy
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "минут"
 
-#: utils.js:389
-#, fuzzy
+#: ../utils.js:414
 msgid "days"
 msgstr "дни"
 
-#: utils.js:392
-#, fuzzy
+#: ../utils.js:417
 msgid "hours"
 msgstr "часы"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+msgid "Hide indicator"
+msgstr "Скрыть индикатор"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr "Скрыть значок индикатора из области состояния"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+msgid "Send a notifications"
+msgstr "Отправлять уведомления"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+"Показывать уведомления с подробностями после появления нового изображения"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+msgid "Send a notifications only on most recent image"
+msgstr "Отправляйте уведомления только по самому последнему изображению"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+"Уведомлять только о самом последнем изображении в сочетании с настройкой "
+"\"уведомлять\""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Использовать временные уведомления (автоматическое отключение)"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+msgid "Set background"
+msgstr "Установить фон"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+msgid "Set background to Bing's background"
+msgstr "Установите фон из фонов Bing"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+msgid "Set lock screen"
+msgstr "Установить экран блокировки"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+msgid "Set lock screen to Bing's background"
+msgstr "Установите экран блокировки из фонов Bing"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
+msgstr "Где можно скачать фотографии."
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
+msgstr "Поставщик по умолчанию для Bing"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr "Размер экрана"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+"Допустимые размеры: \"800x600\", \"1024x768\", \"1280x720\", \"1280x768\", "
+"\"1366x768\", \"1920x1080\", \"1920x1200\" и \"UHD\"."
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+msgid "Log messages to systemd journal"
+msgstr "Регистрируйте сообщения в журнале systemd"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+"Вряд ли это будет полезно обычным пользователям, но полезно для отладки"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+msgid "Delete previous wallpapers"
+msgstr "Удалить предыдущие обои"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr "Экономить место на диске"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr "Сохранять предыдущие обои, если они являются избранными"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr "Разумное поведение по умолчанию"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+msgid "Number of days to keep wallpapers"
+msgstr "Количество дней хранения обоев"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr "Удалять обои по истечении этого количества дней"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+"Заменять или удалять водяной знак Bing на изображениях с высоким разрешением"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr "Установите значение \"нет\", \"Gnome\" или \"Ubuntu\"."
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr "Имя значка"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr "Имя файла значка, используемого для апплета расширения"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+"Игнорировать флаг Bing, разрешающий для использования в качестве фонового "
+"рисунка"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+"Используется, когда обои анимированы или не имеют лицензии на использование "
+"обоев"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr "Перезаписать эффекты размытия экрана блокировки GDM3"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr "Применяется только к GNOME 3.36 и выше"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr "Сила размытия на экране блокировки GNOME (gdm3)"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr "Степень размытости"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr "Яркость размытия обоев на экране блокировки GNOME (gdm3)"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr "Используется для затемнения обоев для улучшения видимости"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr "Используйте старое изображение Bing, выберите по имени файла"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr "Вернитесь к отображению текущего изображения, когда появится новое"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+"Этот параметр может наилучшим образом отражать то, что пользователи хотят "
+"получить от выбираемых или случайных изображений"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+"Сохраняйте состояние в формате JSON, чтобы мы могли восстановить данные "
+"сразу после загрузки"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr "Сохраняйте информацию об изображении Bing для отката"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+"Установите значение \"ежедневно\", \"ежечасно\", \"еженедельно\", \"по "
+"желанию\""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+"Ежедневно - в полночь, ежечасно - в зависимости от часа, еженедельно - в "
+"полночь по воскресеньям или по желанию, определяемому \"случайным "
+"интервалом\""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr "Как часто менять обои в случайном режиме"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr "Выбирайте только из избранного в случайном режиме"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr "Выберите случайное изображение с произвольным интервалом"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr "Выбирайте только из UHD в случайном режиме"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr "Выбирайте только из не скрытых в случайном режиме"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+"Перезаписывать безопасные значения по-умолчанию для рабочего стола Wayland"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+"Включать функции, которые во всех случаях могут быть нестабильными или "
+"непроверенными, а могут и не быть"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr "Создавайте миниатюры, чтобы ускорить загрузку галереи изображений"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+"Ускоряет последующую загрузку, но требует некоторого дополнительного места "
+"на диске"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+"Минимальная высота изображения, которая должна учитываться при разрешении UHD"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr "Сохраните резервную копию Bing JSON в каталоге обоев"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+"Позволяет выполнить переход к новой установке или восстановление из "
+"резервной копии"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+"Укажите текущий индекс и общее количество изображений в заголовке изображения"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr "Размер значков элементов управления во всплывающем меню"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr "Корзина удаляет изображения или просто помечает их как плохие"
+
+#~ msgid "Indicator icon"
+#~ msgstr "Значок индикатора"
+
+#~ msgid "Background style option"
+#~ msgstr "Опция стиля фона"
+
+#~ msgid "Download folder"
+#~ msgstr "Папка для загрузки"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Папка с картинками для обоев Bing"
+
+#~ msgid "Selected image"
+#~ msgstr "Выбранное изображение"
+
+#~ msgid "Select from image gallery"
+#~ msgstr "Выберите из галереи изображений"
+
+#~ msgid "Bing locale"
+#~ msgstr "Языковой стандарт Bing"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Используйте настраиваемое размытие и яркость"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr "Размытие может улучшить читаемость для входа в систему"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "Интенсивность размытия фона"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "Может улучшить контрастность приглашения для входа в систему"
+
+#~ msgid "Background brightness"
+#~ msgstr "Фоновая яркость"
+
+#~ msgid "Presets"
+#~ msgstr "Пресеты"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Часто используемые пресеты"
+
+#~ msgid "Lock Screen"
+#~ msgstr "Экран блокировки"
+
+#~ msgid "Debug logging"
+#~ msgstr "Ведение журнала отладки"
+
+#~ msgid "Switch to new images when available (unless on random mode)"
+#~ msgstr ""
+#~ "Переключайтесь на новые изображения, когда они доступны (если только не в "
+#~ "случайном режиме)"
+
+#~ msgid "Enable all features on Wayland"
+#~ msgstr "Включить все функции на Wayland"
+
+#~ msgid "Some newer features may be unstable on Wayland"
+#~ msgstr "Некоторые новые функции могут быть нестабильными на Wayland"
+
+#~ msgid "Screen resolution"
+#~ msgstr "Разрешение экрана"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr "Переопределение автоматического выбора разрешения"
+
+#~ msgid "Manually adjust random interval (seconds)"
+#~ msgstr "Ручная настройка случайного интервала (секунды)"
+
+#~ msgid "Random interval"
+#~ msgstr "Случайный интервал"
+
+#~ msgid "Import Bing Wallpaper data"
+#~ msgstr "Импорт данных обоев Bing"
+
+#~ msgid "Export Bing Wallpaper data"
+#~ msgstr "Экспорт данных обоев Bing"
+
+#~ msgid "Export JSON data to wallpaper dir for backup or data migration"
+#~ msgstr ""
+#~ "Экспортировать данные JSON в каталог обоев для резервного копирования или "
+#~ "переноса данных"
+
+#~ msgid "Always export Bing data"
+#~ msgstr "Всегда экспортировать большие данные"
+
+#~ msgid "Export Bing JSON whenever data changes"
+#~ msgstr "Экспортировать Bing JSON всякий раз, когда данные изменяются"
+
+#~ msgid "Debug options"
+#~ msgstr "Параметры отладки"
+
+#~ msgid "New wallpaper images everyday from Bing"
+#~ msgstr "Новые изображения обоев каждый день от Bing"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Версия расширения Gnome shell "
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Поддерживается Майклом Кэрроллом"
+
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github Sponsors</a>."
+#~ msgstr ""
+#~ "Покажите свою поддержку автору на <a href=\"https://flattr.com/@neffo "
+#~ "\">Flattr</a> или <a href=\"https://github.com/sponsors/neffo \">Github "
+#~ "Sponsor</a>."
+
+#~ msgid "Changes since last version"
+#~ msgstr "Изменения с момента последней версии"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr ""
+#~ "Основано на расширении оболочки NASA APOD Gnome, разработанном Элией "
+#~ "Арджентьери"
+
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">его программа поставляется без КАКИХ-ЛИБО ГАРАНТИЙ.\n"
+#~ "Посмотрите <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
+#~ "General Public License, version 3 или позже</a> для получения подробной "
+#~ "информации.</span>"
+
+#~ msgid "About"
+#~ msgstr "О программе"
+
+#~ msgid "Gallery"
+#~ msgstr "Галерея"
+
+#~ msgid "GNOME shell extension version "
+#~ msgstr "Версия расширения GNOME shell "
+
+#~ msgid "Apply"
+#~ msgstr "Принять"
+
+#~ msgid "View"
+#~ msgstr "View"
+
+#~ msgid "Info"
+#~ msgstr "Инфо"
+
+#~ msgid "Delete"
+#~ msgstr "Удалить"
+
+#~ msgid "<image name here>"
+#~ msgstr "<имя изображения здесь>"
+
+#~ msgid "Load image gallery"
+#~ msgstr "Загрузить галерею изображений"
+
+#~ msgid "Last updated"
+#~ msgstr "Прошлое"
+
+#~ msgid "Select folder"
+#~ msgstr "Выберите папку"
+
+#~ msgid "Most recent image"
+#~ msgstr "Самое последнее изображение"
+
+#~ msgid "Random image"
+#~ msgstr "Случайное изображение"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Выборка данных..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "Рынок недоступен в вашем регионе"
+
+#~ msgid "A network error occured"
+#~ msgstr "Произошла сетевая ошибка"
+
+#~ msgid "Too many requests in 5 seconds"
+#~ msgstr "Слишком много запросов за 5 секунд"
+
+#~ msgid "No change log found for this release"
+#~ msgstr "Список изменений для этого выпуска не найден"

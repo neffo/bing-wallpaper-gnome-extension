@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bing-wallpaper-gnome-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: 2024-10-17 15:11+0200\n"
 "Last-Translator: Ludek Vydra <lvtran@u.k2.cz>\n"
 "Language-Team: \n"
@@ -18,421 +18,590 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: ui/prefsadw.ui.h:1 extension.js:145
-msgid "Settings"
-msgstr "Nastavení"
-
-#: ui/prefsadw.ui.h:2
-msgid "Indicator"
-msgstr "Ikona indikátoru"
-
-#: ui/prefsadw.ui.h:3
-msgid "Hide Indicator"
-msgstr "Skryj ikonu"
-
-#: ui/prefsadw.ui.h:4
-msgid "Whether to hide the panel indicator"
-msgstr "Zda má být indikátor panelu skrytý"
-
-#: ui/prefsadw.ui.h:5
-msgid "Desktop notifications"
-msgstr "Povolit oznámení na ploše"
-
-#: ui/prefsadw.ui.h:6
-msgid "Enable notifications on new images"
-msgstr "Povolí oznámení nových tapet"
-
-#: ui/prefsadw.ui.h:7
-msgid "Indicator icon"
-msgstr "Ikona indikátoru"
-
-#: ui/prefsadw.ui.h:8
-msgid "Select from alternate tray icons"
-msgstr "Vyber ikonu panelu"
-
-#: ui/prefsadw.ui.h:9
-msgid "Download folder"
-msgstr "Složka pro stažení souborů"
-
-#: ui/prefsadw.ui.h:10
-msgid "Open or change wallpaper downloads folder"
-msgstr "Otevři nebo změň složku stažených tapet"
-
-#: ui/prefsadw.ui.h:11
-msgid "Wallpaper"
-msgstr "Tapeta"
-
-#: ui/prefsadw.ui.h:12
-msgid "Set wallpaper"
-msgstr "Nastav tapetu"
-
-#: ui/prefsadw.ui.h:13
-msgid "Whether to set wallpaper automatically"
-msgstr "Automatické nastavení tapety"
-
-#: ui/prefsadw.ui.h:14
-msgid "Shuffle wallpaper"
-msgstr "Přepni tapetu"
-
-#: ui/prefsadw.ui.h:15
-msgid "Randomly select wallpaper from collection"
-msgstr "Náhodně vyber tapetu z kolekce"
-
-#: ui/prefsadw.ui.h:16
-msgid "Shuffle interval"
-msgstr "Interval přepnutí"
-
-#: ui/prefsadw.ui.h:17
-msgid "How frequently to shuffle wallpapers"
-msgstr "Jak často náhodně přepínat tapety"
-
-#: ui/prefsadw.ui.h:18
-msgid "Downloads"
-msgstr "Složka pro stažení souborů"
-
-#: ui/prefsadw.ui.h:19
-msgid "Lock screen"
-msgstr "Uzamykací obrazovka"
-
-#: ui/prefsadw.ui.h:20
-msgid "Lockscreen blur"
-msgstr "Rozostření uzamykací obrazovky"
-
-#: ui/prefsadw.ui.h:21
-msgid "Dynamic lockscreen blur"
-msgstr "Dynamické rozostření zamykací obrazovky"
-
-#: ui/prefsadw.ui.h:22
-msgid "Whether to enable dynamic blur mode on lock screen"
-msgstr "Povolení režimu dynamického rozostření na uzamčené obrazovce"
-
-#: ui/prefsadw.ui.h:23
-msgid "Blur strength"
-msgstr "Síla rozostření"
-
-#: ui/prefsadw.ui.h:24
-msgid "Blur strength when login prompt is not visible"
-msgstr "Síla rozmazání, když není vidět výzva k přihlášení"
-
-#: ui/prefsadw.ui.h:25
-msgid "Wallpaper brightness"
-msgstr "Jas tapety"
-
-#: ui/prefsadw.ui.h:26
-msgid "Dim wallpaper when login prompt is not visible"
-msgstr "Setmění tapety, když není vidět výzva k přihlášení"
-
-#: ui/prefsadw.ui.h:27
-msgid "Presets"
-msgstr "Předvolby"
-
-#: ui/prefsadw.ui.h:28
-msgid "Gallery"
-msgstr "Galerie"
-
-#: ui/prefsadw.ui.h:29
-msgid "Debug"
-msgstr "Debug"
-
-#: ui/prefsadw.ui.h:30
-msgid "Debug options"
-msgstr "Ladicí možnosti"
-
-#: ui/prefsadw.ui.h:31
-msgid "Debug logging"
-msgstr "Debug logging"
-
-#: ui/prefsadw.ui.h:32
-msgid "Enable logging to system journal"
-msgstr "Povolit logování do systémového žurnálu"
-
-#: ui/prefsadw.ui.h:33
-msgid "Advanced options"
-msgstr "Pokročilé možnosti"
-
-#: ui/prefsadw.ui.h:34 extension.js:159
-msgid "Always show new images"
-msgstr "Vždy zobrazit nové obrázky"
-
-#: ui/prefsadw.ui.h:35
-msgid "Switch to new images when available (unless on random mode)"
-msgstr "Přepne na nové tapety, jakmile jsou k dispozici (ne při náhodném režimu)."
-
-#: ui/prefsadw.ui.h:36
-msgid "Purge on trash"
-msgstr "Vysypat do koše"
-
-#: ui/prefsadw.ui.h:37
-msgid "Trashing an image will remove it from database and disk"
-msgstr "Vymazání obrázku z disku i databáze"
-
-#: ui/prefsadw.ui.h:38
-msgid "Screen resolution"
-msgstr "Rozlišení obrazovky"
-
-#: ui/prefsadw.ui.h:39
-msgid "Override automatic resolution selection"
-msgstr "Přebít automatický výběr rozlišení obrazovky"
-
-#: ui/prefsadw.ui.h:40
-msgid "Random interval"
-msgstr "Náhodný interval"
-
-#: ui/prefsadw.ui.h:41
-msgid "Custom shuffle interval when enabled"
-msgstr "Vlastní interval náhodného přepnutí, pokud je povolen"
-
-#: ui/prefsadw.ui.h:42
-msgid "Delete older images"
-msgstr "Vymazání starších obrázků"
-
-#: ui/prefsadw.ui.h:43
-msgid "Automatically delete older images (excludes favourites)"
-msgstr "Automatické mazání starších snímků, s výjimkou oblíbených"
-
-#: ui/prefsadw.ui.h:44
-msgid "Number of days to keep images"
-msgstr "Počet dní pro uchování snímků"
-
-#: ui/prefsadw.ui.h:45
-msgid "Keep images for this number of days (favourites are kept forever)"
-msgstr "Uchovávat snímky po tento počet dní, oblíbené jsou uchovávány navždy"
-
-#: ui/prefsadw.ui.h:46
-msgid "Always export Bing data"
-msgstr "Vždy exportuj Bing data"
-
-#: ui/prefsadw.ui.h:47
-msgid "Export Bing JSON when image data changes"
-msgstr "Exportuj Bing JSON když se data změní"
-
-#: ui/prefsadw.ui.h:48
-msgid "Bing JSON data"
-msgstr "Bing JSON data"
-
-#: ui/prefsadw.ui.h:49
-msgid "About"
-msgstr "O rozšíření"
-
-#: ui/prefsadw.ui.h:50
-msgid "Bing Wallpaper"
-msgstr "Bing Wallpaper"
-
-#: ui/prefsadw.ui.h:51
-msgid "New wallpaper images everyday from Bing"
-msgstr "Nové Bing obrázky tapet každý den"
-
-#: ui/prefsadw.ui.h:52
-msgid "Maintained by Michael Carroll"
-msgstr "Správcem je Michael Carroll"
-
-#: ui/prefsadw.ui.h:53
-msgid "Version"
-msgstr "Verze"
-
-#: ui/prefsadw.ui.h:54
-msgid "Release notes"
-msgstr "Poznámky k vydání"
-
-#: ui/prefsadw.ui.h:55
-msgid "GNOME extensions page"
-msgstr "Stránka rozšíření GNOME"
-
-#: ui/prefsadw.ui.h:56
-msgid "Source code"
-msgstr "Zdrojový kód"
-
-#: ui/prefsadw.ui.h:57
-msgid "Report an issue"
-msgstr "Nahlas problém"
-
-#: ui/prefsadw.ui.h:58
-msgid "Contributors"
-msgstr "Přispěvatelé"
-
-#: ui/prefsadw.ui.h:59
-msgid "License"
-msgstr "License"
-
-#: ui/prefsadw.ui.h:60 prefs.js:117
-msgid "Change folder"
-msgstr "Změň adresář"
-
-#: ui/prefsadw.ui.h:61
-msgid "Select new wallpaper download folder"
-msgstr "Zvolte novou složku pro stahování tapet"
-
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr "Oblíbené"
-
-#: ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr "Použij"
-
-#: ui/carousel4.ui.h:3
-msgid "View"
-msgstr "Zobrazit"
-
-#: ui/carousel4.ui.h:4
-msgid "Info"
-msgstr "Info"
-
-#: ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr "Vymaž"
-
-#: ui/carousel4.ui.h:6
-msgid "<image name here>"
-msgstr "<zde jméno obrázku>"
-
-#: ui/carousel4.ui.h:7 extension.js:160
-msgid "Image shuffle mode"
-msgstr "Mód náhodného přepnutí obrázků"
-
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
-msgstr "Nahrej galerii obrázků"
-
-#: ui/intervals.utils.js.h:2
-msgid "on the hour"
-msgstr "v hodině"
-
-#: ui/intervals.utils.js.h:5
-msgid "every day at midnight"
-msgstr "každý den o půlnoci"
-
-#: ui/intervals.utils.js.h:8
-msgid "Sunday at midnight"
-msgstr "V neděli o půlnoci"
-
-#: ui/intervals.utils.js.h:11
-msgid "User defined interval"
-msgstr "Uživatelský interval"
-
-#: extension.js:136
+#: ../carousel.js:142
+msgid "Loading..."
+msgstr ""
+
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Není plánovaná obnova>"
 
-#: extension.js:137 extension.js:138 extension.js:148 extension.js:150
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "Čekám na obnovu..."
 
-#: extension.js:139
+#: ../extension.js:139
 msgid "Copy image to clipboard"
 msgstr "Kopíruj obrázek do schránky"
 
-#: extension.js:140
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Kopíruj URL obrázku do schránky"
 
-#: extension.js:141
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "Otevři adresář s obrázky"
 
-#: extension.js:142 extension.js:158
+#: ../extension.js:142 ../extension.js:158
 msgid "Set background image"
 msgstr "Nastav obrázek pozadí"
 
-#: extension.js:143
+#: ../extension.js:143
 msgid "Set lock screen image"
 msgstr "Nastav obrázek při uzamčení obrazovky"
 
-#: extension.js:144
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "Obnov teď"
 
-#: extension.js:146
+#: ../extension.js:145
+msgid "Settings"
+msgstr "Nastavení"
+
+#: ../extension.js:146
 msgid "Open in image viewer"
 msgstr "Otevři v prohlížeči"
 
-#: extension.js:147
+#: ../extension.js:147
 msgid "Open Bing image information page"
 msgstr "Otevři Bing image informační stránku"
 
-#: extension.js:156
+#: ../extension.js:156
 msgid "Quick settings"
 msgstr "Rychlé nastavení"
 
-#: extension.js:161
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr "Vždy zobrazit nové obrázky"
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr "Mód náhodného přepnutí obrázků"
+
+#: ../extension.js:161
 msgid "Image shuffle only favorites"
 msgstr "Mód náhodného přepnutí jen favoritů"
 
-#: extension.js:163
+#: ../extension.js:163
 msgid "Show image count"
 msgstr "Zobrazit počet obrázků"
 
-#: extension.js:164
+#: ../extension.js:164
 msgid "Image shuffle only UHD resolutions"
 msgstr "Přepínej jen obrázky vysokého rozlišení"
 
-#: extension.js:361
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "Příští obnova"
 
-#: extension.js:363
+#: ../extension.js:362
 msgid "Last refresh"
 msgstr "Poslední obnova"
 
-#: extension.js:366
+#: ../extension.js:365
 msgid "Next shuffle"
 msgstr "Další přepnutí"
 
-#: extension.js:856 extension.js:944
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Tapeta z Bing pro den"
 
-#: extension.js:982
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "Žádná tapeta není dostupná"
 
-#: extension.js:983
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "Dnes není dostupný žádný obrázek."
 
-#: prefs.js:109
+#: ../prefs.js:107
 msgid "Open folder"
 msgstr "Otevři složku"
 
-#: prefs.js:132
+#: ../prefs.js:112
+msgid "Change folder"
+msgstr "Změň adresář"
+
+#: ../prefs.js:124
 msgid "Default"
 msgstr "Výchozí"
 
-#: prefs.js:140
+#: ../prefs.js:129
 msgid "No blur, slight dim"
 msgstr "Lehké"
 
-#: prefs.js:148
+#: ../prefs.js:134
 msgid "Slight blur & dim"
 msgstr "Mírné"
 
-#: prefs.js:165
+#: ../prefs.js:148
 msgid "Import"
 msgstr "Import"
 
-#: prefs.js:173
+#: ../prefs.js:153
 msgid "Export"
 msgstr "Export"
 
-#: prefs.js:241
+#: ../prefs.js:221
 msgid "Select wallpaper download folder"
 msgstr "Zvolte složku pro stažení tapety"
 
-#: utils.js:134
+#: ../utils.js:142
 msgid "Error fetching change log: "
 msgstr "Chyba stahování protokolu změn: "
 
-#: utils.js:400 utils.js:403
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "minut"
 
-#: utils.js:406
+#: ../utils.js:414
 msgid "days"
 msgstr "dnů"
 
-#: utils.js:409
+#: ../utils.js:417
 msgid "hours"
 msgstr "hodin"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+#, fuzzy
+msgid "Hide indicator"
+msgstr "Skryj ikonu"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+#, fuzzy
+msgid "Send a notifications"
+msgstr "Povolit oznámení na ploše"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+#, fuzzy
+msgid "Send a notifications only on most recent image"
+msgstr "Povolí oznámení nových tapet"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+#, fuzzy
+msgid "Set background"
+msgstr "Nastav obrázek pozadí"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+#, fuzzy
+msgid "Set background to Bing's background"
+msgstr "Nastav obrázek pozadí"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+#, fuzzy
+msgid "Set lock screen"
+msgstr "Nastav obrázek při uzamčení obrazovky"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+#, fuzzy
+msgid "Set lock screen to Bing's background"
+msgstr "Nastav obrázek při uzamčení obrazovky"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+#, fuzzy
+msgid "Log messages to systemd journal"
+msgstr "Povolit logování do systémového žurnálu"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+#, fuzzy
+msgid "Delete previous wallpapers"
+msgstr "Smaž tapety, které jste dříve stáhli"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+#, fuzzy
+msgid "Number of days to keep wallpapers"
+msgstr "Počet dní pro uchování snímků"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+#, fuzzy
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr "Zruš GDM3 efekty zamykací obrazovky"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+#, fuzzy
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr "Jak často náhodně přepínat tapety"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+#, fuzzy
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr "Importuj předtím exportovaná data JSON z adresáře tapet"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr ""
+
+#~ msgid "Indicator"
+#~ msgstr "Ikona indikátoru"
+
+#~ msgid "Whether to hide the panel indicator"
+#~ msgstr "Zda má být indikátor panelu skrytý"
+
+#~ msgid "Indicator icon"
+#~ msgstr "Ikona indikátoru"
+
+#~ msgid "Select from alternate tray icons"
+#~ msgstr "Vyber ikonu panelu"
+
+#~ msgid "Download folder"
+#~ msgstr "Složka pro stažení souborů"
+
+#~ msgid "Open or change wallpaper downloads folder"
+#~ msgstr "Otevři nebo změň složku stažených tapet"
+
+#~ msgid "Wallpaper"
+#~ msgstr "Tapeta"
+
+#~ msgid "Set wallpaper"
+#~ msgstr "Nastav tapetu"
+
+#~ msgid "Whether to set wallpaper automatically"
+#~ msgstr "Automatické nastavení tapety"
+
+#~ msgid "Shuffle wallpaper"
+#~ msgstr "Přepni tapetu"
+
+#~ msgid "Randomly select wallpaper from collection"
+#~ msgstr "Náhodně vyber tapetu z kolekce"
+
+#~ msgid "Shuffle interval"
+#~ msgstr "Interval přepnutí"
+
+#~ msgid "Downloads"
+#~ msgstr "Složka pro stažení souborů"
+
+#~ msgid "Lock screen"
+#~ msgstr "Uzamykací obrazovka"
+
+#~ msgid "Lockscreen blur"
+#~ msgstr "Rozostření uzamykací obrazovky"
+
+#~ msgid "Dynamic lockscreen blur"
+#~ msgstr "Dynamické rozostření zamykací obrazovky"
+
+#~ msgid "Whether to enable dynamic blur mode on lock screen"
+#~ msgstr "Povolení režimu dynamického rozostření na uzamčené obrazovce"
+
+#~ msgid "Blur strength"
+#~ msgstr "Síla rozostření"
+
+#~ msgid "Blur strength when login prompt is not visible"
+#~ msgstr "Síla rozmazání, když není vidět výzva k přihlášení"
+
+#~ msgid "Wallpaper brightness"
+#~ msgstr "Jas tapety"
+
+#~ msgid "Dim wallpaper when login prompt is not visible"
+#~ msgstr "Setmění tapety, když není vidět výzva k přihlášení"
+
+#~ msgid "Presets"
+#~ msgstr "Předvolby"
+
+#~ msgid "Gallery"
+#~ msgstr "Galerie"
+
+#~ msgid "Debug"
+#~ msgstr "Debug"
+
+#~ msgid "Debug options"
+#~ msgstr "Ladicí možnosti"
+
+#~ msgid "Debug logging"
+#~ msgstr "Debug logging"
+
+#~ msgid "Advanced options"
+#~ msgstr "Pokročilé možnosti"
+
+#~ msgid "Switch to new images when available (unless on random mode)"
+#~ msgstr ""
+#~ "Přepne na nové tapety, jakmile jsou k dispozici (ne při náhodném režimu)."
+
+#~ msgid "Purge on trash"
+#~ msgstr "Vysypat do koše"
+
+#~ msgid "Trashing an image will remove it from database and disk"
+#~ msgstr "Vymazání obrázku z disku i databáze"
+
+#~ msgid "Screen resolution"
+#~ msgstr "Rozlišení obrazovky"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr "Přebít automatický výběr rozlišení obrazovky"
+
+#~ msgid "Random interval"
+#~ msgstr "Náhodný interval"
+
+#~ msgid "Custom shuffle interval when enabled"
+#~ msgstr "Vlastní interval náhodného přepnutí, pokud je povolen"
+
+#~ msgid "Delete older images"
+#~ msgstr "Vymazání starších obrázků"
+
+#~ msgid "Automatically delete older images (excludes favourites)"
+#~ msgstr "Automatické mazání starších snímků, s výjimkou oblíbených"
+
+#~ msgid "Keep images for this number of days (favourites are kept forever)"
+#~ msgstr ""
+#~ "Uchovávat snímky po tento počet dní, oblíbené jsou uchovávány navždy"
+
+#~ msgid "Always export Bing data"
+#~ msgstr "Vždy exportuj Bing data"
+
+#~ msgid "Export Bing JSON when image data changes"
+#~ msgstr "Exportuj Bing JSON když se data změní"
+
+#~ msgid "Bing JSON data"
+#~ msgstr "Bing JSON data"
+
+#~ msgid "About"
+#~ msgstr "O rozšíření"
+
+#~ msgid "Bing Wallpaper"
+#~ msgstr "Bing Wallpaper"
+
+#~ msgid "New wallpaper images everyday from Bing"
+#~ msgstr "Nové Bing obrázky tapet každý den"
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Správcem je Michael Carroll"
+
+#~ msgid "Version"
+#~ msgstr "Verze"
+
+#~ msgid "Release notes"
+#~ msgstr "Poznámky k vydání"
+
+#~ msgid "GNOME extensions page"
+#~ msgstr "Stránka rozšíření GNOME"
+
+#~ msgid "Source code"
+#~ msgstr "Zdrojový kód"
+
+#~ msgid "Report an issue"
+#~ msgstr "Nahlas problém"
+
+#~ msgid "Contributors"
+#~ msgstr "Přispěvatelé"
+
+#~ msgid "License"
+#~ msgstr "License"
+
+#~ msgid "Select new wallpaper download folder"
+#~ msgstr "Zvolte novou složku pro stahování tapet"
+
+#~ msgid "Favorite"
+#~ msgstr "Oblíbené"
+
+#~ msgid "Apply"
+#~ msgstr "Použij"
+
+#~ msgid "View"
+#~ msgstr "Zobrazit"
+
+#~ msgid "Info"
+#~ msgstr "Info"
+
+#~ msgid "Delete"
+#~ msgstr "Vymaž"
+
+#~ msgid "<image name here>"
+#~ msgstr "<zde jméno obrázku>"
+
+#~ msgid "Load image gallery"
+#~ msgstr "Nahrej galerii obrázků"
+
+#~ msgid "on the hour"
+#~ msgstr "v hodině"
+
+#~ msgid "every day at midnight"
+#~ msgstr "každý den o půlnoci"
+
+#~ msgid "Sunday at midnight"
+#~ msgstr "V neděli o půlnoci"
+
+#~ msgid "User defined interval"
+#~ msgstr "Uživatelský interval"
 
 #~ msgid "Enable desktop notifications"
 #~ msgstr "Povolit oznámení na ploše"
@@ -442,9 +611,6 @@ msgstr "hodin"
 
 #~ msgid "Background style option"
 #~ msgstr "Možnost stylu pozadí"
-
-#~ msgid "Delete previously downloaded wallpapers"
-#~ msgstr "Smaž tapety, které jste dříve stáhli"
 
 #~ msgid "Shuffle mode"
 #~ msgstr "Náhodný mód"
@@ -473,17 +639,19 @@ msgstr "hodin"
 #~ msgid "Manually adjust random interval (seconds)"
 #~ msgstr "Nastav ručně náhodný interval (sekundy)"
 
-#~ msgid "Import previously exported JSON data from wallpaper directory"
-#~ msgstr "Importuj předtím exportovaná data JSON z adresáře tapet"
-
 #~ msgid "Export Bing Wallpaper data"
 #~ msgstr "Exmportuj data Bing Wallpaper"
 
 #~ msgid "Export JSON data to wallpaper dir for backup or data migration"
 #~ msgstr "Exportuj JSON data do adresáře tapet pro zálohování nebo migraci"
 
-#~ msgid "Show your support to the author on <a href=\"https://flattr.com/@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
-#~ msgstr "Podpořte autora na <a href=\"https://flattr.com/@neffo\">Flattr</a> nebo <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github Sponsors</a>."
+#~ msgstr ""
+#~ "Podpořte autora na <a href=\"https://flattr.com/@neffo\">Flattr</a> nebo "
+#~ "<a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
 
 #~ msgid "Changes since last version"
 #~ msgstr "Změny od poslední verze"
@@ -493,19 +661,19 @@ msgstr "hodin"
 
 #~ msgid ""
 #~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License, version 3 or later</a> for details.</span>"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
 #~ msgstr ""
 #~ "<span size=\"small\">Tento program je ABSOLUTNĚ BEZ ZÁRUKY.\n"
-#~ "Podrobnosti se dozvíte na <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">Obecná veřejná licence GNU v.3</a> nebo pozdější.</span>"
+#~ "Podrobnosti se dozvíte na <a href=\"https://www.gnu.org/licenses/old-"
+#~ "licenses/gpl-2.0.html\">Obecná veřejná licence GNU v.3</a> nebo pozdější."
+#~ "</span>"
 
 #~ msgid "Select folder"
 #~ msgstr "Vyber adresář"
 
 #~ msgid "Use custom blur and brightness"
 #~ msgstr "Použij vlastního rozostření a jas"
-
-#~ msgid "Override GDM3 lockscreen effects"
-#~ msgstr "Zruš GDM3 efekty zamykací obrazovky"
 
 #~ msgid "Commonly used presets"
 #~ msgstr "Obvykle používané předvolby"
@@ -543,5 +711,9 @@ msgstr "hodin"
 #~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
 #~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
 
-#~ msgid "Changes your wallpaper daily to the Bing picture of the day for your region. Displays the picture description and copyright information."
-#~ msgstr "Zmení denně tapetu vaší plochy z denního obrázku Bingu pro území, kde se nacházíte. Zobrazí popis obrázku a informace o autorských právech."
+#~ msgid ""
+#~ "Changes your wallpaper daily to the Bing picture of the day for your "
+#~ "region. Displays the picture description and copyright information."
+#~ msgstr ""
+#~ "Zmení denně tapetu vaší plochy z denního obrázku Bingu pro území, kde se "
+#~ "nacházíte. Zobrazí popis obrázku a informace o autorských právech."

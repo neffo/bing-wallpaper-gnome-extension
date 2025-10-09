@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: 2024-12-07 23:40+0100\n"
 "Last-Translator: John Erling Blad <jeblad@gmail.com>\n"
 "Language-Team: \n"
@@ -19,422 +19,585 @@ msgstr ""
 "X-Generator: Gtranslator 47.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ui/prefsadw.ui.h:1 extension.js:145
-msgid "Settings"
-msgstr "Innstillinger"
-
-#: ui/prefsadw.ui.h:2
-msgid "Indicator"
-msgstr "Indikatorikon"
-
-#: ui/prefsadw.ui.h:3
-msgid "Hide Indicator"
-msgstr "Skjul indikatoren"
-
-#: ui/prefsadw.ui.h:4
-msgid "Whether to hide the panel indicator"
-msgstr "Om panelindikatoren skal skjules"
-
-#: ui/prefsadw.ui.h:5
-msgid "Desktop notifications"
-msgstr "Skrivebordsvarsler"
-
-#: ui/prefsadw.ui.h:6
-msgid "Enable notifications on new images"
-msgstr "Aktiver varsler på nye bilder"
-
-#: ui/prefsadw.ui.h:7
-msgid "Indicator icon"
-msgstr "Indikatorikon"
-
-#: ui/prefsadw.ui.h:8
-msgid "Select from alternate tray icons"
-msgstr "Velg fra alternative ikoner"
-
-#: ui/prefsadw.ui.h:9
-msgid "Download folder"
-msgstr "Nedlastingsmappe"
-
-#: ui/prefsadw.ui.h:10
-msgid "Open or change wallpaper downloads folder"
-msgstr "Åpne eller endre mappen for nedlasting av bakgrunnsbilder"
-
-#: ui/prefsadw.ui.h:11
-msgid "Wallpaper"
-msgstr "Tapet"
-
-#: ui/prefsadw.ui.h:12
-msgid "Set wallpaper"
-msgstr "Sett tapet"
-
-#: ui/prefsadw.ui.h:13
-msgid "Whether to set wallpaper automatically"
-msgstr "Om du vil sette tapet automatisk"
-
-#: ui/prefsadw.ui.h:14
-msgid "Shuffle wallpaper"
-msgstr "Stokk tapet"
-
-#: ui/prefsadw.ui.h:15
-msgid "Randomly select wallpaper from collection"
-msgstr "Velg tilfeldig tapet fra samlingen"
-
-#: ui/prefsadw.ui.h:16
-msgid "Shuffle interval"
-msgstr "Stokkeintervall"
-
-#: ui/prefsadw.ui.h:17
-msgid "How frequently to shuffle wallpapers"
-msgstr "Hvor ofte tapet stokkes"
-
-#: ui/prefsadw.ui.h:18
-msgid "Downloads"
-msgstr "Nedlastinger"
-
-#: ui/prefsadw.ui.h:19
-msgid "Lock screen"
-msgstr "Låseskjerm"
-
-#: ui/prefsadw.ui.h:20
-msgid "Lockscreen blur"
-msgstr "Låseskjermens uskarphet"
-
-#: ui/prefsadw.ui.h:21
-msgid "Dynamic lockscreen blur"
-msgstr "Dynamisk uskarphet på låseskjermen"
-
-#: ui/prefsadw.ui.h:22
-msgid "Whether to enable dynamic blur mode on lock screen"
-msgstr "Om du vil aktivere dynamisk uskarphet-modus på låseskjermen"
-
-#: ui/prefsadw.ui.h:23
-msgid "Blur strength"
-msgstr "Styrke på uskarpheten"
-
-#: ui/prefsadw.ui.h:24
-msgid "Blur strength when login prompt is not visible"
-msgstr "Styrke på uskarpheten når påloggingsforespørsel ikke er synlig"
-
-#: ui/prefsadw.ui.h:25
-msgid "Wallpaper brightness"
-msgstr "Tapetets lysstyrke"
-
-#: ui/prefsadw.ui.h:26
-msgid "Dim wallpaper when login prompt is not visible"
-msgstr "Demp tapetet når påloggforespørselen ikke er synlig"
-
-#: ui/prefsadw.ui.h:27
-msgid "Presets"
-msgstr "Forhåndsinnstillinger"
-
-#: ui/prefsadw.ui.h:28
-msgid "Gallery"
-msgstr "Galleri"
-
-#: ui/prefsadw.ui.h:29
-msgid "Debug"
-msgstr "Feilsøk"
-
-#: ui/prefsadw.ui.h:30
-msgid "Debug options"
-msgstr "Alternativer for feilsøk"
-
-#: ui/prefsadw.ui.h:31
-msgid "Debug logging"
-msgstr "Logging av feilsøk"
-
-#: ui/prefsadw.ui.h:32
-msgid "Enable logging to system journal"
-msgstr "Aktiver logging til systemjournal"
-
-#: ui/prefsadw.ui.h:33
-msgid "Advanced options"
-msgstr "Avanserte alternativer"
-
-#: ui/prefsadw.ui.h:34 extension.js:159
-msgid "Always show new images"
-msgstr "Alltid vis nye bilder"
-
-#: ui/prefsadw.ui.h:35
-msgid "Switch to new images when available (unless on random mode)"
+#: ../carousel.js:142
+msgid "Loading..."
 msgstr ""
-"Bytt til nye bilder når de er tilgjengelige (med mindre i tilfeldig modus)"
 
-#: ui/prefsadw.ui.h:36
-msgid "Purge on trash"
-msgstr "Slett ved kast"
-
-#: ui/prefsadw.ui.h:37
-msgid "Trashing an image will remove it from database and disk"
-msgstr "Hvis du sletter et bilde, fjernes det fra databasen og disken"
-
-#: ui/prefsadw.ui.h:38
-msgid "Screen resolution"
-msgstr "Skjermoppløsning"
-
-#: ui/prefsadw.ui.h:39
-msgid "Override automatic resolution selection"
-msgstr "Overstyr automatisk valg av skjermoppløsning"
-
-#: ui/prefsadw.ui.h:40
-msgid "Random interval"
-msgstr "Tilfeldig intervall"
-
-#: ui/prefsadw.ui.h:41
-msgid "Custom shuffle interval when enabled"
-msgstr "Eget stokke-intervall når aktivert"
-
-#: ui/prefsadw.ui.h:42
-msgid "Delete older images"
-msgstr "Slett eldre bilde"
-
-#: ui/prefsadw.ui.h:43
-msgid "Automatically delete older images (excludes favourites)"
-msgstr "Slett automatisk eldre bilder (ekskluderer favoritter)"
-
-#: ui/prefsadw.ui.h:44
-msgid "Number of days to keep images"
-msgstr "Antall dager bilder beholdes"
-
-#: ui/prefsadw.ui.h:45
-msgid "Keep images for this number of days (favourites are kept forever)"
-msgstr "Behold bilder i dette antallet dager (favoritter beholdes for alltid)"
-
-#: ui/prefsadw.ui.h:46
-msgid "Always export Bing data"
-msgstr "Eksporter alltid Bing-data"
-
-#: ui/prefsadw.ui.h:47
-msgid "Export Bing JSON when image data changes"
-msgstr "Eksporter Bing JSON når bildedata endres"
-
-#: ui/prefsadw.ui.h:48
-msgid "Bing JSON data"
-msgstr "Bing JSON-data"
-
-#: ui/prefsadw.ui.h:49
-msgid "About"
-msgstr "Om"
-
-#: ui/prefsadw.ui.h:50
-msgid "Bing Wallpaper"
-msgstr "Bing-tapet"
-
-#: ui/prefsadw.ui.h:51
-msgid "New wallpaper images everyday from Bing"
-msgstr "Nye tapet-bilder hver dag fra Bing"
-
-#: ui/prefsadw.ui.h:52
-msgid "Maintained by Michael Carroll"
-msgstr "Vedlikeholdes av Michael Carroll"
-
-#: ui/prefsadw.ui.h:53
-msgid "Version"
-msgstr "Versjon"
-
-#: ui/prefsadw.ui.h:54
-msgid "Release notes"
-msgstr "Utgivelsesnotater"
-
-#: ui/prefsadw.ui.h:55
-msgid "GNOME extensions page"
-msgstr "Side for GNOME-utvidelser"
-
-#: ui/prefsadw.ui.h:56
-msgid "Source code"
-msgstr "Kildekode"
-
-#: ui/prefsadw.ui.h:57
-msgid "Report an issue"
-msgstr "Rapporter et problem"
-
-#: ui/prefsadw.ui.h:58
-msgid "Contributors"
-msgstr "Bidragsytere"
-
-#: ui/prefsadw.ui.h:59
-msgid "License"
-msgstr "Lisens"
-
-#: ui/prefsadw.ui.h:60 prefs.js:117
-msgid "Change folder"
-msgstr "Endre mappe"
-
-#: ui/prefsadw.ui.h:61
-msgid "Select new wallpaper download folder"
-msgstr "Velg ny mappe for nedlasting av tapet"
-
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr "Favoritt"
-
-#: ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr "Utfør"
-
-#: ui/carousel4.ui.h:3
-msgid "View"
-msgstr "Vis"
-
-#: ui/carousel4.ui.h:4
-msgid "Info"
-msgstr "Info"
-
-#: ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr "Slett"
-
-#: ui/carousel4.ui.h:6
-msgid "<image name here>"
-msgstr "<billednavn her>"
-
-#: ui/carousel4.ui.h:7 extension.js:160
-msgid "Image shuffle mode"
-msgstr "Stokket bildemodus"
-
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
-msgstr "Last inn bildegalleri"
-
-# Seems like a patchwork message.
-#: ui/intervals.utils.js.h:2
-msgid "on the hour"
-msgstr "på timen"
-
-# Seems like a patchwork message.
-#: ui/intervals.utils.js.h:5
-msgid "every day at midnight"
-msgstr "hver dag ved midnatt"
-
-#: ui/intervals.utils.js.h:8
-msgid "Sunday at midnight"
-msgstr "Søndag ved midnatt"
-
-#: ui/intervals.utils.js.h:11
-msgid "User defined interval"
-msgstr "Brukerdefinert intervall"
-
-#: extension.js:136
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Ingen oppdatering planlagt>"
 
-#: extension.js:137 extension.js:138 extension.js:148 extension.js:150
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "Venter på oppdatering …"
 
-#: extension.js:139
+#: ../extension.js:139
 msgid "Copy image to clipboard"
 msgstr "Kopier bildet til utklippstavlen"
 
-#: extension.js:140
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Kopier bildets URL til utklippstavlen"
 
-#: extension.js:141
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "Åpne billedmappe"
 
-#: extension.js:142 extension.js:158
+#: ../extension.js:142 ../extension.js:158
 msgid "Set background image"
 msgstr "Sett bakgrunnsbilde"
 
-#: extension.js:143
+#: ../extension.js:143
 msgid "Set lock screen image"
 msgstr "Sett låseskjermbilde"
 
-#: extension.js:144
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "Oppdater nå"
 
-#: extension.js:146
+#: ../extension.js:145
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: ../extension.js:146
 msgid "Open in image viewer"
 msgstr "Åpne i bildeviser"
 
-#: extension.js:147
+#: ../extension.js:147
 msgid "Open Bing image information page"
 msgstr "Åpne Bing sin informasjonsside om bildet"
 
-#: extension.js:156
+#: ../extension.js:156
 msgid "Quick settings"
 msgstr "Raske innstillinger"
 
-#: extension.js:161
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr "Alltid vis nye bilder"
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr "Stokket bildemodus"
+
+#: ../extension.js:161
 msgid "Image shuffle only favorites"
 msgstr "Stokk bare favoritt-bilder"
 
-#: extension.js:163
+#: ../extension.js:163
 msgid "Show image count"
 msgstr "Vis antall bilder"
 
-#: extension.js:164
+#: ../extension.js:164
 msgid "Image shuffle only UHD resolutions"
 msgstr "Stokk bare bilder med UHD-oppløsning"
 
-#: extension.js:361
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "Neste oppdatering"
 
-#: extension.js:363
+#: ../extension.js:362
 msgid "Last refresh"
 msgstr "Siste oppdatering"
 
-#: extension.js:366
+#: ../extension.js:365
 msgid "Next shuffle"
 msgstr "Neste stokking"
 
 # Patchwork message. Such should not be used.
-#: extension.js:856 extension.js:944
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Dagens Bing-tapet for"
 
-#: extension.js:982
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "Ingen bakgrunnsbilde tilgjengelig"
 
-#: extension.js:983
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "Ikke noe bilde for i dag."
 
-#: prefs.js:109
+#: ../prefs.js:107
 msgid "Open folder"
 msgstr "Åpne mappe"
 
-#: prefs.js:132
+#: ../prefs.js:112
+msgid "Change folder"
+msgstr "Endre mappe"
+
+#: ../prefs.js:124
 msgid "Default"
 msgstr "Standard"
 
-#: prefs.js:140
+#: ../prefs.js:129
 msgid "No blur, slight dim"
 msgstr "Ikke uskarp, litt mørk"
 
-#: prefs.js:148
+#: ../prefs.js:134
 msgid "Slight blur & dim"
 msgstr "Litt uskarp, litt mørk"
 
-#: prefs.js:165
+#: ../prefs.js:148
 msgid "Import"
 msgstr "Import"
 
-#: prefs.js:173
+#: ../prefs.js:153
 msgid "Export"
 msgstr "Eksport"
 
-#: prefs.js:241
+#: ../prefs.js:221
 msgid "Select wallpaper download folder"
 msgstr "Velg nedlastingsmappe for tapet"
 
-#: utils.js:134
+#: ../utils.js:142
 msgid "Error fetching change log: "
 msgstr "Feil ved henting av endringslogg:"
 
-#: utils.js:400 utils.js:403
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "minutter"
 
-#: utils.js:406
+#: ../utils.js:414
 msgid "days"
 msgstr "dager"
 
-#: utils.js:409
+#: ../utils.js:417
 msgid "hours"
 msgstr "timer"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+#, fuzzy
+msgid "Hide indicator"
+msgstr "Skjul indikatoren"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+#, fuzzy
+msgid "Send a notifications"
+msgstr "Skrivebordsvarsler"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+#, fuzzy
+msgid "Send a notifications only on most recent image"
+msgstr "Aktiver varsler på nye bilder"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+#, fuzzy
+msgid "Set background"
+msgstr "Sett bakgrunnsbilde"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+#, fuzzy
+msgid "Set background to Bing's background"
+msgstr "Sett bakgrunnsbilde"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+#, fuzzy
+msgid "Set lock screen"
+msgstr "Sett låseskjermbilde"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+#, fuzzy
+msgid "Set lock screen to Bing's background"
+msgstr "Sett låseskjermbilde"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+#, fuzzy
+msgid "Log messages to systemd journal"
+msgstr "Aktiver logging til systemjournal"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+#, fuzzy
+msgid "Delete previous wallpapers"
+msgstr "Sett tapet"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+#, fuzzy
+msgid "Number of days to keep wallpapers"
+msgstr "Antall dager bilder beholdes"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+#, fuzzy
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr "Hvor ofte tapet stokkes"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr ""
+
+#~ msgid "Indicator"
+#~ msgstr "Indikatorikon"
+
+#~ msgid "Whether to hide the panel indicator"
+#~ msgstr "Om panelindikatoren skal skjules"
+
+#~ msgid "Indicator icon"
+#~ msgstr "Indikatorikon"
+
+#~ msgid "Select from alternate tray icons"
+#~ msgstr "Velg fra alternative ikoner"
+
+#~ msgid "Download folder"
+#~ msgstr "Nedlastingsmappe"
+
+#~ msgid "Open or change wallpaper downloads folder"
+#~ msgstr "Åpne eller endre mappen for nedlasting av bakgrunnsbilder"
+
+#~ msgid "Wallpaper"
+#~ msgstr "Tapet"
+
+#~ msgid "Whether to set wallpaper automatically"
+#~ msgstr "Om du vil sette tapet automatisk"
+
+#~ msgid "Shuffle wallpaper"
+#~ msgstr "Stokk tapet"
+
+#~ msgid "Randomly select wallpaper from collection"
+#~ msgstr "Velg tilfeldig tapet fra samlingen"
+
+#~ msgid "Shuffle interval"
+#~ msgstr "Stokkeintervall"
+
+#~ msgid "Downloads"
+#~ msgstr "Nedlastinger"
+
+#~ msgid "Lock screen"
+#~ msgstr "Låseskjerm"
+
+#~ msgid "Lockscreen blur"
+#~ msgstr "Låseskjermens uskarphet"
+
+#~ msgid "Dynamic lockscreen blur"
+#~ msgstr "Dynamisk uskarphet på låseskjermen"
+
+#~ msgid "Whether to enable dynamic blur mode on lock screen"
+#~ msgstr "Om du vil aktivere dynamisk uskarphet-modus på låseskjermen"
+
+#~ msgid "Blur strength"
+#~ msgstr "Styrke på uskarpheten"
+
+#~ msgid "Blur strength when login prompt is not visible"
+#~ msgstr "Styrke på uskarpheten når påloggingsforespørsel ikke er synlig"
+
+#~ msgid "Wallpaper brightness"
+#~ msgstr "Tapetets lysstyrke"
+
+#~ msgid "Dim wallpaper when login prompt is not visible"
+#~ msgstr "Demp tapetet når påloggforespørselen ikke er synlig"
+
+#~ msgid "Presets"
+#~ msgstr "Forhåndsinnstillinger"
+
+#~ msgid "Gallery"
+#~ msgstr "Galleri"
+
+#~ msgid "Debug"
+#~ msgstr "Feilsøk"
+
+#~ msgid "Debug options"
+#~ msgstr "Alternativer for feilsøk"
+
+#~ msgid "Debug logging"
+#~ msgstr "Logging av feilsøk"
+
+#~ msgid "Advanced options"
+#~ msgstr "Avanserte alternativer"
+
+#~ msgid "Switch to new images when available (unless on random mode)"
+#~ msgstr ""
+#~ "Bytt til nye bilder når de er tilgjengelige (med mindre i tilfeldig modus)"
+
+#~ msgid "Purge on trash"
+#~ msgstr "Slett ved kast"
+
+#~ msgid "Trashing an image will remove it from database and disk"
+#~ msgstr "Hvis du sletter et bilde, fjernes det fra databasen og disken"
+
+#~ msgid "Screen resolution"
+#~ msgstr "Skjermoppløsning"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr "Overstyr automatisk valg av skjermoppløsning"
+
+#~ msgid "Random interval"
+#~ msgstr "Tilfeldig intervall"
+
+#~ msgid "Custom shuffle interval when enabled"
+#~ msgstr "Eget stokke-intervall når aktivert"
+
+#~ msgid "Delete older images"
+#~ msgstr "Slett eldre bilde"
+
+#~ msgid "Automatically delete older images (excludes favourites)"
+#~ msgstr "Slett automatisk eldre bilder (ekskluderer favoritter)"
+
+#~ msgid "Keep images for this number of days (favourites are kept forever)"
+#~ msgstr ""
+#~ "Behold bilder i dette antallet dager (favoritter beholdes for alltid)"
+
+#~ msgid "Always export Bing data"
+#~ msgstr "Eksporter alltid Bing-data"
+
+#~ msgid "Export Bing JSON when image data changes"
+#~ msgstr "Eksporter Bing JSON når bildedata endres"
+
+#~ msgid "Bing JSON data"
+#~ msgstr "Bing JSON-data"
+
+#~ msgid "About"
+#~ msgstr "Om"
+
+#~ msgid "Bing Wallpaper"
+#~ msgstr "Bing-tapet"
+
+#~ msgid "New wallpaper images everyday from Bing"
+#~ msgstr "Nye tapet-bilder hver dag fra Bing"
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Vedlikeholdes av Michael Carroll"
+
+#~ msgid "Version"
+#~ msgstr "Versjon"
+
+#~ msgid "Release notes"
+#~ msgstr "Utgivelsesnotater"
+
+#~ msgid "GNOME extensions page"
+#~ msgstr "Side for GNOME-utvidelser"
+
+#~ msgid "Source code"
+#~ msgstr "Kildekode"
+
+#~ msgid "Report an issue"
+#~ msgstr "Rapporter et problem"
+
+#~ msgid "Contributors"
+#~ msgstr "Bidragsytere"
+
+#~ msgid "License"
+#~ msgstr "Lisens"
+
+#~ msgid "Select new wallpaper download folder"
+#~ msgstr "Velg ny mappe for nedlasting av tapet"
+
+#~ msgid "Favorite"
+#~ msgstr "Favoritt"
+
+#~ msgid "Apply"
+#~ msgstr "Utfør"
+
+#~ msgid "View"
+#~ msgstr "Vis"
+
+#~ msgid "Info"
+#~ msgstr "Info"
+
+#~ msgid "Delete"
+#~ msgstr "Slett"
+
+#~ msgid "<image name here>"
+#~ msgstr "<billednavn her>"
+
+#~ msgid "Load image gallery"
+#~ msgstr "Last inn bildegalleri"
+
+# Seems like a patchwork message.
+#~ msgid "on the hour"
+#~ msgstr "på timen"
+
+# Seems like a patchwork message.
+#~ msgid "every day at midnight"
+#~ msgstr "hver dag ved midnatt"
+
+#~ msgid "Sunday at midnight"
+#~ msgstr "Søndag ved midnatt"
+
+#~ msgid "User defined interval"
+#~ msgstr "Brukerdefinert intervall"

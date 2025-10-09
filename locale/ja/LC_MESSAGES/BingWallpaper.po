@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-08 16:00+1000\n"
+"POT-Creation-Date: 2025-03-18 15:11+0300\n"
 "PO-Revision-Date: 2021-09-27 00:33+1000\n"
 "Last-Translator: nexryai@outlook.com\n"
 "Language-Team: \n"
@@ -18,293 +18,511 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "インジケーターを表示しない"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "インジゲーターのアイコン"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr "デスクトップ通知を有効にする"
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:125
-msgid "Set background image"
-msgstr "背景画像を設定"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:126
-msgid "Set lock screen image"
-msgstr "ロック画面の背景を設定"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "ダウンロードするフォルダー"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Bing壁紙の写真のフォルダ"
-
-#: Settings.ui.h:8 Settings4.ui.h:8
-msgid "Open folder"
-msgstr "フォルダーを開く"
-
-#: Settings.ui.h:9 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "以前にダウンロードした壁紙を削除する"
-
-#: Settings.ui.h:10 Settings4.ui.h:10
-msgid "Selected image"
-msgstr "使用する画像"
-
-#: Settings.ui.h:11 Settings4.ui.h:11
-msgid "Select from image gallery"
+#: ../carousel.js:142
+msgid "Loading..."
 msgstr ""
 
-#: Settings.ui.h:12 Settings4.ui.h:12
-msgid "Bing locale"
-msgstr "Bingのロケール"
-
-#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:128
-msgid "Settings"
-msgstr "設定"
-
-#: Settings.ui.h:14 Settings4.ui.h:14
-msgid "Use custom blur and brightness"
-msgstr "カスタムのブラーと明るさを使用する"
-
-#: Settings.ui.h:15 Settings4.ui.h:15
-msgid "Override GDM3 lockscreen effects"
-msgstr "GDM3のロック画面のエフェクトを上書きする"
-
-#: Settings.ui.h:16 Settings4.ui.h:16
-msgid "Blur can improve readability of login prompt"
-msgstr ""
-"ブラーエフェクトはログインプロンプトの読みやすさを向上させることができます"
-
-#: Settings.ui.h:17 Settings4.ui.h:17
-msgid "Background blur intensity"
-msgstr "背景のブラーエフェクトの強度"
-
-#: Settings.ui.h:18 Settings4.ui.h:18
-msgid "Can improve contrast of login prompt"
-msgstr "ログインプロンプトのコントラストを改善できます"
-
-#: Settings.ui.h:19 Settings4.ui.h:19
-msgid "Background brightness"
-msgstr "背景の明るさ"
-
-#: Settings.ui.h:20 Settings4.ui.h:20
-msgid "Presets"
-msgstr "プリセット"
-
-#: Settings.ui.h:21 Settings4.ui.h:21
-msgid "Commonly used presets"
-msgstr "一般的に使用されるプリセット"
-
-#: Settings.ui.h:22 Settings4.ui.h:22
-msgid "No blur, slight dim"
-msgstr "ブラーを使用せずに、わずかに薄暗くする"
-
-#: Settings.ui.h:23 Settings4.ui.h:23
-msgid "GNOME default"
-msgstr "GNOMEのデフォルト"
-
-#: Settings.ui.h:24 Settings4.ui.h:24
-msgid "Slight blur, slight dim"
-msgstr "わずかにブラーを使用し、わずかに薄暗くする"
-
-#: Settings.ui.h:25 Settings4.ui.h:25
-msgid "Lock Screen"
-msgstr "ロック画面"
-
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Debug logging"
-msgstr "デバッグロギング"
-
-#: Settings.ui.h:27 Settings4.ui.h:26
-msgid "Enable logging to system journal"
-msgstr "システムジャーナルへのロギングを有効にする"
-
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "Always show new images"
-msgstr "常に新しい画像を表示する"
-
-#: Settings.ui.h:29 Settings4.ui.h:28
-msgid "Switch to new images when available (unless on random mode)"
-msgstr ""
-"利用可能な場合は新しい画像に切り替える（ランダムモードの場合を除く）"
-
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "Enable all features on Wayland"
-msgstr "Waylandですべての機能を有効にする"
-
-#: Settings.ui.h:31 Settings4.ui.h:30
-msgid "Some newer features may be unstable on Wayland"
-msgstr "Waylandでは一部の新しい機能が不安定になる可能性があります"
-
-#: Settings.ui.h:32 Settings4.ui.h:32
-msgid "Screen resolution"
-msgstr "画面の解像度"
-
-#: Settings.ui.h:33 Settings4.ui.h:33
-msgid "Override automatic resolution selection"
-msgstr "自動的に設定された解像度を上書きする"
-
-#: Settings.ui.h:34 Settings4.ui.h:34
-msgid "Debug options"
-msgstr "デバッグオプション"
-
-#: Settings.ui.h:35 Settings4.ui.h:35
-msgid "New wallpaper images everyday from Bing"
-msgstr "Bingから毎日新しい壁紙を取得する拡張機能"
-
-#: Settings.ui.h:36 Settings4.ui.h:36
-msgid "Gnome shell extension version "
-msgstr "Gnome shell 拡張機能のバージョン "
-
-#: Settings.ui.h:37 Settings4.ui.h:37
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:38 Settings4.ui.h:38
-msgid "Maintained by Michael Carroll"
-msgstr "Michael Carroll によってメンテナンスされています"
-
-#: Settings.ui.h:39 Settings4.ui.h:39
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-
-#: Settings.ui.h:40 Settings4.ui.h:40
-msgid "Changes since last version"
-msgstr "前回のバージョンからの変更"
-
-#: Settings.ui.h:41 Settings4.ui.h:41
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr ""
-
-#: Settings.ui.h:42 Settings4.ui.h:42
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-
-#: Settings.ui.h:44 Settings4.ui.h:44
-msgid "About"
-msgstr ""
-
-#: extension.js:111
+#: ../extension.js:136
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:113 extension.js:115 extension.js:118
+#: ../extension.js:137 ../extension.js:138 ../extension.js:148
+#: ../extension.js:150
 msgid "Awaiting refresh..."
 msgstr "更新を待っています..."
 
-#: extension.js:121
+#: ../extension.js:139
 msgid "Copy image to clipboard"
 msgstr "壁紙をクリップボードにコピー"
 
-#: extension.js:122
+#: ../extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "壁紙のURLをコピー"
 
-#: extension.js:123
+#: ../extension.js:141
 msgid "Open image folder"
 msgstr "壁紙のフォルダを開く"
 
-#: extension.js:124
-msgid "Open image gallery"
-msgstr ""
+#: ../extension.js:142 ../extension.js:158
+msgid "Set background image"
+msgstr "背景画像を設定"
 
-#: extension.js:127
+#: ../extension.js:143
+msgid "Set lock screen image"
+msgstr "ロック画面の背景を設定"
+
+#: ../extension.js:144
 msgid "Refresh Now"
 msgstr "今すぐ更新"
 
-#: extension.js:133
-msgid "Thumbnail disabled on Wayland"
-msgstr "Waylandではサムネイルが無効です"
+#: ../extension.js:145
+msgid "Settings"
+msgstr "設定"
 
-#: extension.js:235
+#: ../extension.js:146
+#, fuzzy
+msgid "Open in image viewer"
+msgstr "壁紙のフォルダを開く"
+
+#: ../extension.js:147
+msgid "Open Bing image information page"
+msgstr ""
+
+#: ../extension.js:156
+#, fuzzy
+msgid "Quick settings"
+msgstr "設定"
+
+#: ../extension.js:159
+msgid "Always show new images"
+msgstr "常に新しい画像を表示する"
+
+#: ../extension.js:160
+msgid "Image shuffle mode"
+msgstr ""
+
+#: ../extension.js:161
+msgid "Image shuffle only favorites"
+msgstr ""
+
+#: ../extension.js:163
+msgid "Show image count"
+msgstr ""
+
+#: ../extension.js:164
+msgid "Image shuffle only UHD resolutions"
+msgstr ""
+
+#: ../extension.js:360
 msgid "Next refresh"
 msgstr "次の更新"
 
-#: extension.js:512 extension.js:549
+#: ../extension.js:362
+#, fuzzy
+msgid "Last refresh"
+msgstr "次の更新"
+
+#: ../extension.js:365
+msgid "Next shuffle"
+msgstr ""
+
+#: ../extension.js:858 ../extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing日替わり壁紙"
 
-#: extension.js:517
-msgid "More info on Bing.com"
-msgstr "詳細は Bing.com を参照してください"
-
-#: extension.js:576
+#: ../extension.js:984
 msgid "No wallpaper available"
 msgstr "利用可能な壁紙はありません"
 
-#: extension.js:577
+#: ../extension.js:985
 msgid "No picture for today."
 msgstr "今日の壁紙はありません."
 
-#: prefs.js:188
-msgid "Most recent image"
-msgstr "最新の画像"
+#: ../prefs.js:107
+msgid "Open folder"
+msgstr "フォルダーを開く"
 
-#: prefs.js:189
-msgid "Random image"
-msgstr "ランダムな画像"
+#: ../prefs.js:112
+#, fuzzy
+msgid "Change folder"
+msgstr "壁紙のフォルダを開く"
 
-#: prefs.js:204 prefs.js:220
-msgid "Disabled on current GNOME version"
-msgstr "現在のGNOMEバージョンでは無効です"
+#: ../prefs.js:124
+#, fuzzy
+msgid "Default"
+msgstr "GNOMEのデフォルト"
 
-#: utils.js:144
-msgid "Fetching data..."
-msgstr "データを取得しています..."
+#: ../prefs.js:129
+msgid "No blur, slight dim"
+msgstr "ブラーを使用せずに、わずかに薄暗くする"
 
-#: utils.js:155
-msgid "Market not available in your region"
-msgstr "お住まいの地域ではご利用いただけません"
+#: ../prefs.js:134
+#, fuzzy
+msgid "Slight blur & dim"
+msgstr "わずかにブラーを使用し、わずかに薄暗くする"
 
-#: utils.js:159
-msgid "A network error occured"
-msgstr "ネットワークエラーが発生しました"
+#: ../prefs.js:148
+msgid "Import"
+msgstr ""
 
-#: utils.js:164
-msgid "Too many requests in 5 seconds"
-msgstr "5秒間に送信されたリクエストが多すぎます"
+#: ../prefs.js:153
+msgid "Export"
+msgstr ""
 
-#: utils.js:191
-msgid "No change log found for this release"
-msgstr "このリリースの変更ログは見つかりませんでした"
+#: ../prefs.js:221
+msgid "Select wallpaper download folder"
+msgstr ""
 
-#: utils.js:389 utils.js:392
+#: ../utils.js:142
+msgid "Error fetching change log: "
+msgstr ""
+
+#: ../utils.js:408 ../utils.js:411
 msgid "minutes"
 msgstr "分"
 
-#: utils.js:395
+#: ../utils.js:414
 msgid "days"
 msgstr "日"
 
-#: utils.js:398
+#: ../utils.js:417
 msgid "hours"
 msgstr "時間"
 
-#: carousel.ui:87 carousel4.ui:50
-msgid "Set as wallpaper"
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:8
+#, fuzzy
+msgid "Hide indicator"
+msgstr "インジケーターを表示しない"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:9
+msgid "Hide indicator icon from status area"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:14
+#, fuzzy
+msgid "Send a notifications"
+msgstr "デスクトップ通知を有効にする"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:15
+msgid "Send a notification with explanation when a new image is available"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:20
+msgid "Send a notifications only on most recent image"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:21
+msgid "Notify only the most recent image, in combination with 'notify' setting"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:26
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:32
+#, fuzzy
+msgid "Set background"
 msgstr "背景画像を設定"
 
-#: carousel.ui:99 carousel4.ui:60
-msgid "Delete image"
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:33
+#, fuzzy
+msgid "Set background to Bing's background"
+msgstr "背景画像を設定"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:38
+#, fuzzy
+msgid "Set lock screen"
+msgstr "ロック画面の背景を設定"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:39
+#, fuzzy
+msgid "Set lock screen to Bing's background"
+msgstr "ロック画面の背景を設定"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:44
+msgid "Where to download pictures."
 msgstr ""
 
-#: carousel4.ui:40
-msgid "<image name here>"
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:50
+msgid "Default Market for Bing"
 msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:56
+msgid "Screen Size"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:57
+msgid ""
+"Valid sizes are '800x600', '1024x768', '1280x720', '1280x768', '1366x768', "
+"'1920x1080', '1920x1200' and 'UHD'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:62
+#, fuzzy
+msgid "Log messages to systemd journal"
+msgstr "システムジャーナルへのロギングを有効にする"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:63
+msgid "Unlikely to be useful for ordinary users, but helpful for debugging"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:68
+#, fuzzy
+msgid "Delete previous wallpapers"
+msgstr "以前にダウンロードした壁紙を削除する"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:69
+msgid "Save disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:74
+msgid "Keep previous wallpapers if they are favourites"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:75
+msgid "Sensible default behaivour"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:81
+msgid "Number of days to keep wallpapers"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:82
+msgid "Delete wallpapers after this number of days"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:87
+msgid "Replace or remove Bing watermark on high-res images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:88
+msgid "Set to \"none\", \"Gnome\" or \"Ubuntu\""
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:93
+msgid "Icon Name"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:94
+msgid "Icon filename to use for extension applet"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:99
+msgid "Ignore Bing permitted for use as wallpaper flag"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:100
+msgid "Used when wallpaper is animated, or not licensed for wallpaper use"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:105
+#, fuzzy
+msgid "Override GNOME lockscreen (gdm3) wallpaper blur"
+msgstr "GDM3のロック画面のエフェクトを上書きする"
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:106
+msgid "Applies to GNOME 3.36 and above only"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:112
+msgid "GNOME lockscreen (gdm3) wallpaper blur strength"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:113
+msgid "Degree of fuzziness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:119
+msgid "GNOME lockscreen (gdm3) wallpaper blur Brightness"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:120
+msgid "Used to darken the wallpaper to improve visibility"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:125
+msgid "Use older Bing image, select by filename"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:131
+msgid "Revert to showing the current image when a new one arrives"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:132
+msgid ""
+"This setting may best reflect what users want from selectable or random "
+"images"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:137
+msgid ""
+"Store state in JSON format so we can restore details immediately on boot"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:143
+msgid "Store Bing image details for rollback"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:149
+msgid "Set to either 'daily', 'hourly', 'weekly', 'custom'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:150
+msgid ""
+"Daily is midnight, hourly is on the hour, weekly is midnight on Sunday, or "
+"custom as defined by the 'random-interval'"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:156
+msgid "How frequently to change the wallpaper when on random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:162
+msgid "Only pick from favourites in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:168
+msgid "Pick a random image at random-interval"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:174
+msgid "Only pick from UHD in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:180
+msgid "Only pick from unhidden in random mode"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:186
+msgid "Override safe defaults for Wayland desktop"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:187
+msgid ""
+"Enables features which may or may not be unstable or untested in all cases"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:192
+msgid "Create thumbnails to speed up image gallery loading"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:193
+msgid "Speeds up subsequent loads, but requires some additional disk space"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:199
+msgid "Minimum image height to be considered UHD"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:205
+msgid "Save backup copy of Bing JSON to wallpaper directory"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:206
+msgid "Enables migration to new install or restoration from back up"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:211
+msgid "Include current index and total image count in image title"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:217
+msgid "Size of icons for controls in popup menu"
+msgstr ""
+
+#: ../schemas/org.gnome.shell.extensions.bingwallpaper.gschema.xml:222
+msgid "Trash deletes images or just marks as bad"
+msgstr ""
+
+#~ msgid "Indicator icon"
+#~ msgstr "インジゲーターのアイコン"
+
+#~ msgid "Download folder"
+#~ msgstr "ダウンロードするフォルダー"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Bing壁紙の写真のフォルダ"
+
+#~ msgid "Selected image"
+#~ msgstr "使用する画像"
+
+#~ msgid "Bing locale"
+#~ msgstr "Bingのロケール"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "カスタムのブラーと明るさを使用する"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr ""
+#~ "ブラーエフェクトはログインプロンプトの読みやすさを向上させることができます"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "背景のブラーエフェクトの強度"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "ログインプロンプトのコントラストを改善できます"
+
+#~ msgid "Background brightness"
+#~ msgstr "背景の明るさ"
+
+#~ msgid "Presets"
+#~ msgstr "プリセット"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "一般的に使用されるプリセット"
+
+#~ msgid "Lock Screen"
+#~ msgstr "ロック画面"
+
+#~ msgid "Debug logging"
+#~ msgstr "デバッグロギング"
+
+#~ msgid "Switch to new images when available (unless on random mode)"
+#~ msgstr ""
+#~ "利用可能な場合は新しい画像に切り替える（ランダムモードの場合を除く）"
+
+#~ msgid "Enable all features on Wayland"
+#~ msgstr "Waylandですべての機能を有効にする"
+
+#~ msgid "Some newer features may be unstable on Wayland"
+#~ msgstr "Waylandでは一部の新しい機能が不安定になる可能性があります"
+
+#~ msgid "Screen resolution"
+#~ msgstr "画面の解像度"
+
+#~ msgid "Override automatic resolution selection"
+#~ msgstr "自動的に設定された解像度を上書きする"
+
+#~ msgid "Debug options"
+#~ msgstr "デバッグオプション"
+
+#~ msgid "New wallpaper images everyday from Bing"
+#~ msgstr "Bingから毎日新しい壁紙を取得する拡張機能"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Gnome shell 拡張機能のバージョン "
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid "Maintained by Michael Carroll"
+#~ msgstr "Michael Carroll によってメンテナンスされています"
+
+#~ msgid "Changes since last version"
+#~ msgstr "前回のバージョンからの変更"
+
+#~ msgid "Thumbnail disabled on Wayland"
+#~ msgstr "Waylandではサムネイルが無効です"
+
+#~ msgid "More info on Bing.com"
+#~ msgstr "詳細は Bing.com を参照してください"
+
+#~ msgid "Most recent image"
+#~ msgstr "最新の画像"
+
+#~ msgid "Random image"
+#~ msgstr "ランダムな画像"
+
+#~ msgid "Disabled on current GNOME version"
+#~ msgstr "現在のGNOMEバージョンでは無効です"
+
+#~ msgid "Fetching data..."
+#~ msgstr "データを取得しています..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "お住まいの地域ではご利用いただけません"
+
+#~ msgid "A network error occured"
+#~ msgstr "ネットワークエラーが発生しました"
+
+#~ msgid "Too many requests in 5 seconds"
+#~ msgstr "5秒間に送信されたリクエストが多すぎます"
+
+#~ msgid "No change log found for this release"
+#~ msgstr "このリリースの変更ログは見つかりませんでした"
+
+#~ msgid "Set as wallpaper"
+#~ msgstr "背景画像を設定"
 
 #~ msgid "Default is English - United States"
 #~ msgstr "デフォルトは英語（米国）"
