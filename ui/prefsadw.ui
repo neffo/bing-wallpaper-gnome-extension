@@ -166,26 +166,30 @@ Bing Wallpaper GNOME extension by: Michael Carroll
         <property name="icon-name">emblem-photos-symbolic</property>
         <property name="title" translatable="yes">Gallery</property>
         <child>
-            <object class="GtkScrolledWindow" id="carouselViewPort">
-            <property name="can-focus">0</property>
-            <property name="height_request">500</property>
-            <property name="hexpand">0</property>
-            <property name="vexpand">0</property>
-            <property name="child">
-              <object class="GtkBox">
+            <object class="AdwPreferencesGroup" id="gallery_group">
                 <child>
-                    <object class="GtkFlowBox" id="carouselFlowBox">
+                    <object class="GtkScrolledWindow" id="carouselViewPort">
                         <property name="can-focus">0</property>
-                        <property name="halign">center</property>
-                        <property name="homogeneous">1</property>
-                        <property name="max-children-per-line">2</property>
-                        <property name="min-children-per-line">2</property>
-                        <property name="row-spacing">2</property>
-                        <property name="column-spacing">2</property>
+                        <property name="height_request">500</property>
+                        <property name="hexpand">1</property>
+                        <property name="vexpand">1</property>
+                        <property name="child">
+                            <object class="GtkBox">
+                                <child>
+                                    <object class="GtkFlowBox" id="carouselFlowBox">
+                                        <property name="can-focus">0</property>
+                                        <property name="halign">center</property>
+                                        <property name="homogeneous">1</property>
+                                        <property name="max-children-per-line">2</property>
+                                        <property name="min-children-per-line">2</property>
+                                        <property name="row-spacing">2</property>
+                                        <property name="column-spacing">2</property>
+                                    </object>
+                                </child>
+                            </object>
+                        </property>
                     </object>
                 </child>
-              </object>
-            </property>
             </object>
         </child>
     </object>
