@@ -45,10 +45,28 @@
       <description></description>
     </key>
 
+    <key name="provider" type="s">
+      <default>"bing"</default>
+      <summary>Wallpaper provider</summary>
+      <description>Set to either 'bing' or 'spotlight'</description>
+    </key>
+
     <key name="market" type="s">
       <default>"auto"</default>
       <summary>Default Market for Bing</summary>
       <description></description>
+    </key>
+
+    <key name="spotlight-country" type="s">
+      <default>"US"</default>
+      <summary>Country for Windows Spotlight</summary>
+      <description>Two letter country code such as US, CN, JP or GB</description>
+    </key>
+
+    <key name="spotlight-locale" type="s">
+      <default>"en-US"</default>
+      <summary>Locale for Windows Spotlight</summary>
+      <description>Locale such as en-US, zh-CN or ja-JP</description>
     </key>
 
     <key name="resolution" type="s">

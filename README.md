@@ -1,6 +1,6 @@
 # GNOME Shell extension - Bing Wallpaper
 
-Bring some color to your GNOME desktop by syncing your desktop and lockscreen wallpapers with today's Microsoft Bing image of the day (the image you see when you visit Bing.com) with this extension. The intention of this extension is to just do what it needs to do and stay out of your way, with a few optional features to improve quality-of-life.
+Bring some color to your GNOME desktop by syncing your desktop and lockscreen wallpapers with either Microsoft's Bing image of the day or Windows Spotlight. The intention of this extension is to just do what it needs to do and stay out of your way, with a few optional features to improve quality-of-life.
 
 [![Get it on GNOME extensions](/screenshot/get_it_on_gnome_extensions.png)](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/) [![<3 Sponsor this project on GitHub <3](/screenshot/sponsor.png)](https://github.com/sponsors/neffo)
 
@@ -12,9 +12,9 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 
 ## Features
 
-* Automatically sets the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) as both lock screen and desktop wallpapers
+* Automatically sets wallpapers from Bing or Windows Spotlight
 * Only attempts to download wallpapers when they have been updated - doesn't poll continuously
-* Shuffle/randomise wallpapers at adjustable intervals (including from your stored Bing images)
+* Shuffle/randomise wallpapers at adjustable intervals (including from your stored image collection)
 * Image gallery to view, select and curate stored images
 * Optionally delete old images after a week, or you can keep (and curate) them forever
 * Override the lockscreen blur (NEW: lockscreen blur is now dynamic!)
@@ -25,7 +25,9 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 ## Quickstart guide
 
 * Install from [GNOME extensions](https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/), by default your wallpaper will be synced to the current Bing image of the day - if that's all you want you don't have to do anymore, everything is automatic
-* Bing Wallpaper (by default) builds a collection of images over time (this can be disabled if required)
+* Bing is still the default source, but you can switch to Windows Spotlight in Preferences > Settings > Source
+* Spotlight exposes its own `country` and `locale` settings in the same Source section
+* Downloaded images are now grouped internally by provider under your chosen download folder
 
 ### Control bar
 ![Bing Wallpaper menu control bar](/screenshot/controlbar.png)
@@ -40,7 +42,7 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 ### Quick settings
 ![Bing Wallpaper menu control bar](/screenshot/quicksettings.png)
 
-* Always show new images - when a new Bing wallpaper is available switch to it immediately
+* Always show new images - when a new wallpaper is available switch to it immediately
 * Image shuffle mode - switch to a random image at user defined intervals (default once per day or once per startup)
 * Image shuffle only favorites - only select favorite images (🤍), by default 'trashed' images are always excluded
 * Image shuffle only UHD resolution - occasionally some images are not UHD, exclude these from selection
@@ -53,7 +55,7 @@ The 5 buttons in the gallery (3rd page in the preferences) do have tool-tips but
 - Favorite - favorite this image (equivalent to doing this via the control bar)
 - Apply - set this image as wallpaper
 - View - open image in image viewer
-- Info - open the Bing description of the image
+- Info - open the provider description of the image when one is available
 - Trash - trash the image
 
 ## TODO
@@ -65,6 +67,7 @@ The 5 buttons in the gallery (3rd page in the preferences) do have tool-tips but
 
 * In China, users are limited to 'Chinese – China', 'English - International' markets (this is the way Bing handles the Chinese market/locale, not an extension 'bug' - sorry!)
 * Bing may detect your location incorrectly (and force a locale as above) - if you see this, please let me know what Bing.com itself does
+* Windows Spotlight uses Microsoft's Spotlight APIs directly inside the extension. The helper script in `~/spotlight` was only used as an implementation reference and is not a runtime dependency.
 * GNOME Shell themes can break some GNOME popup menu elements (toggle switches for example). This impacts GNOME more generally, not just this extension. Double check you are running latest versions of your themes (or disable them).
 
 ## System Requirements
