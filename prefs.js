@@ -17,8 +17,6 @@ import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.j
 import * as Utils from './utils.js';
 import Carousel from './carousel.js';
 
-const BingImageURL = Utils.BingImageURL;
-
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
 // this is pretty wide because of the size of the gallery
@@ -61,6 +59,10 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const bgSwitch = buildable.get_object('bgSwitch');
         const shuffleSwitch = buildable.get_object('shuffleSwitch');
         const shuffleInterval = buildable.get_object('shuffleInterval'); 
+        const providerEntry = buildable.get_object('providerEntry');
+        const marketEntry = buildable.get_object('marketEntry');
+        const spotlightCountryEntry = buildable.get_object('spotlightCountryEntry');
+        const spotlightLocaleEntry = buildable.get_object('spotlightLocaleEntry');
         const folderRow = buildable.get_object('folderRow');
         const lockscreen_page = buildable.get_object('lockscreen_page');
         const overrideSwitch = buildable.get_object('overrideSwitch');
@@ -101,6 +103,20 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
        
         shuffleInterval.set_model(shuffleIntervals);
         shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
+
+        const providerModel = new Gtk.StringList();
+        Utils.providerNames.forEach((providerName) => {
+            providerModel.append(providerName);
+        });
+        providerEntry.set_model(providerModel);
+        providerEntry.set_selected(Utils.providerIds.indexOf(Utils.getCurrentProvider(settings)));
+
+        const marketModel = new Gtk.StringList();
+        Utils.marketName.forEach((marketName) => {
+            marketModel.append(marketName);
+        });
+        marketEntry.set_model(marketModel);
+        marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
 
         // add wallpaper folder open and change buttons
         const openBtn = new Gtk.Button( {
@@ -174,6 +190,9 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         Utils.validate_resolution(settings);
         Utils.validate_icon(settings, this.path, icon_image, app_icon_image);
         Utils.validate_interval(settings);
+        Utils.getCurrentProvider(settings);
+        Utils.normalizeSpotlightCountry(settings);
+        Utils.normalizeSpotlightLocale(settings);
 
         // Indicator & notifications
         settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -199,7 +218,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // button opens Nautilus at our image folder
         openBtn.connect('clicked', (widget) => {
-            Utils.openImageFolder(settings);
+            Utils.openWallpaperRootFolder(settings);
         });
         
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
@@ -222,15 +241,53 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         changeBtn.connect('clicked', (widget) => {
-            dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)));
+            dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperRootDir(settings)));
             dirChooser.select_folder(window, null, (self, res) => {
                 let new_path = self.select_folder_finish(res).get_uri().replace('file://', '');
                 BingLog(new_path);
-                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), new_path);
+                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperRootDir(settings), new_path);
                 Utils.setWallpaperDir(settings, new_path);
             });
 
         });
+
+        const updateSourceVisibility = () => {
+            let provider = Utils.getCurrentProvider(settings);
+            let bingProvider = provider === 'bing';
+            marketEntry.set_visible(bingProvider);
+            resolutionEntry.set_visible(bingProvider);
+            spotlightCountryEntry.set_visible(!bingProvider);
+            spotlightLocaleEntry.set_visible(!bingProvider);
+        };
+
+        providerEntry.connect('notify::selected', () => {
+            let index = providerEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('provider', Utils.providerIds[index]);
+        });
+        settings.connect('changed::provider', () => {
+            providerEntry.set_selected(Utils.providerIds.indexOf(Utils.getCurrentProvider(settings)));
+            updateSourceVisibility();
+        });
+
+        marketEntry.connect('notify::selected', () => {
+            let index = marketEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('market', Utils.markets[index]);
+        });
+        settings.connect('changed::market', () => {
+            marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+
+        settings.bind('spotlight-country', spotlightCountryEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('spotlight-locale', spotlightLocaleEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+        settings.connect('changed::spotlight-country', () => {
+            Utils.normalizeSpotlightCountry(settings);
+        });
+        settings.connect('changed::spotlight-locale', () => {
+            Utils.normalizeSpotlightLocale(settings);
+        });
+        updateSourceVisibility();
 
         // Resolution
         const resolutionModel = new Gtk.StringList();
@@ -238,9 +295,15 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             resolutionModel.append(res);
         });
         resolutionEntry.set_model(resolutionModel);
+        resolutionEntry.set_selected(Utils.resolutions.indexOf(settings.get_string('resolution')));
+        resolutionEntry.connect('notify::selected', () => {
+            let index = resolutionEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('resolution', Utils.resolutions[index]);
+        });
         
         settings.connect('changed::resolution', () => {
-            resolutionEntry.set_selected(Utils.resolutions.map( e => e.value).indexOf(settings.get_string('resolution')));
+            resolutionEntry.set_selected(Utils.resolutions.indexOf(settings.get_string('resolution')));
         });
 
         settings.connect('changed::resolution', () => {
@@ -250,6 +313,12 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         // shuffle modes
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         /*settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);*/
+
+        shuffleInterval.connect('notify::selected', () => {
+            let index = shuffleInterval.get_selected();
+            if (index >= 0)
+                settings.set_string('random-interval-mode', Utils.randomIntervals[index].value);
+        });
 
         settings.connect('changed::random-interval-mode', () => {
             shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));

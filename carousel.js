@@ -94,9 +94,12 @@ export default class Carousel {
             this._log('gallery selected '+Utils.getImageUrlBase(image));
         });
 
+        infoButton.set_sensitive(image.copyrightlink && image.copyrightlink !== '');
         infoButton.connect('clicked', () => {
-            Utils.openInSystemViewer(image.copyrightlink, false);
-            this._log('info page link opened '+image.copyrightlink);
+            if (image.copyrightlink) {
+                Utils.openInSystemViewer(image.copyrightlink, false);
+                this._log('info page link opened '+image.copyrightlink);
+            }
         });
 
         deleteButton.connect('clicked', (widget) => {

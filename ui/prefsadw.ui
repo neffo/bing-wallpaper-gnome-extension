@@ -98,6 +98,35 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </object>
         </child>
         <child>
+            <object class="AdwPreferencesGroup" id="source_group">
+                <property name="title" translatable="yes">Source</property>
+                <child>
+                    <object class="AdwComboRow" id="providerEntry">
+                        <property name="title" translatable="yes">Wallpaper source</property>
+                        <property name="subtitle" translatable="yes">Choose between Bing and Windows Spotlight</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="marketEntry">
+                        <property name="title" translatable="yes">Bing market</property>
+                        <property name="subtitle" translatable="yes">Preferred Bing market/locale</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwEntryRow" id="spotlightCountryEntry">
+                        <property name="title" translatable="yes">Spotlight country</property>
+                        <property name="text">US</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwEntryRow" id="spotlightLocaleEntry">
+                        <property name="title" translatable="yes">Spotlight locale</property>
+                        <property name="text">en-US</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
             <object class="AdwPreferencesGroup" id="dl_group">
                 <property name="title" translatable="yes">Downloads</property>
                 <child>
@@ -265,14 +294,14 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                 <!-- <property name="title" translatable="yes">Presets</property> -->
                 <child>
                     <object class="AdwSwitchRow" id="always_export_switch">
-                        <property name="title" translatable="yes">Always export Bing data</property>
-                        <property name="subtitle" translatable="yes">Export Bing JSON when image data changes</property>
+                        <property name="title" translatable="yes">Always export wallpaper data</property>
+                        <property name="subtitle" translatable="yes">Export wallpaper JSON when image data changes</property>
                     </object>
                 </child>
                 <child>
                     <object class="AdwActionRow" id="json_actionrow">
-                        <property name="title" translatable="yes">Bing JSON data</property>
-                        <property name="subtitle" translatable="yes">Custom shuffle interval when enabled</property>
+                        <property name="title" translatable="yes">Wallpaper JSON data</property>
+                        <property name="subtitle" translatable="yes">Import or export the saved wallpaper database</property>
                     </object>
                 </child>
             </object>
