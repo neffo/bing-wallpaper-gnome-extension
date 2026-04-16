@@ -7,302 +7,486 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 13:45+1000\n"
+"POT-Creation-Date: 2025-03-18 13:11+0100\n"
+"PO-Revision-Date: 2026-04-01 21:07+0200\n"
 "Last-Translator: Christophe Jean <chrisophe@cjean.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.9\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Cacher l'indicateur"
+#: carousel.js:142
+msgid "Loading..."
+msgstr "Chargement..."
 
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "L'indicateur"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr ""
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "Définir l'arrière-plan"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Définir l'écran de verouillage"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Dossier de téléchargement"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Dossier d'image de Bing Wallpaper"
-
-#: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Supprimer les images précédemment téléchargées"
-
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr ""
-"Nombres de jours pendant lesquels les arrière-plans sont conservés avant "
-"suppression"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Localisation de Bing"
-
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Anglais - États-Unis par défaut"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "Résolution"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "Ignorer la sélection de résolution automatique"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
-#, fuzzy
-msgid "Selected image"
-msgstr "Image sélectionnée"
-
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
-msgid "Settings"
-msgstr "Paramétres"
-
-#: Settings.ui.h:16 Settings4.ui.h:17
-msgid "Use custom blur and brightness"
-msgstr ""
-
-#: Settings.ui.h:17 Settings4.ui.h:18
-msgid "Override GDM3 lockscreen effects"
-msgstr ""
-
-#: Settings.ui.h:18 Settings4.ui.h:19
-msgid "Blur can improve readability of login prompt"
-msgstr ""
-
-#: Settings.ui.h:19 Settings4.ui.h:20
-msgid "Background blur intensity"
-msgstr ""
-
-#: Settings.ui.h:20 Settings4.ui.h:21
-msgid "Can improve contrast of login prompt"
-msgstr ""
-
-#: Settings.ui.h:21 Settings4.ui.h:22
-msgid "Background brightness"
-msgstr ""
-
-#: Settings.ui.h:22 Settings4.ui.h:23
-msgid "Presets"
-msgstr ""
-
-#: Settings.ui.h:23 Settings4.ui.h:24
-msgid "Commonly used presets"
-msgstr ""
-
-#: Settings.ui.h:24 Settings4.ui.h:25
-msgid "No blur, slight dim"
-msgstr ""
-
-#: Settings.ui.h:25 Settings4.ui.h:26
-msgid "GNOME default"
-msgstr ""
-
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Slight blur, slight dim"
-msgstr ""
-
-#: Settings.ui.h:27 Settings4.ui.h:28
-msgid "Lock Screen"
-msgstr ""
-
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "New wallpaper images everyday from Bing"
-msgstr ""
-
-#: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version "
-msgstr "Version de l'extension Gnome shell "
-
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
-msgid "Maintained by Michael Carroll"
-msgstr "Maintenu par Michael Carroll"
-
-#: Settings.ui.h:32 Settings4.ui.h:33
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-
-#: Settings.ui.h:33 Settings4.ui.h:34
-msgid "Changes since last version"
-msgstr ""
-
-#: Settings.ui.h:34 Settings4.ui.h:35
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basé sur l'extension Gnome shell NASA APNN de Elia Argentieri"
-
-#: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">Ce programme est livré avec ABSOLUMENT AUCUNE "
-"GARANTIE.\n"
-"Consultez la <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License, version 3 ou supérieure </a> pour les détails."
-"</span>"
-
-#: Settings.ui.h:37 Settings4.ui.h:38
-msgid "About"
-msgstr "A propos"
-
-#: Settings4.ui.h:8
-#, fuzzy
-msgid "Open folder"
-msgstr "Ouvrir le dossier"
-
-#: extension.js:117
+#: extension.js:136
 msgid "<No refresh scheduled>"
 msgstr "<Aucune actualisation planifiée>"
 
-#: extension.js:119 extension.js:121 extension.js:123
-#, fuzzy
+#: extension.js:137 extension.js:138 extension.js:148 extension.js:150
 msgid "Awaiting refresh..."
-msgstr "En attente de actualisation..."
+msgstr "En attente d'actualisation..."
 
-#: extension.js:126
+#: extension.js:139
 msgid "Copy image to clipboard"
 msgstr "Copier l'image dans le presse-papiers"
 
-#: extension.js:127
+#: extension.js:140
 msgid "Copy image URL to clipboard"
 msgstr "Copier l'URL de l'image dans le presse-papiers"
 
-#: extension.js:128
-#, fuzzy
+#: extension.js:141
 msgid "Open image folder"
 msgstr "Ouvrir le dossier d'images"
 
-#: extension.js:131
+#: extension.js:142 extension.js:158
+msgid "Set background image"
+msgstr "Définir l'arrière-plan"
+
+#: extension.js:143
+msgid "Set lock screen image"
+msgstr "Définir l'écran de verouillage"
+
+#: extension.js:144
 msgid "Refresh Now"
 msgstr "Actualiser maintenant"
 
-#: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr ""
+#: extension.js:145 ui/prefsadw.ui:27
+msgid "Settings"
+msgstr "Paramétres"
 
-#: extension.js:203
+#: extension.js:146
+msgid "Open in image viewer"
+msgstr "Ouvrir dans la visionneuse d'images"
+
+#: extension.js:147
+msgid "Open Bing image information page"
+msgstr "Ouvrir la page d'informations sur l'image Bing"
+
+#: extension.js:156
+msgid "Quick settings"
+msgstr "Paramètres rapides"
+
+#: extension.js:159 ui/prefsadw.ui:211
+msgid "Always show new images"
+msgstr "Afficher systématiquement de nouvelles images"
+
+#: extension.js:160 ui/carousel4.ui:168
+msgid "Image shuffle mode"
+msgstr "Mode d'images aléatoire"
+
+#: extension.js:161
+msgid "Image shuffle only favorites"
+msgstr "Mode d’images aléatoire uniquement sur les favoris"
+
+#: extension.js:163
+msgid "Show image count"
+msgstr "Afficher le nombre d'images"
+
+#: extension.js:164
+msgid "Image shuffle only UHD resolutions"
+msgstr "Mode d’images aléatoire uniquement sur résolution UHD"
+
+#: extension.js:360
 msgid "Next refresh"
 msgstr "Prochaine actualisation"
 
-#: extension.js:490 extension.js:527
+#: extension.js:362
+msgid "Last refresh"
+msgstr "Dernière actualisation"
+
+#: extension.js:365
+msgid "Next shuffle"
+msgstr "Prochain changement"
+
+#: extension.js:858 extension.js:946
 msgid "Bing Wallpaper of the Day for"
 msgstr "Le fond d'écran Bing du jour pour"
 
-#: extension.js:495
-msgid "Set as wallpaper"
-msgstr "Définir le fond d'écran"
-
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr ""
-
-#: extension.js:553
+#: extension.js:984
 msgid "No wallpaper available"
 msgstr "Aucun fond d'écran disponnible"
 
-#: extension.js:554
+#: extension.js:985
 msgid "No picture for today."
 msgstr "Pas d'image pour aujourd'hui."
 
-#: prefs.js:173
-#, fuzzy
-msgid "Most recent image"
-msgstr "L'image d'aujourd'hui"
+#: prefs.js:107
+msgid "Open folder"
+msgstr "Ouvrir le dossier"
 
-#: prefs.js:174
-msgid "Random image"
-msgstr "Image aléatoire"
+#: prefs.js:112 ui/prefsadw.ui:460
+msgid "Change folder"
+msgstr "Changer de dossier"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
-msgstr ""
+#: prefs.js:124
+msgid "Default"
+msgstr "Par défaut"
 
-#: utils.js:139
-msgid "Fetching data..."
-msgstr "Récupération des données..."
+#: prefs.js:129
+msgid "No blur, slight dim"
+msgstr "Pas de flou, légère obscurité"
 
-#: utils.js:150
-msgid "Market not available in your region"
-msgstr "Marché non disponible dans votre région"
+#: prefs.js:134
+msgid "Slight blur & dim"
+msgstr "Léger flou et assombrissement"
 
-#: utils.js:154
-msgid "A network error occured"
-msgstr "Une erreur de réseau est survenue"
+#: prefs.js:148
+msgid "Import"
+msgstr "Importer"
 
-#: utils.js:159
-msgid "Too many requests in 5 seconds"
-msgstr ""
+#: prefs.js:153
+msgid "Export"
+msgstr "Exporter"
 
-#: utils.js:186
-msgid "No change log found for this release"
-msgstr ""
+#: prefs.js:221
+msgid "Select wallpaper download folder"
+msgstr "Sélectionner le dossier de téléchargement"
 
-#: utils.js:366 utils.js:369
-#, fuzzy
+#: utils.js:142
+msgid "Error fetching change log: "
+msgstr "Erreur lors de la récupération du journal : "
+
+#: utils.js:408 utils.js:411
 msgid "minutes"
 msgstr "minutes"
 
-#: utils.js:372
-#, fuzzy
+#: utils.js:414
 msgid "days"
 msgstr "jours"
 
-#: utils.js:375
-#, fuzzy
+#: utils.js:417
 msgid "hours"
 msgstr "heures"
 
+#: ui/carousel4.ui:76 ui/carousel4.ui:86
+msgid "Favorite"
+msgstr "Favori"
+
+#: ui/carousel4.ui:96
+msgid "Apply"
+msgstr "Appliquer"
+
+#: ui/carousel4.ui:105
+msgid "View"
+msgstr "Voir"
+
+#: ui/carousel4.ui:114
+msgid "Info"
+msgstr "Info"
+
+#: ui/carousel4.ui:123
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ui/carousel4.ui:158
+msgid "<image name here>"
+msgstr "<nom de l'image ici>"
+
+#: ui/carousel4.ui:201
+msgid "Load image gallery"
+msgstr "Charger la galerie d'images"
+
+#: ui/prefsadw.ui:30
+msgid "Indicator"
+msgstr "Indicateur"
+
+#: ui/prefsadw.ui:33
+msgid "Hide Indicator"
+msgstr "Cacher l'indicateur"
+
+#: ui/prefsadw.ui:34
+msgid "Whether to hide the panel indicator"
+msgstr "Faut-il masquer l'indicateur du panneau ?"
+
+#: ui/prefsadw.ui:39
+msgid "Desktop notifications"
+msgstr "Notifications"
+
+#: ui/prefsadw.ui:40
+msgid "Enable notifications on new images"
+msgstr "Activer les notifications pour les nouvelles images"
+
+#: ui/prefsadw.ui:45
+msgid "Indicator icon"
+msgstr "Icône"
+
+#: ui/prefsadw.ui:46
+msgid "Select from alternate tray icons"
+msgstr "Sélectionnez parmi les icônes alternatives du plateau"
+
+#: ui/prefsadw.ui:79
+msgid "Wallpaper"
+msgstr "Fond d'écran"
+
+#: ui/prefsadw.ui:82
+msgid "Set wallpaper"
+msgstr "Définir le fond d'écran"
+
+#: ui/prefsadw.ui:83
+msgid "Whether to set wallpaper automatically"
+msgstr "Faut-il définir le fond d'écran automatiquement ? "
+
+#: ui/prefsadw.ui:88
+msgid "Shuffle wallpaper"
+msgstr "Fond d'écran aléatoire"
+
+#: ui/prefsadw.ui:89
+msgid "Randomly select wallpaper from collection"
+msgstr "Sélectionner aléatoirement un fond d'écran dans la collection"
+
+#: ui/prefsadw.ui:94
+msgid "Shuffle interval"
+msgstr "Intervalle de changement"
+
+#: ui/prefsadw.ui:95
+msgid "How frequently to shuffle wallpapers"
+msgstr "À quelle fréquence changer les fonds d'écran"
+
+#: ui/prefsadw.ui:102
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: ui/prefsadw.ui:105
+msgid "Download folder"
+msgstr "Dossier de téléchargement"
+
+#: ui/prefsadw.ui:106
+msgid "Open or change wallpaper downloads folder"
+msgstr "Ouvrir ou changer le dossier de téléchargement"
+
+#: ui/prefsadw.ui:114
+msgid "Lock screen"
+msgstr "Écran de verrouillage"
+
+#: ui/prefsadw.ui:117
+msgid "Lockscreen blur"
+msgstr "Flou de l'écran de verrouillage"
+
+#: ui/prefsadw.ui:120
+msgid "Dynamic lockscreen blur"
+msgstr "Flou dynamique de l'écran de verrouillage"
+
+#: ui/prefsadw.ui:121
+msgid "Whether to enable dynamic blur mode on lock screen"
+msgstr "Activer ou non le mode de flou dynamique sur l'écran de verrouillage"
+
+#: ui/prefsadw.ui:126
+msgid "Blur strength"
+msgstr "Force du flou"
+
+#: ui/prefsadw.ui:127
+msgid "Blur strength when login prompt is not visible"
+msgstr "Intensité du flou lorsque l'invite de connexion n'est pas visible"
+
+#: ui/prefsadw.ui:140
+msgid "Wallpaper brightness"
+msgstr "Luminosité du fond d'écran"
+
+#: ui/prefsadw.ui:141
+msgid "Dim wallpaper when login prompt is not visible"
+msgstr "Fond d'écran sombre lorsque l'invite de connexion n'est pas visible"
+
+#: ui/prefsadw.ui:159
+msgid "Presets"
+msgstr "Préréglages"
+
+#: ui/prefsadw.ui:167
+msgid "Gallery"
+msgstr "Galerie"
+
+#: ui/prefsadw.ui:194
+msgid "Debug"
+msgstr "Déboguer"
+
+#: ui/prefsadw.ui:197
+msgid "Debug options"
+msgstr "Options de débogage"
+
+#: ui/prefsadw.ui:200
+msgid "Debug logging"
+msgstr "Journalisation de débogage"
+
+#: ui/prefsadw.ui:201
+msgid "Enable logging to system journal"
+msgstr "Activer la journalisation dans le journal système"
+
+#: ui/prefsadw.ui:208
+msgid "Advanced options"
+msgstr "Options avancées"
+
+#: ui/prefsadw.ui:212
+msgid "Switch to new images when available (unless on random mode)"
+msgstr "Passer à de nouvelles images lorsqu'elles sont disponibles (sauf en mode aléatoire)."
+
+#: ui/prefsadw.ui:217
+msgid "Purge on trash"
+msgstr "Vider la corbeille"
+
+#: ui/prefsadw.ui:218
+msgid "Trashing an image will remove it from database and disk"
+msgstr "Supprimer une image la retirera de la base de données et du disque"
+
+#: ui/prefsadw.ui:223
+msgid "Screen resolution"
+msgstr "Résolution d'écran"
+
+#: ui/prefsadw.ui:224
+msgid "Override automatic resolution selection"
+msgstr "Ignorer la sélection de résolution automatique"
+
+#: ui/prefsadw.ui:229
+msgid "Random interval"
+msgstr "Intervalle aléatoire"
+
+#: ui/prefsadw.ui:230 ui/prefsadw.ui:275
+msgid "Custom shuffle interval when enabled"
+msgstr "Intervalle de mélange personnalisé (lorsqu'il est activé)"
+
+#: ui/prefsadw.ui:243
+msgid "Delete older images"
+msgstr "Supprimer les images plus anciennes"
+
+#: ui/prefsadw.ui:244
+msgid "Automatically delete older images (excludes favourites)"
+msgstr "Suppression automatique des images les plus anciennes (à l'exception des favoris)"
+
+#: ui/prefsadw.ui:249
+msgid "Number of days to keep images"
+msgstr "Nombre de jours de conservation des images"
+
+#: ui/prefsadw.ui:250
+msgid "Keep images for this number of days (favourites are kept forever)"
+msgstr "Conservez les images pendant ce nombre de jours (les favorites sont conservées indéfiniment)."
+
+#: ui/prefsadw.ui:268
+msgid "Always export Bing data"
+msgstr "Toujours exporter les données Bing"
+
+#: ui/prefsadw.ui:269
+msgid "Export Bing JSON when image data changes"
+msgstr "Exporter le JSON Bing lorsque les données d'image changent"
+
+#: ui/prefsadw.ui:274
+msgid "Bing JSON data"
+msgstr "Données JSON de Bing"
+
+#: ui/prefsadw.ui:283
+msgid "About"
+msgstr "A propos"
+
+#: ui/prefsadw.ui:301
+msgid "Bing Wallpaper"
+msgstr "Fond d'écran Bing"
+
+#: ui/prefsadw.ui:310
+msgid "New wallpaper images everyday from Bing"
+msgstr "De nouvelles images de fond d'écran chaque jour sur Bing"
+
+#: ui/prefsadw.ui:320
+msgid "Maintained by Michael Carroll"
+msgstr "Maintenu par Michael Carroll"
+
+#: ui/prefsadw.ui:329
+msgid "Version"
+msgstr "Version"
+
+#: ui/prefsadw.ui:337
+msgid "Release notes"
+msgstr "Notes de version"
+
+#: ui/prefsadw.ui:358
+msgid "GNOME extensions page"
+msgstr "Page des extensions GNOME"
+
+#: ui/prefsadw.ui:379
+msgid "Source code"
+msgstr "Code source"
+
+#: ui/prefsadw.ui:400
+msgid "Report an issue"
+msgstr "Signaler un problème"
+
+#: ui/prefsadw.ui:421
+msgid "Contributors"
+msgstr "Contributeurs"
+
+#: ui/prefsadw.ui:442
+msgid "License"
+msgstr "Licence"
+
+#: ui/prefsadw.ui:462
+msgid "Select new wallpaper download folder"
+msgstr "Sélectionner le nouveau dossier de téléchargement"
+
+msgid "every day at midnight"
+msgstr "Tous les jours à minuit"
+
+msgid "on the hour"
+msgstr "Toutes les heures"
+
+msgid "Sunday at midnight"
+msgstr "Dimanche à minuit"
+
+msgid "User defined interval"
+msgstr "Intervalle personnalisé"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Dossier d'image de Bing Wallpaper"
+
+#~ msgid "Delete previously downloaded wallpapers"
+#~ msgstr "Supprimer les images précédemment téléchargées"
+
+#~ msgid "Days to store wallpapers before deleting"
+#~ msgstr "Nombres de jours pendant lesquels les arrière-plans sont conservés avant suppression"
+
+#~ msgid "Bing locale"
+#~ msgstr "Localisation de Bing"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "Anglais - États-Unis par défaut"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Version de l'extension Gnome shell "
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr "Basé sur l'extension Gnome shell NASA APNN de Elia Argentieri"
+
+#, fuzzy
+#~| msgid ""
+#~| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 3 or later</a> for details.</span>"
 #~ msgid ""
-#~ "Changes your wallpaper daily to the Bing picture of the day for your "
-#~ "region. Displays the picture description and copyright information."
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License, version 3 or later</a> for details.</span>"
 #~ msgstr ""
-#~ "Change votre arrière-plan tous les jours pour l'image Bing du jour de "
-#~ "votre région. Crée une notification décrivant l'image et les informations "
-#~ "de copyright."
+#~ "<span size=\"small\">Ce programme est livré avec ABSOLUMENT AUCUNE GARANTIE.\n"
+#~ "Consultez la <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 3 ou supérieure </a> pour les détails.</span>"
+
+#, fuzzy
+#~ msgid "Most recent image"
+#~ msgstr "L'image d'aujourd'hui"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Récupération des données..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "Marché non disponible dans votre région"
+
+#~ msgid "A network error occured"
+#~ msgstr "Une erreur de réseau est survenue"
+
+#~ msgid "Changes your wallpaper daily to the Bing picture of the day for your region. Displays the picture description and copyright information."
+#~ msgstr "Change votre arrière-plan tous les jours pour l'image Bing du jour de votre région. Crée une notification décrivant l'image et les informations de copyright."
 
 #~ msgid "Send a notification with explanation when a new image is downloaded."
-#~ msgstr ""
-#~ "Envoyer une notification avec explication lorsqu'une nouvelle image est "
-#~ "téléchargée."
-
-#~ msgid "Notifications"
-#~ msgstr "Notifications"
+#~ msgstr "Envoyer une notification avec explication lorsqu'une nouvelle image est téléchargée."
 
 #~ msgid "Use transient notifications (auto dismiss)"
 #~ msgstr "Utiliser des notifications transitoires (rejet automatique)"
@@ -316,12 +500,8 @@ msgstr "heures"
 #~ msgid "Bing website"
 #~ msgstr "Site de Bing"
 
-#~ msgid ""
-#~ "The selected market is not available in your country or geographic "
-#~ "region.\n"
-#~ msgstr ""
-#~ "Le marché sélectionné n'est pas disponible dans votre pays ou région "
-#~ "géographique.\n"
+#~ msgid "The selected market is not available in your country or geographic region.\n"
+#~ msgstr "Le marché sélectionné n'est pas disponible dans votre pays ou région géographique.\n"
 
 #~ msgid "This market is not available in your region"
 #~ msgstr "Ce marché n'est pas disponible dans votre région"

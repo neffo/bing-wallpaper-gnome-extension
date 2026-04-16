@@ -22,7 +22,7 @@ Author: Michael Carroll
 
 -->
 
-<interface>
+<interface domain="BingWallpaper">
   <requires lib="gtk" version="4.0"/>
   <object class="GtkScrolledWindow" id="carouselScrollable">
     <property name="hscrollbar-policy">never</property>
