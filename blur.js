@@ -15,6 +15,7 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 var _updateBackgroundEffects = UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
 var _showClock = UnlockDialog.UnlockDialog.prototype._showClock;
 var _showPrompt = UnlockDialog.UnlockDialog.prototype._showPrompt;
+var _setTransitionProgress = UnlockDialog.UnlockDialog.prototype._setTransitionProgress;
 
 var shellVersionMajor = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 var shellVersionMinor = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
@@ -37,7 +38,6 @@ function BingLog(msg) {
         console.log("BingWallpaper extension/Blur: " + msg); 
 }
 
-// we patch UnlockDialog._updateBackgroundEffects()
 export function _updateBackgroundEffects_BWP(monitorIndex) {
     // GNOME shell 3.36.4 and above
     BingLog("_updateBackgroundEffects_BWP() called for shell >= 3.36.4");
@@ -72,13 +72,39 @@ export function _updateBackgroundEffects_BWP(monitorIndex) {
 export function _showClock_BWP() {
     promptActive = false;
     this._showClock_GNOME(); // pass to default GNOME function
-    this._updateBackgroundEffects();
 }
 
 export function _showPrompt_BWP() {
     promptActive = true;
     this._showPrompt_GNOME(); // pass to default GNOME function
-    this._updateBackgroundEffects();
+}
+
+export function _setTransitionProgress_BWP(progress) {
+    this._setTransitionProgress_GNOME(progress);
+    const themeContext = St.ThemeContext.get_for_stage(global.stage);
+    for (const widget of this._backgroundGroup.get_children()) {
+        const effect = widget.get_effect('blur');
+        if (effect) {
+            // interpolate between BWP and GNOME values
+            // progress is 0-1, aka clock-prompt
+            let blur = BWP_BLUR_SIGMA + (BLUR_SIGMA - BWP_BLUR_SIGMA) * progress; 
+            let bright = 1.0;
+
+            // WORKAROUND: brightness does not work without blur, so we set it to 1.0 when blur is 0.
+            if (BWP_BLUR_SIGMA == 0) {
+                bright = 1.0 + (BLUR_BRIGHTNESS -1.0) * progress;
+            }
+            else {
+                bright = BWP_BLUR_BRIGHTNESS*0.01 + (BLUR_BRIGHTNESS - BWP_BLUR_BRIGHTNESS*0.01) * progress;
+            }
+
+            log('transition progress '+progress+' at blur '+blur+' brightness '+bright);
+            effect.set({ // we use 0-100 rather than 0-1, so divide by 100
+                brightness: bright,
+                [blurField]: blur * themeContext.scale_factor, 
+            });
+        }
+    }
 }
 
 export function _clampValue(value) {
@@ -121,10 +147,12 @@ export default class Blur {
             // we override _showClock and _showPrompt to patch in updates to blur effect before calling the GNOME functions
             UnlockDialog.UnlockDialog.prototype._showClock = _showClock_BWP;
             UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt_BWP;
+            UnlockDialog.UnlockDialog.prototype._setTransitionProgress = _setTransitionProgress_BWP;
 
             // this are the original functions which we call into from our versions above
             UnlockDialog.UnlockDialog.prototype._showClock_GNOME = _showClock;
             UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._setTransitionProgress_GNOME = _setTransitionProgress;
             
         }
         this.enabled = true;
@@ -139,11 +167,14 @@ export default class Blur {
             UnlockDialog.UnlockDialog.prototype._updateBackgroundEffects = _updateBackgroundEffects;
             UnlockDialog.UnlockDialog.prototype._showClock = _showClock;
             UnlockDialog.UnlockDialog.prototype._showPrompt = _showPrompt;
+            UnlockDialog.UnlockDialog.prototype._setTransitionProgress = _setTransitionProgress;
             // clean up unused functions we created
             UnlockDialog.UnlockDialog.prototype._showClock_GNOME = null;
             delete UnlockDialog.UnlockDialog.prototype._showClock_GNOME;
             UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME = null;
             delete UnlockDialog.UnlockDialog.prototype._showPrompt_GNOME;
+            UnlockDialog.UnlockDialog.prototype._setTransitionProgress_GNOME = null;
+            delete UnlockDialog.UnlockDialog.prototype._setTransitionProgress_GNOME;
         }
         this.enabled = false;
     }
