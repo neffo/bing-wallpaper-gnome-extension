@@ -1,4 +1,4 @@
-#: ui/prefsadw.ui.h:1 extension.js:145
+#: ui/prefsadw.ui.h:1 extension.js:141
 msgid "Settings"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Advanced options"
 msgstr ""
 
-#: ui/prefsadw.ui.h:34 extension.js:159
+#: ui/prefsadw.ui.h:34 extension.js:155
 msgid "Always show new images"
 msgstr ""
 
@@ -242,38 +242,6 @@ msgstr ""
 msgid "Select new wallpaper download folder"
 msgstr ""
 
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr ""
-
-#: ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr ""
-
-#: ui/carousel4.ui.h:3
-msgid "View"
-msgstr ""
-
-#: ui/carousel4.ui.h:4
-msgid "Info"
-msgstr ""
-
-#: ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr ""
-
-#: ui/carousel4.ui.h:6
-msgid "<image name here>"
-msgstr ""
-
-#: ui/carousel4.ui.h:7 extension.js:160
-msgid "Image shuffle mode"
-msgstr ""
-
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
-msgstr ""
-
 #: ui/intervals.utils.js.h:2
 msgid "on the hour"
 msgstr ""
@@ -290,83 +258,79 @@ msgstr ""
 msgid "User defined interval"
 msgstr ""
 
-#: extension.js:136
+#: extension.js:134
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:137 extension.js:138 extension.js:148 extension.js:150
+#: extension.js:135 extension.js:136 extension.js:144 extension.js:146
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:139
-msgid "Copy image to clipboard"
-msgstr ""
-
-#: extension.js:140
-msgid "Copy image URL to clipboard"
-msgstr ""
-
-#: extension.js:141
+#: extension.js:137
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:142 extension.js:158
+#: extension.js:138 extension.js:154
 msgid "Set background image"
 msgstr ""
 
-#: extension.js:143
+#: extension.js:139
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:140
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:146
+#: extension.js:142
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:143
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:156
+#: extension.js:152
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:161
+#: extension.js:156
+msgid "Image shuffle mode"
+msgstr ""
+
+#: extension.js:157
 msgid "Image shuffle only favorites"
 msgstr ""
 
-#: extension.js:163
+#: extension.js:159
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:164
+#: extension.js:160
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
 
-#: extension.js:360
+#: extension.js:346
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:362
+#: extension.js:348
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:365
+#: extension.js:351
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:858 extension.js:946
+#: extension.js:836 extension.js:924
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:984
+#: extension.js:962
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:985
+#: extension.js:963
 msgid "No picture for today."
 msgstr ""
 

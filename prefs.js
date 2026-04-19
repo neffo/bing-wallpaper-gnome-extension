@@ -15,7 +15,7 @@ import Adw from 'gi://Adw';
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 import * as Utils from './utils.js';
-import Carousel from './carousel.js';
+/*import Carousel from './carousel.js';*/
 
 const BingImageURL = Utils.BingImageURL;
 
@@ -41,7 +41,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        let carousel = null;
+        /*let carousel = null;*/
         let httpSession = null;
 
         let BingLog = (msg) => { // avoids need for globals
@@ -76,8 +76,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const delete_previous_switch = buildable.get_object('delete_previous_switch');
         const delete_previous_adjustment = buildable.get_object('delete_previous_adjustment');
         const always_export_switch = buildable.get_object('always_export_switch');
-        const gallery_page = buildable.get_object('gallery_page');
-        const carouselFlowBox = buildable.get_object('carouselFlowBox');
+        /*const gallery_page = buildable.get_object('gallery_page');
+        const carouselFlowBox = buildable.get_object('carouselFlowBox');*/
         const randomIntervalEntry = buildable.get_object('entry_random_interval');
         const debug_page = buildable.get_object('debug_page');
         const json_actionrow = buildable.get_object('json_actionrow');
@@ -87,7 +87,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         window.add(settings_page);
         window.add(lockscreen_page);
-        window.add(gallery_page);       
+        /*window.add(gallery_page);*/
         window.add(debug_page);
         window.add(about_page);
 
@@ -203,7 +203,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
         
         // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
-        carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
+        /* carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel */
         
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable

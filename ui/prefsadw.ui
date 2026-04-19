@@ -162,7 +162,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </object>
         </child>
     </object>
-    <object class="AdwPreferencesPage" id="gallery_page">
+    <!-- <object class="AdwPreferencesPage" id="gallery_page">
         <property name="icon-name">emblem-photos-symbolic</property>
         <property name="title" translatable="yes">Gallery</property>
         <child>
@@ -188,7 +188,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </property>
             </object>
         </child>
-    </object>
+    </object> -->
     <object class="AdwPreferencesPage" id="debug_page">
         <property name="icon-name">preferences-other-symbolic</property>
         <property name="title" translatable="yes">Debug</property>

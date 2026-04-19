@@ -25,7 +25,6 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 import * as Utils from './utils.js';
 import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
-import BWClipboard from './BWClipboard.js';
 
 const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';
@@ -107,7 +106,6 @@ class BingWallpaperIndicator extends Button {
         this.thumbnail = null;
         this.thumbnailItem = null;
         this.selected_image = "current";
-        this.clipboard = new BWClipboard();
         this.imageIndex = null;
         this.logger = null;
         this.favourite_status = false;
@@ -136,8 +134,6 @@ class BingWallpaperIndicator extends Button {
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
         this.explainItem = newMenuItem(_("Awaiting refresh..."));
         this.copyrightItem = newMenuItem(_("Awaiting refresh..."));
-        this.clipboardImageItem = newMenuItem(_("Copy image to clipboard"));
-        this.clipboardURLItem = newMenuItem(_("Copy image URL to clipboard"));
         this.folderItem = newMenuItem(_("Open image folder"));
         this.dwallpaperItem = newMenuItem(_("Set background image"));
         this.swallpaperItem = newMenuItem(_("Set lock screen image"));
@@ -149,7 +145,7 @@ class BingWallpaperIndicator extends Button {
 
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
         [this.imageResolutionItem, this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
-            this.clipboardImageItem, this.clipboardURLItem, this.dwallpaperItem]
+            this.dwallpaperItem]
                 .forEach(e => this.titleItem.menu.addMenuItem(e));
 
         // quick settings submenu
@@ -307,14 +303,6 @@ class BingWallpaperIndicator extends Button {
         });
 
         this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
-        if (this.clipboard.clipboard) { // only if we have a clipboard           
-            this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
-            this.clipboardURLItem.connect('activate', this._copyURLToClipboard.bind(this));
-        }
-        else {
-            [this.clipboardImageItem, this.clipboardURLItem].
-                forEach(e => e.setSensitive(false));
-        }
     }
 
     _setBooleanSetting(key, state) {
@@ -349,8 +337,6 @@ class BingWallpaperIndicator extends Button {
     _openMenu() {
         // Grey out menu items if an update is pending
         this.refreshItem.setSensitive(!this._updatePending);
-        this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-        this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -419,14 +405,6 @@ class BingWallpaperIndicator extends Button {
 
     _setBackgroundDesktop() {
         doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
-    }
-
-    _copyURLToClipboard() {
-        this.clipboard.setText(this.imageURL);
-    }
-
-    _copyImageToClipboard() {
-        this.clipboard.setImage(this.filename);
     }
 
     // set a timer on when the current image is going to expire
