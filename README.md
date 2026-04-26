@@ -15,11 +15,9 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Automatically sets the Bing [Image of the Day](https://www.microsoft.com/en-us/bing/bing-wallpaper) as both lock screen and desktop wallpapers
 * Only attempts to download wallpapers when they have been updated - doesn't poll continuously
 * Shuffle/randomise wallpapers at adjustable intervals (including from your stored Bing images)
-* Image gallery to view, select and curate stored images
 * Optionally delete old images after a week, or you can keep (and curate) them forever
-* Override the lockscreen blur (NEW: lockscreen blur is now dynamic!)
 * Language support: English (en), German (de), Dutch (nl), Italian (it), Polish (pl), Chinese (zh_CN, zh_TW), French (fr_FR), Portuguese (pt, pt_BR), Ukrainian (uk), Russian (ru_RU), Spanish (es), Korean (ko), Indonesian (id), Catalan (ca), Norwegian Bokmål (nb) & Nynorsk (nn), Swedish (sv), Arabic (ar), Hungarian (hu), Japanese (ja), Czech (cs_CZ), Finnish (fi_FI) and Turkish (tr), Persian (fa_ir) - a HUGE thanks to the translators
-* Image preview in menus & ability to manually set wallpapers individually or copy image to clipboard
+* Image preview in menus & ability to manually set wallpapers individually
 * A selection of different theme-aware indicator (tray) icons to choose (or hide it completely)
 
 ## Quickstart guide
@@ -69,7 +67,7 @@ The 5 buttons in the gallery (3rd page in the preferences) do have tool-tips but
 
 ## System Requirements
 
-GNOME 3.36+ or 40+ (Ubuntu 20.04 LTS or later, older versions of the extension work with 3.18+, but are no longer supported).
+GNOME 45+ (Ubuntu 24.04 LTS or later, older versions of the extension work with 3.18+, but are no longer supported).
 
 ## Package dependencies
 
@@ -110,25 +108,11 @@ GSETTINGS_SCHEMA_DIR=$HOME/.local/share/gnome-shell/extensions/BingWallpaper@ine
 Please include logs from your journal when submitting bug notices (make sure nothing sensitive is included in the text!).
 
 ## Screenshots
-
-### Image gallery
-
-![Settings](/screenshot/settings5.png)
-
 ### Preferences
 
 ![Settings](/screenshot/settings.png)
-![Settings](/screenshot/settings2.png)
 ![Settings](/screenshot/settings3.png)
 ![Settings](/screenshot/settings4.png)
-
-
-### Lockscreen blur control
-From left to right: 
-* no blur/no dimming
-* slight blur/default dimming
-* default blur/default dimming
-![Blur example](/screenshot/blurexample.jpg)
 
 ## Toss a coin to your coder
 
@@ -141,7 +125,7 @@ This extension is unofficial and not affiliated with Bing or Microsoft in any wa
 ## Special Thanks
 
 This extension is based on the NASA APOD extension by [Elinvention](https://github.com/Elinvention)
-and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). Lockscreen blur code is based on [Pratap-Kumar's extension](https://github.com/PRATAP-KUMAR/Control_Blur_Effect_On_Lock_Screen). I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements. Also, thanks to Microsoft for this great API and wallpaper collection.
+and inspired by Bing Desktop WallpaperChanger by [Utkarsh Gupta](https://github.com/UtkarshGpta). I'd like to give a special shout out to those who have [contributed code and translations](https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors) as well as everyone who has reported bugs or provided feedback and suggestions for improvements. Also, thanks to Microsoft for this great API and wallpaper collection.
 
 ## License
 

@@ -12,15 +12,8 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 
-export var PRESET_GNOME_DEFAULT = { blur: 45, dim: 65 }; // as at GNOME 40
-export var PRESET_NO_BLUR = { blur: 0, dim: 65 };
-export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 30 };
-
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
-
-var vertical_blur = null;
-var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 let debug = false;
@@ -141,12 +134,6 @@ export function fetch_change_log(version, label, httpSession) {
         BingLog("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+error));
     }
-}
-
-export function set_blur_preset(settings, preset) {
-    settings.set_int('lockscreen-blur-strength', preset.blur);
-    settings.set_int('lockscreen-blur-brightness', preset.dim);
-    BingLog("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
 export function imageHasBasename(image_item, i, b) {

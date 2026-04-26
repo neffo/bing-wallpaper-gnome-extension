@@ -23,7 +23,6 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
-import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
 
 const BingImageURL = Utils.BingImageURL;
@@ -37,7 +36,6 @@ const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
 
 let bingWallpaperIndicator = null;
-let blur = null;
 
 const newMenuItem = (label) => {
     return new PopupMenu.PopupMenuItem(label);
@@ -119,9 +117,6 @@ class BingWallpaperIndicator extends Button {
         this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
         this.ICON_TRASH_BUTTON = extensionIconsPath + '/'+'trash-empty-symbolic.svg';
         this.ICON_UNTRASH_BUTTON = extensionIconsPath + '/'+'trash-full-symbolic.svg';
-
-        if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
-            blur = new Blur();
         
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = this._extension.getSettings();
@@ -234,9 +229,6 @@ class BingWallpaperIndicator extends Button {
             {signal: 'changed::icon-name', call: this._setIcon},
             {signal: 'changed::market', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
-            {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
-            {signal: 'changed::lockscreen-blur-strength', call: this._setBlur},
-            {signal: 'changed::lockscreen-blur-brightness', call: this._setBlur},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
             {signal: 'changed::notify', call: this._notifyCurrentImage},
@@ -259,7 +251,6 @@ class BingWallpaperIndicator extends Button {
         
         // ensure we're in a sensible initial state
         this._setIcon();
-        this._setBlur();
         this._setImage();
         this._cleanUpImages();
 
@@ -354,12 +345,6 @@ class BingWallpaperIndicator extends Button {
         }
         BingLog('refreshduetext :'+this.refreshduetext);
         this.refreshDueItem.label.set_text(this.refreshduetext);            
-    }
-
-    _setBlur() {
-        blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
-        blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
-        blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
     }
 
     _setImage() {
@@ -1135,8 +1120,6 @@ class BingWallpaperIndicator extends Button {
         this._timeout = undefined;
         this._shuffleTimeout = undefined;
         this.menu.removeAll();
-        blur._disable(); // disable blur (blur.js) override and cleanup
-        blur = null;
     }
 });
 
