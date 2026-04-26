@@ -586,10 +586,22 @@ export function exportBingJSON(settings) {
     let json = settings.get_string('bing-json');
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
-    let [success, error] = file.replace_contents(json, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
-    if (!success) {
-        BingLog('error saving bing-json from '+filepath+': '+error);
-    }
+
+    const [etag] = await file.replace_contents_async(
+        json,
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+        (file, res) => {
+            try {
+                file.replace_contents_finish(res);
+            } 
+            catch(e) {
+                BingLog('error saving bing-json from '+filepath+': '+e);
+            }
+        }
+    );
 }
 
 export function importBingJSON(settings) {
@@ -597,18 +609,21 @@ export function importBingJSON(settings) {
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {
-        let [success, contents, etag_out] = file.load_contents(null);
-        if (!success) {
-            BingLog('error loading bing-json '+filepath+' - '+etag_out);
-        }
-        else {
-            BingLog('JSON import success');
-            let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
-            // need to implement some checks for validity here
-            mergeImageLists(settings, parsed);
-            purgeImages(settings); // remove the older missing images
-            //cleanupImageList(settings); 
-        }
+        const [contents, etag] = await file.load_contents_async(null,
+            (file, res) => {
+                try {
+                    BingLog('JSON import success');
+                    let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+                    // need to implement some checks for validity here
+                    mergeImageLists(settings, parsed);
+                    purgeImages(settings); // remove the older missing images
+                    file.load_contents_finish(res);
+                }
+                catch (e) {
+                    BingLog('error loading bing-json '+filepath+' - '+e);
+                }
+            }
+        );
     }
     else {
         BingLog('JSON import file not found');

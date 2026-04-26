@@ -1073,7 +1073,7 @@ class BingWallpaperIndicator extends Button {
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
 
-            file.replace_contents_bytes_async(
+            const [etag] = await file.replace_contents_bytes_async(
                 data,
                 null,
                 false,
