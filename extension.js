@@ -643,7 +643,7 @@ class BingWallpaperIndicator extends Button {
     }
 
     // download Bing metadata
-    _refresh() {
+    async _refresh() {
         if (this._updatePending)
             return;
         this._updatePending = true;
@@ -666,7 +666,7 @@ class BingWallpaperIndicator extends Button {
             request.request_headers.append('Accept', 'application/json');
 
             try {
-                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processMessageRefresh(message);
                 });
             }
@@ -1037,7 +1037,7 @@ class BingWallpaperIndicator extends Button {
 
     // download and process new image
     // FIXME: improve error handling
-    _downloadImage(url, file, set_background) {
+    async _downloadImage(url, file, set_background) {
         let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
         let dir = Gio.file_new_for_path(BingWallpaperDir);
         if (!dir.query_exists(null)) {
@@ -1051,7 +1051,7 @@ class BingWallpaperIndicator extends Button {
         // queue the http request
         try {
             if (Soup.MAJOR_VERSION >= 3) {
-                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processFileDownload(message, file, set_background);
                 });
             }
@@ -1067,7 +1067,7 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    _processFileDownload(message, file, set_background) {            
+    async _processFileDownload(message, file, set_background) {            
         try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
                 this.httpSession.send_and_read_finish(message).get_data():

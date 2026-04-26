@@ -104,7 +104,7 @@ export function get_current_bg(schema) {
     return (cur);
 }
 
-export function fetch_change_log(version, label, httpSession) {
+export async function fetch_change_log(version, label, httpSession) {
     const decoder = new TextDecoder();
     // create an http message
     let url = gitreleaseurl + "v" + version;
@@ -114,7 +114,7 @@ export function fetch_change_log(version, label, httpSession) {
     // queue the http request
     try {
         if (Soup.MAJOR_VERSION >= 3) {
-            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+            await httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
                 if (text)
@@ -582,7 +582,7 @@ export function openInSystemViewer(filename, is_file = true) {
     Gio.AppInfo.launch_default_for_uri(filename, context);
 }
 
-export function exportBingJSON(settings) {
+export async function exportBingJSON(settings) {
     let json = settings.get_string('bing-json');
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
@@ -604,7 +604,7 @@ export function exportBingJSON(settings) {
     );
 }
 
-export function importBingJSON(settings) {
+export async function importBingJSON(settings) {
     const decoder = new TextDecoder();
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
