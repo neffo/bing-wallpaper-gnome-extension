@@ -77,8 +77,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const change_log = buildable.get_object('change_log');
 
         window.add(settings_page);
-        window.add(lockscreen_page);
-        /*window.add(gallery_page);*/
+        /*window.add(lockscreen_page);
+        window.add(gallery_page);*/
         window.add(debug_page);
         window.add(about_page);
 
