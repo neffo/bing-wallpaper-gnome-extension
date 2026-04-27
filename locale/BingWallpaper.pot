@@ -1,4 +1,4 @@
-#: ui/prefsadw.ui.h:1 extension.js:146
+#: ui/prefsadw.ui.h:1 extension.js:136
 msgid "Settings"
 msgstr ""
 
@@ -71,207 +71,139 @@ msgid "Downloads"
 msgstr ""
 
 #: ui/prefsadw.ui.h:19
-msgid "Lock screen"
-msgstr ""
-
-#: ui/prefsadw.ui.h:20
-msgid "Lockscreen blur"
-msgstr ""
-
-#: ui/prefsadw.ui.h:21
-msgid "Dynamic lockscreen blur"
-msgstr ""
-
-#: ui/prefsadw.ui.h:22
-msgid "Whether to enable dynamic blur mode on lock screen"
-msgstr ""
-
-#: ui/prefsadw.ui.h:23
-msgid "Blur strength"
-msgstr ""
-
-#: ui/prefsadw.ui.h:24
-msgid "Blur strength when login prompt is not visible"
-msgstr ""
-
-#: ui/prefsadw.ui.h:25
-msgid "Wallpaper brightness"
-msgstr ""
-
-#: ui/prefsadw.ui.h:26
-msgid "Dim wallpaper when login prompt is not visible"
-msgstr ""
-
-#: ui/prefsadw.ui.h:27
-msgid "Presets"
-msgstr ""
-
-#: ui/prefsadw.ui.h:28
-msgid "Gallery"
-msgstr ""
-
-#: ui/prefsadw.ui.h:29
 msgid "Debug"
 msgstr ""
 
-#: ui/prefsadw.ui.h:30
+#: ui/prefsadw.ui.h:20
 msgid "Debug options"
 msgstr ""
 
-#: ui/prefsadw.ui.h:31
+#: ui/prefsadw.ui.h:21
 msgid "Debug logging"
 msgstr ""
 
-#: ui/prefsadw.ui.h:32
+#: ui/prefsadw.ui.h:22
 msgid "Enable logging to system journal"
 msgstr ""
 
-#: ui/prefsadw.ui.h:33
+#: ui/prefsadw.ui.h:23
 msgid "Advanced options"
 msgstr ""
 
-#: ui/prefsadw.ui.h:34 extension.js:160
+#: ui/prefsadw.ui.h:24 extension.js:150
 msgid "Always show new images"
 msgstr ""
 
-#: ui/prefsadw.ui.h:35
+#: ui/prefsadw.ui.h:25
 msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
-#: ui/prefsadw.ui.h:36
+#: ui/prefsadw.ui.h:26
 msgid "Purge on trash"
 msgstr ""
 
-#: ui/prefsadw.ui.h:37
+#: ui/prefsadw.ui.h:27
 msgid "Trashing an image will remove it from database and disk"
 msgstr ""
 
-#: ui/prefsadw.ui.h:38
+#: ui/prefsadw.ui.h:28
 msgid "Screen resolution"
 msgstr ""
 
-#: ui/prefsadw.ui.h:39
+#: ui/prefsadw.ui.h:29
 msgid "Override automatic resolution selection"
 msgstr ""
 
-#: ui/prefsadw.ui.h:40
+#: ui/prefsadw.ui.h:30
 msgid "Random interval"
 msgstr ""
 
-#: ui/prefsadw.ui.h:41
+#: ui/prefsadw.ui.h:31
 msgid "Custom shuffle interval when enabled"
 msgstr ""
 
-#: ui/prefsadw.ui.h:42
+#: ui/prefsadw.ui.h:32
 msgid "Delete older images"
 msgstr ""
 
-#: ui/prefsadw.ui.h:43
+#: ui/prefsadw.ui.h:33
 msgid "Automatically delete older images (excludes favourites)"
 msgstr ""
 
-#: ui/prefsadw.ui.h:44
+#: ui/prefsadw.ui.h:34
 msgid "Number of days to keep images"
 msgstr ""
 
-#: ui/prefsadw.ui.h:45
+#: ui/prefsadw.ui.h:35
 msgid "Keep images for this number of days (favourites are kept forever)"
 msgstr ""
 
-#: ui/prefsadw.ui.h:46
+#: ui/prefsadw.ui.h:36
+msgid "Presets"
+msgstr ""
+
+#: ui/prefsadw.ui.h:37
 msgid "Always export Bing data"
 msgstr ""
 
-#: ui/prefsadw.ui.h:47
+#: ui/prefsadw.ui.h:38
 msgid "Export Bing JSON when image data changes"
 msgstr ""
 
-#: ui/prefsadw.ui.h:48
+#: ui/prefsadw.ui.h:39
 msgid "Bing JSON data"
 msgstr ""
 
-#: ui/prefsadw.ui.h:49
+#: ui/prefsadw.ui.h:40
 msgid "About"
 msgstr ""
 
-#: ui/prefsadw.ui.h:50
+#: ui/prefsadw.ui.h:41
 msgid "Bing Wallpaper"
 msgstr ""
 
-#: ui/prefsadw.ui.h:51
+#: ui/prefsadw.ui.h:42
 msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
-#: ui/prefsadw.ui.h:52
+#: ui/prefsadw.ui.h:43
 msgid "Maintained by Michael Carroll"
 msgstr ""
 
-#: ui/prefsadw.ui.h:53
+#: ui/prefsadw.ui.h:44
 msgid "Version"
 msgstr ""
 
-#: ui/prefsadw.ui.h:54
+#: ui/prefsadw.ui.h:45
 msgid "Release notes"
 msgstr ""
 
-#: ui/prefsadw.ui.h:55
+#: ui/prefsadw.ui.h:46
 msgid "GNOME extensions page"
 msgstr ""
 
-#: ui/prefsadw.ui.h:56
+#: ui/prefsadw.ui.h:47
 msgid "Source code"
 msgstr ""
 
-#: ui/prefsadw.ui.h:57
+#: ui/prefsadw.ui.h:48
 msgid "Report an issue"
 msgstr ""
 
-#: ui/prefsadw.ui.h:58
+#: ui/prefsadw.ui.h:49
 msgid "Contributors"
 msgstr ""
 
-#: ui/prefsadw.ui.h:59
+#: ui/prefsadw.ui.h:50
 msgid "License"
 msgstr ""
 
-#: ui/prefsadw.ui.h:60 prefs.js:112
+#: ui/prefsadw.ui.h:51 prefs.js:103
 msgid "Change folder"
 msgstr ""
 
-#: ui/prefsadw.ui.h:61
+#: ui/prefsadw.ui.h:52
 msgid "Select new wallpaper download folder"
-msgstr ""
-
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr ""
-
-#: ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr ""
-
-#: ui/carousel4.ui.h:3
-msgid "View"
-msgstr ""
-
-#: ui/carousel4.ui.h:4
-msgid "Info"
-msgstr ""
-
-#: ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr ""
-
-#: ui/carousel4.ui.h:6
-msgid "<image name here>"
-msgstr ""
-
-#: ui/carousel4.ui.h:7 extension.js:161
-msgid "Image shuffle mode"
-msgstr ""
-
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
 msgstr ""
 
 #: ui/intervals.utils.js.h:2
@@ -290,126 +222,110 @@ msgstr ""
 msgid "User defined interval"
 msgstr ""
 
-#: extension.js:137
+#: extension.js:129
 msgid "<No refresh scheduled>"
 msgstr ""
 
-#: extension.js:138 extension.js:139 extension.js:149 extension.js:151
+#: extension.js:130 extension.js:131 extension.js:139 extension.js:141
 msgid "Awaiting refresh..."
 msgstr ""
 
-#: extension.js:140
-msgid "Copy image to clipboard"
-msgstr ""
-
-#: extension.js:141
-msgid "Copy image URL to clipboard"
-msgstr ""
-
-#: extension.js:142
+#: extension.js:132
 msgid "Open image folder"
 msgstr ""
 
-#: extension.js:143 extension.js:159
+#: extension.js:133 extension.js:149
 msgid "Set background image"
 msgstr ""
 
-#: extension.js:144
+#: extension.js:134
 msgid "Set lock screen image"
 msgstr ""
 
-#: extension.js:145
+#: extension.js:135
 msgid "Refresh Now"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:137
 msgid "Open in image viewer"
 msgstr ""
 
-#: extension.js:148
+#: extension.js:138
 msgid "Open Bing image information page"
 msgstr ""
 
-#: extension.js:157
+#: extension.js:147
 msgid "Quick settings"
 msgstr ""
 
-#: extension.js:162
+#: extension.js:151
+msgid "Image shuffle mode"
+msgstr ""
+
+#: extension.js:152
 msgid "Image shuffle only favorites"
 msgstr ""
 
-#: extension.js:164
+#: extension.js:154
 msgid "Show image count"
 msgstr ""
 
-#: extension.js:165
+#: extension.js:155
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
 
-#: extension.js:361
+#: extension.js:337
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:363
+#: extension.js:339
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:366
+#: extension.js:342
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:859 extension.js:947
+#: extension.js:821 extension.js:909
 msgid "Bing Wallpaper of the Day for"
 msgstr ""
 
-#: extension.js:985
+#: extension.js:947
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:986
+#: extension.js:948
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:107
+#: prefs.js:98
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:124
-msgid "Default"
-msgstr ""
-
-#: prefs.js:129
-msgid "No blur, slight dim"
-msgstr ""
-
-#: prefs.js:134
-msgid "Slight blur & dim"
-msgstr ""
-
-#: prefs.js:148
+#: prefs.js:115
 msgid "Import"
 msgstr ""
 
-#: prefs.js:153
+#: prefs.js:120
 msgid "Export"
 msgstr ""
 
-#: prefs.js:221
+#: prefs.js:185
 msgid "Select wallpaper download folder"
 msgstr ""
 
-#: utils.js:142
+#: utils.js:135
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:408 utils.js:411
+#: utils.js:395 utils.js:398
 msgid "minutes"
 msgstr ""
 
-#: utils.js:414
+#: utils.js:401
 msgid "days"
 msgstr ""
 
-#: utils.js:417
+#: utils.js:404
 msgid "hours"
 msgstr ""

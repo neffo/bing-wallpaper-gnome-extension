@@ -12,15 +12,8 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
 
-export var PRESET_GNOME_DEFAULT = { blur: 45, dim: 65 }; // as at GNOME 40
-export var PRESET_NO_BLUR = { blur: 0, dim: 65 };
-export var PRESET_SLIGHT_BLUR = { blur: 2, dim: 30 };
-
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
-
-var vertical_blur = null;
-var horizontal_blur = null;
 
 let gitreleaseurl = 'https://api.github.com/repos/neffo/bing-wallpaper-gnome-extension/releases/tags/';
 let debug = false;
@@ -111,7 +104,7 @@ export function get_current_bg(schema) {
     return (cur);
 }
 
-export function fetch_change_log(version, label, httpSession) {
+export async function fetch_change_log(version, label, httpSession) {
     const decoder = new TextDecoder();
     // create an http message
     let url = gitreleaseurl + "v" + version;
@@ -121,7 +114,7 @@ export function fetch_change_log(version, label, httpSession) {
     // queue the http request
     try {
         if (Soup.MAJOR_VERSION >= 3) {
-            httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+            await httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                 let data = decoder.decode(httpSession.send_and_read_finish(message).get_data());
                 let text = JSON.parse(data).body;
                 if (text)
@@ -141,12 +134,6 @@ export function fetch_change_log(version, label, httpSession) {
         BingLog("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+error));
     }
-}
-
-export function set_blur_preset(settings, preset) {
-    settings.set_int('lockscreen-blur-strength', preset.blur);
-    settings.set_int('lockscreen-blur-brightness', preset.dim);
-    BingLog("Set blur preset to " + preset.blur + " brightness to " + preset.dim);
 }
 
 export function imageHasBasename(image_item, i, b) {
@@ -595,33 +582,48 @@ export function openInSystemViewer(filename, is_file = true) {
     Gio.AppInfo.launch_default_for_uri(filename, context);
 }
 
-export function exportBingJSON(settings) {
+export async function exportBingJSON(settings) {
     let json = settings.get_string('bing-json');
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
-    let [success, error] = file.replace_contents(json, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
-    if (!success) {
-        BingLog('error saving bing-json from '+filepath+': '+error);
-    }
+
+    const [etag] = await file.replace_contents_async(
+        json,
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+        (file, res) => {
+            try {
+                file.replace_contents_finish(res);
+            } 
+            catch(e) {
+                BingLog('error saving bing-json from '+filepath+': '+e);
+            }
+        }
+    );
 }
 
-export function importBingJSON(settings) {
+export async function importBingJSON(settings) {
     const decoder = new TextDecoder();
     let filepath = getWallpaperDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {
-        let [success, contents, etag_out] = file.load_contents(null);
-        if (!success) {
-            BingLog('error loading bing-json '+filepath+' - '+etag_out);
-        }
-        else {
-            BingLog('JSON import success');
-            let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
-            // need to implement some checks for validity here
-            mergeImageLists(settings, parsed);
-            purgeImages(settings); // remove the older missing images
-            //cleanupImageList(settings); 
-        }
+        const [contents, etag] = await file.load_contents_async(null,
+            (file, res) => {
+                try {
+                    BingLog('JSON import success');
+                    let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
+                    // need to implement some checks for validity here
+                    mergeImageLists(settings, parsed);
+                    purgeImages(settings); // remove the older missing images
+                    file.load_contents_finish(res);
+                }
+                catch (e) {
+                    BingLog('error loading bing-json '+filepath+' - '+e);
+                }
+            }
+        );
     }
     else {
         BingLog('JSON import file not found');

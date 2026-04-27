@@ -23,9 +23,7 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
-import Blur from './blur.js';
 import Thumbnail from './thumbnail.js';
-import BWClipboard from './BWClipboard.js';
 
 const BingImageURL = Utils.BingImageURL;
 const BingURL = 'https://www.bing.com';
@@ -38,7 +36,6 @@ const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
 
 let bingWallpaperIndicator = null;
-let blur = null;
 
 const newMenuItem = (label) => {
     return new PopupMenu.PopupMenuItem(label);
@@ -107,7 +104,6 @@ class BingWallpaperIndicator extends Button {
         this.thumbnail = null;
         this.thumbnailItem = null;
         this.selected_image = "current";
-        this.clipboard = new BWClipboard();
         this.imageIndex = null;
         this.logger = null;
         this.favourite_status = false;
@@ -121,9 +117,6 @@ class BingWallpaperIndicator extends Button {
         this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
         this.ICON_TRASH_BUTTON = extensionIconsPath + '/'+'trash-empty-symbolic.svg';
         this.ICON_UNTRASH_BUTTON = extensionIconsPath + '/'+'trash-full-symbolic.svg';
-
-        if (!blur) // as Blur isn't disabled on screen lock (like the rest of the extension is)
-            blur = new Blur();
         
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = this._extension.getSettings();
@@ -136,8 +129,6 @@ class BingWallpaperIndicator extends Button {
         this.refreshDueItem = newMenuItem(_("<No refresh scheduled>"));
         this.explainItem = newMenuItem(_("Awaiting refresh..."));
         this.copyrightItem = newMenuItem(_("Awaiting refresh..."));
-        this.clipboardImageItem = newMenuItem(_("Copy image to clipboard"));
-        this.clipboardURLItem = newMenuItem(_("Copy image URL to clipboard"));
         this.folderItem = newMenuItem(_("Open image folder"));
         this.dwallpaperItem = newMenuItem(_("Set background image"));
         this.swallpaperItem = newMenuItem(_("Set lock screen image"));
@@ -149,7 +140,7 @@ class BingWallpaperIndicator extends Button {
 
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
         [this.imageResolutionItem, this.openImageInfoLinkItem, this.openImageItem, this.folderItem,
-            this.clipboardImageItem, this.clipboardURLItem, this.dwallpaperItem]
+            this.dwallpaperItem]
                 .forEach(e => this.titleItem.menu.addMenuItem(e));
 
         // quick settings submenu
@@ -238,9 +229,6 @@ class BingWallpaperIndicator extends Button {
             {signal: 'changed::icon-name', call: this._setIcon},
             {signal: 'changed::market', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
-            {signal: 'changed::override-lockscreen-blur', call: this._setBlur},
-            {signal: 'changed::lockscreen-blur-strength', call: this._setBlur},
-            {signal: 'changed::lockscreen-blur-brightness', call: this._setBlur},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
             {signal: 'changed::notify', call: this._notifyCurrentImage},
@@ -263,7 +251,6 @@ class BingWallpaperIndicator extends Button {
         
         // ensure we're in a sensible initial state
         this._setIcon();
-        this._setBlur();
         this._setImage();
         this._cleanUpImages();
 
@@ -307,14 +294,6 @@ class BingWallpaperIndicator extends Button {
         });
 
         this.folderItem.connect('activate', Utils.openImageFolder.bind(this, this._settings));
-        if (this.clipboard.clipboard) { // only if we have a clipboard           
-            this.clipboardImageItem.connect('activate', this._copyImageToClipboard.bind(this));
-            this.clipboardURLItem.connect('activate', this._copyURLToClipboard.bind(this));
-        }
-        else {
-            [this.clipboardImageItem, this.clipboardURLItem].
-                forEach(e => e.setSensitive(false));
-        }
     }
 
     _setBooleanSetting(key, state) {
@@ -349,8 +328,6 @@ class BingWallpaperIndicator extends Button {
     _openMenu() {
         // Grey out menu items if an update is pending
         this.refreshItem.setSensitive(!this._updatePending);
-        this.clipboardImageItem.setSensitive(!this._updatePending && this.imageURL != "");
-        this.clipboardURLItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
@@ -368,12 +345,6 @@ class BingWallpaperIndicator extends Button {
         }
         BingLog('refreshduetext :'+this.refreshduetext);
         this.refreshDueItem.label.set_text(this.refreshduetext);            
-    }
-
-    _setBlur() {
-        blur._switch(this._settings.get_boolean('override-lockscreen-blur'));
-        blur.set_blur_strength(this._settings.get_int('lockscreen-blur-strength'));
-        blur.set_blur_brightness(this._settings.get_int('lockscreen-blur-brightness'));
     }
 
     _setImage() {
@@ -419,14 +390,6 @@ class BingWallpaperIndicator extends Button {
 
     _setBackgroundDesktop() {
         doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
-    }
-
-    _copyURLToClipboard() {
-        this.clipboard.setText(this.imageURL);
-    }
-
-    _copyImageToClipboard() {
-        this.clipboard.setImage(this.filename);
     }
 
     // set a timer on when the current image is going to expire
@@ -680,7 +643,7 @@ class BingWallpaperIndicator extends Button {
     }
 
     // download Bing metadata
-    _refresh() {
+    async _refresh() {
         if (this._updatePending)
             return;
         this._updatePending = true;
@@ -703,7 +666,7 @@ class BingWallpaperIndicator extends Button {
             request.request_headers.append('Accept', 'application/json');
 
             try {
-                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processMessageRefresh(message);
                 });
             }
@@ -1074,7 +1037,7 @@ class BingWallpaperIndicator extends Button {
 
     // download and process new image
     // FIXME: improve error handling
-    _downloadImage(url, file, set_background) {
+    async _downloadImage(url, file, set_background) {
         let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
         let dir = Gio.file_new_for_path(BingWallpaperDir);
         if (!dir.query_exists(null)) {
@@ -1088,7 +1051,7 @@ class BingWallpaperIndicator extends Button {
         // queue the http request
         try {
             if (Soup.MAJOR_VERSION >= 3) {
-                this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
                     this._processFileDownload(message, file, set_background);
                 });
             }
@@ -1104,13 +1067,13 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    _processFileDownload(message, file, set_background) {            
+    async _processFileDownload(message, file, set_background) {            
         try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
 
-            file.replace_contents_bytes_async(
+            const [etag] = await file.replace_contents_bytes_async(
                 data,
                 null,
                 false,
@@ -1157,8 +1120,6 @@ class BingWallpaperIndicator extends Button {
         this._timeout = undefined;
         this._shuffleTimeout = undefined;
         this.menu.removeAll();
-        blur._disable(); // disable blur (blur.js) override and cleanup
-        blur = null;
     }
 });
 

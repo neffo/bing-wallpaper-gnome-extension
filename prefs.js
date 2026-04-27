@@ -15,7 +15,7 @@ import Adw from 'gi://Adw';
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 import * as Utils from './utils.js';
-import Carousel from './carousel.js';
+/*import Carousel from './carousel.js';*/
 
 const BingImageURL = Utils.BingImageURL;
 
@@ -41,7 +41,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        let carousel = null;
+        /*let carousel = null;*/
         let httpSession = null;
 
         let BingLog = (msg) => { // avoids need for globals
@@ -62,13 +62,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const shuffleSwitch = buildable.get_object('shuffleSwitch');
         const shuffleInterval = buildable.get_object('shuffleInterval'); 
         const folderRow = buildable.get_object('folderRow');
-        const lockscreen_page = buildable.get_object('lockscreen_page');
-        const overrideSwitch = buildable.get_object('overrideSwitch');
-        const blurPresets = buildable.get_object('blurPresets');
-        const strengthEntry = buildable.get_object('strengthEntry');
-        const brightnessEntry = buildable.get_object('brightnessEntry');
-        const blurAdjustment = buildable.get_object('blurAdjustment');
-        const brightnessAdjustment = buildable.get_object('brightnessAdjustment');
         const resolutionEntry = buildable.get_object('resolutionEntry');
         const debugSwitch = buildable.get_object('debug_switch');
         const revertSwitch = buildable.get_object('revert_switch');
@@ -76,8 +69,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const delete_previous_switch = buildable.get_object('delete_previous_switch');
         const delete_previous_adjustment = buildable.get_object('delete_previous_adjustment');
         const always_export_switch = buildable.get_object('always_export_switch');
-        const gallery_page = buildable.get_object('gallery_page');
-        const carouselFlowBox = buildable.get_object('carouselFlowBox');
         const randomIntervalEntry = buildable.get_object('entry_random_interval');
         const debug_page = buildable.get_object('debug_page');
         const json_actionrow = buildable.get_object('json_actionrow');
@@ -86,8 +77,8 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const change_log = buildable.get_object('change_log');
 
         window.add(settings_page);
-        window.add(lockscreen_page);
-        window.add(gallery_page);       
+        /*window.add(lockscreen_page);
+        window.add(gallery_page);*/
         window.add(debug_page);
         window.add(about_page);
 
@@ -116,30 +107,6 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         folderRow.add_suffix(openBtn);
         folderRow.add_suffix(changeBtn);   
-
-        blurAdjustment.set_value(settings.get_int('lockscreen-blur-strength'));
-        brightnessAdjustment.set_value(settings.get_int('lockscreen-blur-brightness'));
-        
-        const defaultBtn = new Gtk.Button( {
-            label: _('Default'),
-            valign: Gtk.Align.CENTER, 
-            halign: Gtk.Align.CENTER,
-        });
-        const noBlurBtn = new Gtk.Button( {
-            label: _('No blur, slight dim'),
-            valign: Gtk.Align.CENTER, 
-            halign: Gtk.Align.CENTER,
-        });
-        const slightBlurBtn = new Gtk.Button( {
-            label: _('Slight blur & dim'),
-            valign: Gtk.Align.CENTER, 
-            halign: Gtk.Align.CENTER,
-        });
-
-        // add to presets row
-        blurPresets.add_suffix(defaultBtn);
-        blurPresets.add_suffix(noBlurBtn);
-        blurPresets.add_suffix(slightBlurBtn);
         
         randomIntervalEntry.set_value(settings.get_int('random-interval'));
 
@@ -201,10 +168,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         openBtn.connect('clicked', (widget) => {
             Utils.openImageFolder(settings);
         });
-        
-        // we populate the tab (gtk4+, gnome 40+), this was previously a button to open a new window in gtk3
-        carousel = new Carousel(settings, null, null, carouselFlowBox, this.dir.get_path()); // auto load carousel
-        
+                
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable
         buttonImportData.connect('clicked', () => {
@@ -254,24 +218,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.connect('changed::random-interval-mode', () => {
             shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
         });
-            
-        // GDM3 lockscreen blur override
-        settings.bind('override-lockscreen-blur', overrideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('lockscreen-blur-strength', strengthEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('lockscreen-blur-brightness', brightnessEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
-        settings.bind('previous-days', delete_previous_adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-
-        // add a couple of preset buttons
-        defaultBtn.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_GNOME_DEFAULT);
-        });
-        noBlurBtn.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_NO_BLUR);
-        });
-        slightBlurBtn.connect('clicked', (widget) => {
-            Utils.set_blur_preset(settings, Utils.PRESET_SLIGHT_BLUR);
-        });
-        
+                    
         // fetch change log (on about page)
         
         if (httpSession)
