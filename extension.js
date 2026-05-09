@@ -213,6 +213,11 @@ class BingWallpaperIndicator extends Button {
     _initSoup() {
         this.httpSession = new Soup.Session();
         this.httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this._extension.metadata.version;
+        // Pin in-flight Soup.Message wrappers so libsoup can finish
+        // tearing down the queue item before GC reaps the JS wrapper —
+        // otherwise we trip
+        // `soup_message_queue_item_destroy: ... item->msg) == NULL`.
+        this._pendingMessages = new Set();
     }
 
     // listen for configuration changes
@@ -664,13 +669,21 @@ class BingWallpaperIndicator extends Button {
 
             let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
             request.request_headers.append('Accept', 'application/json');
+            this._pendingMessages?.add(request);
 
             try {
-                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                    this._processMessageRefresh(message);
+                // Soup 3 callback is (session, asyncResult); the message we
+                // pinned lives in the closure as `request`.
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, result) => {
+                    try {
+                        this._processMessageRefresh(result);
+                    } finally {
+                        this._pendingMessages?.delete(request);
+                    }
                 });
             }
             catch(error) {
+                this._pendingMessages?.delete(request);
                 BingLog('unable to send libsoup json message '+error);
                 notifyError('Unable to fetch Bing metadata\n'+error);
             }
@@ -679,14 +692,22 @@ class BingWallpaperIndicator extends Button {
             let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
             let request = Soup.Message.new('GET', url);
             request.request_headers.append('Accept', 'application/json');
+            this._pendingMessages?.add(request);
 
             // queue the http request
             try {
+                // Soup 2 queue_message callback is (session, soupMessage);
+                // the second arg is the same wrapper we pinned.
                 this.httpSession.queue_message(request, (httpSession, message) => {
-                    this._processMessageRefresh(message);
+                    try {
+                        this._processMessageRefresh(message);
+                    } finally {
+                        this._pendingMessages?.delete(message);
+                    }
                 });
             }
             catch (error) {
+                this._pendingMessages?.delete(request);
                 BingLog('unable to send libsoup json message '+error);
                 notifyError('Unable to fetch Bing metadata\n'+error);
             }
@@ -1047,21 +1068,34 @@ class BingWallpaperIndicator extends Button {
         }
         BingLog("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
+        this._pendingMessages?.add(request);
 
         // queue the http request
         try {
             if (Soup.MAJOR_VERSION >= 3) {
-                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                    this._processFileDownload(message, file, set_background);
+                // Soup 3 callback is (session, asyncResult); pinned msg
+                // lives in the closure as `request`.
+                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, result) => {
+                    try {
+                        this._processFileDownload(result, file, set_background);
+                    } finally {
+                        this._pendingMessages?.delete(request);
+                    }
                 });
             }
             else {
+                // Soup 2 queue_message callback is (session, soupMessage).
                 this.httpSession.queue_message(request, (httpSession, message) => {
-                    this._processFileDownload(message, file, set_background);
+                    try {
+                        this._processFileDownload(message, file, set_background);
+                    } finally {
+                        this._pendingMessages?.delete(message);
+                    }
                 });
             }
         }
         catch (error) {
+            this._pendingMessages?.delete(request);
             BingLog('error sending libsoup message '+error);
             notifyError('Network error '+error);
         }
@@ -1119,6 +1153,16 @@ class BingWallpaperIndicator extends Button {
 
         this._timeout = undefined;
         this._shuffleTimeout = undefined;
+
+        if (this.httpSession) {
+            this.httpSession.abort();
+            this.httpSession = null;
+        }
+        if (this._pendingMessages) {
+            this._pendingMessages.clear();
+            this._pendingMessages = null;
+        }
+
         this.menu.removeAll();
     }
 });
