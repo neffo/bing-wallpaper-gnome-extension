@@ -11,4 +11,6 @@ mkdir -p $INSTALL_PATH/$EXTENSION_NAME
 
 unzip -o $ZIP_NAME -d $INSTALL_PATH/$EXTENSION_NAME/
 
+glib-compile-schemas $INSTALL_PATH/$EXTENSION_NAME/schemas/
+
 gnome-extensions enable $EXTENSION_NAME

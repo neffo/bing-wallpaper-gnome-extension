@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-05-09 17:56+1000\n"
+"POT-Creation-Date: 2026-07-21 00:00+0800\n"
+"PO-Revision-Date: 2026-07-21 00:00+0800\n"
 "Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -18,266 +18,385 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "隱藏指示器"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "指示器圖示"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr ""
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "設定背景影像"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "設定鎖定螢幕影像"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "下載資料夾"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Bing 桌布圖片資料夾"
-
-#: Settings.ui.h:8 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "刪除先前下載的桌布"
-
-#: Settings.ui.h:9 Settings4.ui.h:10
-msgid "Days to store wallpapers before deleting"
-msgstr "刪除前保留桌布的天數"
-
-#: Settings.ui.h:10 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Bing 語區"
-
-#: Settings.ui.h:11 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "預設值是 English - United States"
-
-#: Settings.ui.h:12 Settings4.ui.h:14
-msgid "Screen resolution"
-msgstr "螢幕解析度"
-
-#: Settings.ui.h:13 Settings4.ui.h:15
-msgid "Override automatic resolution selection"
-msgstr "覆蓋自動選擇的解析度"
-
-#: Settings.ui.h:14 Settings4.ui.h:13
-msgid "Selected image"
-msgstr ""
-
-#: Settings.ui.h:15 Settings4.ui.h:16 extension.js:132
+#: ui/prefsadw.ui.h:1 extension.js:136
 msgid "Settings"
 msgstr "設定"
 
-#: Settings.ui.h:16 Settings4.ui.h:17
-msgid "Use custom blur and brightness"
-msgstr ""
+#: ui/prefsadw.ui.h:2
+msgid "Indicator"
+msgstr "指示器"
 
-#: Settings.ui.h:17 Settings4.ui.h:18
-msgid "Override GDM3 lockscreen effects"
-msgstr ""
+#: ui/prefsadw.ui.h:3
+msgid "Hide Indicator"
+msgstr "隱藏指示器"
 
-#: Settings.ui.h:18 Settings4.ui.h:19
-msgid "Blur can improve readability of login prompt"
-msgstr ""
+#: ui/prefsadw.ui.h:4
+msgid "Whether to hide the panel indicator"
+msgstr "是否隱藏面板指示器"
 
-#: Settings.ui.h:19 Settings4.ui.h:20
-msgid "Background blur intensity"
-msgstr ""
+#: ui/prefsadw.ui.h:5
+msgid "Desktop notifications"
+msgstr "桌面通知"
 
-#: Settings.ui.h:20 Settings4.ui.h:21
-msgid "Can improve contrast of login prompt"
-msgstr ""
+#: ui/prefsadw.ui.h:6
+msgid "Enable notifications on new images"
+msgstr "新影像可用時傳送桌面通知"
 
-#: Settings.ui.h:21 Settings4.ui.h:22
-msgid "Background brightness"
-msgstr ""
+#: ui/prefsadw.ui.h:7
+msgid "Indicator icon"
+msgstr "指示器圖示"
 
-#: Settings.ui.h:22 Settings4.ui.h:23
+#: ui/prefsadw.ui.h:8
+msgid "Select from alternate tray icons"
+msgstr "從備用系統列圖示中選擇"
+
+#: ui/prefsadw.ui.h:9
+msgid "Download folder"
+msgstr "下載資料夾"
+
+#: ui/prefsadw.ui.h:10
+msgid "Open or change wallpaper downloads folder"
+msgstr "開啟或變更桌布下載資料夾"
+
+#: ui/prefsadw.ui.h:11
+msgid "Wallpaper"
+msgstr "桌布"
+
+#: ui/prefsadw.ui.h:12
+msgid "Set wallpaper"
+msgstr "設定桌布"
+
+#: ui/prefsadw.ui.h:13
+msgid "Whether to set wallpaper automatically"
+msgstr "是否自動設定桌布"
+
+#: ui/prefsadw.ui.h:14
+msgid "Shuffle wallpaper"
+msgstr "隨機播放桌布"
+
+#: ui/prefsadw.ui.h:15
+msgid "Randomly select wallpaper from collection"
+msgstr "從收藏中隨機選取桌布"
+
+#: ui/prefsadw.ui.h:16
+msgid "Shuffle interval"
+msgstr "隨機播放間隔"
+
+#: ui/prefsadw.ui.h:17
+msgid "How frequently to shuffle wallpapers"
+msgstr "桌布隨機播放頻率"
+
+#: ui/prefsadw.ui.h:18
+msgid "Source"
+msgstr "來源"
+
+#: ui/prefsadw.ui.h:19
+msgid "Wallpaper source"
+msgstr "桌布來源"
+
+#: ui/prefsadw.ui.h:20
+msgid "Choose between Bing and Windows Spotlight"
+msgstr "選擇 Bing 或 Windows 焦點"
+
+#: ui/prefsadw.ui.h:21
+msgid "Bing market"
+msgstr "Bing 市場"
+
+#: ui/prefsadw.ui.h:22
+msgid "Preferred Bing market/locale"
+msgstr "偏好的 Bing 市場/語區"
+
+msgid "Spotlight region"
+msgstr "Windows 焦點地區與語言"
+
+#: ui/prefsadw.ui.h
+msgid "Auto-detect from system or set manually"
+msgstr "自動偵測系統設定或手動指定"
+
+#: ui/prefsadw.ui.h:23
+msgid "Spotlight country"
+msgstr "焦點 國家/地區"
+
+#: ui/prefsadw.ui.h:24
+msgid "Spotlight locale"
+msgstr "焦點 語區"
+
+#: ui/prefsadw.ui.h:25
+msgid "Downloads"
+msgstr "下載"
+
+#: ui/prefsadw.ui.h:26
+msgid "Debug"
+msgstr "除錯"
+
+#: ui/prefsadw.ui.h:27
+msgid "Debug options"
+msgstr "除錯選項"
+
+#: ui/prefsadw.ui.h:28
+msgid "Debug logging"
+msgstr "除錯記錄"
+
+#: ui/prefsadw.ui.h:29
+msgid "Enable logging to system journal"
+msgstr "啟用系統日誌記錄"
+
+#: ui/prefsadw.ui.h:30
+msgid "Advanced options"
+msgstr "進階選項"
+
+#: ui/prefsadw.ui.h:31 extension.js:150
+msgid "Always show new images"
+msgstr "總是顯示新影像"
+
+#: ui/prefsadw.ui.h:32
+msgid "Switch to new images when available (unless on random mode)"
+msgstr "新影像可用時自動切換（隨機模式除外）"
+
+#: ui/prefsadw.ui.h:33
+msgid "Purge on trash"
+msgstr "丟棄時清除"
+
+#: ui/prefsadw.ui.h:34
+msgid "Trashing an image will remove it from database and disk"
+msgstr "丟棄影像會將其從資料庫與磁碟中移除"
+
+#: ui/prefsadw.ui.h:35
+msgid "Screen resolution"
+msgstr "螢幕解析度"
+
+#: ui/prefsadw.ui.h:36
+msgid "Override automatic resolution selection"
+msgstr "覆蓋自動解析度選擇"
+
+#: ui/prefsadw.ui.h:37
+msgid "Random interval"
+msgstr "隨機間隔"
+
+#: ui/prefsadw.ui.h:38
+msgid "Custom shuffle interval when enabled"
+msgstr "啟用時自訂隨機播放間隔"
+
+#: ui/prefsadw.ui.h:39
+msgid "Delete older images"
+msgstr "刪除較舊的影像"
+
+#: ui/prefsadw.ui.h:40
+msgid "Automatically delete older images (excludes favourites)"
+msgstr "自動刪除較舊的影像（收藏除外）"
+
+#: ui/prefsadw.ui.h:41
+msgid "Number of days to keep images"
+msgstr "保留影像的天數"
+
+#: ui/prefsadw.ui.h:42
+msgid "Keep images for this number of days (favourites are kept forever)"
+msgstr "保留影像的天數（收藏的影像永久保留）"
+
+#: ui/prefsadw.ui.h:43
 msgid "Presets"
-msgstr ""
+msgstr "預設值"
 
-#: Settings.ui.h:23 Settings4.ui.h:24
-msgid "Commonly used presets"
-msgstr ""
+#: ui/prefsadw.ui.h:44
+msgid "Always export Bing data"
+msgstr "總是匯出 Bing 資料"
 
-#: Settings.ui.h:24 Settings4.ui.h:25
-msgid "No blur, slight dim"
-msgstr ""
+#: ui/prefsadw.ui.h:45
+msgid "Export Bing JSON when image data changes"
+msgstr "影像資料變更時匯出 Bing JSON"
 
-#: Settings.ui.h:25 Settings4.ui.h:26
-msgid "GNOME default"
-msgstr ""
+#: ui/prefsadw.ui.h:46
+msgid "Bing JSON data"
+msgstr "Bing JSON 資料"
 
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Slight blur, slight dim"
-msgstr ""
-
-#: Settings.ui.h:27 Settings4.ui.h:28
-msgid "Lock Screen"
-msgstr ""
-
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "New wallpaper images everyday from Bing"
-msgstr ""
-
-#: Settings.ui.h:29 Settings4.ui.h:30
-msgid "Gnome shell extension version "
-msgstr "GNOME Shell 擴充元件版本 "
-
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
-
-#: Settings.ui.h:31 Settings4.ui.h:32
-msgid "Maintained by Michael Carroll"
-msgstr "由 Michael Carroll 維護"
-
-#: Settings.ui.h:32 Settings4.ui.h:33
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-
-#: Settings.ui.h:33 Settings4.ui.h:34
-msgid "Changes since last version"
-msgstr ""
-
-#: Settings.ui.h:34 Settings4.ui.h:35
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "以 Elia Argentieri 製作的 NASA APOD GNOME Shell 擴充套件為基礎"
-
-#: Settings.ui.h:35 Settings4.ui.h:36
-#, fuzzy
-#| msgid ""
-#| "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-#| "See the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-#| "\">GNU General Public License, version 3 or later</a> for details.</span>"
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">此程式完全不提供擔保。\n"
-"請參閱 <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-"\">GNU General Public License 第三版或更新版</a> 取得更多資訊。</span>"
-
-#: Settings.ui.h:37 Settings4.ui.h:38
+#: ui/prefsadw.ui.h:47
 msgid "About"
 msgstr "關於"
 
-#: Settings4.ui.h:8
-msgid "Open folder"
-msgstr ""
+#: ui/prefsadw.ui.h:48
+msgid "Bing Wallpaper"
+msgstr "Bing 桌布"
 
-#: extension.js:117
+#: ui/prefsadw.ui.h:49
+msgid "New wallpaper images everyday from Bing"
+msgstr "每天從 Bing 取得新桌布影像"
+
+#: ui/prefsadw.ui.h:50
+msgid "Maintained by Michael Carroll"
+msgstr "由 Michael Carroll 維護"
+
+#: ui/prefsadw.ui.h:51
+msgid "Version"
+msgstr "版本"
+
+#: ui/prefsadw.ui.h:52
+msgid "Release notes"
+msgstr "發行說明"
+
+#: ui/prefsadw.ui.h:53
+msgid "GNOME extensions page"
+msgstr "GNOME 擴充套件頁面"
+
+#: ui/prefsadw.ui.h:54
+msgid "Source code"
+msgstr "原始碼"
+
+#: ui/prefsadw.ui.h:55
+msgid "Report an issue"
+msgstr "回報問題"
+
+#: ui/prefsadw.ui.h:56
+msgid "Contributors"
+msgstr "貢獻者"
+
+#: ui/prefsadw.ui.h:57
+msgid "License"
+msgstr "授權條款"
+
+#: ui/prefsadw.ui.h:58 prefs.js:119
+msgid "Change folder"
+msgstr "變更資料夾"
+
+#: ui/prefsadw.ui.h:59
+msgid "Select new wallpaper download folder"
+msgstr "選取新的桌布下載資料夾"
+
+#: ui/intervals.utils.js.h:2
+msgid "on the hour"
+msgstr "整點"
+
+#: ui/intervals.utils.js.h:5
+msgid "every day at midnight"
+msgstr "每天午夜"
+
+#: ui/intervals.utils.js.h:8
+msgid "Sunday at midnight"
+msgstr "每週日午夜"
+
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
+msgstr "使用者自訂間隔"
+
+#: extension.js:129
 msgid "<No refresh scheduled>"
 msgstr "<未排定重新整理>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:130 extension.js:131 extension.js:139 extension.js:141
 msgid "Awaiting refresh..."
 msgstr "等待重新整理…"
 
-#: extension.js:126
-msgid "Copy image to clipboard"
-msgstr "複製影像至剪貼簿"
-
-#: extension.js:127
-msgid "Copy image URL to clipboard"
-msgstr "複製影像 URL 至剪貼簿"
-
-#: extension.js:128
+#: extension.js:132
 msgid "Open image folder"
-msgstr ""
+msgstr "開啟影像資料夾"
 
-#: extension.js:131
+#: extension.js:133 extension.js:149
+msgid "Set background image"
+msgstr "設定背景影像"
+
+#: extension.js:134
+msgid "Set lock screen image"
+msgstr "設定鎖定螢幕影像"
+
+#: extension.js:135
 msgid "Refresh Now"
-msgstr "立刻重新整理"
+msgstr "立即重新整理"
 
 #: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr ""
+msgid "Open in image viewer"
+msgstr "在影像檢視器中開啟"
 
-#: extension.js:203
+#: extension.js:138
+msgid "Open image information page"
+msgstr "開啟影像資訊頁面"
+
+#: extension.js:147
+msgid "Quick settings"
+msgstr "快速設定"
+
+#: extension.js:151
+msgid "Image shuffle mode"
+msgstr "影像隨機播放模式"
+
+#: extension.js:152
+msgid "Image shuffle only favorites"
+msgstr "僅隨機播放收藏的影像"
+
+#: extension.js:154
+msgid "Show image count"
+msgstr "顯示影像數量"
+
+#: extension.js:155
+msgid "Image shuffle only UHD resolutions"
+msgstr "僅隨機播放 UHD 解析度的影像"
+
+#: extension.js:349
 msgid "Next refresh"
 msgstr "下次重新整理"
 
-#: extension.js:490 extension.js:527
-msgid "Bing Wallpaper of the Day for"
-msgstr "Bing 下述的今日桌布："
+#: extension.js:351
+msgid "Last refresh"
+msgstr "上次重新整理"
 
-#: extension.js:495
-msgid "Set as wallpaper"
-msgstr ""
+#: extension.js:354
+msgid "Next shuffle"
+msgstr "下次隨機播放"
 
-#: extension.js:498
-msgid "More info on Bing.com"
-msgstr ""
+#: extension.js:791 extension.js:878
+msgid "Wallpaper for"
+msgstr "桌布日期"
 
-#: extension.js:553
+#: extension.js:916
 msgid "No wallpaper available"
-msgstr "沒有可以使用的桌布"
+msgstr "沒有可用的桌布"
 
-#: extension.js:554
+#: extension.js:917
 msgid "No picture for today."
-msgstr "今天沒有影像"
+msgstr "今天沒有影像。"
 
-#: prefs.js:173
-msgid "Most recent image"
-msgstr ""
+#: prefs.js
+msgid "Auto"
+msgstr "自動"
 
-#: prefs.js:174
-msgid "Random image"
-msgstr ""
+#: prefs.js
+msgid "Manual"
+msgstr "手動"
 
-#: prefs.js:190 prefs.js:206
-msgid "Disabled on current GNOME version"
-msgstr ""
+#: prefs.js
+msgid "Auto-detect from system"
+msgstr "自動偵測系統"
 
-#: utils.js:139
-msgid "Fetching data..."
-msgstr "正在取得資料…"
+#: prefs.js
+msgid "Manually specify country and locale"
+msgstr "手動指定國家/地區與語言"
 
-#: utils.js:150
-msgid "Market not available in your region"
-msgstr "您的語區尚不能使用 Market"
+#: prefs.js:114
+msgid "Open folder"
+msgstr "開啟資料夾"
 
-#: utils.js:154
-msgid "A network error occured"
-msgstr "發生網路錯誤"
+#: prefs.js:131
+msgid "Import"
+msgstr "匯入"
 
-#: utils.js:159
-msgid "Too many requests in 5 seconds"
-msgstr ""
+#: prefs.js:136
+msgid "Export"
+msgstr "匯出"
 
-#: utils.js:186
-msgid "No change log found for this release"
-msgstr ""
+#: prefs.js:204
+msgid "Select wallpaper download folder"
+msgstr "選取桌布下載資料夾"
 
-#: utils.js:366 utils.js:369
+#: utils.js:210
+msgid "Error fetching change log: "
+msgstr "取得更新日誌時發生錯誤："
+
+#: utils.js:506 utils.js:509
 msgid "minutes"
 msgstr "分"
 
-#: utils.js:372
+#: utils.js:512
 msgid "days"
 msgstr "天"
 
-#: utils.js:375
+#: utils.js:515
 msgid "hours"
 msgstr "時"
-
-#~ msgid ""
-#~ "Changes your wallpaper daily to the Bing picture of the day for your "
-#~ "region. Displays the picture description and copyright information."
-#~ msgstr ""
-#~ "每天將您的桌布變更為您語區的 Bing 今日照片。顯示圖片描述及著作權資訊。"

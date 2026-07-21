@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 13:10+1000\n"
-"PO-Revision-Date: 2021-07-28 23:08+0800\n"
+"POT-Creation-Date: 2026-07-21 00:00+0800\n"
+"PO-Revision-Date: 2026-07-21 00:00+0800\n"
 "Last-Translator: 金立龙 <trampover@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ui/prefsadw.ui.h:1 extension.js:139
+#: ui/prefsadw.ui.h:1 extension.js:136
 msgid "Settings"
 msgstr "设置"
 
@@ -36,7 +36,7 @@ msgstr "打开桌面通知"
 
 #: ui/prefsadw.ui.h:6
 msgid "Enable notifications on new images"
-msgstr "打开桌面通知"
+msgstr "当新图像可用时发送桌面通知"
 
 #: ui/prefsadw.ui.h:7
 msgid "Indicator icon"
@@ -48,7 +48,7 @@ msgstr "从备用托盘图标中选择"
 
 #: ui/prefsadw.ui.h:9
 msgid "Download folder"
-msgstr "保存下载壁纸的文件夹"
+msgstr "下载文件夹"
 
 #: ui/prefsadw.ui.h:10
 msgid "Open or change wallpaper downloads folder"
@@ -56,11 +56,11 @@ msgstr "打开或更改壁纸下载文件夹"
 
 #: ui/prefsadw.ui.h:11
 msgid "Wallpaper"
-msgstr "设置为壁纸"
+msgstr "壁纸"
 
 #: ui/prefsadw.ui.h:12
 msgid "Set wallpaper"
-msgstr "设置为壁纸"
+msgstr "设置壁纸"
 
 #: ui/prefsadw.ui.h:13
 msgid "Whether to set wallpaper automatically"
@@ -68,7 +68,7 @@ msgstr "是否自动设置壁纸"
 
 #: ui/prefsadw.ui.h:14
 msgid "Shuffle wallpaper"
-msgstr "设置为壁纸"
+msgstr "随机播放壁纸"
 
 #: ui/prefsadw.ui.h:15
 msgid "Randomly select wallpaper from collection"
@@ -76,195 +76,186 @@ msgstr "从收藏中随机选择壁纸"
 
 #: ui/prefsadw.ui.h:16
 msgid "Shuffle interval"
-msgstr "无序播放间隔"
+msgstr "随机播放间隔"
 
 #: ui/prefsadw.ui.h:17
 msgid "How frequently to shuffle wallpapers"
-msgstr "多久播放一次壁纸"
+msgstr "壁纸随机播放频率"
 
 #: ui/prefsadw.ui.h:18
-msgid "Downloads"
-msgstr "保存下载壁纸的文件夹"
+msgid "Source"
+msgstr "来源"
 
 #: ui/prefsadw.ui.h:19
-msgid "Lock screen"
-msgstr "锁屏"
+msgid "Wallpaper source"
+msgstr "壁纸来源"
 
 #: ui/prefsadw.ui.h:20
-msgid "Lockscreen blur"
-msgstr "锁屏"
+msgid "Choose between Bing and Windows Spotlight"
+msgstr "选择 Bing 或 Windows 聚焦"
 
 #: ui/prefsadw.ui.h:21
-msgid "Dynamic lockscreen blur"
-msgstr "动态锁屏模糊"
+msgid "Bing market"
+msgstr "Bing 市场"
 
 #: ui/prefsadw.ui.h:22
-msgid "Whether to enable dynamic blur mode on lock screen"
-msgstr "是否在锁屏上启用动态模糊模式"
+msgid "Preferred Bing market/locale"
+msgstr "首选 Bing 市场/区域"
+
+msgid "Spotlight region"
+msgstr "Windows 聚焦地区与语言"
+
+#: ui/prefsadw.ui.h
+msgid "Auto-detect from system or set manually"
+msgstr "自动检测系统设置或手动指定"
 
 #: ui/prefsadw.ui.h:23
-msgid "Blur strength"
-msgstr "模糊强度"
+msgid "Spotlight country"
+msgstr "聚焦 国家/地区"
 
 #: ui/prefsadw.ui.h:24
-msgid "Blur strength when login prompt is not visible"
-msgstr "登录提示不可见时的模糊强度"
+msgid "Spotlight locale"
+msgstr "聚焦 区域语言"
 
 #: ui/prefsadw.ui.h:25
-msgid "Wallpaper brightness"
-msgstr "背景亮度"
+msgid "Downloads"
+msgstr "下载"
 
 #: ui/prefsadw.ui.h:26
-msgid "Dim wallpaper when login prompt is not visible"
-msgstr "登录提示不可见时，壁纸变暗"
-
-#: ui/prefsadw.ui.h:27
-msgid "Presets"
-msgstr "预设配置"
-
-#: ui/prefsadw.ui.h:28
-msgid "Gallery"
-msgstr "陈列室"
-
-#: ui/prefsadw.ui.h:29
 msgid "Debug"
 msgstr "调试"
 
-#: ui/prefsadw.ui.h:30
+#: ui/prefsadw.ui.h:27
 msgid "Debug options"
 msgstr "调试选项"
 
-#: ui/prefsadw.ui.h:31
+#: ui/prefsadw.ui.h:28
 msgid "Debug logging"
 msgstr "调试日志"
 
-#: ui/prefsadw.ui.h:32
+#: ui/prefsadw.ui.h:29
 msgid "Enable logging to system journal"
-msgstr "启用对系统日志的日志记录"
+msgstr "启用系统日志记录"
 
-#: ui/prefsadw.ui.h:33 extension.js:153
+#: ui/prefsadw.ui.h:30
+msgid "Advanced options"
+msgstr "高级选项"
+
+#: ui/prefsadw.ui.h:31 extension.js:150
 msgid "Always show new images"
 msgstr "始终显示新图像"
 
-#: ui/prefsadw.ui.h:34
+#: ui/prefsadw.ui.h:32
 msgid "Switch to new images when available (unless on random mode)"
-msgstr "切换到可用的新图像（除非在随机模式下）"
+msgstr "新图像可用时自动切换（随机模式除外）"
+
+#: ui/prefsadw.ui.h:33
+msgid "Purge on trash"
+msgstr "丢弃时清除"
+
+#: ui/prefsadw.ui.h:34
+msgid "Trashing an image will remove it from database and disk"
+msgstr "丢弃图像会将其从数据库和磁盘中删除"
 
 #: ui/prefsadw.ui.h:35
-msgid "Purge on trash"
-msgstr "清除垃圾"
-
-#: ui/prefsadw.ui.h:36
-msgid "Trashing an image will remove it from database"
-msgstr "丢弃图像会将其从数据库中删除"
-
-#: ui/prefsadw.ui.h:37
 msgid "Screen resolution"
 msgstr "屏幕分辨率"
 
-#: ui/prefsadw.ui.h:38
+#: ui/prefsadw.ui.h:36
 msgid "Override automatic resolution selection"
-msgstr "自适应屏幕分辨率"
+msgstr "覆盖自动分辨率选择"
 
-#: ui/prefsadw.ui.h:39
+#: ui/prefsadw.ui.h:37
 msgid "Random interval"
-msgstr "随机图片"
+msgstr "随机间隔"
 
-#: ui/prefsadw.ui.h:40
+#: ui/prefsadw.ui.h:38
 msgid "Custom shuffle interval when enabled"
 msgstr "启用时自定义随机播放间隔"
 
+#: ui/prefsadw.ui.h:39
+msgid "Delete older images"
+msgstr "删除旧图像"
+
+#: ui/prefsadw.ui.h:40
+msgid "Automatically delete older images (excludes favourites)"
+msgstr "自动删除旧图像（收藏除外）"
+
 #: ui/prefsadw.ui.h:41
-msgid "Always export Bing data"
-msgstr "始终导出Bing数据"
+msgid "Number of days to keep images"
+msgstr "保留图像的天数"
 
 #: ui/prefsadw.ui.h:42
-msgid "Export Bing JSON when image data changes"
-msgstr "当图像数据发生变化时导出Bing JSON"
+msgid "Keep images for this number of days (favourites are kept forever)"
+msgstr "保留图像的天数（收藏的图像永久保留）"
 
 #: ui/prefsadw.ui.h:43
-msgid "Bing JSON data"
-msgstr "Bing JSON数据"
+msgid "Presets"
+msgstr "预设配置"
 
 #: ui/prefsadw.ui.h:44
+msgid "Always export Bing data"
+msgstr "始终导出 Bing 数据"
+
+#: ui/prefsadw.ui.h:45
+msgid "Export Bing JSON when image data changes"
+msgstr "当图像数据变化时导出 Bing JSON"
+
+#: ui/prefsadw.ui.h:46
+msgid "Bing JSON data"
+msgstr "Bing JSON 数据"
+
+#: ui/prefsadw.ui.h:47
 msgid "About"
 msgstr "关于"
 
-#: ui/prefsadw.ui.h:45
+#: ui/prefsadw.ui.h:48
 msgid "Bing Wallpaper"
-msgstr "必应每日壁纸图片"
+msgstr "必应每日壁纸"
 
-#: ui/prefsadw.ui.h:46
+#: ui/prefsadw.ui.h:49
 msgid "New wallpaper images everyday from Bing"
 msgstr "每天从 Bing 获取新壁纸"
 
-#: ui/prefsadw.ui.h:47
+#: ui/prefsadw.ui.h:50
 msgid "Maintained by Michael Carroll"
-msgstr "由Michael Carroll维护"
+msgstr "由 Michael Carroll 维护"
 
-#: ui/prefsadw.ui.h:48
+#: ui/prefsadw.ui.h:51
 msgid "Version"
 msgstr "版本"
 
-#: ui/prefsadw.ui.h:49
+#: ui/prefsadw.ui.h:52
 msgid "Release notes"
 msgstr "发行说明"
 
-#: ui/prefsadw.ui.h:50
+#: ui/prefsadw.ui.h:53
 msgid "GNOME extensions page"
 msgstr "GNOME 扩展页面"
 
-#: ui/prefsadw.ui.h:51
+#: ui/prefsadw.ui.h:54
 msgid "Source code"
 msgstr "源代码"
 
-#: ui/prefsadw.ui.h:52
+#: ui/prefsadw.ui.h:55
 msgid "Report an issue"
 msgstr "报告问题"
 
-#: ui/prefsadw.ui.h:53
+#: ui/prefsadw.ui.h:56
 msgid "Contributors"
 msgstr "贡献者"
 
-#: ui/prefsadw.ui.h:54
+#: ui/prefsadw.ui.h:57
 msgid "License"
-msgstr "法律信息"
+msgstr "许可证"
 
-#: ui/prefsadw.ui.h:55 prefs.js:115
+#: ui/prefsadw.ui.h:58 prefs.js:119
 msgid "Change folder"
-msgstr "打开图片文件夹"
+msgstr "更改文件夹"
 
-#: ui/prefsadw.ui.h:56
+#: ui/prefsadw.ui.h:59
 msgid "Select new wallpaper download folder"
-msgstr "选择新的文件夹用于壁纸下载"
-
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr "收藏"
-
-#: ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr "应用"
-
-#: ui/carousel4.ui.h:3
-msgid "View"
-msgstr "视图"
-
-#: ui/carousel4.ui.h:4
-msgid "Info"
-msgstr "信息"
-
-#: ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr "删除"
-
-#: ui/carousel4.ui.h:6
-msgid "<image name here>"
-msgstr "<这是图片名>"
-
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
-msgstr "加载图片库"
+msgstr "选择新的壁纸下载文件夹"
 
 #: ui/intervals.utils.js.h:2
 msgid "on the hour"
@@ -275,137 +266,133 @@ msgid "every day at midnight"
 msgstr "每天午夜"
 
 #: ui/intervals.utils.js.h:8
-msgid " Sunday at midnight"
-msgstr "每个周日午夜"
+msgid "Sunday at midnight"
+msgstr "每周日午夜"
 
-#: extension.js:130
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
+msgstr "用户自定义间隔"
+
+#: extension.js:129
 msgid "<No refresh scheduled>"
 msgstr "<没有刷新计划>"
 
-#: extension.js:131 extension.js:132 extension.js:142 extension.js:144
+#: extension.js:130 extension.js:131 extension.js:139 extension.js:141
 msgid "Awaiting refresh..."
-msgstr "正在等待刷新 ... ..."
+msgstr "等待刷新..."
 
-#: extension.js:133
-msgid "Copy image to clipboard"
-msgstr "复制图片到剪贴板"
-
-#: extension.js:134
-msgid "Copy image URL to clipboard"
-msgstr "复制图片链接到剪贴板"
-
-#: extension.js:135
+#: extension.js:132
 msgid "Open image folder"
-msgstr "打开图片文件夹"
+msgstr "打开图像文件夹"
 
-#: extension.js:136 extension.js:152
+#: extension.js:133 extension.js:149
 msgid "Set background image"
 msgstr "设置桌面壁纸"
 
-#: extension.js:137
+#: extension.js:134
 msgid "Set lock screen image"
 msgstr "设置锁屏壁纸"
 
-#: extension.js:138
+#: extension.js:135
 msgid "Refresh Now"
-msgstr "现在刷新"
+msgstr "立即刷新"
 
-#: extension.js:140
+#: extension.js:137
 msgid "Open in image viewer"
-msgstr "打开图片文件夹"
+msgstr "在图像查看器中打开"
 
-#: extension.js:141
-msgid "Open Bing image information page"
-msgstr "打开Bing图像信息页面"
+#: extension.js:138
+msgid "Open image information page"
+msgstr "打开图像信息页面"
 
-#: extension.js:150
+#: extension.js:147
 msgid "Quick settings"
 msgstr "快速设置"
 
-#: extension.js:154
+#: extension.js:151
 msgid "Image shuffle mode"
 msgstr "图像随机播放模式"
 
-#: extension.js:155
+#: extension.js:152
 msgid "Image shuffle only favorites"
-msgstr "仅随机播放收藏夹的图像"
+msgstr "仅随机播放收藏的图像"
 
-#: extension.js:156
-msgid "Enable desktop notifications"
-msgstr "打开桌面通知"
-
-#: extension.js:157
+#: extension.js:154
 msgid "Show image count"
 msgstr "显示图像数量"
 
-#: extension.js:158
+#: extension.js:155
 msgid "Image shuffle only UHD resolutions"
 msgstr "仅随机播放 UHD 分辨率的图像"
 
-#: extension.js:321
+#: extension.js:349
 msgid "Next refresh"
 msgstr "下一次刷新"
 
-#: extension.js:323
+#: extension.js:351
 msgid "Last refresh"
-msgstr "下一次刷新"
+msgstr "上一次刷新"
 
-#: extension.js:326
+#: extension.js:354
 msgid "Next shuffle"
-msgstr "下次播放"
+msgstr "下一次随机播放"
 
-#: extension.js:808 extension.js:883
-msgid "Bing Wallpaper of the Day for"
-msgstr "必应每日壁纸图片"
+#: extension.js:791 extension.js:878
+msgid "Wallpaper for"
+msgstr "壁纸日期"
 
-#: extension.js:921
+#: extension.js:916
 msgid "No wallpaper available"
 msgstr "没有壁纸可用"
 
-#: extension.js:922
+#: extension.js:917
 msgid "No picture for today."
-msgstr "今天没有壁纸图片."
+msgstr "今天没有壁纸图片。"
 
-#: prefs.js:107
+#: prefs.js
+msgid "Auto"
+msgstr "自动"
+
+#: prefs.js
+msgid "Manual"
+msgstr "手动"
+
+#: prefs.js
+msgid "Auto-detect from system"
+msgstr "自动检测系统"
+
+#: prefs.js
+msgid "Manually specify country and locale"
+msgstr "手动指定国家/地区与语言"
+
+#: prefs.js:114
 msgid "Open folder"
 msgstr "打开文件夹"
 
-#: prefs.js:130
-msgid "Default"
-msgstr "GNOME 默认"
-
-#: prefs.js:138
-msgid "No blur, slight dim"
-msgstr "没有模糊效果，亮度微暗"
-
-#: prefs.js:146
-msgid "Slight blur & dim"
-msgstr "轻度模糊，亮度微暗"
-
-#: prefs.js:163
+#: prefs.js:131
 msgid "Import"
 msgstr "导入"
 
-#: prefs.js:171
+#: prefs.js:136
 msgid "Export"
 msgstr "导出"
 
-#: prefs.js:238
+#: prefs.js:204
 msgid "Select wallpaper download folder"
 msgstr "选择壁纸下载文件夹"
 
-#: utils.js:134
+#: utils.js:210
 msgid "Error fetching change log: "
-msgstr "获取更改日志时出错："
+msgstr "获取更新日志时出错："
 
-#: utils.js:413 utils.js:416
+#: utils.js:506 utils.js:509
 msgid "minutes"
 msgstr "分"
 
-#: utils.js:419
+#: utils.js:512
 msgid "days"
 msgstr "天"
 
-#: utils.js:422
+#: utils.js:515
 msgid "hours"
 msgstr "小时"

@@ -23,10 +23,9 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Utils from './utils.js';
+import * as Providers from './providers.js';
 import Thumbnail from './thumbnail.js';
 
-const BingImageURL = Utils.BingImageURL;
-const BingURL = 'https://www.bing.com';
 const IndicatorName = 'BingWallpaperIndicator';
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error3
@@ -43,8 +42,8 @@ const newMenuItem = (label) => {
 
 const newMenuSwitchItem = (label, state) => {
     let switchItem = new PopupMenu.PopupSwitchMenuItem(
-        label, 
-        state, 
+        label,
+        state,
         {});
     switchItem.label.x_expand = true;
     switchItem._statusBin.x_expand = false;
@@ -109,15 +108,16 @@ class BingWallpaperIndicator extends Button {
         this.favourite_status = false;
         this.hidden_status = false;
         this.dimensions = { 'width': null, 'height': null};
+        this._refreshSequence = 0;
         this._extension = ext;
-        
+
         let extensionIconsPath = ext.dir.get_child('icons').get_path();
         this.ICON_RANDOM = extensionIconsPath + '/'+'game-die-symbolic.svg';
         this.ICON_FAVE_BUTTON = extensionIconsPath + '/'+'fav-symbolic.svg';
         this.ICON_UNFAVE_BUTTON = extensionIconsPath + '/'+'unfav-symbolic.svg';
         this.ICON_TRASH_BUTTON = extensionIconsPath + '/'+'trash-empty-symbolic.svg';
         this.ICON_UNTRASH_BUTTON = extensionIconsPath + '/'+'trash-full-symbolic.svg';
-        
+
         // take a variety of actions when the gsettings values are modified by prefs
         this._settings = this._extension.getSettings();
 
@@ -135,7 +135,7 @@ class BingWallpaperIndicator extends Button {
         this.refreshItem = newMenuItem(_("Refresh Now"));
         this.settingsItem = newMenuItem(_("Settings"));
         this.openImageItem = newMenuItem(_("Open in image viewer"));
-        this.openImageInfoLinkItem = newMenuItem(_("Open Bing image information page"));
+        this.openImageInfoLinkItem = newMenuItem(_("Open image information page"));
         this.imageResolutionItem = newMenuItem(_("Awaiting refresh..."));
 
         this.titleItem = new PopupMenu.PopupSubMenuMenuItem(_("Awaiting refresh..."), false);
@@ -153,14 +153,14 @@ class BingWallpaperIndicator extends Button {
         /*this.toggleNotifications = newMenuSwitchItem(_("Enable desktop notifications"), this._settings.get_boolean('notify'));*/
         this.toggleImageCount = newMenuSwitchItem(_("Show image count"), this._settings.get_boolean('show-count-in-image-title'));
         this.toggleShuffleOnlyUHD = newMenuSwitchItem(_("Image shuffle only UHD resolutions"), this._settings.get_boolean('random-mode-include-only-uhd'));
-        
-        [/*this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground,*/ this.toggleSelectNew, 
+
+        [/*this.toggleNotifications, this.toggleImageCount, this.toggleSetBackground,*/ this.toggleSelectNew,
             this.toggleShuffle, this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD]
                 .forEach(e => this.settingsSubMenu.menu.addMenuItem(e));
 
         // these items are a bit unique, we'll populate them in _setControls()
         this.controlItem = newMenuItem("");
-        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});       
+        this.thumbnailItem = new PopupMenu.PopupBaseMenuItem({ style_class: 'wp-thumbnail-image'});
         this._setControls(); // build the button bar
 
         // we need to word-wrap these menu items to not overflow menu in case of long lines of text
@@ -168,17 +168,17 @@ class BingWallpaperIndicator extends Button {
             .forEach((e, i) => {
                 this._wrapLabelItem(e);
             });
-        
+
         // set the order of menu items (including separators)
-        let allMenuItems = [ 
-            this.refreshItem, 
-            this.refreshDueItem, 
+        let allMenuItems = [
+            this.refreshItem,
+            this.refreshDueItem,
             new PopupMenu.PopupSeparatorMenuItem(),
             this.controlItem,
             new PopupMenu.PopupSeparatorMenuItem(),
-            this.explainItem, 
-            this.thumbnailItem, 
-            this.titleItem, 
+            this.explainItem,
+            this.thumbnailItem,
+            this.titleItem,
             this.copyrightItem,
             new PopupMenu.PopupSeparatorMenuItem(),
             this.settingsSubMenu,
@@ -191,22 +191,30 @@ class BingWallpaperIndicator extends Button {
             .forEach((e) => {
                 e.setSensitive(false);
             });
-        
+
         if (this._settings.get_boolean('random-mode-enabled')) {
             [this.toggleShuffleOnlyFaves, this.toggleShuffleOnlyUHD]
                 .forEach((e) => {
                     e.setSensitive(false);
                 });
         }
-        
+
         this._setConnections();
-        
+
         if (this._settings.get_string('state') != '[]') { // setting state on reset or initial boot
             this._reStoreState();
         }
         else {
             this._restartTimeout(60); // wait 60 seconds before performing refresh
         }
+    }
+
+    _getCurrentProviderId() {
+        return Utils.getCurrentProvider(this._settings);
+    }
+
+    _getCurrentProvider() {
+        return Providers.getProvider(this._getCurrentProviderId());
     }
 
     // create Soup session
@@ -224,10 +232,13 @@ class BingWallpaperIndicator extends Button {
                 this.visible = !this._settings.get_boolean('hide');
             })
         );
-        
+
         let settingConnections = [
             {signal: 'changed::icon-name', call: this._setIcon},
+            {signal: 'changed::provider', call: this._providerChanged},
             {signal: 'changed::market', call: this._refresh},
+            {signal: 'changed::spotlight-country', call: this._refresh},
+            {signal: 'changed::spotlight-locale', call: this._refresh},
             {signal: 'changed::set-background', call: this._setBackground},
             {signal: 'changed::selected-image', call: this._setImage},
             {signal: 'changed::delete-previous', call: this._cleanUpImages},
@@ -248,13 +259,13 @@ class BingWallpaperIndicator extends Button {
                 this._settings.connect(e.signal, e.call.bind(this))
             );
         });
-        
+
         // ensure we're in a sensible initial state
         this._setIcon();
         this._setImage();
         this._cleanUpImages();
 
-        // menu connections 
+        // menu connections
         this.connect('button-press-event', this._openMenu.bind(this));
 
         // link menu items to functions
@@ -262,14 +273,14 @@ class BingWallpaperIndicator extends Button {
         this.thumbnailItem.connect('activate', this._openInSystemViewer.bind(this));
         this.openImageItem.connect('activate', this._openInSystemViewer.bind(this));
         //this.titleItem.connect('activate', this._setBackgroundDesktop.bind(this));
-        this.openImageInfoLinkItem.connect('activate', this._openImageInfoLink.bind(this)); 
+        this.openImageInfoLinkItem.connect('activate', this._openImageInfoLink.bind(this));
         this.dwallpaperItem.connect('activate', this._setBackgroundDesktop.bind(this));
         this.refreshItem.connect('activate', this._refresh.bind(this));
         this.settingsItem.connect('activate', this._openPrefs.bind(this));
-        
+
         // unfortunately we can't bind toggles trivially like we can with prefs.js here, so we handle toggles in two steps
         // first, we listen for changes to these toggle settings and update the status
-        // & then, link settings to toggle state (the other way) 
+        // & then, link settings to toggle state (the other way)
 
         let toggles = [ /*{key: 'set-background', toggle: this.toggleSetBackground},*/
                         {key: 'revert-to-current-image', toggle: this.toggleSelectNew},
@@ -279,7 +290,7 @@ class BingWallpaperIndicator extends Button {
                         {key: 'random-mode-include-only-favourites', toggle: this.toggleShuffleOnlyFaves},
                         /*{key: 'random-mode-include-only-unhidden', toggle: this.toggleShuffleOnlyUnhidden},*/
                         {key: 'random-mode-include-only-uhd', toggle: this.toggleShuffleOnlyUHD}];
-        
+
         toggles.forEach( (e) => {
             this.settings_connections.push(
                 this._settings.connect('changed::'+e.key, () => {
@@ -331,11 +342,12 @@ class BingWallpaperIndicator extends Button {
         this.thumbnailItem.setSensitive(!this._updatePending && this.imageURL != "");
         this.dwallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
-        this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
+        this.titleItem.setSensitive(!this._updatePending && (this.filename != "" || this.imageinfolink != ""));
+        this.openImageInfoLinkItem.setSensitive(!this._updatePending && this.imageinfolink != "");
         let maxlongdate = Utils.getMaxLongDate(this._settings);
-        this.refreshduetext = 
-            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + 
-            " (" + (this.refreshdue?Utils.friendly_time_diff(this.refreshdue):"-") + ")\n" + 
+        this.refreshduetext =
+            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') +
+            " (" + (this.refreshdue?Utils.friendly_time_diff(this.refreshdue):"-") + ")\n" +
             _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
         // also show when shuffle is next due
         if (this._settings.get_boolean('random-mode-enabled')) {
@@ -344,7 +356,7 @@ class BingWallpaperIndicator extends Button {
                 " (" + (this.refreshdue?Utils.friendly_time_diff(this.shuffledue):"-") + ")";
         }
         BingLog('refreshduetext :'+this.refreshduetext);
-        this.refreshDueItem.label.set_text(this.refreshduetext);            
+        this.refreshDueItem.label.set_text(this.refreshduetext);
     }
 
     _setImage() {
@@ -392,17 +404,16 @@ class BingWallpaperIndicator extends Button {
         doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
     }
 
+    _providerChanged() {
+        this._setStringSetting('selected-image', 'current');
+        this._setStringSetting('state', '[]');
+        this._updatePending = false;
+        this._refresh();
+    }
+
     // set a timer on when the current image is going to expire
-    _restartTimeoutFromLongDate(longdate) {
-        // all Bing times are in UTC (+0)
-        let refreshDue = Utils.dateFromLongDate(longdate, 86400).to_local();
-        let now = GLib.DateTime.new_now_local();
-        let difference = refreshDue.difference(now) / 1000000;
-             
-        if (difference < 60 || difference > 86400) // clamp to a reasonable range
-            difference = 60;
-        difference = difference + 300; // 5 minute fudge offset in case of inaccurate local clock
-        
+    _restartTimeoutFromProvider(provider, normalized) {
+        let difference = provider.getNextRefreshSeconds(normalized);
         BingLog('Next refresh due ' + difference + ' seconds from now');
         this._restartTimeout(difference);
     }
@@ -431,11 +442,11 @@ class BingWallpaperIndicator extends Button {
 
     // set menu text in lieu of a notification/popup
     _setMenuText() {
-        this.titleItem.label.set_text(this.title ? this.title : '');  
+        this.titleItem.label.set_text(this.title ? this.title : '');
         this.copyrightItem.label.set_text(this.copyright ? this.copyright : '');
         this.imageResolutionItem.label.set_text(this.dimensions.width+'px x '+this.dimensions.height+'px');
         if (this._settings.get_boolean('show-count-in-image-title') && this.explanation) {
-            let imageList = JSON.parse(this._settings.get_string('bing-json'));
+            let imageList = Utils.getImageList(this._settings);
             if (imageList.length > 0)
                 this.explainItem.label.set_text( this.explanation + ' [' + (this.imageIndex + 1) + '/' + imageList.length + ']');
         }
@@ -457,27 +468,27 @@ class BingWallpaperIndicator extends Button {
     _setControls() {
         this.favouriteBtn = this._newMenuIcon(
             this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON,
-            this.controlItem, 
+            this.controlItem,
             this._favouriteImage);
         this.trashBtn = this._newMenuIcon(
             this.hidden_status?this.ICON_UNTRASH_BUTTON:this.ICON_TRASH_BUTTON,
-            this.controlItem, 
+            this.controlItem,
             this._trashImage);
         this.prevBtn = this._newMenuIcon(
-            ICON_PREVIOUS_BUTTON, 
-            this.controlItem, 
+            ICON_PREVIOUS_BUTTON,
+            this.controlItem,
             this._prevImage);
         this.nextBtn = this._newMenuIcon(
-            ICON_NEXT_BUTTON, 
-            this.controlItem, 
+            ICON_NEXT_BUTTON,
+            this.controlItem,
             this._nextImage);
         this.curBtn = this._newMenuIcon(
-            ICON_CURRENT_BUTTON, 
-            this.controlItem, 
+            ICON_CURRENT_BUTTON,
+            this.controlItem,
             this._curImage);
         this.randomizeBtn = this._newMenuIcon(
             this.ICON_RANDOM,
-            this.controlItem, 
+            this.controlItem,
             this._selectImage,
             null, true);
     }
@@ -508,7 +519,7 @@ class BingWallpaperIndicator extends Button {
         else {
             parent.add_child(iconBtn);
         }
-            
+
         iconBtn.connect('button-press-event', fn.bind(this, arg));
         return iconBtn;
     }
@@ -517,12 +528,12 @@ class BingWallpaperIndicator extends Button {
     _setThumbnailImage() {
         let pixbuf = this.thumbnail.pixbuf;
         let scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
-        
+
         if (pixbuf == null)
             return;
 
         const {width, height} = pixbuf;
-        
+
         if (height == 0) {
             return;
         }
@@ -545,7 +556,7 @@ class BingWallpaperIndicator extends Button {
         this.thumbnailItem.hexpand = false;
         this.thumbnailItem.vexpand = false;
         this.thumbnailItem.content = image;
-        
+
         BingLog('scale factor: ' + scale_factor);
         this.thumbnailItem.set_size(480*scale_factor, 270*scale_factor);
         this.thumbnailItem.setSensitive(true);
@@ -601,7 +612,7 @@ class BingWallpaperIndicator extends Button {
             Utils.deleteImage(this.filename);
             Utils.validate_imagename(this._settings);
         }
-        
+
     }
 
     _setFavouriteIcon(icon_name) {
@@ -621,16 +632,16 @@ class BingWallpaperIndicator extends Button {
     _gotoImage(relativePos) {
         let imageList = Utils.getImageList(this._settings);
         let curIndex = 0;
-        
+
         if (this.selected_image == 'current') {
             curIndex = Utils.getCurrentImageIndex(imageList);
         }
         else {
             curIndex = Utils.imageIndex(imageList, this.selected_image);
         }
-        
+
         let newImage = Utils.getImageByIndex(imageList, curIndex + relativePos);
-        
+
         if (newImage)
             this._setStringSetting('selected-image', newImage.urlbase.replace('/th?id=OHR.', ''));
     }
@@ -638,80 +649,38 @@ class BingWallpaperIndicator extends Button {
     _getCurrentImage() {
         let imageList = Utils.getImageList(this._settings);
         let curIndex = Utils.getCurrentImageIndex(imageList);
-        
+
         return Utils.getImageByIndex(imageList, curIndex);
     }
 
-    // download Bing metadata
+    // download provider metadata
     async _refresh() {
         if (this._updatePending)
             return;
         this._updatePending = true;
         this._restartTimeout();
-        
-        let market = this._settings.get_string('market');
-        // Soup3 should be the version used, but in the past some distros have packaged older versions only
-        if (Soup.MAJOR_VERSION >= 3) {
-            let url = BingImageURL;
-            let params = Utils.BingParams;
-            params['mkt'] = ( market != 'auto' ? market : '' );
-            
-            // if we've set previous days to be something less than 8 and 
-            // delete previous is active we want to just request a subset of wallpapers
-            if (this._settings.get_boolean('delete-previous') == true && this._settings.get_int('previous-days')<8) {
-                params['n'] = ""+this._settings.get_int('previous-days');
-            }
+        this._refreshSequence += 1;
+        let refreshSequence = this._refreshSequence;
+        let providerId = this._getCurrentProviderId();
+        let provider = this._getCurrentProvider();
+        provider.fetchMetadata(this._settings, this.httpSession)
+            .then((data) => {
+                if (refreshSequence !== this._refreshSequence || providerId !== this._getCurrentProviderId())
+                    return;
+                BingLog('Recieved ' + data.length + ' bytes from ' + provider.id);
+                this._parseData(data, provider);
 
-            let request = Soup.Message.new_from_encoded_form('GET', url, Soup.form_encode_hash(params));
-            request.request_headers.append('Accept', 'application/json');
-
-            try {
-                await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                    this._processMessageRefresh(message);
-                });
-            }
-            catch(error) {
-                BingLog('unable to send libsoup json message '+error);
-                notifyError('Unable to fetch Bing metadata\n'+error);
-            }
-        }
-        else {
-            let url = BingImageURL + '?format=js&idx=0&n=8&mbl=1&mkt=' + (market != 'auto' ? market : '');
-            let request = Soup.Message.new('GET', url);
-            request.request_headers.append('Accept', 'application/json');
-
-            // queue the http request
-            try {
-                this.httpSession.queue_message(request, (httpSession, message) => {
-                    this._processMessageRefresh(message);
-                });
-            }
-            catch (error) {
-                BingLog('unable to send libsoup json message '+error);
-                notifyError('Unable to fetch Bing metadata\n'+error);
-            }
-        }
-    }
-
-    _processMessageRefresh(message) {
-        const decoder = new TextDecoder();
-        try {
-            let data = (Soup.MAJOR_VERSION >= 3) ? 
-                decoder.decode(this.httpSession.send_and_read_finish(message).get_data()): // Soup3
-                message.response_body.data; // Soup 2
-            
-            BingLog('Recieved ' + data.length + ' bytes');
-            this._parseData(data);
-            
-            if (!this._settings.get_boolean('random-mode-enabled'))
-                this._selectImage();
-        }
-        catch (error) {
-            BingLog('Network error occured: ' + error);
-            notifyError('network error occured\n'+error);
-            this._updatePending = false;
-            this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
-        }
+                if (!this._settings.get_boolean('random-mode-enabled'))
+                    this._selectImage();
+            })
+            .catch((error) => {
+                if (refreshSequence !== this._refreshSequence || providerId !== this._getCurrentProviderId())
+                    return;
+                BingLog('Network error occured: ' + error);
+                notifyError('Unable to fetch wallpaper metadata\n'+error);
+                this._updatePending = false;
+                this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
+            });
     }
 
     // sets a timer for next refresh of Bing metadata
@@ -721,7 +690,7 @@ class BingWallpaperIndicator extends Button {
 
         if (seconds == null)
             seconds = TIMEOUT_SECONDS;
-        
+
         this._timeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, seconds, this._refresh.bind(this));
         this.refreshdue = GLib.DateTime.new_now_local().add_seconds(seconds);
         BingLog('next check in ' + seconds + ' seconds');
@@ -762,22 +731,23 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    // process Bing metadata
-    _parseData(data) {
+    // process provider metadata
+    _parseData(data, provider = null) {
         try {
-            let parsed = JSON.parse(data);
-            let datamarket = parsed.market.mkt;
+            let activeProvider = provider ? provider : this._getCurrentProvider();
+            let parsed = activeProvider.normalizePayload(data, this._settings);
+            let datamarket = parsed.market;
             let prefmarket = this._settings.get_string('market');
             let newImages = Utils.mergeImageLists(this._settings, parsed.images);
-            
-            if (datamarket != prefmarket && prefmarket != 'auto')
+
+            if (activeProvider.id === Providers.PROVIDER_BING && datamarket != prefmarket && prefmarket != 'auto')
                 BingLog('WARNING: Bing returning market data for ' + datamarket + ' rather than selected ' + prefmarket);
-            
+
             Utils.purgeImages(this._settings); // delete older images if enabled
             //Utils.cleanupImageList(this._settings); // merged into purgeImages
             this._downloadAllImages(); // fetch missing images that are still available
             Utils.populateImageListResolutions(this._settings);
-            
+
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
                 // user wants to switch to the new image when it arrives
                 this._setStringSetting('selected-image', 'current');
@@ -801,12 +771,12 @@ class BingWallpaperIndicator extends Button {
                 }
             }
 
-            this._restartTimeoutFromLongDate(parsed.images[0].fullstartdate); // timing is set by Bing, and possibly varies by market
+            this._restartTimeoutFromProvider(activeProvider, parsed);
             this._updatePending = false;
         }
         catch (error) {
             BingLog('_parseData() failed with error ' + error + ' @ '+error.lineNumber);
-            notifyError('Bing metadata parsing error check ' + error + ' @ '+error.lineNumber);
+            notifyError('Wallpaper metadata parsing error check ' + error + ' @ '+error.lineNumber);
             BingLog(error.stack);
         }
     }
@@ -818,7 +788,7 @@ class BingWallpaperIndicator extends Button {
     }
 
     _createImageNotification(image) {
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.fullstartdate);
+        let msg = _('Wallpaper for') + ' ' + this._localeDate(image.fullstartdate);
         let details = Utils.getImageTitle(image);
         this._createNotification(msg, details);
         BingLog('_createImageNotification: '+msg+' details: '+details);
@@ -873,7 +843,7 @@ class BingWallpaperIndicator extends Button {
         let imageList = Utils.getImageList(this._settings);
         let image = null;
         // special values, 'current' is most recent (default mode), 'random' picks one at random, anything else should be filename
-        
+
         if (force_shuffle) {
             BingLog('forcing shuffle of image')
             image = this._shuffleImage();
@@ -900,18 +870,17 @@ class BingWallpaperIndicator extends Button {
         if (!image)
             return; // could force, image = imageList[0] or perhaps force refresh
 
-        if (image.url != '') {
-            let resolution = Utils.getResolution(this._settings, image);
-            let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
+        if (image && (image.urlbase != '' || image.directurl != '')) {
+            let provider = Providers.getProvider(image.provider);
 
             // set current image details at extension scope
-            this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
-            this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
-            this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
+            this.title = image.title ? image.title : Utils.getImageTitle(image);
+            this.explanation = _('Wallpaper for') + ' ' + this._localeDate(image.startdate);
+            this.copyright = Utils.getImageCopyrightText(image);
             this.longstartdate = image.fullstartdate;
-            this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
-            this.imageURL = BingURL + image.urlbase + '_' + resolution + '.jpg'+'&qlt=100'; // generate image url for user's resolution @ high quality
-            this.filename = Utils.toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
+            this.imageinfolink = image.copyrightlink ? image.copyrightlink.replace(/^http:\/\//i, 'https://') : '';
+            this.imageURL = provider.getDownloadUrl(image, this._settings);
+            this.filename = Utils.imageToFilename(this._settings, image);
             this.dimensions.width = image.width?image.width:null;
             this.dimensions.height = image.height?image.height:null;
             this.selected_image = Utils.getImageUrlBase(image);
@@ -930,7 +899,7 @@ class BingWallpaperIndicator extends Button {
             else {
                 this.hidden_status = false;
             }
-            
+
             let file = Gio.file_new_for_path(this.filename);
             let file_exists = file.query_exists(null);
             let file_info = file_exists ? file.query_info ('*', Gio.FileQueryInfoFlags.NONE, null) : 0;
@@ -942,7 +911,7 @@ class BingWallpaperIndicator extends Button {
                 this._setBackground();
                 this._updatePending = false;
             }
-        } 
+        }
         else {
             this.title = _("No wallpaper available");
             this.explanation = _("No picture for today.");
@@ -954,21 +923,22 @@ class BingWallpaperIndicator extends Button {
         this._storeState();
     }
 
-    _imageURL(urlbase, resolution) {
-        return BingURL + urlbase + '_' + resolution + '.jpg';
+    _imageURL(image) {
+        return Providers.getProvider(image.provider).getDownloadUrl(image, this._settings);
     }
 
     _storeState() {
         if (this.filename) {
-            let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent Bing image
+            let maxLongDate = Utils.getMaxLongDate(this._settings); // refresh date from most recent image
             let state = {maxlongdate: maxLongDate, title: this.title, explanation: this.explanation, copyright: this.copyright,
                 longstartdate: this.longstartdate, imageinfolink: this.imageinfolink, imageURL: this.imageURL,
-                filename: this.filename, favourite: this.favourite_status, width: this.dimensions.width, 
-                height: this.dimensions.height, 
+                filename: this.filename, favourite: this.favourite_status, width: this.dimensions.width,
+                height: this.dimensions.height,
+                provider: this._getCurrentProviderId(),
                 shuffledue: (this.shuffledue.to_unix? this.shuffledue.to_unix():0)
             };
             let stateJSON = JSON.stringify(state);
-            
+
             BingLog('Storing state as JSON: ' + stateJSON);
             this._setStringSetting('state', stateJSON);
         }
@@ -981,8 +951,11 @@ class BingWallpaperIndicator extends Button {
             let stateJSON = this._settings.get_string('state');
             let state = JSON.parse(stateJSON);
             let maxLongDate = null;
-            
+            let stateProvider = ('provider' in state) ? state.provider : Providers.PROVIDER_BING;
+
             BingLog('restoring state...');
+            if (stateProvider !== this._getCurrentProviderId())
+                throw new Error('saved state belongs to a different provider');
             maxLongDate = state.maxlongdate ? state.maxlongdate : null;
             this.title = state.title;
             this.explanation = state.explanation;
@@ -999,19 +972,19 @@ class BingWallpaperIndicator extends Button {
             // update menus and thumbnail
             this._setMenuText();
             this._setBackground();
-            
+
             if (!maxLongDate) {
                 this._restartTimeout(60);
                 return;
-            } 
-            
+            }
+
             if (this._settings.get_boolean('random-mode-enabled')) {
                 BingLog('random mode enabled, restarting random state');
                 this._restartShuffleTimeoutFromDueDate(this.shuffledue); // FIXME: use state value
-                this._restartTimeoutFromLongDate(maxLongDate);
+                this._restartTimeoutFromProvider(Providers.getProvider(stateProvider), { images: [{ fullstartdate: maxLongDate }] });
             }
             else {
-                this._restartTimeoutFromLongDate(maxLongDate);
+                this._restartTimeoutFromProvider(Providers.getProvider(stateProvider), { images: [{ fullstartdate: maxLongDate }] });
             }
 
             return;
@@ -1023,13 +996,11 @@ class BingWallpaperIndicator extends Button {
     }
 
     _downloadAllImages() {
-        // fetch recent undownloaded images       
+        // fetch recent undownloaded images
         let imageList = Utils.getFetchableImageList(this._settings);
-        let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
         imageList.forEach( (image) => {
-            let resolution = Utils.getResolution(this._settings, image);
-            let filename = Utils.toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
-            let url = this._imageURL(image.urlbase, resolution);
+            let filename = Utils.imageToFilename(this._settings, image);
+            let url = this._imageURL(image);
             let file = Gio.file_new_for_path(filename);
             this._downloadImage(url, file, false);
         });
@@ -1038,11 +1009,9 @@ class BingWallpaperIndicator extends Button {
     // download and process new image
     // FIXME: improve error handling
     async _downloadImage(url, file, set_background) {
-        let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
-        let dir = Gio.file_new_for_path(BingWallpaperDir);
+        let dir = file.get_parent();
         if (!dir.query_exists(null)) {
-            //dir.make_directory_with_parents(null);
-            notifyError('Download folder '+BingWallpaperDir+' does not exist or is not writable');
+            notifyError('Download folder '+dir.get_path()+' does not exist or is not writable');
             return;
         }
         BingLog("Downloading " + url + " to " + file.get_uri());
@@ -1067,9 +1036,9 @@ class BingWallpaperIndicator extends Button {
         }
     }
 
-    async _processFileDownload(message, file, set_background) {            
+    async _processFileDownload(message, file, set_background) {
         try {
-            let data = (Soup.MAJOR_VERSION >= 3) ? 
+            let data = (Soup.MAJOR_VERSION >= 3) ?
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
 
@@ -1085,7 +1054,7 @@ class BingWallpaperIndicator extends Button {
                         if (set_background)
                             this._setBackground();
                         BingLog('Download successful');
-                    } 
+                    }
                     catch(e) {
                         BingLog('Error writing file: ' + e);
                         notifyError('Image '+file.get_path()+' is not writable, check folder permissions or select a different folder\n'+e);
@@ -1134,8 +1103,3 @@ export default class BingWallpaperExtension extends Extension {
         bingWallpaperIndicator = null;
     }
 }
-
-function toFilename(wallpaperDir, startdate, imageURL, resolution) {
-    return wallpaperDir + startdate + '-' + imageURL.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_' + resolution + '.jpg';
-}
-

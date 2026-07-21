@@ -98,6 +98,41 @@ Bing Wallpaper GNOME extension by: Michael Carroll
             </object>
         </child>
         <child>
+            <object class="AdwPreferencesGroup" id="source_group">
+                <property name="title" translatable="yes">Source</property>
+                <child>
+                    <object class="AdwComboRow" id="providerEntry">
+                        <property name="title" translatable="yes">Wallpaper source</property>
+                        <property name="subtitle" translatable="yes">Choose between Bing and Windows Spotlight</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="marketEntry">
+                        <property name="title" translatable="yes">Bing market</property>
+                        <property name="subtitle" translatable="yes">Preferred Bing market/locale</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwComboRow" id="spotlightModeEntry">
+                        <property name="title" translatable="yes">Spotlight region</property>
+                        <property name="subtitle" translatable="yes">Auto-detect from system or set manually</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwEntryRow" id="spotlightCountryEntry">
+                        <property name="title" translatable="yes">Spotlight country</property>
+                        <property name="text">US</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwEntryRow" id="spotlightLocaleEntry">
+                        <property name="title" translatable="yes">Spotlight locale</property>
+                        <property name="text">en-US</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
             <object class="AdwPreferencesGroup" id="dl_group">
                 <property name="title" translatable="yes">Downloads</property>
                 <child>
