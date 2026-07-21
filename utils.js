@@ -11,6 +11,7 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
+import * as Providers from './providers.js';
 
 export var BING_SCHEMA = 'org.gnome.shell.extensions.bingwallpaper';
 export var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
@@ -48,8 +49,10 @@ export var randomIntervals = [ {value: 'hourly', title: ('on the hour')},
                         {value: 'weekly', title: ('Sunday at midnight')},
                         { value: 'custom', title: ('User defined interval')} ];
 
-export var BingImageURL = 'https://www.bing.com/HPImageArchive.aspx';
-export var BingParams = { format: 'js', idx: '0' , n: '8' , mbl: '1' , mkt: '' } ;
+export var providerIds = Providers.providerIds;
+export var providerNames = Providers.providerNames;
+export var BingImageURL = Providers.BingImageURL;
+export var BingParams = Providers.BingParams;
 
 export function validate_icon(
     settings,
@@ -82,6 +85,105 @@ export function validate_interval(settings) {
     let index = randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode'));
     if (index == -1) // if not a valid interval
         settings.reset('random-interval-mode');
+}
+
+export function getCurrentProvider(settings) {
+    let provider = settings.get_string('provider');
+    if (providerIds.indexOf(provider) === -1) {
+        settings.reset('provider');
+        provider = settings.get_string('provider');
+    }
+    return provider;
+}
+
+function getSystemLocaleInfo() {
+    let langNames = GLib.get_language_names();
+    // langNames[0] is like 'zh_CN.UTF-8' or 'en_US.UTF-8'
+    let parts = langNames[0].split('.')[0].split('_');
+    let lang = parts[0] || 'en';
+    let country = parts[1] || 'US';
+    return {
+        locale: lang + '-' + country,
+        country: country.toUpperCase(),
+    };
+}
+
+export function getResolvedSpotlightCountry(settings) {
+    if (settings.get_string('spotlight-mode') === 'auto')
+        return getSystemLocaleInfo().country;
+    let country = settings.get_string('spotlight-country').trim();
+    return country ? country.toUpperCase() : 'US';
+}
+
+export function getResolvedSpotlightLocale(settings) {
+    if (settings.get_string('spotlight-mode') === 'auto')
+        return getSystemLocaleInfo().locale;
+    let locale = settings.get_string('spotlight-locale').trim();
+    return locale || 'en-US';
+}
+
+export function normalizeSpotlightCountry(settings) {
+    let country = settings.get_string('spotlight-country').trim();
+    if (country === '') {
+        settings.reset('spotlight-country');
+        return settings.get_string('spotlight-country');
+    }
+    let upper = country.toUpperCase();
+    if (upper !== settings.get_string('spotlight-country'))
+        settings.set_string('spotlight-country', upper);
+    return upper;
+}
+
+export function normalizeSpotlightLocale(settings) {
+    let locale = settings.get_string('spotlight-locale').trim();
+    if (locale === '') {
+        settings.reset('spotlight-locale');
+        return settings.get_string('spotlight-locale');
+    }
+    if (locale !== settings.get_string('spotlight-locale'))
+        settings.set_string('spotlight-locale', locale);
+    return locale;
+}
+
+export function normalizeImageRecord(image) {
+    let normalized = { ...image };
+    normalized.provider = normalized.provider ? normalized.provider : Providers.PROVIDER_BING;
+    normalized.directurl = normalized.directurl ? normalized.directurl : '';
+    normalized.title = normalized.title ? normalized.title :
+        (normalized.copyright ? normalized.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '') : '');
+
+    if (!normalized.copyrightText) {
+        let match = normalized.copyright ? normalized.copyright.match(/[\(\（]([^)]+)[\)\）]/) : null;
+        normalized.copyrightText = match ? match[1].replace('**', '') : '';
+    }
+
+    if (!normalized.copyright) {
+        if (normalized.title && normalized.copyrightText)
+            normalized.copyright = normalized.title + ' (' + normalized.copyrightText + ')';
+        else
+            normalized.copyright = normalized.title || normalized.copyrightText || '';
+    }
+
+    if (!normalized.copyrightlink)
+        normalized.copyrightlink = '';
+
+    return normalized;
+}
+
+export function getAllImageList(settings) {
+    let image_list = JSON.parse(settings.get_string('bing-json'));
+    return image_list.map(normalizeImageRecord);
+}
+
+function providerMatches(image, provider) {
+    return normalizeImageRecord(image).provider === provider;
+}
+
+function imageMatchesIdentity(image, urlbase, provider = null) {
+    let normalized = normalizeImageRecord(image);
+    let imageProvider = provider ? provider : normalized.provider;
+    return normalized.provider === imageProvider &&
+        getImageUrlBase(normalized) === getImageUrlBase({ urlbase: urlbase });
 }
 
 // FIXME: needs work
@@ -129,7 +231,7 @@ export async function fetch_change_log(version, label, httpSession) {
                     label.set_label(text);
             });
         }
-    } 
+    }
     catch (error) {
         BingLog("Error fetching change log: " + error);
         label.set_label(_("Error fetching change log: "+error));
@@ -165,8 +267,9 @@ export function dateFromShortDate(shortdate) {
                              0, 0, 0 );
 }
 
-export function getImageList(settings, filter = null) {
-    let image_list = JSON.parse(settings.get_string('bing-json'));
+export function getImageList(settings, filter = null, provider = null) {
+    let activeProvider = provider ? provider : getCurrentProvider(settings);
+    let image_list = getAllImageList(settings).filter(x => providerMatches(x, activeProvider));
     if (!filter) {
         return image_list;
     }
@@ -183,11 +286,17 @@ export function getImageList(settings, filter = null) {
     }
 }
 
-export function setImageList(settings, imageList) {
-    settings.set_string('bing-json', JSON.stringify(imageList));
+export function setAllImageList(settings, imageList) {
+    settings.set_string('bing-json', JSON.stringify(imageList.map(normalizeImageRecord)));
     if (settings.get_boolean('always-export-bing-json')) { // save copy of current JSON
         exportBingJSON(settings);
     }
+}
+
+export function setImageList(settings, imageList, provider = null) {
+    let activeProvider = provider ? provider : getCurrentProvider(settings);
+    let otherImages = getAllImageList(settings).filter(x => !providerMatches(x, activeProvider));
+    setAllImageList(settings, otherImages.concat(imageList.map(normalizeImageRecord)));
 }
 
 export function setImageHiddenStatus(settings, hide_image, hide_status) {
@@ -205,7 +314,17 @@ export function setImageHiddenStatus(settings, hide_image, hide_status) {
 }
 
 export function getImageTitle(image_data) {
-    return image_data.copyright.replace(/\s*\(.*?\)\s*/g, '');
+    let image = normalizeImageRecord(image_data);
+    if (image.title)
+        return image.title;
+    return image.copyright.replace(/\s*\(.*?\)\s*/g, '');
+}
+
+export function getImageCopyrightText(image_data) {
+    let image = normalizeImageRecord(image_data);
+    if (image.copyrightText)
+        return image.copyrightText;
+    return image.copyright;
 }
 
 export function getImageUrlBase(image_data) {
@@ -214,11 +333,13 @@ export function getImageUrlBase(image_data) {
 
 export function getMaxLongDate(settings) {
     let imageList = getImageList(settings);
+    if (imageList.length === 0)
+        return null;
     return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
 }
 
 export function getCurrentImageIndex (imageList) {
-    if (!imageList)
+    if (!imageList || imageList.length === 0)
         return -1;
     let maxLongDate = Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
     let index = imageList.map(p => parseInt(p.fullstartdate)).indexOf(maxLongDate);
@@ -251,7 +372,7 @@ export function getCurrentImage(imageList) {
 export function inImageList(imageList, urlbase) {
     let image = null;
     imageList.forEach(function(x, i) {
-        if (urlbase.replace('/th?id=OHR.', '') == x.urlbase.replace('/th?id=OHR.', ''))
+        if (imageMatchesIdentity(x, urlbase))
             image = x;
     });
     return image;
@@ -268,20 +389,21 @@ export function inImageListByTitle(imageList, title) {
 }
 
 export function mergeImageLists(settings, imageList) {
-    let curList = getImageList(settings);
+    let curList = getAllImageList(settings);
     let newList = []; // list of only new images (for future notifications)
     imageList.forEach(function(x, i) {
-        if (!inImageList(curList, x.urlbase)) {// if not in the list, add it
-            curList.unshift(x); // use unshift to maintain reverse chronological order
-            newList.unshift(x); 
+        let normalized = normalizeImageRecord(x);
+        if (!curList.some(cur => imageMatchesIdentity(cur, normalized.urlbase, normalized.provider))) {
+            curList.unshift(normalized); // use unshift to maintain reverse chronological order
+            newList.unshift(normalized);
         }
     });
-    setImageList(settings, imageListSortByDate(curList)); // sort then save back to settings
+    setAllImageList(settings, imageListSortByDate(curList)); // sort then save back to settings
     return newList; // return this to caller for notifications
 }
 
 export function imageIndex(imageList, urlbase) {
-    return imageList.map(p => p.urlbase.replace('/th?id=OHR.', '')).indexOf(urlbase.replace('/th?id=OHR.', ''));
+    return imageList.map(p => getImageUrlBase(p)).indexOf(getImageUrlBase({ urlbase: urlbase }));
 }
 
 export function isFavourite(image) {
@@ -312,6 +434,7 @@ export function populateImageListResolutions(settings) {
 
 export function getFetchableImageList(settings) {
     let imageList = getImageList(settings);
+    let provider = getCurrentProvider(settings);
     let maxpictures = settings.get_int('previous-days');
     let maxdownload = 8;
     if (maxpictures < maxdownload && maxpictures >=1)
@@ -319,19 +442,22 @@ export function getFetchableImageList(settings) {
     let cutOff = GLib.DateTime.new_now_utc().add_days(-maxdownload); // default 8 days ago, 1 day = 1 picture
     let dlList = [];
     imageList.forEach( function (x, i) {
-        let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
         let filename = imageToFilename(settings, x);
-        // image is still downloadable (< 8 days old) but not on disk
-        if (diff > 0 && !Gio.file_new_for_path(filename).query_exists(null)) {
+        let shouldFetch = true;
+        if (provider === Providers.PROVIDER_BING) {
+            let diff = dateFromLongDate(x.fullstartdate, 0).difference(cutOff);
+            shouldFetch = diff > 0;
+        }
+        if (shouldFetch && !Gio.file_new_for_path(filename).query_exists(null)) {
             dlList.push(x);
         }
     });
     return dlList;
 }
 
-export function getWallpaperDir(settings) {
-    let homeDir =  GLib.get_home_dir(); 
-    let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir); 
+export function getWallpaperRootDir(settings) {
+    let homeDir =  GLib.get_home_dir();
+    let BingWallpaperDir = settings.get_string('download-folder').replace('~', homeDir);
     let userPicturesDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
     let userDesktopDir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP); // seems to be a safer default
     if (BingWallpaperDir == '') {
@@ -354,6 +480,15 @@ export function getWallpaperDir(settings) {
         return null;
 }
 
+export function getWallpaperDir(settings, provider = null) {
+    let activeProvider = provider ? provider : getCurrentProvider(settings);
+    let wallpaperDir = slash(getWallpaperRootDir(settings)) + activeProvider + '/';
+    let dir = Gio.file_new_for_path(wallpaperDir);
+    if (!dir.query_exists(null))
+        dir.make_directory_with_parents(null);
+    return wallpaperDir;
+}
+
 export function setWallpaperDir(settings, uri) {
     let homeDir =  GLib.get_home_dir();
     let relUri = uri.replace(homeDir, '~');
@@ -361,9 +496,12 @@ export function setWallpaperDir(settings, uri) {
 }
 
 export function imageToFilename(settings, image, resolution = null) {
-    return getWallpaperDir(settings) + image.startdate + '-' +
-		image.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_'
-		+ (resolution ? resolution : getResolution(settings, image)) + '.jpg';
+    let normalized = normalizeImageRecord(image);
+    let filenameSuffix = resolution ? resolution :
+        (normalized.provider === Providers.PROVIDER_BING ? getResolution(settings, normalized) : normalized.provider);
+    return getWallpaperDir(settings, normalized.provider) + normalized.startdate + '-' +
+		normalized.urlbase.replace(/^.*[\\\/]/, '').replace('th?id=OHR.', '') + '_'
+		+ filenameSuffix + '.jpg';
 }
 
 export function getRandomInt(max) {
@@ -410,9 +548,9 @@ export function seconds_until(until) {
     let end, day;
     if (until == 'hourly') {
         end = GLib.DateTime.new_local(
-            now.get_year(), 
-            now.get_month(), 
-            now.get_day_of_month(), 
+            now.get_year(),
+            now.get_month(),
+            now.get_day_of_month(),
             now.get_hour()+1, // should roll over to next day if results in >23
             0, 0);
     }
@@ -424,8 +562,8 @@ export function seconds_until(until) {
             day = now.add_days(1);
         }
         end = GLib.DateTime.new_local(
-            day.get_year(), 
-            day.get_month(), 
+            day.get_year(),
+            day.get_month(),
             day.get_day_of_month(),
             0, 0, 0); // midnight
     }
@@ -444,8 +582,11 @@ export function getResolution(settings, image) {
 }
 
 export function openImageFolder(settings) {
-    //const context = global?global.create_app_launch_context(0, -1):null;
     Gio.AppInfo.launch_default_for_uri('file://' + getWallpaperDir(settings), null);
+}
+
+export function openWallpaperRootFolder(settings) {
+    Gio.AppInfo.launch_default_for_uri('file://' + getWallpaperRootDir(settings), null);
 }
 
 export function imageListSortByDate(imageList) {
@@ -463,24 +604,48 @@ export function shortenName(string, limit) {
 }
 
 export function moveImagesToNewFolder(settings, oldPath, newPath) {
-    // possible race condition here, need to think about how to fix it
-    //let BingWallpaperDir = settings.get_string('download-folder');
-    let dir = Gio.file_new_for_path(oldPath);
-    let dirIter = dir.enumerate_children('', Gio.FileQueryInfoFlags.NONE, null );
-    let newDir = Gio.file_new_for_path(newPath);
-    if (!newDir.query_exists(null)) {
-        newDir.make_directory_with_parents(null);
-    }
-    let file = null;
-    while (file = dirIter.next_file(null)) {
-        let filename = file.get_name(); // we only want to move files that we think we own
-        if (filename.match(/\d{8}\-.+\.jpg/i)) {
-            BingLog('file: ' + slash(oldPath) + filename + ' -> ' + slash(newPath) + filename);
-            let cur = Gio.file_new_for_path(slash(oldPath) + filename);
-            let dest = Gio.file_new_for_path(slash(newPath) + filename);
-            cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { BingLog ('...moved'); });
+    let moveProviderDir = (subdir, defaultSubdir = subdir) => {
+        let sourceDir = Gio.file_new_for_path(slash(oldPath) + subdir);
+        if (!sourceDir.query_exists(null))
+            return;
+        let destDir = Gio.file_new_for_path(slash(newPath) + defaultSubdir);
+        if (!destDir.query_exists(null))
+            destDir.make_directory_with_parents(null);
+
+        let dirIter = sourceDir.enumerate_children('', Gio.FileQueryInfoFlags.NONE, null);
+        let file = null;
+        while (file = dirIter.next_file(null)) {
+            let filename = file.get_name();
+            if (filename.match(/\d{8}\-.+\.jpg/i)) {
+                let cur = Gio.file_new_for_path(slash(oldPath) + subdir + '/' + filename);
+                let dest = Gio.file_new_for_path(slash(newPath) + defaultSubdir + '/' + filename);
+                BingLog('file: ' + cur.get_path() + ' -> ' + dest.get_path());
+                cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { BingLog ('...moved'); });
+            }
+        }
+    };
+
+    let rootDir = Gio.file_new_for_path(oldPath);
+    if (rootDir.query_exists(null)) {
+        let dirIter = rootDir.enumerate_children('', Gio.FileQueryInfoFlags.NONE, null);
+        let file = null;
+        let bingDir = Gio.file_new_for_path(slash(newPath) + Providers.PROVIDER_BING);
+        if (!bingDir.query_exists(null))
+            bingDir.make_directory_with_parents(null);
+        while (file = dirIter.next_file(null)) {
+            let filename = file.get_name();
+            if (filename.match(/\d{8}\-.+\.jpg/i)) {
+                let cur = Gio.file_new_for_path(slash(oldPath) + filename);
+                let dest = Gio.file_new_for_path(slash(newPath) + Providers.PROVIDER_BING + '/' + filename);
+                BingLog('file: ' + cur.get_path() + ' -> ' + dest.get_path());
+                cur.move(dest, Gio.FileCopyFlags.OVERWRITE, null, function () { BingLog ('...moved'); });
+            }
         }
     }
+
+    moveProviderDir(Providers.PROVIDER_BING);
+    moveProviderDir(Providers.PROVIDER_SPOTLIGHT);
+
     // correct filenames for GNOME backgrounds
     if (settings.get_boolean('set-background'))
         moveBackground(oldPath, newPath, DESKTOP_SCHEMA);
@@ -536,7 +701,7 @@ export function purgeImages(settings) {
     let emptytrash = settings.get_boolean('trash-deletes-images');
     let maxDays = settings.get_int('previous-days');
     BingLog('purgeImages() dp: '+(deleteprevious?'true':'false')+'days:'+maxDays+' favs: '+(keepfavourites?'true':'false')+' trash: '+(emptytrash?'true':'false'));
-    
+
     /*if (deleteprevious === false)
         return;*/
     let imagelist = imageListSortByDate(getImageList(settings));
@@ -549,10 +714,10 @@ export function purgeImages(settings) {
         var keep_image = (keepfavourites && image.favourite && image.favourite === true) || diff > 0 || !deleteprevious;
         var ok_to_delete = !keep_image || (emptytrash && image.hidden);
         var imageFilename = imageToFilename(settings, image);
-        
+
         if (emptytrash && image.hidden && diff < 0)
             ok_to_delete = true;
-        
+
 
         if (deleteprevious && image != '' && ok_to_delete) {
             BingLog('deleting '+imageFilename);
@@ -583,8 +748,8 @@ export function openInSystemViewer(filename, is_file = true) {
 }
 
 export async function exportBingJSON(settings) {
-    let json = settings.get_string('bing-json');
-    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let json = JSON.stringify(getAllImageList(settings));
+    let filepath = getWallpaperRootDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
 
     const [etag] = await file.replace_contents_async(
@@ -596,7 +761,7 @@ export async function exportBingJSON(settings) {
         (file, res) => {
             try {
                 file.replace_contents_finish(res);
-            } 
+            }
             catch(e) {
                 BingLog('error saving bing-json from '+filepath+': '+e);
             }
@@ -606,7 +771,7 @@ export async function exportBingJSON(settings) {
 
 export async function importBingJSON(settings) {
     const decoder = new TextDecoder();
-    let filepath = getWallpaperDir(settings) + 'bing.json';
+    let filepath = getWallpaperRootDir(settings) + 'bing.json';
     let file = Gio.file_new_for_path(filepath);
     if (file.query_exists(null)) {
         const [contents, etag] = await file.load_contents_async(null,
@@ -615,7 +780,7 @@ export async function importBingJSON(settings) {
                     BingLog('JSON import success');
                     let parsed = JSON.parse(decoder.decode(contents)); // FIXME: triggers GJS warning without the conversion, need to investigate
                     // need to implement some checks for validity here
-                    mergeImageLists(settings, parsed);
+                    mergeImageLists(settings, parsed.map(normalizeImageRecord));
                     purgeImages(settings); // remove the older missing images
                     file.load_contents_finish(res);
                 }

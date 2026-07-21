@@ -8,7 +8,7 @@ glib-compile-schemas schemas/
 intltool-extract --type=gettext/glade ui/prefsadw.ui
 #intltool-extract --type=gettext/glade ui/carousel4.ui
 xgettext -k -k_ -kN_ --omit-header -o locale/BingWallpaper.pot ui/prefsadw.ui.h ui/intervals.utils.js.h extension.js prefs.js \
-    utils.js --from-code=UTF-8
+    utils.js providers.js --from-code=UTF-8
 
 DATE=`date +"%F"`
 echo "# Translation status of statements as at $DATE:" > translations.txt

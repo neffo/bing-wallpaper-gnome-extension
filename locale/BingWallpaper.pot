@@ -67,142 +67,178 @@ msgid "How frequently to shuffle wallpapers"
 msgstr ""
 
 #: ui/prefsadw.ui.h:18
-msgid "Downloads"
+msgid "Source"
 msgstr ""
 
 #: ui/prefsadw.ui.h:19
-msgid "Debug"
+msgid "Wallpaper source"
 msgstr ""
 
 #: ui/prefsadw.ui.h:20
-msgid "Debug options"
+msgid "Choose between Bing and Windows Spotlight"
 msgstr ""
 
 #: ui/prefsadw.ui.h:21
-msgid "Debug logging"
+msgid "Bing market"
 msgstr ""
 
 #: ui/prefsadw.ui.h:22
-msgid "Enable logging to system journal"
+msgid "Preferred Bing market/locale"
 msgstr ""
 
 #: ui/prefsadw.ui.h:23
-msgid "Advanced options"
+msgid "Spotlight region"
 msgstr ""
 
-#: ui/prefsadw.ui.h:24 extension.js:150
-msgid "Always show new images"
+#: ui/prefsadw.ui.h:24
+msgid "Auto-detect from system or set manually"
 msgstr ""
 
 #: ui/prefsadw.ui.h:25
-msgid "Switch to new images when available (unless on random mode)"
+msgid "Spotlight country"
 msgstr ""
 
 #: ui/prefsadw.ui.h:26
-msgid "Purge on trash"
+msgid "Spotlight locale"
 msgstr ""
 
 #: ui/prefsadw.ui.h:27
-msgid "Trashing an image will remove it from database and disk"
+msgid "Downloads"
 msgstr ""
 
 #: ui/prefsadw.ui.h:28
-msgid "Screen resolution"
+msgid "Debug"
 msgstr ""
 
 #: ui/prefsadw.ui.h:29
-msgid "Override automatic resolution selection"
+msgid "Debug options"
 msgstr ""
 
 #: ui/prefsadw.ui.h:30
-msgid "Random interval"
+msgid "Debug logging"
 msgstr ""
 
 #: ui/prefsadw.ui.h:31
-msgid "Custom shuffle interval when enabled"
+msgid "Enable logging to system journal"
 msgstr ""
 
 #: ui/prefsadw.ui.h:32
-msgid "Delete older images"
+msgid "Advanced options"
 msgstr ""
 
-#: ui/prefsadw.ui.h:33
-msgid "Automatically delete older images (excludes favourites)"
+#: ui/prefsadw.ui.h:33 extension.js:150
+msgid "Always show new images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:34
-msgid "Number of days to keep images"
+msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:35
-msgid "Keep images for this number of days (favourites are kept forever)"
+msgid "Purge on trash"
 msgstr ""
 
 #: ui/prefsadw.ui.h:36
-msgid "Presets"
+msgid "Trashing an image will remove it from database and disk"
 msgstr ""
 
 #: ui/prefsadw.ui.h:37
-msgid "Always export Bing data"
+msgid "Screen resolution"
 msgstr ""
 
 #: ui/prefsadw.ui.h:38
-msgid "Export Bing JSON when image data changes"
+msgid "Override automatic resolution selection"
 msgstr ""
 
 #: ui/prefsadw.ui.h:39
-msgid "Bing JSON data"
+msgid "Random interval"
 msgstr ""
 
 #: ui/prefsadw.ui.h:40
-msgid "About"
+msgid "Custom shuffle interval when enabled"
 msgstr ""
 
 #: ui/prefsadw.ui.h:41
-msgid "Bing Wallpaper"
+msgid "Delete older images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:42
-msgid "New wallpaper images everyday from Bing"
+msgid "Automatically delete older images (excludes favourites)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:43
-msgid "Maintained by Michael Carroll"
+msgid "Number of days to keep images"
 msgstr ""
 
 #: ui/prefsadw.ui.h:44
-msgid "Version"
+msgid "Keep images for this number of days (favourites are kept forever)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:45
-msgid "Release notes"
+msgid "Presets"
 msgstr ""
 
 #: ui/prefsadw.ui.h:46
-msgid "GNOME extensions page"
+msgid "Always export Bing data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:47
-msgid "Source code"
+msgid "Export Bing JSON when image data changes"
 msgstr ""
 
 #: ui/prefsadw.ui.h:48
-msgid "Report an issue"
+msgid "Bing JSON data"
 msgstr ""
 
 #: ui/prefsadw.ui.h:49
-msgid "Contributors"
+msgid "About"
 msgstr ""
 
 #: ui/prefsadw.ui.h:50
-msgid "License"
+msgid "Bing Wallpaper"
 msgstr ""
 
-#: ui/prefsadw.ui.h:51 prefs.js:103
-msgid "Change folder"
+#: ui/prefsadw.ui.h:51
+msgid "New wallpaper images everyday from Bing"
 msgstr ""
 
 #: ui/prefsadw.ui.h:52
+msgid "Maintained by Michael Carroll"
+msgstr ""
+
+#: ui/prefsadw.ui.h:53
+msgid "Version"
+msgstr ""
+
+#: ui/prefsadw.ui.h:54
+msgid "Release notes"
+msgstr ""
+
+#: ui/prefsadw.ui.h:55
+msgid "GNOME extensions page"
+msgstr ""
+
+#: ui/prefsadw.ui.h:56
+msgid "Source code"
+msgstr ""
+
+#: ui/prefsadw.ui.h:57
+msgid "Report an issue"
+msgstr ""
+
+#: ui/prefsadw.ui.h:58
+msgid "Contributors"
+msgstr ""
+
+#: ui/prefsadw.ui.h:59
+msgid "License"
+msgstr ""
+
+#: ui/prefsadw.ui.h:60 prefs.js:120
+msgid "Change folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:61
 msgid "Select new wallpaper download folder"
 msgstr ""
 
@@ -251,7 +287,7 @@ msgid "Open in image viewer"
 msgstr ""
 
 #: extension.js:138
-msgid "Open Bing image information page"
+msgid "Open image information page"
 msgstr ""
 
 #: extension.js:147
@@ -274,58 +310,74 @@ msgstr ""
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
 
-#: extension.js:337
+#: extension.js:349
 msgid "Next refresh"
 msgstr ""
 
-#: extension.js:339
+#: extension.js:351
 msgid "Last refresh"
 msgstr ""
 
-#: extension.js:342
+#: extension.js:354
 msgid "Next shuffle"
 msgstr ""
 
-#: extension.js:821 extension.js:909
-msgid "Bing Wallpaper of the Day for"
+#: extension.js:791 extension.js:878
+msgid "Wallpaper for"
 msgstr ""
 
-#: extension.js:947
+#: extension.js:916
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:948
+#: extension.js:917
 msgid "No picture for today."
 msgstr ""
 
-#: prefs.js:98
+#: prefs.js:115
 msgid "Open folder"
 msgstr ""
 
-#: prefs.js:115
+#: prefs.js:132
 msgid "Import"
 msgstr ""
 
-#: prefs.js:120
+#: prefs.js:137
 msgid "Export"
 msgstr ""
 
-#: prefs.js:185
+#: prefs.js:205
 msgid "Select wallpaper download folder"
 msgstr ""
 
-#: utils.js:135
+#: prefs.js:231
+msgid "Auto"
+msgstr ""
+
+#: prefs.js:232
+msgid "Manual"
+msgstr ""
+
+#: prefs.js:272
+msgid "Auto-detect from system"
+msgstr ""
+
+#: prefs.js:276
+msgid "Manually specify country and locale"
+msgstr ""
+
+#: utils.js:237
 msgid "Error fetching change log: "
 msgstr ""
 
-#: utils.js:395 utils.js:398
+#: utils.js:533 utils.js:536
 msgid "minutes"
 msgstr ""
 
-#: utils.js:401
+#: utils.js:539
 msgid "days"
 msgstr ""
 
-#: utils.js:404
+#: utils.js:542
 msgid "hours"
 msgstr ""

@@ -17,8 +17,6 @@ import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.j
 import * as Utils from './utils.js';
 /*import Carousel from './carousel.js';*/
 
-const BingImageURL = Utils.BingImageURL;
-
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
 // this is pretty wide because of the size of the gallery
@@ -48,7 +46,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             if (settings.get_boolean('debug-logging'))
                 console.log("BingWallpaper extension: " + msg); // disable to keep the noise down in journal
         }
-        
+
         let buildable = new Gtk.Builder();
         // GTK4 removes some properties, and builder breaks when it sees them
         buildable.add_from_file( this.dir.get_path() + '/ui/prefsadw.ui' );
@@ -60,7 +58,12 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const iconEntry = buildable.get_object('iconEntry');
         const bgSwitch = buildable.get_object('bgSwitch');
         const shuffleSwitch = buildable.get_object('shuffleSwitch');
-        const shuffleInterval = buildable.get_object('shuffleInterval'); 
+        const shuffleInterval = buildable.get_object('shuffleInterval');
+        const providerEntry = buildable.get_object('providerEntry');
+        const marketEntry = buildable.get_object('marketEntry');
+        const spotlightModeEntry = buildable.get_object('spotlightModeEntry');
+        const spotlightCountryEntry = buildable.get_object('spotlightCountryEntry');
+        const spotlightLocaleEntry = buildable.get_object('spotlightLocaleEntry');
         const folderRow = buildable.get_object('folderRow');
         const resolutionEntry = buildable.get_object('resolutionEntry');
         const debugSwitch = buildable.get_object('debug_switch');
@@ -89,14 +92,28 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         Utils.randomIntervals.forEach((x) => {
             shuffleIntervals.append(_(x.title));
         });
-       
+
         shuffleInterval.set_model(shuffleIntervals);
         shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
+
+        const providerModel = new Gtk.StringList();
+        Utils.providerNames.forEach((providerName) => {
+            providerModel.append(providerName);
+        });
+        providerEntry.set_model(providerModel);
+        providerEntry.set_selected(Utils.providerIds.indexOf(Utils.getCurrentProvider(settings)));
+
+        const marketModel = new Gtk.StringList();
+        Utils.marketName.forEach((marketName) => {
+            marketModel.append(marketName);
+        });
+        marketEntry.set_model(marketModel);
+        marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
 
         // add wallpaper folder open and change buttons
         const openBtn = new Gtk.Button( {
             label: _('Open folder'),
-            valign: Gtk.Align.CENTER, 
+            valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
         });
         const changeBtn = new Gtk.Button( {
@@ -106,27 +123,27 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         folderRow.add_suffix(openBtn);
-        folderRow.add_suffix(changeBtn);   
-        
+        folderRow.add_suffix(changeBtn);
+
         randomIntervalEntry.set_value(settings.get_int('random-interval'));
 
         // these buttons either export or import saved JSON data
         const buttonImportData = new Gtk.Button( {
             label: _('Import'),
-            valign: Gtk.Align.CENTER, 
+            valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
         });
         const buttonExportData = new Gtk.Button( {
             label: _('Export'),
-            valign: Gtk.Align.CENTER, 
+            valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
         });
-        
+
         json_actionrow.add_suffix(buttonImportData);
         json_actionrow.add_suffix(buttonExportData);
 
         version_row.set_subtitle(this.metadata.version.toString());
-       
+
         try {
             httpSession = new Soup.Session();
             httpSession.user_agent = 'User-Agent: Mozilla/5.0 (X11; GNOME Shell/' + Config.PACKAGE_VERSION + '; Linux x86_64; +https://github.com/neffo/bing-wallpaper-gnome-extension ) BingWallpaper Gnome Extension/' + this.metadata.version;
@@ -136,11 +153,14 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         }
         const icon_image = buildable.get_object('icon_image');
         const app_icon_image = buildable.get_object('app_icon_image');
-        
+
         // check that these are valid (can be edited through dconf-editor)
         Utils.validate_resolution(settings);
         Utils.validate_icon(settings, this.path, icon_image, app_icon_image);
         Utils.validate_interval(settings);
+        Utils.getCurrentProvider(settings);
+        Utils.normalizeSpotlightCountry(settings);
+        Utils.normalizeSpotlightLocale(settings);
 
         // Indicator & notifications
         settings.bind('hide', hideSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -149,7 +169,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             Utils.validate_icon(settings, this.path, icon_image, app_icon_image);
             iconEntry.set_value(1 + Utils.icon_list.indexOf(settings.get_string('icon-name')));
         });
-               
+
         iconEntry.connect('output', () => {
             settings.set_string('icon-name', Utils.icon_list[iconEntry.get_value()-1]);
         });
@@ -166,9 +186,9 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // button opens Nautilus at our image folder
         openBtn.connect('clicked', (widget) => {
-            Utils.openImageFolder(settings);
+            Utils.openWallpaperRootFolder(settings);
         });
-                
+
         // this is intended for migrating image folders between computers (or even sharing) or backups
         // we export the Bing JSON data to the image directory, so this folder becomes portable
         buttonImportData.connect('clicked', () => {
@@ -186,15 +206,87 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         });
 
         changeBtn.connect('clicked', (widget) => {
-            dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperDir(settings)));
+            dirChooser.set_initial_folder(Gio.File.new_for_path(Utils.getWallpaperRootDir(settings)));
             dirChooser.select_folder(window, null, (self, res) => {
                 let new_path = self.select_folder_finish(res).get_uri().replace('file://', '');
                 BingLog(new_path);
-                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperDir(settings), new_path);
+                Utils.moveImagesToNewFolder(settings, Utils.getWallpaperRootDir(settings), new_path);
                 Utils.setWallpaperDir(settings, new_path);
             });
 
         });
+
+        const updateSourceVisibility = () => {
+            let provider = Utils.getCurrentProvider(settings);
+            let bingProvider = provider === 'bing';
+            marketEntry.set_visible(bingProvider);
+            resolutionEntry.set_visible(bingProvider);
+            spotlightModeEntry.set_visible(!bingProvider);
+            let manualMode = settings.get_string('spotlight-mode') === 'manual';
+            spotlightCountryEntry.set_visible(!bingProvider && manualMode);
+            spotlightLocaleEntry.set_visible(!bingProvider && manualMode);
+        };
+
+        const spotlightModeModel = new Gtk.StringList();
+        spotlightModeModel.append(_('Auto'));
+        spotlightModeModel.append(_('Manual'));
+        spotlightModeEntry.set_model(spotlightModeModel);
+        spotlightModeEntry.set_selected(settings.get_string('spotlight-mode') === 'manual' ? 1 : 0);
+
+        spotlightModeEntry.connect('notify::selected', () => {
+            let index = spotlightModeEntry.get_selected();
+            settings.set_string('spotlight-mode', index === 1 ? 'manual' : 'auto');
+        });
+        settings.connect('changed::spotlight-mode', () => {
+            spotlightModeEntry.set_selected(settings.get_string('spotlight-mode') === 'manual' ? 1 : 0);
+            updateSourceVisibility();
+            updateSpotlightSubtitle();
+        });
+
+        providerEntry.connect('notify::selected', () => {
+            let index = providerEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('provider', Utils.providerIds[index]);
+        });
+        settings.connect('changed::provider', () => {
+            providerEntry.set_selected(Utils.providerIds.indexOf(Utils.getCurrentProvider(settings)));
+            updateSourceVisibility();
+        });
+
+        marketEntry.connect('notify::selected', () => {
+            let index = marketEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('market', Utils.markets[index]);
+        });
+        settings.connect('changed::market', () => {
+            marketEntry.set_selected(Utils.markets.indexOf(settings.get_string('market')));
+        });
+
+        settings.bind('spotlight-country', spotlightCountryEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('spotlight-locale', spotlightLocaleEntry, 'text', Gio.SettingsBindFlags.DEFAULT);
+
+        const updateSpotlightSubtitle = () => {
+            if (settings.get_string('spotlight-mode') === 'auto') {
+                let resolvedCountry = Utils.getResolvedSpotlightCountry(settings);
+                let resolvedLocale = Utils.getResolvedSpotlightLocale(settings);
+                spotlightModeEntry.set_subtitle(_('Auto-detect from system') + ' → ' + resolvedCountry + ' / ' + resolvedLocale);
+                spotlightCountryEntry.set_visible(false);
+                spotlightLocaleEntry.set_visible(false);
+            } else {
+                spotlightModeEntry.set_subtitle(_('Manually specify country and locale'));
+                spotlightCountryEntry.set_visible(true);
+                spotlightLocaleEntry.set_visible(true);
+            }
+        };
+
+        settings.connect('changed::spotlight-country', () => {
+            Utils.normalizeSpotlightCountry(settings);
+        });
+        settings.connect('changed::spotlight-locale', () => {
+            Utils.normalizeSpotlightLocale(settings);
+        });
+        updateSpotlightSubtitle();
+        updateSourceVisibility();
 
         // Resolution
         const resolutionModel = new Gtk.StringList();
@@ -202,9 +294,15 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
             resolutionModel.append(res);
         });
         resolutionEntry.set_model(resolutionModel);
-        
+        resolutionEntry.set_selected(Utils.resolutions.indexOf(settings.get_string('resolution')));
+        resolutionEntry.connect('notify::selected', () => {
+            let index = resolutionEntry.get_selected();
+            if (index >= 0)
+                settings.set_string('resolution', Utils.resolutions[index]);
+        });
+
         settings.connect('changed::resolution', () => {
-            resolutionEntry.set_selected(Utils.resolutions.map( e => e.value).indexOf(settings.get_string('resolution')));
+            resolutionEntry.set_selected(Utils.resolutions.indexOf(settings.get_string('resolution')));
         });
 
         settings.connect('changed::resolution', () => {
@@ -215,12 +313,18 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         /*settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);*/
 
+        shuffleInterval.connect('notify::selected', () => {
+            let index = shuffleInterval.get_selected();
+            if (index >= 0)
+                settings.set_string('random-interval-mode', Utils.randomIntervals[index].value);
+        });
+
         settings.connect('changed::random-interval-mode', () => {
             shuffleInterval.set_selected(Utils.randomIntervals.map( e => e.value).indexOf(settings.get_string('random-interval-mode')));
         });
-                    
+
         // fetch change log (on about page)
-        
+
         if (httpSession)
             Utils.fetch_change_log(this.metadata.version.toString(), change_log, httpSession);
     }
