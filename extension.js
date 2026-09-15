@@ -455,6 +455,8 @@ class BingWallpaperIndicator extends Button {
     }
 
     _setControls() {
+        // rebuild is idempotent: drop previously added buttons (keep the item's own label/ornament children)
+        this.controlItem.get_children().filter(c => c.style_class == 'ci-action-btn').forEach(c => c.destroy());
         this.favouriteBtn = this._newMenuIcon(
             this.favourite_status?this.ICON_FAVE_BUTTON:this.ICON_UNFAVE_BUTTON,
             this.controlItem, 
@@ -544,6 +546,8 @@ class BingWallpaperIndicator extends Button {
 
         this.thumbnailItem.hexpand = false;
         this.thumbnailItem.vexpand = false;
+        this.thumbnailItem.x_expand = false; // never stretch the image to the menu width
+        this.thumbnailItem.x_align = Clutter.ActorAlign.CENTER;
         this.thumbnailItem.content = image;
         
         BingLog('scale factor: ' + scale_factor);
