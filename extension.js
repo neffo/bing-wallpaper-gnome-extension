@@ -527,16 +527,30 @@ class BingWallpaperIndicator extends Button {
             return;
         }
 
-        const [version] = Config.PACKAGE_VERSION.split('.').map(s => Number(s));
         const image = new St.ImageContent();
-        const success = image.set_data.apply(image, [
-            ...version >= 48 ? [Clutter.get_default_backend().get_cogl_context()] : [],
+        // GNOME 48+ requires a Cogl.Context as first arg to St.ImageContent.set_data().
+        // GNOME 51 removed Clutter.get_default_backend(), use global.stage.context.get_backend() instead.
+        // See https://gjs.guide/extensions/upgrading/gnome-shell-48.html#clutter-image
+        // and https://gjs.guide/extensions/upgrading/gnome-shell-51.html#clutter-get-default-backend
+        // Use function arity to stay compatible with pre-48 (5 args) and 48+ (6 args).
+        const coglContextArgs = [];
+        const [shellMajor] = Config.PACKAGE_VERSION.split('.').map(s => Number(s));
+        if (image.set_data.length === 6 || shellMajor >= 48) {
+            const backend = global.stage?.context?.get_backend?.();
+            if (backend?.get_cogl_context) {
+                coglContextArgs.push(backend.get_cogl_context());
+            } else if (typeof Clutter.get_default_backend === 'function') {
+                // Fallback for GNOME 48-50 where Clutter.get_default_backend() still exists
+                coglContextArgs.push(Clutter.get_default_backend().get_cogl_context());
+            }
+        }
+        const success = image.set_data(...coglContextArgs,
             pixbuf.get_pixels(),
             pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
             width,
             height,
             pixbuf.get_rowstride(),
-        ]);
+        );
 
         if (!success) {
             throw Error("error creating St.ImageContent()");
