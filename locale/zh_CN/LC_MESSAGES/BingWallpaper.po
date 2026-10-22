@@ -409,3 +409,9 @@ msgstr "天"
 #: utils.js:422
 msgid "hours"
 msgstr "小时"
+
+msgid "translator-credits"
+msgstr ""
+"金立龙 <trampover@gmail.com>\n"
+"Cen <34904285@qq.com>\n"
+"yuhldr <yuhldr@qq.com>"

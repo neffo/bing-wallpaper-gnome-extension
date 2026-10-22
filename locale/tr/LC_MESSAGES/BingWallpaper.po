@@ -410,6 +410,11 @@ msgstr "gün"
 msgid "hours"
 msgstr "saat"
 
+msgid "translator-credits"
+msgstr ""
+"Serhat KILIÇ <github@leparutill.com>\n"
+"Sabri Ünal <yakushabb@gmail.com>"
+
 #~ msgid "Background style option"
 #~ msgstr "Arka plan stili seçeneği"
 

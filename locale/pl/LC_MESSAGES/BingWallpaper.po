@@ -285,6 +285,11 @@ msgstr "dzień"
 msgid "hours"
 msgstr "godziny"
 
+msgid "translator-credits"
+msgstr ""
+"kamilizmer\n"
+"Pioxis"
+
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "
 #~ "region. Displays the picture description and copyright information."

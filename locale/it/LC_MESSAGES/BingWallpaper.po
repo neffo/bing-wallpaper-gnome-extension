@@ -357,6 +357,11 @@ msgstr "giorni"
 msgid "hours"
 msgstr "ore"
 
+msgid "translator-credits"
+msgstr ""
+"eevleevs\n"
+"Simone Dotto <simonedotto@protonmail.com>"
+
 #~ msgid "Days to store wallpapers before deleting"
 #~ msgstr "Giorni per cui mantenere gli sfondi prima di cancellarli"
 

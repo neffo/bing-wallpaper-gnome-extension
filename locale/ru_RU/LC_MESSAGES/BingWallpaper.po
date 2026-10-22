@@ -374,3 +374,8 @@ msgstr "дни"
 #, fuzzy
 msgid "hours"
 msgstr "часы"
+
+msgid "translator-credits"
+msgstr ""
+"Dmitrii K\n"
+"Redume"
