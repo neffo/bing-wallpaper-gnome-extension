@@ -12,7 +12,6 @@ import Soup from 'gi://Soup';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
-import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
