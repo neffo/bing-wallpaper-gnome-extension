@@ -31,43 +31,43 @@ msgid "Select from alternate tray icons"
 msgstr ""
 
 #: ui/prefsadw.ui.h:9
-msgid "Download folder"
-msgstr ""
-
-#: ui/prefsadw.ui.h:10
-msgid "Open or change wallpaper downloads folder"
-msgstr ""
-
-#: ui/prefsadw.ui.h:11
 msgid "Wallpaper"
 msgstr ""
 
-#: ui/prefsadw.ui.h:12
+#: ui/prefsadw.ui.h:10
 msgid "Set wallpaper"
 msgstr ""
 
-#: ui/prefsadw.ui.h:13
+#: ui/prefsadw.ui.h:11
 msgid "Whether to set wallpaper automatically"
 msgstr ""
 
-#: ui/prefsadw.ui.h:14
+#: ui/prefsadw.ui.h:12
 msgid "Shuffle wallpaper"
 msgstr ""
 
-#: ui/prefsadw.ui.h:15
+#: ui/prefsadw.ui.h:13
 msgid "Randomly select wallpaper from collection"
 msgstr ""
 
-#: ui/prefsadw.ui.h:16
+#: ui/prefsadw.ui.h:14
 msgid "Shuffle interval"
 msgstr ""
 
-#: ui/prefsadw.ui.h:17
+#: ui/prefsadw.ui.h:15
 msgid "How frequently to shuffle wallpapers"
 msgstr ""
 
-#: ui/prefsadw.ui.h:18
+#: ui/prefsadw.ui.h:16
 msgid "Downloads"
+msgstr ""
+
+#: ui/prefsadw.ui.h:17
+msgid "Download folder"
+msgstr ""
+
+#: ui/prefsadw.ui.h:18
+msgid "Open or change wallpaper downloads folder"
 msgstr ""
 
 #: ui/prefsadw.ui.h:19
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Random interval"
 msgstr ""
 
-#: ui/prefsadw.ui.h:31
+#: ui/prefsadw.ui.h:31 ui/prefsadw.ui.h:39
 msgid "Custom shuffle interval when enabled"
 msgstr ""
 
@@ -139,18 +139,14 @@ msgid "Keep images for this number of days (favourites are kept forever)"
 msgstr ""
 
 #: ui/prefsadw.ui.h:36
-msgid "Presets"
-msgstr ""
-
-#: ui/prefsadw.ui.h:37
 msgid "Always export Bing data"
 msgstr ""
 
-#: ui/prefsadw.ui.h:38
+#: ui/prefsadw.ui.h:37
 msgid "Export Bing JSON when image data changes"
 msgstr ""
 
-#: ui/prefsadw.ui.h:39
+#: ui/prefsadw.ui.h:38
 msgid "Bing JSON data"
 msgstr ""
 
@@ -198,11 +194,19 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: ui/prefsadw.ui.h:51 prefs.js:103
+#: ui/prefsadw.ui.h:51
+msgid ""
+"This extension is free software: you can redistribute it and/or modify it "
+"under the terms of the GNU Lesser General Public License as published by the "
+"Free Software Foundation, either version 3 of the License, or (at your "
+"option) any later version."
+msgstr ""
+
+#: ui/prefsadw.ui.h:52 prefs.js:103
 msgid "Change folder"
 msgstr ""
 
-#: ui/prefsadw.ui.h:52
+#: ui/prefsadw.ui.h:53
 msgid "Select new wallpaper download folder"
 msgstr ""
 
@@ -220,6 +224,10 @@ msgstr ""
 
 #: ui/intervals.utils.js.h:11
 msgid "User defined interval"
+msgstr ""
+
+#: extension.js:66
+msgid "BingWallpaper extension error"
 msgstr ""
 
 #: extension.js:129
@@ -274,28 +282,76 @@ msgstr ""
 msgid "Image shuffle only UHD resolutions"
 msgstr ""
 
-#: extension.js:337
-msgid "Next refresh"
+#. Translators: %s is a date and time, followed by the time remaining in parentheses
+#: extension.js:340
+#, javascript-format
+msgid "Next refresh: %s"
 msgstr ""
 
-#: extension.js:339
-msgid "Last refresh"
-msgstr ""
-
+#. Translators: %s is a date and time
 #: extension.js:342
-msgid "Next shuffle"
+#, javascript-format
+msgid "Last refresh: %s"
 msgstr ""
 
-#: extension.js:821 extension.js:909
-msgid "Bing Wallpaper of the Day for"
+#. Translators: %s is a date and time, followed by the time remaining in parentheses
+#: extension.js:348
+#, javascript-format
+msgid "Next shuffle: %s"
 msgstr ""
 
-#: extension.js:947
+#. Translators: %s is an untranslated error message
+#: extension.js:680 extension.js:697
+#, javascript-format
+msgid "Unable to fetch Bing metadata: %s"
+msgstr ""
+
+#. Translators: %s is an untranslated error message
+#: extension.js:718 extension.js:1078
+#, javascript-format
+msgid "Network error: %s"
+msgstr ""
+
+#. Translators: %s is an untranslated error message
+#: extension.js:817
+#, javascript-format
+msgid "Unable to parse Bing metadata: %s"
+msgstr ""
+
+#. Translators: %s is a date
+#: extension.js:830 extension.js:919
+#, javascript-format
+msgid "Bing Wallpaper of the Day for %s"
+msgstr ""
+
+#: extension.js:957
 msgid "No wallpaper available"
 msgstr ""
 
-#: extension.js:948
+#: extension.js:958
 msgid "No picture for today."
+msgstr ""
+
+#. Translators: %s is a folder path
+#: extension.js:1056
+#, javascript-format
+msgid "Download folder does not exist or is not writable: %s"
+msgstr ""
+
+#. Translators: %s is a file path followed by an untranslated error message
+#: extension.js:1104
+#, javascript-format
+msgid ""
+"Image is not writable, check folder permissions or select a different "
+"folder: %s"
+msgstr ""
+
+#. Translators: %s is a file path followed by an untranslated error message
+#: extension.js:1112
+#, javascript-format
+msgid ""
+"Image file error, check folder permissions, disk space or select a different "
+"folder: %s"
 msgstr ""
 
 #: prefs.js:98
@@ -310,22 +366,68 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
+#: prefs.js:183
+msgid "Select"
+msgstr ""
+
 #: prefs.js:185
 msgid "Select wallpaper download folder"
 msgstr ""
 
-#: utils.js:135
-msgid "Error fetching change log: "
+#. Translators: %s is an error message
+#: utils.js:141
+#, javascript-format
+msgid "Error fetching change log: %s"
 msgstr ""
 
-#: utils.js:395 utils.js:398
-msgid "minutes"
+#: utils.js:398
+msgid "now"
 msgstr ""
 
-#: utils.js:401
-msgid "days"
+#. Translators: less than one minute, the short form should be about 4-5 characters
+#: utils.js:402
+msgid "< 1 m"
 msgstr ""
 
-#: utils.js:404
-msgid "hours"
+#: utils.js:402
+msgid "less than a minute"
 msgstr ""
+
+#. Translators: %d is a number of minutes, the short form should be about 4-5 characters
+#: utils.js:407
+#, javascript-format
+msgid "%d m"
+msgstr ""
+
+#: utils.js:407
+#, javascript-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Translators: %d is a number of days, the short form should be about 4-5 characters
+#: utils.js:412
+#, javascript-format
+msgid "%d d"
+msgstr ""
+
+#: utils.js:412
+#, javascript-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Translators: %d is a number of hours, the short form should be about 4-5 characters
+#: utils.js:417
+#, javascript-format
+msgid "%d h"
+msgstr ""
+
+#: utils.js:417
+#, javascript-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
