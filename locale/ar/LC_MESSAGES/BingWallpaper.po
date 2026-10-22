@@ -284,6 +284,11 @@ msgstr "أيام"
 msgid "hours"
 msgstr "ساعات"
 
+msgid "translator-credits"
+msgstr ""
+"Marwén Ben Romdhan\n"
+"Amro Soliman <amroawad.soliman@mail.polimi.it>"
+
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "
 #~ "region. Displays the picture description and copyright information."

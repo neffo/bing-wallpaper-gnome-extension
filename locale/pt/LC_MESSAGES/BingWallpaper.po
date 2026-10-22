@@ -294,3 +294,6 @@ msgstr "dia"
 #: utils.js:397
 msgid "hours"
 msgstr "horas"
+
+msgid "translator-credits"
+msgstr "Juliano de Souza Camargo <julianosc@protonmail.com>"

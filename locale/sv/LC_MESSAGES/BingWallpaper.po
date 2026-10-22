@@ -293,6 +293,12 @@ msgstr "dagar"
 msgid "hours"
 msgstr "timmar"
 
+msgid "translator-credits"
+msgstr ""
+"ddund\n"
+"krevad\n"
+"Isak Bergdahl <isak.bergdahl@yahoo.com>"
+
 #~ msgid "Days to store wallpapers before deleting"
 #~ msgstr "Antal dagar innan bilder raderas"
 

@@ -373,3 +373,6 @@ msgstr "روز"
 #: utils.js:375
 msgid "hours"
 msgstr "ساعت"
+
+msgid "translator-credits"
+msgstr "Shahrad Elahi <shahrad@litehex.com>"

@@ -278,3 +278,6 @@ msgstr "päivää"
 #: utils.js:375
 msgid "hours"
 msgstr "tuntia"
+
+msgid "translator-credits"
+msgstr "job1925"
