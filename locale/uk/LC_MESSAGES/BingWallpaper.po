@@ -359,3 +359,8 @@ msgstr "днів"
 #: utils.js:388
 msgid "hours"
 msgstr "годин"
+
+msgid "translator-credits"
+msgstr ""
+"YST <yevhenii.stoliarenko@sewan.fr>\n"
+"Sensei1304"

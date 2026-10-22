@@ -23,6 +23,11 @@ msgstr ""
 msgid "Settings"
 msgstr "Innstillinger"
 
+msgid "translator-credits"
+msgstr ""
+"Jon Harald Søby <jhsoby@gmail.com>\n"
+"John Erling Blad <jeblad@gmail.com>"
+
 #: ui/prefsadw.ui.h:2
 msgid "Indicator"
 msgstr "Indikatorikon"

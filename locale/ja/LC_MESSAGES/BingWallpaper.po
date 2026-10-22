@@ -306,5 +306,8 @@ msgstr ""
 msgid "<image name here>"
 msgstr ""
 
+msgid "translator-credits"
+msgstr "nexryai <nexryai@outlook.com>"
+
 #~ msgid "Default is English - United States"
 #~ msgstr "デフォルトは英語（米国）"

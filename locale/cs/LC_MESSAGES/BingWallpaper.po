@@ -434,6 +434,12 @@ msgstr "dnů"
 msgid "hours"
 msgstr "hodin"
 
+msgid "translator-credits"
+msgstr ""
+"Matěj Cepl <mcepl@cepl.eu>\n"
+"Ludek Vydra <lvtran@u.k2.cz>\n"
+"lev741"
+
 #~ msgid "Enable desktop notifications"
 #~ msgstr "Povolit oznámení na ploše"
 

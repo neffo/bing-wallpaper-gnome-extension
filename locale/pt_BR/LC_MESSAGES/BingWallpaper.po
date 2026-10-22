@@ -385,6 +385,12 @@ msgstr "dias"
 msgid "hours"
 msgstr "horas"
 
+msgid "translator-credits"
+msgstr ""
+"Tiago Rodrigo Lampert\n"
+"Glauber Sampaio <glaubersampaio@gmail.com>\n"
+"Juliano de Souza Camargo <julianosc@pm.me>"
+
 #~ msgid "Delete previously downloaded wallpapers"
 #~ msgstr "Excluir papéis de parede baixados anteriormente"
 

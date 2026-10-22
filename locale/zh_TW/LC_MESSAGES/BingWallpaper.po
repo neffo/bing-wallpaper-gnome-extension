@@ -276,6 +276,9 @@ msgstr "天"
 msgid "hours"
 msgstr "時"
 
+msgid "translator-credits"
+msgstr "Yi-Jyun Pan <pan93412@gmail.com>"
+
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "
 #~ "region. Displays the picture description and copyright information."
