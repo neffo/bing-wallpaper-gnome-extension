@@ -909,7 +909,7 @@ class BingWallpaperIndicator extends Button {
             this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
-            this.imageinfolink = image.copyrightlink.replace(/^http:\/\//i, 'https://');
+            this.imageinfolink = Utils.getImageInfoLink(image);
             this.imageURL = BingURL + image.urlbase + '_' + resolution + '.jpg'+'&qlt=100'; // generate image url for user's resolution @ high quality
             this.filename = Utils.toFilename(BingWallpaperDir, image.startdate, image.urlbase, resolution);
             this.dimensions.width = image.width?image.width:null;
