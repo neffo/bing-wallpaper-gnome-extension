@@ -18,6 +18,7 @@ import * as Utils from './utils.js';
 /*import Carousel from './carousel.js';*/
 
 const BingImageURL = Utils.BingImageURL;
+const ContributorsURL = 'https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors';
 
 var DESKTOP_SCHEMA = 'org.gnome.desktop.background';
 
@@ -75,6 +76,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const about_page = buildable.get_object('about_page');
         const version_row = buildable.get_object('version_row');
         const change_log = buildable.get_object('change_log');
+        const contributors_row = buildable.get_object('contributors_row');
 
         window.add(settings_page);
         /*window.add(lockscreen_page);
@@ -126,6 +128,11 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         json_actionrow.add_suffix(buttonExportData);
 
         version_row.set_subtitle(this.metadata.version.toString());
+
+        // credits subpage, like the one in a regular about dialog
+        contributors_row.connect('activated', () => {
+            window.push_subpage(this._buildCreditsPage(window));
+        });
        
         try {
             httpSession = new Soup.Session();
@@ -224,4 +231,75 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         if (httpSession)
             Utils.fetch_change_log(this.metadata.version.toString(), change_log, httpSession);
     }
+
+    // developers from the AUTHORS file, translators of the current language from translator-credits
+    _buildCreditsPage(window) {
+        const page = new Adw.PreferencesPage();
+
+        const authors = this._readAuthors();
+        if (authors['maintainers'].length > 0)
+            page.add(creditsGroup(_('Maintainers'), authors['maintainers']));
+        if (authors['contributors'].length > 0)
+            page.add(creditsGroup(_('Developers'), authors['contributors']));
+
+        // Translators: replace with your names, one per line as "Name <email>"; shown on the Contributors page
+        const translatorCredits = _('translator-credits');
+        if (translatorCredits != 'translator-credits')
+            page.add(creditsGroup(_('Translators'), translatorCredits.split('\n')));
+
+        if (authors['based-on'].length > 0)
+            page.add(creditsGroup(_('Based on work by'), authors['based-on']));
+
+        const githubGroup = new Adw.PreferencesGroup();
+        const githubRow = new Adw.ActionRow({title: _('All contributors on GitHub'), activatable: true});
+        githubRow.add_suffix(new Gtk.Image({icon_name: 'adw-external-link-symbolic', accessible_role: Gtk.AccessibleRole.PRESENTATION}));
+        githubRow.connect('activated', () => {
+            new Gtk.UriLauncher({uri: ContributorsURL}).launch(window, null, null);
+        });
+        githubGroup.add(githubRow);
+        page.add(githubGroup);
+
+        const toolbarView = new Adw.ToolbarView({content: page});
+        toolbarView.add_top_bar(new Adw.HeaderBar());
+        return new Adw.NavigationPage({title: _('Contributors'), child: toolbarView});
+    }
+
+    // one person per line under [maintainers], [contributors] or [based-on], blank lines and # comments are skipped;
+    // lines before any section or in an unknown section count as contributors, so no names get lost
+    _readAuthors() {
+        const sections = {'maintainers': [], 'contributors': [], 'based-on': []};
+        let text = '';
+        try {
+            const [, contents] = this.dir.get_child('AUTHORS').load_contents(null);
+            text = new TextDecoder().decode(contents);
+        }
+        catch (e) {
+            return sections; // no AUTHORS file
+        }
+        let current = 'contributors';
+        text.split('\n').map(line => line.trim()).forEach(line => {
+            if (line == '' || line.startsWith('#'))
+                return;
+            const header = line.match(/^\[(.+)\]$/);
+            if (header)
+                current = header[1] in sections ? header[1] : 'contributors';
+            else
+                sections[current].push(line);
+        });
+        return sections;
+    }
+}
+
+// a group with one row per "Name <email>" line, email (if any) as subtitle
+function creditsGroup(title, lines) {
+    const group = new Adw.PreferencesGroup({title: title});
+    lines.map(line => line.trim()).filter(line => line != '').forEach(line => {
+        const match = line.match(/^(.*?)\s*<([^>]*)>/);
+        group.add(new Adw.ActionRow({
+            title: match ? match[1] : line,
+            subtitle: match ? match[2] : '',
+            use_markup: false, // names and emails are plain text, "<" would break markup
+        }));
+    });
+    return group;
 }

@@ -341,17 +341,9 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                             <property name="title" translatable="yes">Contributors</property>
                             <property name="use-underline">True</property>
                             <property name="activatable">True</property>
-                            <property name="activatable-widget">contributors_linkbutton</property>
-                            <child>
-                                <object class="GtkLinkButton" id="contributors_linkbutton">
-                                    <property name="uri">https://github.com/neffo/bing-wallpaper-gnome-extension/graphs/contributors</property>
-                                    <property name="label">GitHub</property>
-                                    <property name="valign">GTK_ALIGN_CENTER</property>
-                                </object>
-                            </child>
                             <child>
                                 <object class="GtkImage">
-                                    <property name="icon-name">adw-external-link-symbolic</property>
+                                    <property name="icon-name">go-next-symbolic</property>
                                     <property name="accessible-role">presentation</property>
                                 </object>
                             </child>
