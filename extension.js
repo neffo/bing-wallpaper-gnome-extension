@@ -12,7 +12,6 @@ import Soup from 'gi://Soup';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
-import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -530,7 +529,7 @@ class BingWallpaperIndicator extends Button {
         const [version] = Config.PACKAGE_VERSION.split('.').map(s => Number(s));
         const image = new St.ImageContent();
         const success = image.set_data.apply(image, [
-            ...version >= 48 ? [Clutter.get_default_backend().get_cogl_context()] : [],
+            ...version >= 48 ? [global.stage.context.get_backend().get_cogl_context()] : [],
             pixbuf.get_pixels(),
             pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
             width,
