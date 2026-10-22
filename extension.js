@@ -66,10 +66,20 @@ function notifyError(msg) {
     Main.notifyError("BingWallpaper extension error", msg);
 }
 
-function doSetBackground(uri, schema) {
+function doSetBackground(uri, schema, force = false) {
     let gsettings = new Gio.Settings({schema: schema});
     let prev = gsettings.get_string('picture-uri');
     uri = 'file://' + uri;
+    if (force && prev == uri) {
+        // an unchanged uri won't make GNOME reload a re-downloaded file, so reset first
+        gsettings.reset('picture-uri');
+        try {
+            gsettings.reset('picture-uri-dark');
+        }
+        catch (e) {
+            BingLog("unable to reset dark background for : " + e);
+        }
+    }
     gsettings.set_string('picture-uri', uri);
     try {
         gsettings.set_string('picture-uri-dark', uri);
@@ -94,6 +104,7 @@ class BingWallpaperIndicator extends Button {
         this.version = "0.1";
         this._updatePending = false;
         this._timeout = null;
+        this._downloadsInProgress = new Map(); // file path -> set background when download completes
         this._shuffleTimeout = null;
         this.longstartdate = null;
         this.imageURL = ""; // link to image itself
@@ -376,7 +387,7 @@ class BingWallpaperIndicator extends Button {
     }
 
     // set backgrounds as requested and set preview image in menu
-    _setBackground() {
+    _setBackground(force = false) {
         if (this.filename == '')
             return;
         this.thumbnail = new Thumbnail(this.filename, St.ThemeContext.get_for_stage(global.stage).scale_factor); // use scale factor to make them look nicer
@@ -385,11 +396,11 @@ class BingWallpaperIndicator extends Button {
             [this.dimensions.width, this.dimensions.height] = Utils.getFileDimensions(this.filename);
         BingLog('image set to : '+this.filename);
         if (this._settings.get_boolean('set-background'))
-            this._setBackgroundDesktop();
+            this._setBackgroundDesktop(force);
     }
 
-    _setBackgroundDesktop() {
-        doSetBackground(this.filename, Utils.DESKTOP_SCHEMA);
+    _setBackgroundDesktop(force = false) {
+        doSetBackground(this.filename, Utils.DESKTOP_SCHEMA, force);
     }
 
     // set a timer on when the current image is going to expire
@@ -955,7 +966,7 @@ class BingWallpaperIndicator extends Button {
     }
 
     _imageURL(urlbase, resolution) {
-        return BingURL + urlbase + '_' + resolution + '.jpg';
+        return BingURL + urlbase + '_' + resolution + '.jpg' + '&qlt=100'; // same url as _selectImage(), so both fetch the same quality
     }
 
     _storeState() {
@@ -1038,6 +1049,14 @@ class BingWallpaperIndicator extends Button {
     // download and process new image
     // FIXME: improve error handling
     async _downloadImage(url, file, set_background) {
+        let path = file.get_path();
+        if (this._downloadsInProgress.has(path)) {
+            // images are large, don't fetch twice (e.g. over mobile data), just set background when the first completes
+            if (set_background)
+                this._downloadsInProgress.set(path, true);
+            BingLog('Download of ' + path + ' already in progress');
+            return;
+        }
         let BingWallpaperDir = Utils.getWallpaperDir(this._settings);
         let dir = Gio.file_new_for_path(BingWallpaperDir);
         if (!dir.query_exists(null)) {
@@ -1047,43 +1066,49 @@ class BingWallpaperIndicator extends Button {
         }
         BingLog("Downloading " + url + " to " + file.get_uri());
         let request = Soup.Message.new('GET', url);
+        this._downloadsInProgress.set(path, set_background);
 
         // queue the http request
         try {
             if (Soup.MAJOR_VERSION >= 3) {
                 await this.httpSession.send_and_read_async(request, GLib.PRIORITY_DEFAULT, null, (httpSession, message) => {
-                    this._processFileDownload(message, file, set_background);
+                    this._processFileDownload(message, file);
                 });
             }
             else {
                 this.httpSession.queue_message(request, (httpSession, message) => {
-                    this._processFileDownload(message, file, set_background);
+                    this._processFileDownload(message, file);
                 });
             }
         }
         catch (error) {
+            this._downloadsInProgress.delete(path);
             BingLog('error sending libsoup message '+error);
             notifyError('Network error '+error);
         }
     }
 
-    async _processFileDownload(message, file, set_background) {            
+    async _processFileDownload(message, file) {
+        let path = file.get_path();
         try {
             let data = (Soup.MAJOR_VERSION >= 3) ? 
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
 
-            const [etag] = await file.replace_contents_bytes_async(
+            file.replace_contents_bytes_async(
                 data,
                 null,
                 false,
                 Gio.FileCreateFlags.REPLACE_DESTINATION,
                 null,
                 (file, res) => {
+                    // read at completion, a later request for the same file may have asked for the background
+                    let set_background = this._downloadsInProgress.get(path);
+                    this._downloadsInProgress.delete(path);
                     try {
                         file.replace_contents_finish(res);
                         if (set_background)
-                            this._setBackground();
+                            this._setBackground(true);
                         BingLog('Download successful');
                     } 
                     catch(e) {
@@ -1094,8 +1119,9 @@ class BingWallpaperIndicator extends Button {
             );
         }
         catch (error) {
+            this._downloadsInProgress.delete(path);
             BingLog('Unable download image '+error);
-            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+e);
+            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+error);
         }
     }
 
