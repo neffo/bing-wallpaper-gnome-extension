@@ -254,7 +254,10 @@ class BingWallpaperIndicator extends Button {
         this._cleanUpImages();
 
         // menu connections 
-        this.connect('button-press-event', this._openMenu.bind(this));
+        this.menu.connect('open-state-changed', (menu, open) => {
+            if (open)
+                this._openMenu();
+        });
 
         // link menu items to functions
         //this.thumbnailItem.connect('activate', this._setBackgroundDesktop.bind(this));
