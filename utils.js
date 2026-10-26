@@ -212,6 +212,15 @@ export function getImageUrlBase(image_data) {
     return image_data.urlbase.replace('/th?id=OHR.', '');
 }
 
+// some markets get a plain search link, the HpDate filter makes Bing show the image information page
+export function getImageInfoLink(image_data) {
+    let link = image_data.copyrightlink.replace(/^http:\/\//i, 'https://');
+    let date = image_data.fullstartdate; // YYYYMMDDHHMM
+    if (/bing\.com\/search\?/.test(link) && !/[?&]filters=/.test(link) && date)
+        link += '&filters=' + encodeURIComponent('HpDate:"' + date.slice(0, 8) + '_' + date.slice(8) + '"');
+    return link;
+}
+
 export function getMaxLongDate(settings) {
     let imageList = getImageList(settings);
     return Math.max.apply(Math, imageList.map(function(o) { return o.fullstartdate; }));
