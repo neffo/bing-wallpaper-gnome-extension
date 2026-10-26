@@ -1075,7 +1075,7 @@ class BingWallpaperIndicator extends Button {
                 this.httpSession.send_and_read_finish(message).get_data():
                 message.response_body.flatten().get_as_bytes();
 
-            const [etag] = await file.replace_contents_bytes_async(
+            file.replace_contents_bytes_async(
                 data,
                 null,
                 false,
@@ -1097,7 +1097,7 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             BingLog('Unable download image '+error);
-            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+e);
+            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+error);
         }
     }
 
