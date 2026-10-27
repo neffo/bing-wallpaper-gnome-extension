@@ -1,0 +1,33 @@
+# Shown on the Contributors page in the preferences, one person per line as "Name <email>".
+# Translators are credited in the translator-credits of each language file.
+
+# Creator and maintainer
+[maintainers]
+Michael Carroll <ineffable@gmail.com>
+
+# Code contributors from the git history (authors and co-authors), in alphabetical order
+[contributors]
+Al West <al@tsew.net>
+Alfonso Rodríguez <arodriguez@teltek.es>
+Aron Griffis <aron@scampersand.com>
+Christopher Snowhill <chris@kode54.net>
+Etamuk <nutzer3105@gmail.com>
+Evertton de Lima <e.everttonlima@gmail.com>
+freemans32 <magguyguy32@hotmail.com>
+Henri Menke <henri@henrimenke.de>
+high1 <high1@mailfence.com>
+IBBoard <dev@ibboard.co.uk>
+Jonatan Hatakeyama Zeidler <jonatan_zeidler@gmx.de>
+LemonBoy <thatlemon@gmail.com>
+loxoron218 <enriquermcd@proton.me>
+Michael Cardillo <mcardillo55@gmail.com>
+Mike Cardillo <mike@mjcardillo.com>
+Pawel <pszafer@gmail.com>
+Pushpendra Kumar <pushpendra.gangwar@outlook.com>
+Wartybix
+Wyte Krongapiradee <wyte.sk133@gmail.com>
+
+# Authors of the extensions this one is based on
+[based-on]
+Elia Argentieri
+Utkarsh Gupta
