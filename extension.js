@@ -62,7 +62,7 @@ function BingDebug() {
 }
 
 function notifyError(msg) {
-    Main.notifyError("BingWallpaper extension error", msg);
+    Main.notifyError(_("BingWallpaper extension error"), msg);
 }
 
 function doSetBackground(uri, schema, force = false) {
@@ -346,15 +346,19 @@ class BingWallpaperIndicator extends Button {
         this.swallpaperItem.setSensitive(!this._updatePending && this.filename != "");
         this.titleItem.setSensitive(!this._updatePending && this.imageinfolink != "");
         let maxlongdate = Utils.getMaxLongDate(this._settings);
-        this.refreshduetext = 
-            _("Next refresh") + ": " + (this.refreshdue ? this.refreshdue.format("%Y-%m-%d %X") : '-') + 
-            " (" + (this.refreshdue?Utils.friendly_time_diff(this.refreshdue):"-") + ")\n" + 
-            _("Last refresh") + ": " + (maxlongdate? this._localeDate(maxlongdate, true) : '-');
+        let refreshdue = this.refreshdue ?
+            this.refreshdue.format("%Y-%m-%d %X") + " (" + Utils.friendly_time_diff(this.refreshdue) + ")" : '-';
+        let lastrefresh = maxlongdate ? this._localeDate(maxlongdate, true) : '-';
+        // Translators: %s is a date and time, followed by the time remaining in parentheses
+        this.refreshduetext = Utils.format_string(_("Next refresh: %s"), refreshdue);
+        // Translators: %s is a date and time
+        this.refreshduetext += "\n" + Utils.format_string(_("Last refresh: %s"), lastrefresh);
         // also show when shuffle is next due
         if (this._settings.get_boolean('random-mode-enabled')) {
-            this.refreshduetext += "\n" + _("Next shuffle")+": " +
-                (this.shuffledue ? this.shuffledue.format("%Y-%m-%d %X") : '-') +
-                " (" + (this.refreshdue?Utils.friendly_time_diff(this.shuffledue):"-") + ")";
+            let shuffledue = this.shuffledue ?
+                this.shuffledue.format("%Y-%m-%d %X") + " (" + Utils.friendly_time_diff(this.shuffledue) + ")" : '-';
+            // Translators: %s is a date and time, followed by the time remaining in parentheses
+            this.refreshduetext += "\n" + Utils.format_string(_("Next shuffle: %s"), shuffledue);
         }
         BingLog('refreshduetext :'+this.refreshduetext);
         this.refreshDueItem.label.set_text(this.refreshduetext);            
@@ -685,7 +689,8 @@ class BingWallpaperIndicator extends Button {
             }
             catch(error) {
                 BingLog('unable to send libsoup json message '+error);
-                notifyError('Unable to fetch Bing metadata\n'+error);
+                // Translators: %s is an untranslated error message
+                notifyError(Utils.format_string(_('Unable to fetch Bing metadata: %s'), error));
             }
         }
         else {
@@ -701,7 +706,8 @@ class BingWallpaperIndicator extends Button {
             }
             catch (error) {
                 BingLog('unable to send libsoup json message '+error);
-                notifyError('Unable to fetch Bing metadata\n'+error);
+                // Translators: %s is an untranslated error message
+                notifyError(Utils.format_string(_('Unable to fetch Bing metadata: %s'), error));
             }
         }
     }
@@ -721,7 +727,8 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             BingLog('Network error occured: ' + error);
-            notifyError('network error occured\n'+error);
+            // Translators: %s is an untranslated error message
+            notifyError(Utils.format_string(_('Network error: %s'), error));
             this._updatePending = false;
             this._restartTimeout(TIMEOUT_SECONDS_ON_HTTP_ERROR);
         }
@@ -819,7 +826,8 @@ class BingWallpaperIndicator extends Button {
         }
         catch (error) {
             BingLog('_parseData() failed with error ' + error + ' @ '+error.lineNumber);
-            notifyError('Bing metadata parsing error check ' + error + ' @ '+error.lineNumber);
+            // Translators: %s is an untranslated error message
+            notifyError(Utils.format_string(_('Unable to parse Bing metadata: %s'), error + ' @ ' + error.lineNumber));
             BingLog(error.stack);
         }
     }
@@ -831,7 +839,8 @@ class BingWallpaperIndicator extends Button {
     }
 
     _createImageNotification(image) {
-        let msg = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.fullstartdate);
+        // Translators: %s is a date
+        let msg = Utils.format_string(_('Bing Wallpaper of the Day for %s'), this._localeDate(image.fullstartdate));
         let details = Utils.getImageTitle(image);
         this._createNotification(msg, details);
         BingLog('_createImageNotification: '+msg+' details: '+details);
@@ -919,7 +928,8 @@ class BingWallpaperIndicator extends Button {
 
             // set current image details at extension scope
             this.title = image.copyright.replace(/\s*[\(\（].*?[\)\）]\s*/g, '');
-            this.explanation = _('Bing Wallpaper of the Day for') + ' ' + this._localeDate(image.startdate);
+            // Translators: %s is a date
+            this.explanation = Utils.format_string(_('Bing Wallpaper of the Day for %s'), this._localeDate(image.startdate));
             this.copyright = image.copyright.match(/[\(\（]([^)]+)[\)\）]/)[1].replace('\*\*', ''); // Japan locale uses （） rather than ()
             this.longstartdate = image.fullstartdate;
             this.imageinfolink = Utils.getImageInfoLink(image);
@@ -1063,7 +1073,8 @@ class BingWallpaperIndicator extends Button {
         let dir = Gio.file_new_for_path(BingWallpaperDir);
         if (!dir.query_exists(null)) {
             //dir.make_directory_with_parents(null);
-            notifyError('Download folder '+BingWallpaperDir+' does not exist or is not writable');
+            // Translators: %s is a folder path
+            notifyError(Utils.format_string(_('Download folder does not exist or is not writable: %s'), BingWallpaperDir));
             return;
         }
         BingLog("Downloading " + url + " to " + file.get_uri());
@@ -1086,7 +1097,8 @@ class BingWallpaperIndicator extends Button {
         catch (error) {
             this._downloadsInProgress.delete(path);
             BingLog('error sending libsoup message '+error);
-            notifyError('Network error '+error);
+            // Translators: %s is an untranslated error message
+            notifyError(Utils.format_string(_('Network error: %s'), error));
         }
     }
 
@@ -1115,7 +1127,8 @@ class BingWallpaperIndicator extends Button {
                     } 
                     catch(e) {
                         BingLog('Error writing file: ' + e);
-                        notifyError('Image '+file.get_path()+' is not writable, check folder permissions or select a different folder\n'+e);
+                        // Translators: %s is a file path followed by an untranslated error message
+                        notifyError(Utils.format_string(_('Image is not writable, check folder permissions or select a different folder: %s'), file.get_path() + '\n' + e));
                     }
                 }
             );
@@ -1123,7 +1136,8 @@ class BingWallpaperIndicator extends Button {
         catch (error) {
             this._downloadsInProgress.delete(path);
             BingLog('Unable download image '+error);
-            notifyError('Image '+file.get_path()+' file error, check folder permissions, disk space or select a different folder\n'+error);
+            // Translators: %s is a file path followed by an untranslated error message
+            notifyError(Utils.format_string(_('Image file error, check folder permissions, disk space or select a different folder: %s'), file.get_path() + '\n' + error));
         }
     }
 
