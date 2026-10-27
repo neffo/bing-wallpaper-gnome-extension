@@ -180,7 +180,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // change wallpaper button
         const dirChooser = new Gtk.FileDialog( {
-            accept_label: "Select",
+            accept_label: _("Select"),
             modal: true,
             title: _("Select wallpaper download folder"),
         });
