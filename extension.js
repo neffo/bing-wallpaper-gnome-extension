@@ -30,6 +30,7 @@ const IndicatorName = 'BingWallpaperIndicator';
 const TIMEOUT_SECONDS = 24 * 3600; // FIXME: this should use the end data from the json data
 const TIMEOUT_SECONDS_ON_HTTP_ERROR = 1 * 3600; // retry in one hour if there is a http error3
 const MINIMUM_SHUFFLE_IMAGES = 3; // bare minimum to use filtered image set in shuffle mode
+const WORKSPACE_SWITCH_DELAY = 400; // ms, let the workspace switch animation finish before changing the wallpaper
 const ICON_PREVIOUS_BUTTON = 'media-seek-backward-symbolic';
 const ICON_NEXT_BUTTON = 'media-seek-forward-symbolic';
 const ICON_CURRENT_BUTTON = 'media-skip-forward-symbolic';
@@ -258,9 +259,24 @@ class BingWallpaperIndicator extends Button {
                 this._settings.connect(e.signal, e.call.bind(this))
             );
         });
-        
+
+        // separate wallpaper per workspace
+        this.settings_connections.push(
+            this._settings.connect('changed::workspace-wallpapers', () => {
+                this._clearWorkspaceImages();
+                this._rememberWorkspaceImage(this.selected_image);
+            })
+        );
+        this._workspaceTimeout = null;
+        this._workspaceConnections = [
+            global.workspace_manager.connect('active-workspace-changed', this._workspaceChanged.bind(this)),
+            global.workspace_manager.connect('workspace-removed', this._workspaceRemoved.bind(this)),
+        ];
+
         // ensure we're in a sensible initial state
         this._setIcon();
+        if (this._settings.get_boolean('workspace-wallpapers'))
+            this._setWorkspaceImage(); // before _setImage(), so the active workspace keeps its own wallpaper
         this._setImage();
         this._cleanUpImages();
 
@@ -332,6 +348,74 @@ class BingWallpaperIndicator extends Button {
         this.settings_connections.forEach((e) => {
             this._settings.disconnect(e);
         });
+        this._workspaceConnections.forEach((e) => {
+            global.workspace_manager.disconnect(e);
+        });
+    }
+
+    // separate wallpaper per workspace: remember the image shown on the active workspace
+    _rememberWorkspaceImage(urlbase) {
+        if (!this._settings.get_boolean('workspace-wallpapers') || !urlbase)
+            return;
+        let images = this._settings.get_strv('workspace-images');
+        let index = global.workspace_manager.get_active_workspace_index();
+        while (images.length <= index)
+            images.push('');
+        if (images[index] == urlbase)
+            return;
+        images[index] = urlbase;
+        this._settings.set_strv('workspace-images', images);
+    }
+
+    // timed shuffle: every workspace gets a new image, the dice button in the menu only changes the active one
+    _shuffleTimerFired() {
+        this._clearWorkspaceImages();
+        this._selectImage(true);
+        return GLib.SOURCE_REMOVE;
+    }
+
+    // every workspace picks a new image next time it becomes active
+    _clearWorkspaceImages() {
+        if (this._settings.get_strv('workspace-images').length > 0)
+            this._settings.set_strv('workspace-images', []);
+    }
+
+    // wait for the switch animation, and only act on the workspace we end up on when switching quickly
+    _workspaceChanged() {
+        if (!this._settings.get_boolean('workspace-wallpapers'))
+            return;
+        if (this._workspaceTimeout)
+            GLib.source_remove(this._workspaceTimeout);
+        this._workspaceTimeout = GLib.timeout_add(GLib.PRIORITY_DEFAULT, WORKSPACE_SWITCH_DELAY, () => {
+            this._workspaceTimeout = null;
+            this._setWorkspaceImage();
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    // a workspace without an image gets a random one not used elsewhere when shuffling,
+    // otherwise the selected image (today's image, or the one the user picked)
+    _setWorkspaceImage() {
+        let images = this._settings.get_strv('workspace-images');
+        let urlbase = images[global.workspace_manager.get_active_workspace_index()];
+        if (!urlbase) {
+            let image = this._settings.get_boolean('random-mode-enabled') ? this._shuffleImage(images) : null;
+            urlbase = image ? Utils.getImageUrlBase(image) : this._settings.get_string('selected-image');
+        }
+        BingLog('workspace ' + global.workspace_manager.get_active_workspace_index() + ' image: ' + urlbase);
+        if (urlbase != this._settings.get_string('selected-image'))
+            this._setStringSetting('selected-image', urlbase); // _setImage() then sets the background and remembers it
+        else
+            this._rememberWorkspaceImage(urlbase);
+    }
+
+    // workspaces after a removed one move down one place
+    _workspaceRemoved(workspaceManager, index) {
+        let images = this._settings.get_strv('workspace-images');
+        if (index < images.length) {
+            images.splice(index, 1);
+            this._settings.set_strv('workspace-images', images);
+        }
     }
 
     _openPrefs() {
@@ -763,7 +847,7 @@ class BingWallpaperIndicator extends Button {
             }
         }
 
-        this._shuffleTimeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, seconds, this._selectImage.bind(this, true));
+        this._shuffleTimeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, seconds, this._shuffleTimerFired.bind(this));
         this.shuffledue = GLib.DateTime.new_now_local().add_seconds(seconds);
         BingLog('next shuffle in ' + seconds + ' seconds');
     }
@@ -793,6 +877,7 @@ class BingWallpaperIndicator extends Button {
             
             if (newImages.length > 0 && this._settings.get_boolean('revert-to-current-image')) {
                 // user wants to switch to the new image when it arrives
+                this._clearWorkspaceImages();
                 this._setStringSetting('selected-image', 'current');
             }
 
@@ -851,7 +936,7 @@ class BingWallpaperIndicator extends Button {
         BingLog('_createNotification: '+msg+' details: '+details);
     }
 
-    _shuffleImage() {
+    _shuffleImage(exclude = []) {
         let image = null;
         let imageList = Utils.getImageList(this._settings);
         let filter = { 'faves': this._settings.get_boolean('random-mode-include-only-favourites'),
@@ -866,6 +951,11 @@ class BingWallpaperIndicator extends Button {
         else {
             BingLog('not enough filtered images available to shuffle');
         }
+
+        // avoid images already shown on other workspaces, as long as there are any left
+        let unused = imageList.filter(x => !exclude.includes(Utils.getImageUrlBase(x)));
+        if (unused.length > 0)
+            imageList = unused;
 
         // shuffle could fail for a number of reasons
         try {
@@ -929,6 +1019,7 @@ class BingWallpaperIndicator extends Button {
             this.dimensions.height = image.height?image.height:null;
             this.selected_image = Utils.getImageUrlBase(image);
             this._setStringSetting('selected-image', this.selected_image);
+            this._rememberWorkspaceImage(this.selected_image);
 
             if (("favourite" in image) && image.favourite === true ) {
                 this.favourite_status = true;
@@ -1145,8 +1236,12 @@ class BingWallpaperIndicator extends Button {
         if (this._shuffleTimeout)
             GLib.source_remove(this._shuffleTimeout);
 
+        if (this._workspaceTimeout)
+            GLib.source_remove(this._workspaceTimeout);
+
         this._timeout = undefined;
         this._shuffleTimeout = undefined;
+        this._workspaceTimeout = undefined;
         this.menu.removeAll();
     }
 });

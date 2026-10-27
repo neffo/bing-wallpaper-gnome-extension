@@ -60,6 +60,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
         const iconEntry = buildable.get_object('iconEntry');
         const bgSwitch = buildable.get_object('bgSwitch');
         const shuffleSwitch = buildable.get_object('shuffleSwitch');
+        const workspaceSwitch = buildable.get_object('workspaceSwitch');
         const shuffleInterval = buildable.get_object('shuffleInterval'); 
         const folderRow = buildable.get_object('folderRow');
         const resolutionEntry = buildable.get_object('resolutionEntry');
@@ -213,6 +214,7 @@ export default class BingWallpaperExtensionPreferences extends ExtensionPreferen
 
         // shuffle modes
         settings.bind('random-mode-enabled', shuffleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        settings.bind('workspace-wallpapers', workspaceSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         /*settings.bind('random-interval-mode', entryShuffleMode, 'active_id', Gio.SettingsBindFlags.DEFAULT);*/
 
         settings.connect('changed::random-interval-mode', () => {

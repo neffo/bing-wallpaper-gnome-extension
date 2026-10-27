@@ -168,6 +168,16 @@
       <summary>Pick a random image at random-interval</summary>
       <description></description>
     </key>
+    <key name="workspace-wallpapers" type="b">
+      <default>false</default>
+      <summary>Separate wallpaper per workspace</summary>
+      <description>Remember a wallpaper for each workspace and show it when that workspace becomes active</description>
+    </key>
+    <key name="workspace-images" type="as">
+      <default>[]</default>
+      <summary>Wallpaper of each workspace</summary>
+      <description>Selected image per workspace index, empty where none has been chosen yet</description>
+    </key>
 
     <key name="random-mode-include-only-uhd" type="b">
       <default>false</default>
