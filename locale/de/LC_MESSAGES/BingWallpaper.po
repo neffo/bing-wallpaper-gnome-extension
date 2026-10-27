@@ -2,375 +2,491 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Onno Giesmann <nutzer3105@gmail.com>, 2019-2021.
+# Jannick Kuhr <>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 18:32+1000\n"
-"PO-Revision-Date: 2023-10-23 08:47+0200\n"
-"Last-Translator: Sebastian Kessler\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2026-08-17 15:40+0200\n"
+"Last-Translator: Jannick Kuhr <>\n"
+"Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Gtranslator 48.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ui/Settings.ui.h:1 ui/Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Indikator ausblenden"
-
-#: ui/Settings.ui.h:2 ui/Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Indikator-Symbol"
-
-#: ui/Settings.ui.h:3 ui/Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr "Desktop-Benachrichtigungen aktivieren"
-
-#: ui/Settings.ui.h:4 ui/Settings4.ui.h:5 extension.js:118
-msgid "Set background image"
-msgstr "Als Hintergrundbild verwenden"
-
-#: ui/Settings.ui.h:5 ui/Settings4.ui.h:6
-msgid "Background style option"
-msgstr "Einstellungen für Hintergrundstil"
-
-#: ui/Settings.ui.h:6 ui/Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Download-Ordner"
-
-#: ui/Settings.ui.h:7 ui/Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Ordner für Bing-Hintergrundbilder"
-
-#: ui/Settings.ui.h:8 ui/Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Download-Ordner"
-
-#: ui/Settings.ui.h:9 ui/Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Zuvor heruntergeladene Hintergrundbilder löschen"
-
-#: ui/Settings.ui.h:10 ui/Settings4.ui.h:10
-msgid "Selected image"
-msgstr "Ausgewähltes Bild"
-
-#: ui/Settings.ui.h:11 ui/Settings4.ui.h:11
-msgid "Select from image gallery"
-msgstr "Aus Bildergalerie auswählen"
-
-#: ui/Settings.ui.h:12 ui/Settings4.ui.h:12
-msgid "Bing locale"
-msgstr "Bing-Region"
-
-#: ui/Settings.ui.h:13 ui/Settings4.ui.h:13 extension.js:121
+#: ui/prefsadw.ui.h:1 extension.js:136
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ui/Settings.ui.h:14 ui/Settings4.ui.h:14
-msgid "Use custom blur and brightness"
-msgstr "Eigene Unschärfe und Helligkeit einstellen"
+#: ui/prefsadw.ui.h:2
+msgid "Indicator"
+msgstr "Taskleistensymbol"
 
-#: ui/Settings.ui.h:15 ui/Settings4.ui.h:15
-msgid "Override GDM3 lockscreen effects"
-msgstr "Effekte des GDM3-Sperrbildschirms überschreiben"
+#: ui/prefsadw.ui.h:3
+msgid "Hide Indicator"
+msgstr "Taskleistensymbol ausblenden"
 
-#: ui/Settings.ui.h:16 ui/Settings4.ui.h:16
-msgid "Blur can improve readability of login prompt"
-msgstr "Unschärfe kann die Lesbarkeit des Anmeldedialogs verbessern"
+#: ui/prefsadw.ui.h:4
+msgid "Whether to hide the panel indicator"
+msgstr "Ob das Taskleistensymbol ausgeblendet werden soll"
 
-#: ui/Settings.ui.h:17 ui/Settings4.ui.h:17
-msgid "Background blur intensity"
-msgstr "Intensität der Hintergrundunschärfe"
+#: ui/prefsadw.ui.h:5
+msgid "Desktop notifications"
+msgstr "Desktop-Benachrichtigungen"
 
-#: ui/Settings.ui.h:18 ui/Settings4.ui.h:18
-msgid "Can improve contrast of login prompt"
-msgstr "Kann den Kontrast des Anmeldedialogs verbessern"
+#: ui/prefsadw.ui.h:6
+msgid "Enable notifications on new images"
+msgstr "Desktop-Benachrichtigungen bei neuen Bildern aktivieren"
 
-#: ui/Settings.ui.h:19 ui/Settings4.ui.h:19
-msgid "Background brightness"
-msgstr "Hintergrundhelligkeit"
+#: ui/prefsadw.ui.h:7
+msgid "Indicator icon"
+msgstr "Taskleistensymbol"
 
-#: ui/Settings.ui.h:20 ui/Settings4.ui.h:20
-msgid "Presets"
-msgstr "Voreinstellungen"
+#: ui/prefsadw.ui.h:8
+msgid "Select from alternate tray icons"
+msgstr "Alternatives Taskleistensymbol auswählen"
 
-#: ui/Settings.ui.h:21
-msgid "Commonly used presets"
-msgstr "Häufig verwendete Voreinstellungen"
+#: ui/prefsadw.ui.h:9
+msgid "Download folder"
+msgstr "Download-Ordner"
 
-#: ui/Settings.ui.h:22 ui/Settings4.ui.h:21
-msgid "No blur, slight dim"
-msgstr "Keine Unschärfe, leichtes Dimmen"
+#: ui/prefsadw.ui.h:10
+msgid "Open or change wallpaper downloads folder"
+msgstr "Ordner für Hintergrundbild-Downloads öffnen oder ändern"
 
-#: ui/Settings.ui.h:23 ui/Settings4.ui.h:22
-msgid "GNOME default"
-msgstr "GNOME-Standard"
+#: ui/prefsadw.ui.h:11
+msgid "Wallpaper"
+msgstr "Hintergrundbild"
 
-#: ui/Settings.ui.h:24 ui/Settings4.ui.h:23
-msgid "Slight blur, slight dim"
-msgstr "Etwas Unschärfe, leichtes Dimmen"
+#: ui/prefsadw.ui.h:12
+msgid "Set wallpaper"
+msgstr "Hintergrundbild festlegen"
 
-#: ui/Settings.ui.h:25 ui/Settings4.ui.h:24
-msgid "Lock Screen"
-msgstr "Sperrbildschirm"
+#: ui/prefsadw.ui.h:13
+msgid "Whether to set wallpaper automatically"
+msgstr "Ob das Hintergrundbild automatisch festgelegt werden soll"
 
-#: ui/Settings.ui.h:26 ui/Settings4.ui.h:26
-msgid "Debug logging"
-msgstr "Debug-Protokollierung"
+#: ui/prefsadw.ui.h:14
+msgid "Shuffle wallpaper"
+msgstr "Hintergrundbild zufällig wechseln"
 
-#: ui/Settings.ui.h:27 ui/Settings4.ui.h:25
-msgid "Enable logging to system journal"
-msgstr "Protokollierung in System-Journal aktivieren"
+#: ui/prefsadw.ui.h:15
+msgid "Randomly select wallpaper from collection"
+msgstr "Zufällige Auswahl eines Hintergrundbilds aus der Sammlung"
 
-#: ui/Settings.ui.h:28 ui/Settings4.ui.h:28
-msgid "Always show new images"
-msgstr "Neue Bilder immer anzeigen"
+#: ui/prefsadw.ui.h:16
+msgid "Shuffle interval"
+msgstr "Wechselintervall"
 
-#: ui/Settings.ui.h:29 ui/Settings4.ui.h:27
-msgid "Switch to new images when available (unless on random mode)"
-msgstr "Zu verfügbaren neuen Bildern wechseln (sofern nicht im Zufallsmodus)"
+#: ui/prefsadw.ui.h:17
+msgid "How frequently to shuffle wallpapers"
+msgstr "Wie oft Hintergrundbilder wechseln"
 
-#: ui/Settings.ui.h:30 ui/Settings4.ui.h:30
-msgid "Enable all features on Wayland"
-msgstr "Alle Features unter Wayland aktivieren"
+#: ui/prefsadw.ui.h:18
+msgid "Downloads"
+msgstr "Downloads"
 
-#: ui/Settings.ui.h:31 ui/Settings4.ui.h:29
-msgid "Some newer features may be unstable on Wayland"
-msgstr "Einige neuere Features können unter Wayland instabil sein"
+#: ui/prefsadw.ui.h:19
+msgid "Debug"
+msgstr "Debug"
 
-#: ui/Settings.ui.h:32 ui/Settings4.ui.h:31
-msgid "Screen resolution"
-msgstr "Bildschirmauflösung"
-
-#: ui/Settings.ui.h:33 ui/Settings4.ui.h:32
-msgid "Override automatic resolution selection"
-msgstr "Automatische Auswahl der Auflösung überschreiben"
-
-#: ui/Settings.ui.h:34 ui/Settings4.ui.h:33
-msgid "Manually adjust random interval (seconds)"
-msgstr "Intervall für Zufallsbilder manuell anpassen (Sekunden)"
-
-#: ui/Settings.ui.h:35 ui/Settings4.ui.h:34
-msgid "Random interval"
-msgstr "Zufallsbilder"
-
-#: ui/Settings.ui.h:36 ui/Settings4.ui.h:35
-msgid "Import Bing Wallpaper data"
-msgstr "Bing-Hintergrundbilddaten importieren"
-
-#: ui/Settings.ui.h:37 ui/Settings4.ui.h:36
-msgid "Import previously exported JSON data from wallpaper directory"
-msgstr "Zuvor exportierte JSON-Daten aus dem Hintergrundbildordner importieren"
-
-#: ui/Settings.ui.h:38 ui/Settings4.ui.h:37
-msgid "Import"
-msgstr "Importieren"
-
-#: ui/Settings.ui.h:39 ui/Settings4.ui.h:38
-msgid "Export Bing Wallpaper data"
-msgstr "Bing-Hintergrundbilddaten exportieren"
-
-#: ui/Settings.ui.h:40 ui/Settings4.ui.h:39
-msgid "Export JSON data to wallpaper dir for backup or data migration"
-msgstr ""
-"JSON-Daten für Backup oder Datenmigration in Hintergrundbildordner "
-"exportieren"
-
-#: ui/Settings.ui.h:41 ui/Settings4.ui.h:40
-msgid "Export"
-msgstr "Exportieren"
-
-#: ui/Settings.ui.h:42 ui/Settings4.ui.h:41
-msgid "Always export Bing data"
-msgstr "Bing-Daten immer exportieren"
-
-#: ui/Settings.ui.h:43 ui/Settings4.ui.h:42
-msgid "Export Bing JSON whenever data changes"
-msgstr "Bing-JSON bei Veränderung der Daten exportieren"
-
-#: ui/Settings.ui.h:44 ui/Settings4.ui.h:43
+#: ui/prefsadw.ui.h:20
 msgid "Debug options"
 msgstr "Debug-Einstellungen"
 
-#: ui/Settings.ui.h:45 ui/Settings4.ui.h:44
-msgid "New wallpaper images everyday from Bing"
-msgstr "Jeden Tag neue Hintergrundbilder von Bing"
+#: ui/prefsadw.ui.h:21
+msgid "Debug logging"
+msgstr "Debug-Protokollierung"
 
-#: ui/Settings.ui.h:46
-msgid "Gnome shell extension version "
-msgstr "Version dieser Gnome-Shell-Erweiterung "
+#: ui/prefsadw.ui.h:22
+msgid "Enable logging to system journal"
+msgstr "Protokollierung in System-Journal aktivieren"
 
-#: ui/Settings.ui.h:47 ui/Settings4.ui.h:46
-msgid "Maintained by Michael Carroll"
-msgstr "Betreut von Michael Carroll"
+#: ui/prefsadw.ui.h:23
+msgid "Advanced options"
+msgstr "Erweiterte Einstellungen"
 
-#: ui/Settings.ui.h:48 ui/Settings4.ui.h:47
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/"
-"@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
+#: ui/prefsadw.ui.h:24 extension.js:150
+msgid "Always show new images"
+msgstr "Neue Bilder immer anzeigen"
+
+#: ui/prefsadw.ui.h:25
+msgid "Switch to new images when available (unless on random mode)"
 msgstr ""
-"Unterstützen Sie den Autor auf <a href=\"https://flattr.com/@neffo\">Flattr</"
-"a> oder <a href=\"https://github.com/sponsors/neffo\">Github-Sponsoren</a>."
+"Zu neuen Bildern wechseln, sobald diese verfügbar sind (außer im "
+"Zufallsmodus)"
 
-#: ui/Settings.ui.h:49 ui/Settings4.ui.h:48
-msgid "Changes since last version"
-msgstr "Änderungen seit der letzten Version"
+#: ui/prefsadw.ui.h:26
+msgid "Purge on trash"
+msgstr "Beim Löschen aufräumen"
 
-#: ui/Settings.ui.h:50 ui/Settings4.ui.h:49
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Basiert auf der NASA APOD Gnome-Shell-Erweiterung von Elia Argentieri"
-
-#: ui/Settings.ui.h:51 ui/Settings4.ui.h:50
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
+#: ui/prefsadw.ui.h:27
+msgid "Trashing an image will remove it from database and disk"
 msgstr ""
-"<span size=\"small\">Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
-"Schauen Sie sich die <a href=\"https://www.gnu.org/licenses/gpl-3.0."
-"html\">GNU General Public License, Version 3 oder später</a> für weitere "
-"Details an.</span>"
+"Das Verschieben eines Bildes in den Papierkorb entfernt es aus der Datenbank "
+"und von der Festplatte."
 
-#: ui/Settings.ui.h:53 ui/Settings4.ui.h:52
+#: ui/prefsadw.ui.h:28
+msgid "Screen resolution"
+msgstr "Bildschirmauflösung"
+
+#: ui/prefsadw.ui.h:29
+msgid "Override automatic resolution selection"
+msgstr "Automatische Auswahl der Auflösung überschreiben"
+
+#: ui/prefsadw.ui.h:30
+msgid "Random interval"
+msgstr "Zufallsintervall"
+
+#: ui/prefsadw.ui.h:31
+msgid "Custom shuffle interval when enabled"
+msgstr "Benutzerdefiniertes Zufallsintervall bei Aktivierung"
+
+#: ui/prefsadw.ui.h:32
+msgid "Delete older images"
+msgstr "Ältere Bilder löschen"
+
+#: ui/prefsadw.ui.h:33
+msgid "Automatically delete older images (excludes favourites)"
+msgstr "Ältere Bilder automatisch löschen (ausgenommen Favoriten)"
+
+#: ui/prefsadw.ui.h:34
+msgid "Number of days to keep images"
+msgstr "Anzahl der Tage, für die Bilder aufbewahrt werden"
+
+#: ui/prefsadw.ui.h:35
+msgid "Keep images for this number of days (favourites are kept forever)"
+msgstr ""
+"Bilder für diese Anzahl an Tagen behalten (Favoriten werden dauerhaft "
+"gespeichert)"
+
+#: ui/prefsadw.ui.h:36
+msgid "Presets"
+msgstr "Voreinstellungen"
+
+#: ui/prefsadw.ui.h:37
+msgid "Always export Bing data"
+msgstr "Bing-Daten immer exportieren"
+
+#: ui/prefsadw.ui.h:38
+msgid "Export Bing JSON when image data changes"
+msgstr "Bing-JSON bei Veränderung der Daten exportieren"
+
+#: ui/prefsadw.ui.h:39
+msgid "Bing JSON data"
+msgstr "Bing-JSON-Daten"
+
+#: ui/prefsadw.ui.h:40
 msgid "About"
 msgstr "Über"
 
-#: ui/Settings4.ui.h:43
-msgid "Gallery"
-msgstr "Gallerie"
+#: ui/prefsadw.ui.h:41
+msgid "Bing Wallpaper"
+msgstr "Bing-Hintergrundbild"
 
-#: ui/Settings4.ui.h:45
-msgid "GNOME shell extension version "
-msgstr "Version der Gnome-Shell-Erweiterung "
+#: ui/prefsadw.ui.h:42
+msgid "New wallpaper images everyday from Bing"
+msgstr "Jeden Tag neue Hintergrundbilder von Bing"
 
-#: ui/carousel.ui.h:1 ui/carousel4.ui.h:2
-msgid "Apply"
-msgstr "Anwenden"
+#: ui/prefsadw.ui.h:43
+msgid "Maintained by Michael Carroll"
+msgstr "Betreut von Michael Carroll"
 
-#: ui/carousel.ui.h:2 ui/carousel4.ui.h:3
-msgid "View"
-msgstr "Ansehen"
+#: ui/prefsadw.ui.h:44
+msgid "Version"
+msgstr "Version"
 
-#: ui/carousel.ui.h:3 ui/carousel4.ui.h:4
-msgid "Info"
-msgstr "Informationen"
+#: ui/prefsadw.ui.h:45
+msgid "Release notes"
+msgstr "Versionshinweise"
 
-#: ui/carousel.ui.h:4 ui/carousel4.ui.h:5
-msgid "Delete"
-msgstr "Löschen"
+#: ui/prefsadw.ui.h:46
+msgid "GNOME extensions page"
+msgstr "Website der Gnome-Shell-Erweiterungen"
 
-#: ui/carousel4.ui.h:1
-msgid "Favorite"
-msgstr "Favorit"
+#: ui/prefsadw.ui.h:47
+msgid "Source code"
+msgstr "Quellcode"
 
-#: ui/carousel4.ui.h:1
-msgid "<image name here>"
-msgstr "<Name des Bildes>"
+#: ui/prefsadw.ui.h:48
+msgid "Report an issue"
+msgstr "Ein Problem melden"
 
-#: ui/carousel4.ui.h:8
-msgid "Load image gallery"
-msgstr "Lade Bilder Gallerie"
+#: ui/prefsadw.ui.h:49
+msgid "Contributors"
+msgstr "Mitwirkende"
 
-#: extension.js:106
+#: ui/prefsadw.ui.h:50
+msgid "License"
+msgstr "Lizenz"
+
+#: ui/prefsadw.ui.h:51 prefs.js:103
+msgid "Change folder"
+msgstr "Ordner ändern"
+
+#: ui/prefsadw.ui.h:52
+msgid "Select new wallpaper download folder"
+msgstr "Neuen Download-Ordner für Hintergrundbilder auswählen"
+
+#: ui/intervals.utils.js.h:2
+msgid "on the hour"
+msgstr "Zur vollen Stunde"
+
+#: ui/intervals.utils.js.h:5
+msgid "every day at midnight"
+msgstr "Jeden Tag um Mitternacht"
+
+#: ui/intervals.utils.js.h:8
+msgid "Sunday at midnight"
+msgstr "Sonntag um Mitternacht"
+
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
+msgstr "Benutzerdefiniertes Intervall"
+
+#: extension.js:129
 msgid "<No refresh scheduled>"
 msgstr "<Keine Aktualisierung geplant>"
 
-#: extension.js:108 extension.js:110 extension.js:113
+#: extension.js:130 extension.js:131 extension.js:139 extension.js:141
 msgid "Awaiting refresh..."
 msgstr "Warten auf Aktualisierung ..."
 
-#: extension.js:115
-msgid "Copy image to clipboard"
-msgstr "Bild in Zwischenablage kopieren"
-
-#: extension.js:116
-msgid "Copy image URL to clipboard"
-msgstr "Bildadresse in Zwischenablage kopieren"
-
-#: extension.js:117
+#: extension.js:132
 msgid "Open image folder"
 msgstr "Bilderordner öffnen"
 
-#: extension.js:119
+#: extension.js:133 extension.js:149
+msgid "Set background image"
+msgstr "Als Hintergrundbild verwenden"
+
+#: extension.js:134
 msgid "Set lock screen image"
 msgstr "Für Sperrbildschirm verwenden"
 
-#: extension.js:120
+#: extension.js:135
 msgid "Refresh Now"
 msgstr "Jetzt aktualisieren"
 
-#: extension.js:149
+#: extension.js:137
 msgid "Open in image viewer"
 msgstr "Im Bildbetrachter öffnen"
 
-#: extension.js:150
+#: extension.js:138
 msgid "Open Bing image information page"
 msgstr "Bing-Bildinformationsseite öffnen"
 
-#: extension.js:157
+#: extension.js:147
 msgid "Quick settings"
 msgstr "Schnelleinstellungen"
 
-#: extension.js:161
+#: extension.js:151
 msgid "Image shuffle mode"
-msgstr "Shuffle-Modus für Bilder"
+msgstr "Zufallswiedergabe für Bilder"
 
-#: extension.js:162
+#: extension.js:152
 msgid "Image shuffle only favorites"
-msgstr "Shuffle-Modus nur Favoriten"
+msgstr "Zufallswiedergabe nur für Favoriten"
 
-#: extension.js:164
+#: extension.js:154
 msgid "Show image count"
 msgstr "Anzahl der Bilder anzeigen"
 
-#: extension.js:209
+#: extension.js:155
+msgid "Image shuffle only UHD resolutions"
+msgstr "Zufallswiedergabe nur bei UHD-Auflösungen"
+
+#: extension.js:337
 msgid "Next refresh"
 msgstr "Nächste Aktualisierung"
 
-#: extension.js:334
+#: extension.js:339
 msgid "Last refresh"
 msgstr "Letzte Aktualisierung"
 
-#: extension.js:505 extension.js:532
+#: extension.js:342
+msgid "Next shuffle"
+msgstr "Nächste Zufallswiedergabe"
+
+#: extension.js:821 extension.js:909
 msgid "Bing Wallpaper of the Day for"
 msgstr "Bing-Hintergrundbild des Tages für"
 
-#: extension.js:557
+#: extension.js:947
 msgid "No wallpaper available"
 msgstr "Kein Hintergrundbild verfügbar"
 
-#: extension.js:558
+#: extension.js:948
 msgid "No picture for today."
 msgstr "Heute kein Bild."
 
-#: prefs.js:159
-msgid "Select folder"
-msgstr "Ordner auswählen"
+#: prefs.js:98
+msgid "Open folder"
+msgstr "Ordner öffnen"
 
-#: prefs.js:202
-msgid "Most recent image"
-msgstr "Aktuellstes Bild"
+#: prefs.js:115
+msgid "Import"
+msgstr "Importieren"
 
-#: prefs.js:203
-msgid "Random image"
-msgstr "Zufälliges Bild"
+#: prefs.js:120
+msgid "Export"
+msgstr "Exportieren"
+
+#: prefs.js:185
+msgid "Select wallpaper download folder"
+msgstr "Download-Ordner für Hintergrundbilder auswählen"
 
 #: utils.js:135
 msgid "Error fetching change log: "
 msgstr "Fehler beim Abrufen des Änderungsprotokolls: "
 
-#: utils.js:366 utils.js:369
+#: utils.js:395 utils.js:398
 msgid "minutes"
 msgstr "Minuten"
 
-#: utils.js:372
+#: utils.js:401
 msgid "days"
 msgstr "Tage"
 
-#: utils.js:375
+#: utils.js:404
 msgid "hours"
 msgstr "Stunden"
+
+#~ msgid "Background style option"
+#~ msgstr "Einstellungen für Hintergrundstil"
+
+#~ msgid "Bing Wallpaper pictures folder"
+#~ msgstr "Ordner für Bing-Hintergrundbilder"
+
+#~ msgid "Delete previously downloaded wallpapers"
+#~ msgstr "Zuvor heruntergeladene Hintergrundbilder löschen"
+
+#~ msgid "Bing locale"
+#~ msgstr "Bing-Region"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Eigene Unschärfe und Helligkeit einstellen"
+
+#~ msgid "Override GDM3 lockscreen effects"
+#~ msgstr "Effekte des GDM3-Sperrbildschirms überschreiben"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr "Unschärfe kann die Lesbarkeit des Anmeldedialogs verbessern"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "Intensität der Hintergrundunschärfe"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "Kann den Kontrast des Anmeldedialogs verbessern"
+
+#~ msgid "Background brightness"
+#~ msgstr "Hintergrundhelligkeit"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Häufig verwendete Voreinstellungen"
+
+#~ msgid "No blur, slight dim"
+#~ msgstr "Keine Unschärfe, leichtes Dimmen"
+
+#~ msgid "GNOME default"
+#~ msgstr "GNOME-Standard"
+
+#~ msgid "Slight blur, slight dim"
+#~ msgstr "Etwas Unschärfe, leichtes Dimmen"
+
+#~ msgid "Lock Screen"
+#~ msgstr "Sperrbildschirm"
+
+#~ msgid "Enable all features on Wayland"
+#~ msgstr "Alle Features unter Wayland aktivieren"
+
+#~ msgid "Some newer features may be unstable on Wayland"
+#~ msgstr "Einige neuere Features können unter Wayland instabil sein"
+
+#~ msgid "Manually adjust random interval (seconds)"
+#~ msgstr "Intervall für Zufallsbilder manuell anpassen (Sekunden)"
+
+#~ msgid "Import previously exported JSON data from wallpaper directory"
+#~ msgstr ""
+#~ "Zuvor exportierte JSON-Daten aus dem Hintergrundbildordner importieren"
+
+#~ msgid "Export Bing Wallpaper data"
+#~ msgstr "Bing-Hintergrundbilddaten exportieren"
+
+#~ msgid "Export JSON data to wallpaper dir for backup or data migration"
+#~ msgstr ""
+#~ "JSON-Daten für Backup oder Datenmigration in Hintergrundbildordner "
+#~ "exportieren"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "Version dieser Gnome-Shell-Erweiterung "
+
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github Sponsors</a>."
+#~ msgstr ""
+#~ "Unterstützen Sie den Autor auf <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> oder <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github-Sponsoren</a>."
+
+#~ msgid "Changes since last version"
+#~ msgstr "Änderungen seit der letzten Version"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr ""
+#~ "Basiert auf der NASA APOD Gnome-Shell-Erweiterung von Elia Argentieri"
+
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
+#~ "Schauen Sie sich die <a href=\"https://www.gnu.org/licenses/"
+#~ "gpl-3.0.html\">GNU General Public License, Version 3 oder später</a> für "
+#~ "weitere Details an.</span>"
+
+#~ msgid "Gallery"
+#~ msgstr "Gallerie"
+
+#~ msgid "Apply"
+#~ msgstr "Anwenden"
+
+#~ msgid "View"
+#~ msgstr "Ansehen"
+
+#~ msgid "Info"
+#~ msgstr "Informationen"
+
+#~ msgid "Delete"
+#~ msgstr "Löschen"
+
+#~ msgid "Favorite"
+#~ msgstr "Favorit"
+
+#~ msgid "<image name here>"
+#~ msgstr "<Name des Bildes>"
+
+#~ msgid "Load image gallery"
+#~ msgstr "Lade Bilder Gallerie"
+
+#~ msgid "Copy image to clipboard"
+#~ msgstr "Bild in Zwischenablage kopieren"
+
+#~ msgid "Copy image URL to clipboard"
+#~ msgstr "Bildadresse in Zwischenablage kopieren"
+
+#~ msgid "Select folder"
+#~ msgstr "Ordner auswählen"
+
+#~ msgid "Most recent image"
+#~ msgstr "Aktuellstes Bild"
+
+#~ msgid "Random image"
+#~ msgstr "Zufälliges Bild"
