@@ -11,4 +11,7 @@ mkdir -p $INSTALL_PATH/$EXTENSION_NAME
 
 unzip -o $ZIP_NAME -d $INSTALL_PATH/$EXTENSION_NAME/
 
+# the zip leaves out the compiled schema, so compile it here, otherwise an older one stays and new keys are missing
+glib-compile-schemas $INSTALL_PATH/$EXTENSION_NAME/schemas/
+
 gnome-extensions enable $EXTENSION_NAME
