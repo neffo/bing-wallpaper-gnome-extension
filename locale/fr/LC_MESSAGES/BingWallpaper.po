@@ -434,6 +434,11 @@ msgstr "Dimanche à minuit"
 msgid "User defined interval"
 msgstr "Intervalle personnalisé"
 
+msgid "translator-credits"
+msgstr ""
+"Christophe Jean <christophe@cjean.fr>\n"
+"freemans32 <magguyguy32@hotmail.com>"
+
 #~ msgid "Bing Wallpaper pictures folder"
 #~ msgstr "Dossier d'image de Bing Wallpaper"
 

@@ -278,3 +278,6 @@ msgstr "días"
 #: utils.js:375
 msgid "hours"
 msgstr "horas"
+
+msgid "translator-credits"
+msgstr "Mario Rubio <mario@mrrb.eu>"

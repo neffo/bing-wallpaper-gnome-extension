@@ -275,6 +275,11 @@ msgstr "일"
 msgid "hours"
 msgstr "시간"
 
+msgid "translator-credits"
+msgstr ""
+"Suhyuk Park <nicenick15@gmail.com>\n"
+"izotopo"
+
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "
 #~ "region. Displays the picture description and copyright information."

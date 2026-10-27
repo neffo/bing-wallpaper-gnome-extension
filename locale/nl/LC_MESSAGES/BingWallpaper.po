@@ -286,6 +286,9 @@ msgstr "dag"
 msgid "hours"
 msgstr "uur"
 
+msgid "translator-credits"
+msgstr "Bart Willemsen <b.willemsen8@gmail.com>"
+
 #~ msgid ""
 #~ "Changes your wallpaper daily to the Bing picture of the day for your "
 #~ "region. Displays the picture description and copyright information."

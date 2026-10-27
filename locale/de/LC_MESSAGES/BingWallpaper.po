@@ -374,3 +374,10 @@ msgstr "Tage"
 #: utils.js:375
 msgid "hours"
 msgstr "Stunden"
+
+msgid "translator-credits"
+msgstr ""
+"Jonatan Hatakeyama Zeidler <jonatan_zeidler@gmx.de>\n"
+"Onno Giesmann <nutzer3105@gmail.com>\n"
+"Jannick Alexander Kuhr\n"
+"Sebastian Kessler"
