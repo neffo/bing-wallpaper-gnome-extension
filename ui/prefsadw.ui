@@ -84,6 +84,12 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                     </object>
                 </child>
                 <child>
+                    <object class="AdwSwitchRow" id="workspaceSwitch">
+                        <property name="title" translatable="yes">Separate wallpaper per workspace</property>
+                        <property name="subtitle" translatable="yes">Each workspace keeps its own different wallpaper</property>
+                    </object>
+                </child>
+                <child>
                     <object class="AdwSwitchRow" id="shuffleSwitch">
                         <property name="title" translatable="yes">Shuffle wallpaper</property>
                         <property name="subtitle" translatable="yes">Randomly select wallpaper from collection</property>
