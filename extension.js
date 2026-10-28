@@ -560,7 +560,7 @@ class BingWallpaperIndicator extends Button {
         this.thumbnailItem.hexpand = false;
         this.thumbnailItem.vexpand = false;
         this.thumbnailItem.x_expand = false; // never stretch the image to the menu width
-        this.thumbnailItem.x_align = Clutter.ActorAlign.CENTER;
+        /* this.thumbnailItem.x_align = Clutter.ActorAlign.CENTER; */
         this.thumbnailItem.content = image;
         
         BingLog('scale factor: ' + scale_factor);
