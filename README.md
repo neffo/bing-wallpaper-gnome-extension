@@ -43,17 +43,6 @@ Also, check out my related [Google Earth View wallpaper extension](https://githu
 * Image shuffle only favorites - only select favorite images (🤍), by default 'trashed' images are always excluded
 * Image shuffle only UHD resolution - occasionally some images are not UHD, exclude these from selection
 
-### Gallery
-
-![Gallery item](/screenshot/gallery.png)
-
-The 5 buttons in the gallery (3rd page in the preferences) do have tool-tips but these do the following:
-- Favorite - favorite this image (equivalent to doing this via the control bar)
-- Apply - set this image as wallpaper
-- View - open image in image viewer
-- Info - open the Bing description of the image
-- Trash - trash the image
-
 ## TODO
 
 * add more languages (#14) - [please help if you can](https://github.com/neffo/bing-wallpaper-gnome-extension/issues/14)
