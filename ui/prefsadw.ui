@@ -364,7 +364,7 @@ Bing Wallpaper GNOME extension by: Michael Carroll
                                 <object class="GtkLabel" id="license">
                                     <property name="wrap">True</property>
                                     <property name="justify">left</property>
-                                    <property name="label">This extension is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</property>
+                                    <property name="label" translatable="yes">This extension is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</property>
                                 </object>
                             </child>
                         </object>
