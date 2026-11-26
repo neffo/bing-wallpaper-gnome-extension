@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# ddund (GitHub), 2021.
+# John Erling Blad <jeblad@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 22:23+1000\n"
-"PO-Revision-Date: 2022-03-27 17:14+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2026-10-22 16:45+0200\n"
+"Last-Translator: John Erling Blad <jeblad@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -18,280 +19,560 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: Settings.ui.h:1 Settings4.ui.h:2
-msgid "Hide the indicator"
-msgstr "Göm indikatorn"
-
-#: Settings.ui.h:2 Settings4.ui.h:3
-msgid "Indicator icon"
-msgstr "Indikatorikon"
-
-#: Settings.ui.h:3 Settings4.ui.h:4
-msgid "Enable desktop notifications"
-msgstr "Aktivera aviseringar"
-
-#: Settings.ui.h:4 Settings4.ui.h:5 extension.js:129
-msgid "Set background image"
-msgstr "Välj bakgrundsbild"
-
-#: Settings.ui.h:5 Settings4.ui.h:6 extension.js:130
-msgid "Set lock screen image"
-msgstr "Välj låsskärmsbild"
-
-#: Settings.ui.h:6 Settings4.ui.h:7
-msgid "Download folder"
-msgstr "Nedladdningsmapp"
-
-#: Settings.ui.h:7 Settings4.ui.h:1
-msgid "Bing Wallpaper pictures folder"
-msgstr "Bing Wallpaper nedladdningsmapp"
-
-#: Settings.ui.h:8 Settings4.ui.h:8
-msgid "Open folder"
-msgstr "Öppna mapp"
-
-#: Settings.ui.h:9 Settings4.ui.h:9
-msgid "Delete previously downloaded wallpapers"
-msgstr "Radera tidigare nedladdade bakgrundsbilder"
-
-#: Settings.ui.h:10 Settings4.ui.h:10
-msgid "Selected image"
-msgstr "Vald bild"
-
-#: Settings.ui.h:11 Settings4.ui.h:11
-msgid "Bing locale"
-msgstr "Bing språkvariant"
-
-#: Settings.ui.h:12 Settings4.ui.h:12
-msgid "Default is English - United States"
-msgstr "Standardspråk är Engelska (United States)"
-
-#: Settings.ui.h:13 Settings4.ui.h:13 extension.js:132
+#: ui/prefsadw.ui.h:1 extension.js:136
 msgid "Settings"
 msgstr "Inställningar"
 
-#: Settings.ui.h:14 Settings4.ui.h:14
-msgid "Use custom blur and brightness"
-msgstr "Välj egna inställningar för oskärpa och ljusstyrka"
+#: ui/prefsadw.ui.h:2
+msgid "Indicator"
+msgstr "Indikator"
 
-#: Settings.ui.h:15 Settings4.ui.h:15
-msgid "Override GDM3 lockscreen effects"
-msgstr "Åsidosätt GDM3s låsskärmseffekter"
+#: ui/prefsadw.ui.h:3
+msgid "Hide Indicator"
+msgstr "Dölj indikatorn"
 
-#: Settings.ui.h:16 Settings4.ui.h:16
-msgid "Blur can improve readability of login prompt"
-msgstr "Oskärpa kan förbättra läsbarheten för inloggningsfältet"
+#: ui/prefsadw.ui.h:4
+msgid "Whether to hide the panel indicator"
+msgstr "Om indikatorn i panelen ska döljas"
 
-#: Settings.ui.h:17 Settings4.ui.h:17
-msgid "Background blur intensity"
-msgstr "Bakgrundsoskärpa"
+#: ui/prefsadw.ui.h:5
+msgid "Desktop notifications"
+msgstr "Skrivbordsaviseringar"
 
-#: Settings.ui.h:18 Settings4.ui.h:18
-msgid "Can improve contrast of login prompt"
-msgstr "Kan förbättra kontrasten för inloggningsfältet"
+#: ui/prefsadw.ui.h:6
+msgid "Enable notifications on new images"
+msgstr "Aktivera aviseringar om nya bilder"
 
-#: Settings.ui.h:19 Settings4.ui.h:19
-msgid "Background brightness"
-msgstr "Bakgrundens ljusstyrka"
+#: ui/prefsadw.ui.h:7
+msgid "Indicator icon"
+msgstr "Indikatorikon"
 
-#: Settings.ui.h:20 Settings4.ui.h:20
-msgid "Presets"
-msgstr "Förinställningar"
+#: ui/prefsadw.ui.h:8
+msgid "Select from alternate tray icons"
+msgstr "Välj bland alternativa ikoner"
 
-#: Settings.ui.h:21 Settings4.ui.h:21
-msgid "Commonly used presets"
-msgstr "Vanliga förinställningar"
+#: ui/prefsadw.ui.h:9
+msgid "Wallpaper"
+msgstr "Bakgrundsbild"
 
-#: Settings.ui.h:22 Settings4.ui.h:22
-msgid "No blur, slight dim"
-msgstr "Ingen oskärpa, svag neddimning"
+#: ui/prefsadw.ui.h:10
+msgid "Set wallpaper"
+msgstr "Ange bakgrundsbild"
 
-#: Settings.ui.h:23 Settings4.ui.h:23
-msgid "GNOME default"
-msgstr "GNOME-standard"
+#: ui/prefsadw.ui.h:11
+msgid "Whether to set wallpaper automatically"
+msgstr "Om bakgrundsbilden ska anges automatiskt"
 
-#: Settings.ui.h:24 Settings4.ui.h:24
-msgid "Slight blur, slight dim"
-msgstr "Svag oskärpa, svag neddimning"
+#: ui/prefsadw.ui.h:12
+msgid "Shuffle wallpaper"
+msgstr "Blanda bakgrundsbilder"
 
-#: Settings.ui.h:25 Settings4.ui.h:25
-msgid "Lock Screen"
-msgstr "Låsskärm"
+#: ui/prefsadw.ui.h:13
+msgid "Randomly select wallpaper from collection"
+msgstr "Välj en slumpmässig bakgrundsbild från samlingen"
 
-#: Settings.ui.h:26 Settings4.ui.h:27
-msgid "Debug logging"
-msgstr "Felsökningsloggning"
+#: ui/prefsadw.ui.h:14
+msgid "Shuffle interval"
+msgstr "Blandningsintervall"
 
-#: Settings.ui.h:27 Settings4.ui.h:26
-msgid "Enable logging to system journal"
-msgstr "Aktivera loggning till systemjournalen"
+#: ui/prefsadw.ui.h:15
+msgid "How frequently to shuffle wallpapers"
+msgstr "Hur ofta bakgrundsbilderna ska blandas"
 
-#: Settings.ui.h:28 Settings4.ui.h:29
-msgid "Always show new images"
-msgstr "Visa alltid nya bilder"
+#: ui/prefsadw.ui.h:16
+msgid "Downloads"
+msgstr "Nedladdningar"
 
-#: Settings.ui.h:29 Settings4.ui.h:28
-msgid "Switch to new images when available (unless on random mode)"
-msgstr "Byt till ny bild när tillgänglig (om inte i slumpmässigt läge)"
+#: ui/prefsadw.ui.h:17
+msgid "Download folder"
+msgstr "Nedladdningsmapp"
 
-#: Settings.ui.h:30 Settings4.ui.h:31
-msgid "Enable all features on Wayland"
-msgstr "Aktivera alla funktioner på Wayland"
+#: ui/prefsadw.ui.h:18
+msgid "Open or change wallpaper downloads folder"
+msgstr "Öppna eller ändra mappen för nedladdade bakgrundsbilder"
 
-#: Settings.ui.h:31 Settings4.ui.h:30
-msgid "Some newer features may be unstable on Wayland"
-msgstr "Vissa nyare funktioner kan vara instabila på Wayland"
+#: ui/prefsadw.ui.h:19
+msgid "Debug"
+msgstr "Felsökning"
 
-#: Settings.ui.h:32 Settings4.ui.h:32
-msgid "Screen resolution"
-msgstr "Skärmupplösning"
-
-#: Settings.ui.h:33 Settings4.ui.h:33
-msgid "Override automatic resolution selection"
-msgstr "Åsidosätt automatiskt skärmupplösningsval"
-
-#: Settings.ui.h:34 Settings4.ui.h:34
+#: ui/prefsadw.ui.h:20
 msgid "Debug options"
 msgstr "Felsökningsalternativ"
 
-#: Settings.ui.h:35 Settings4.ui.h:35
-msgid "New wallpaper images everyday from Bing"
-msgstr "Dagliga skrivbordsbakgrundsbilder från Bing"
+#: ui/prefsadw.ui.h:21
+msgid "Debug logging"
+msgstr "Felsökningsloggning"
 
-#: Settings.ui.h:36 Settings4.ui.h:36
-msgid "Gnome shell extension version "
-msgstr "GNOME shell-tillägg version "
+#: ui/prefsadw.ui.h:22
+msgid "Enable logging to system journal"
+msgstr "Aktivera loggning till systemjournalen"
 
-#: Settings.ui.h:37 Settings4.ui.h:37
-msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
-msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#: ui/prefsadw.ui.h:23
+msgid "Advanced options"
+msgstr "Avancerade alternativ"
 
-#: Settings.ui.h:38 Settings4.ui.h:38
-msgid "Maintained by Michael Carroll"
-msgstr "Underhålls av Michael Carroll"
+#: ui/prefsadw.ui.h:24 extension.js:150
+msgid "Always show new images"
+msgstr "Visa alltid nya bilder"
 
-#: Settings.ui.h:39 Settings4.ui.h:39
-msgid ""
-"Show your support to the author on <a href=\"https://flattr.com/@neffo"
-"\">Flattr</a> or <a href=\"https://github.com/sponsors/neffo\">Github "
-"Sponsors</a>."
-msgstr ""
-"Stöd tillägget genom <a href=\"https://flattr.com/@neffo\">Flattr</a> eller "
-"<a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
+#: ui/prefsadw.ui.h:25
+msgid "Switch to new images when available (unless on random mode)"
+msgstr "Byt till ny bild när tillgänglig (om inte i slumpmässigt läge)"
 
-#: Settings.ui.h:40 Settings4.ui.h:40
-msgid "Changes since last version"
-msgstr "Nyheter sedan förra versionen"
+#: ui/prefsadw.ui.h:26
+msgid "Purge on trash"
+msgstr "Radera helt vid borttagning"
 
-#: Settings.ui.h:41 Settings4.ui.h:41
-msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
-msgstr "Baserat på NASA APOD Gnome shell extensions av Elia Argentieri"
+#: ui/prefsadw.ui.h:27
+msgid "Trashing an image will remove it from database and disk"
+msgstr "Om du tar bort en bild raderas den från databasen och disken"
 
-#: Settings.ui.h:42 Settings4.ui.h:42
-msgid ""
-"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
-"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
-"Public License, version 3 or later</a> for details.</span>"
-msgstr ""
-"<span size=\"small\">Detta program distribueras UTAN NÅGRA GARANTIER.\n"
-"Se <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public "
-"License, version 3 eller senare</a> för detaljer.</span>"
+#: ui/prefsadw.ui.h:28
+msgid "Screen resolution"
+msgstr "Skärmupplösning"
 
-#: Settings.ui.h:44 Settings4.ui.h:44
+#: ui/prefsadw.ui.h:29
+msgid "Override automatic resolution selection"
+msgstr "Åsidosätt automatiskt skärmupplösningsval"
+
+#: ui/prefsadw.ui.h:30
+msgid "Random interval"
+msgstr "Slumpmässigt intervall"
+
+#: ui/prefsadw.ui.h:31 ui/prefsadw.ui.h:39
+msgid "Custom shuffle interval when enabled"
+msgstr "Anpassat blandningsintervall när aktiverat"
+
+#: ui/prefsadw.ui.h:32
+msgid "Delete older images"
+msgstr "Ta bort äldre bilder"
+
+#: ui/prefsadw.ui.h:33
+msgid "Automatically delete older images (excludes favourites)"
+msgstr "Ta bort äldre bilder automatiskt (gäller inte favoriter)"
+
+#: ui/prefsadw.ui.h:34
+msgid "Number of days to keep images"
+msgstr "Antal dagar att behålla bilder"
+
+#: ui/prefsadw.ui.h:35
+msgid "Keep images for this number of days (favourites are kept forever)"
+msgstr "Behåll bilder i så här många dagar (favoriter behålls för alltid)"
+
+#: ui/prefsadw.ui.h:36
+msgid "Always export Bing data"
+msgstr "Exportera alltid Bing-data"
+
+#: ui/prefsadw.ui.h:37
+msgid "Export Bing JSON when image data changes"
+msgstr "Exportera Bing-JSON när bilddata ändras"
+
+#: ui/prefsadw.ui.h:38
+msgid "Bing JSON data"
+msgstr "Bing JSON-data"
+
+#: ui/prefsadw.ui.h:40
 msgid "About"
 msgstr "Om"
 
-#: extension.js:117
+#: ui/prefsadw.ui.h:41
+msgid "Bing Wallpaper"
+msgstr "Bing-bakgrundsbild"
+
+#: ui/prefsadw.ui.h:42
+msgid "New wallpaper images everyday from Bing"
+msgstr "Dagliga skrivbordsbakgrundsbilder från Bing"
+
+#: ui/prefsadw.ui.h:43
+msgid "Maintained by Michael Carroll"
+msgstr "Underhålls av Michael Carroll"
+
+#: ui/prefsadw.ui.h:44
+msgid "Version"
+msgstr "Version"
+
+#: ui/prefsadw.ui.h:45
+msgid "Release notes"
+msgstr "Versionsfakta"
+
+#: ui/prefsadw.ui.h:46
+msgid "GNOME extensions page"
+msgstr "Sidan på GNOME-tillägg"
+
+#: ui/prefsadw.ui.h:47
+msgid "Source code"
+msgstr "Källkod"
+
+#: ui/prefsadw.ui.h:48
+msgid "Report an issue"
+msgstr "Rapportera ett problem"
+
+#: ui/prefsadw.ui.h:49
+msgid "Contributors"
+msgstr "Bidragsgivare"
+
+#: ui/prefsadw.ui.h:50
+msgid "License"
+msgstr "Licens"
+
+#: ui/prefsadw.ui.h:51
+msgid ""
+"This extension is free software: you can redistribute it and/or modify it "
+"under the terms of the GNU Lesser General Public License as published by the "
+"Free Software Foundation, either version 3 of the License, or (at your "
+"option) any later version."
+msgstr ""
+"Detta tillägg är fri programvara: du kan distribuera det vidare och/eller "
+"ändra det under villkoren i GNU Lesser General Public License, publicerad av "
+"Free Software Foundation, antingen version 3 av licensen eller (om du så "
+"vill) en senare version."
+
+#: ui/prefsadw.ui.h:52 prefs.js:103
+msgid "Change folder"
+msgstr "Byt mapp"
+
+#: ui/prefsadw.ui.h:53
+msgid "Select new wallpaper download folder"
+msgstr "Välj ny nedladdningsmapp för bakgrundsbilder"
+
+#: ui/intervals.utils.js.h:2
+msgid "on the hour"
+msgstr "varje hel timme"
+
+#: ui/intervals.utils.js.h:5
+msgid "every day at midnight"
+msgstr "varje dag vid midnatt"
+
+#: ui/intervals.utils.js.h:8
+msgid "Sunday at midnight"
+msgstr "söndag vid midnatt"
+
+#: ui/intervals.utils.js.h:11
+msgid "User defined interval"
+msgstr "Användardefinierat intervall"
+
+#: extension.js:66
+msgid "BingWallpaper extension error"
+msgstr "Fel i tillägget BingWallpaper"
+
+#: extension.js:129
 msgid "<No refresh scheduled>"
 msgstr "<Ingen uppdatering schemalagd>"
 
-#: extension.js:119 extension.js:121 extension.js:123
+#: extension.js:130 extension.js:131 extension.js:139 extension.js:141
 msgid "Awaiting refresh..."
-msgstr "Uppdaterar..."
+msgstr "Väntar på uppdatering..."
 
-#: extension.js:126
-msgid "Copy image to clipboard"
-msgstr "Kopiera bild till urklipp"
-
-#: extension.js:127
-msgid "Copy image URL to clipboard"
-msgstr "Kopiera bildlänk till urklipp"
-
-#: extension.js:128
+#: extension.js:132
 msgid "Open image folder"
 msgstr "Öppna bildmapp"
 
-#: extension.js:131
+#: extension.js:133 extension.js:149
+msgid "Set background image"
+msgstr "Använd som bakgrundsbild"
+
+#: extension.js:134
+msgid "Set lock screen image"
+msgstr "Använd som låsskärmsbild"
+
+#: extension.js:135
 msgid "Refresh Now"
 msgstr "Uppdatera nu"
 
 #: extension.js:137
-msgid "Thumbnail disabled on Wayland"
-msgstr "Miniatyrbild är inaktiverad på Wayland"
+msgid "Open in image viewer"
+msgstr "Öppna i bildvisare"
 
-#: extension.js:210
-msgid "Next refresh"
-msgstr "Nästa uppdatering"
+#: extension.js:138
+msgid "Open Bing image information page"
+msgstr "Öppna Bings informationssida om bilden"
 
-#: extension.js:515 extension.js:552
-msgid "Bing Wallpaper of the Day for"
-msgstr "Bings dagliga bakgrundsbild för"
+#: extension.js:147
+msgid "Quick settings"
+msgstr "Snabbinställningar"
 
-#: extension.js:525
-msgid "More info on Bing.com"
-msgstr "Mer info på Bing.com"
+#: extension.js:151
+msgid "Image shuffle mode"
+msgstr "Blandningsläge"
 
-#: extension.js:579
+#: extension.js:152
+msgid "Image shuffle only favorites"
+msgstr "Blanda endast favoriter"
+
+#: extension.js:154
+msgid "Show image count"
+msgstr "Visa antal bilder"
+
+#: extension.js:155
+msgid "Image shuffle only UHD resolutions"
+msgstr "Blanda endast bilder i UHD-upplösning"
+
+#. Translators: %s is a date and time, followed by the time remaining in parentheses
+#: extension.js:340
+#, javascript-format
+msgid "Next refresh: %s"
+msgstr "Nästa uppdatering: %s"
+
+#. Translators: %s is a date and time
+#: extension.js:342
+#, javascript-format
+msgid "Last refresh: %s"
+msgstr "Senaste uppdatering: %s"
+
+#. Translators: %s is a date and time, followed by the time remaining in parentheses
+#: extension.js:348
+#, javascript-format
+msgid "Next shuffle: %s"
+msgstr "Nästa blandning: %s"
+
+#. Translators: %s is an untranslated error message
+#: extension.js:680 extension.js:697
+#, javascript-format
+msgid "Unable to fetch Bing metadata: %s"
+msgstr "Kunde inte hämta metadata från Bing: %s"
+
+#. Translators: %s is an untranslated error message
+#: extension.js:718 extension.js:1078
+#, javascript-format
+msgid "Network error: %s"
+msgstr "Nätverksfel: %s"
+
+#. Translators: %s is an untranslated error message
+#: extension.js:817
+#, javascript-format
+msgid "Unable to parse Bing metadata: %s"
+msgstr "Kunde inte tolka metadata från Bing: %s"
+
+#. Translators: %s is a date
+#: extension.js:830 extension.js:919
+#, javascript-format
+msgid "Bing Wallpaper of the Day for %s"
+msgstr "Bings dagliga bakgrundsbild för %s"
+
+#: extension.js:957
 msgid "No wallpaper available"
 msgstr "Inga skrivbordsbakgrunder tillgängliga"
 
-#: extension.js:580
+#: extension.js:958
 msgid "No picture for today."
-msgstr "Ingen ny bild idag."
+msgstr "Ingen bild för idag."
 
-#: prefs.js:181
-msgid "Most recent image"
-msgstr "Den senaste bilden"
+#. Translators: %s is a folder path
+#: extension.js:1056
+#, javascript-format
+msgid "Download folder does not exist or is not writable: %s"
+msgstr "Nedladdningsmappen finns inte eller är inte skrivbar: %s"
 
-#: prefs.js:182
-msgid "Random image"
-msgstr "Slumpmässig bild"
+#. Translators: %s is a file path followed by an untranslated error message
+#: extension.js:1104
+#, javascript-format
+msgid ""
+"Image is not writable, check folder permissions or select a different "
+"folder: %s"
+msgstr ""
+"Kan inte skriva bilden, kontrollera mappens behörigheter eller välj en annan "
+"mapp: %s"
 
-#: prefs.js:197 prefs.js:213
-msgid "Disabled on current GNOME version"
-msgstr "Inaktiverad i denna GNOME-version"
+#. Translators: %s is a file path followed by an untranslated error message
+#: extension.js:1112
+#, javascript-format
+msgid ""
+"Image file error, check folder permissions, disk space or select a different "
+"folder: %s"
+msgstr ""
+"Fel med bildfilen, kontrollera mappens behörigheter och ledigt diskutrymme, "
+"eller välj en annan mapp: %s"
 
-#: utils.js:146
-msgid "Fetching data..."
-msgstr "Hämtar data..."
+#: prefs.js:98
+msgid "Open folder"
+msgstr "Öppna mapp"
 
-#: utils.js:157
-msgid "Market not available in your region"
-msgstr "Marknaden är inte tillgänglig för din region"
+#: prefs.js:115
+msgid "Import"
+msgstr "Importera"
 
-#: utils.js:161
-msgid "A network error occured"
-msgstr "Ett nätverksproblem inträffade"
+#: prefs.js:120
+msgid "Export"
+msgstr "Exportera"
 
-#: utils.js:166
-msgid "Too many requests in 5 seconds"
-msgstr "För många förfrågningar under fem sekunder"
+#: prefs.js:183
+msgid "Select"
+msgstr "Välj"
 
-#: utils.js:193
-msgid "No change log found for this release"
-msgstr "Förändringslogg saknas för denna version"
+#: prefs.js:185
+msgid "Select wallpaper download folder"
+msgstr "Välj nedladdningsmapp för bakgrundsbilder"
 
-#: utils.js:388 utils.js:391
-msgid "minutes"
-msgstr "minuter"
+#. Translators: %s is an error message
+#: utils.js:141
+#, javascript-format
+msgid "Error fetching change log: %s"
+msgstr "Fel vid hämtning av ändringslogg: %s"
 
-#: utils.js:394
-msgid "days"
-msgstr "dagar"
+#: utils.js:398
+msgid "now"
+msgstr "nu"
 
-#: utils.js:397
-msgid "hours"
-msgstr "timmar"
+#. Translators: less than one minute, the short form should be about 4-5 characters
+#: utils.js:402
+msgid "< 1 m"
+msgstr "< 1 min"
+
+#: utils.js:402
+msgid "less than a minute"
+msgstr "mindre än en minut"
+
+#. Translators: %d is a number of minutes, the short form should be about 4-5 characters
+#: utils.js:407
+#, javascript-format
+msgid "%d m"
+msgstr "%d min"
+
+#: utils.js:407
+#, javascript-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuter"
+
+#. Translators: %d is a number of days, the short form should be about 4-5 characters
+#: utils.js:412
+#, javascript-format
+msgid "%d d"
+msgstr "%d d"
+
+#: utils.js:412
+#, javascript-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dag"
+msgstr[1] "%d dagar"
+
+#. Translators: %d is a number of hours, the short form should be about 4-5 characters
+#: utils.js:417
+#, javascript-format
+msgid "%d h"
+msgstr "%d h"
+
+#: utils.js:417
+#, javascript-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d timme"
+msgstr[1] "%d timmar"
+
+#~ msgid "Delete previously downloaded wallpapers"
+#~ msgstr "Radera tidigare nedladdade bakgrundsbilder"
+
+#~ msgid "Bing locale"
+#~ msgstr "Bing språkvariant"
+
+#~ msgid "Default is English - United States"
+#~ msgstr "Standardspråk är Engelska (United States)"
+
+#~ msgid "Use custom blur and brightness"
+#~ msgstr "Välj egna inställningar för oskärpa och ljusstyrka"
+
+#~ msgid "Override GDM3 lockscreen effects"
+#~ msgstr "Åsidosätt GDM3s låsskärmseffekter"
+
+#~ msgid "Blur can improve readability of login prompt"
+#~ msgstr "Oskärpa kan förbättra läsbarheten för inloggningsfältet"
+
+#~ msgid "Background blur intensity"
+#~ msgstr "Bakgrundsoskärpa"
+
+#~ msgid "Can improve contrast of login prompt"
+#~ msgstr "Kan förbättra kontrasten för inloggningsfältet"
+
+#~ msgid "Background brightness"
+#~ msgstr "Bakgrundens ljusstyrka"
+
+#~ msgid "Presets"
+#~ msgstr "Förinställningar"
+
+#~ msgid "Commonly used presets"
+#~ msgstr "Vanliga förinställningar"
+
+#~ msgid "No blur, slight dim"
+#~ msgstr "Ingen oskärpa, svag neddimning"
+
+#~ msgid "GNOME default"
+#~ msgstr "GNOME-standard"
+
+#~ msgid "Slight blur, slight dim"
+#~ msgstr "Svag oskärpa, svag neddimning"
+
+#~ msgid "Lock Screen"
+#~ msgstr "Låsskärm"
+
+#~ msgid "Enable all features on Wayland"
+#~ msgstr "Aktivera alla funktioner på Wayland"
+
+#~ msgid "Some newer features may be unstable on Wayland"
+#~ msgstr "Vissa nyare funktioner kan vara instabila på Wayland"
+
+#~ msgid "Gnome shell extension version "
+#~ msgstr "GNOME shell-tillägg version "
+
+#~ msgid "https://github.com/neffo/bing-wallpaper-gnome-extension"
+#~ msgstr "https://github.com/neffo/bing-wallpaper-gnome-extension"
+
+#~ msgid ""
+#~ "Show your support to the author on <a href=\"https://flattr.com/"
+#~ "@neffo\">Flattr</a> or <a href=\"https://github.com/sponsors/"
+#~ "neffo\">Github Sponsors</a>."
+#~ msgstr ""
+#~ "Stöd tillägget genom <a href=\"https://flattr.com/@neffo\">Flattr</a> "
+#~ "eller <a href=\"https://github.com/sponsors/neffo\">Github Sponsors</a>."
+
+#~ msgid "Changes since last version"
+#~ msgstr "Nyheter sedan förra versionen"
+
+#~ msgid "Based on NASA APOD Gnome shell extension by Elia Argentieri"
+#~ msgstr "Baserat på NASA APOD Gnome shell extensions av Elia Argentieri"
+
+#~ msgid ""
+#~ "<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+#~ "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 or later</a> for details.</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">Detta program distribueras UTAN NÅGRA GARANTIER.\n"
+#~ "Se <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+#~ "Public License, version 3 eller senare</a> för detaljer.</span>"
+
+#~ msgid "Copy image to clipboard"
+#~ msgstr "Kopiera bild till urklipp"
+
+#~ msgid "Copy image URL to clipboard"
+#~ msgstr "Kopiera bildlänk till urklipp"
+
+#~ msgid "Thumbnail disabled on Wayland"
+#~ msgstr "Miniatyrbild är inaktiverad på Wayland"
+
+#~ msgid "More info on Bing.com"
+#~ msgstr "Mer info på Bing.com"
+
+#~ msgid "Most recent image"
+#~ msgstr "Den senaste bilden"
+
+#~ msgid "Disabled on current GNOME version"
+#~ msgstr "Inaktiverad i denna GNOME-version"
+
+#~ msgid "Fetching data..."
+#~ msgstr "Hämtar data..."
+
+#~ msgid "Market not available in your region"
+#~ msgstr "Marknaden är inte tillgänglig för din region"
+
+#~ msgid "Too many requests in 5 seconds"
+#~ msgstr "För många förfrågningar under fem sekunder"
+
+#~ msgid "No change log found for this release"
+#~ msgstr "Förändringslogg saknas för denna version"
+
+#~ msgid "days"
+#~ msgstr "dagar"
 
 #~ msgid "Days to store wallpapers before deleting"
 #~ msgstr "Antal dagar innan bilder raderas"

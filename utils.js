@@ -11,6 +11,11 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import GdkPixbuf from 'gi://GdkPixbuf';
+import Gettext from 'gettext';
+
+// shared by extension and prefs, so look up translations directly in the extension's gettext domain
+const _ = (msgid) => Gettext.dgettext('BingWallpaper', msgid);
+const ngettext = (msgid, msgid_plural, n) => Gettext.dngettext('BingWallpaper', msgid, msgid_plural, n);
 
 Gio._promisify(Gio.File.prototype, 'load_contents_async', 'load_contents_finish');
 Gio._promisify(Gio.File.prototype, 'replace_contents_async', 'replace_contents_finish');
@@ -135,7 +140,8 @@ export async function fetch_change_log(version, label, httpSession) {
     } 
     catch (error) {
         BingLog("Error fetching change log: " + error);
-        label.set_label(_("Error fetching change log: "+error));
+        // Translators: %s is an error message
+        label.set_label(format_string(_("Error fetching change log: %s"), error));
     }
 }
 
@@ -401,20 +407,33 @@ export function friendly_time_diff(time, short = true) {
     let seconds = time.to_unix() - now;
 
     if (seconds <= 0) {
-        return "now";
+        return _("now");
     }
     else if (seconds < 60) {
-        return "< 1 " + (short ? "m" : _("minutes"));
+        // Translators: less than one minute, the short form should be about 4-5 characters
+        return short ? _("< 1 m") : _("less than a minute");
     }
     else if (seconds < 3600) {
-        return Math.round(seconds / 60) + " " + (short ? "m" : _("minutes"));
+        let n = Math.round(seconds / 60);
+        // Translators: %d is a number of minutes, the short form should be about 4-5 characters
+        return format_string(short ? _("%d m") : ngettext("%d minute", "%d minutes", n), n);
     }
     else if (seconds > 86400) {
-        return Math.round(seconds / 86400) + " " + (short ? "d" : _("days"));
+        let n = Math.round(seconds / 86400);
+        // Translators: %d is a number of days, the short form should be about 4-5 characters
+        return format_string(short ? _("%d d") : ngettext("%d day", "%d days", n), n);
     }
     else {
-        return Math.round(seconds / 3600) + " " + (short ? "h" : _("hours"));
+        let n = Math.round(seconds / 3600);
+        // Translators: %d is a number of hours, the short form should be about 4-5 characters
+        return format_string(short ? _("%d h") : ngettext("%d hour", "%d hours", n), n);
     }
+}
+
+// fill in %s and %d placeholders of a translated string, in order
+export function format_string(fmt, ...args) {
+    let i = 0;
+    return fmt.replace(/%[sd]/g, () => String(args[i++]));
 }
 
 export function seconds_until(until) {
